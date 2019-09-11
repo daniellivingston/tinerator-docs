@@ -1,0 +1,56 @@
+import withDocs from '../../components/with_docs';
+
+export default withDocs({
+  title: 'HTML Library',
+  description: 'How to use the HTML client library for StaticKit.',
+  path: '/docs/html'
+});
+
+# HTML Library
+
+The StaticKit HTML library is designed to be used in environments where you are crafting HTML by hand (as opposed to using something like React). If you are using a static site generator like **Jekyll**, **Hugo**, or **Middleman**, this is the library for you.
+
+## Installation
+
+If you don't have a modern JavaScript build pipeline in place, the CDN method is the quickest way to get up and running — just place our `<script>` tag anywhere on your page and instantiate your components inline:
+
+```html
+<script defer src="https://js.statickit.com/statickit.js"></script>
+
+<script>
+  window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
+
+  // Put your StaticKit calls here
+</script>
+```
+
+If you have a JavaScript build pipeline in place, it's best to install StaticKit as a dependency and `import` it in your JavaScript bundle:
+
+```shell
+npm i @statickit/standalone
+```
+
+```js
+import sk from '@statickit/standalone'
+
+// Put your StaticKit calls here
+```
+
+## Forms
+
+The form component allows you to gather form submissions from your frontend without writing any backend code. 
+
+Here's a working example of a contact form powered by StaticKit:
+
+<div className="pb-6">
+  <iframe width="100%" height="400" className="rounded-lg" src="//jsfiddle.net/StaticKit/5Lks2b6m/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
+</div>
+
+Most other form endpoint services give you a URL to put in the `action` attribute and don't include any JavaScript. **We've intentionally taken a different approach.** 
+
+We believe JavaScript-powered forms allow for a superior user experience:
+
+- Validations errors can be rendered inline
+- You can hook into our `on*` callbacks for tracking analytics
+- You can render an inline post-submit message
+- Form spam is less likely because there's not `action` to scrape

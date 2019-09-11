@@ -7,7 +7,11 @@
 }
 
 .markdown > h2 {
-  @apply mt-12 mb-4 text-xl font-semibold tracking-snug text-gray-900;
+  @apply mt-10 mb-3 text-2xl font-semibold tracking-snug text-gray-900;
+}
+
+.markdown > h3 {
+  @apply mt-6 mb-3 text-xl font-semibold tracking-snug text-gray-900;
 }
 
 .markdown > p > a {
@@ -22,12 +26,17 @@
   @apply mb-6;
 }
 
+.markdown > ul {
+  @apply ml-8 list-disc;
+}
+
 .markdown > pre {
   @apply rounded-lg px-4 py-3 bg-gray-800;
   overflow: auto;
 }
 
 .markdown > :not(pre) > code,
+.markdown > ul > li > code,
 .markdown > p a > code {
   @apply bg-gray-300 rounded-full px-2 text-sm;
   margin-left: 2px;
