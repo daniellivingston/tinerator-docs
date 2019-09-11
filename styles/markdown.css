@@ -7,14 +7,15 @@
 }
 
 .markdown > h2 {
-  @apply mt-10 mb-3 text-2xl font-semibold tracking-snug text-gray-900;
+  @apply mt-10 mb-4 text-2xl font-semibold tracking-snug text-gray-900;
 }
 
 .markdown > h3 {
-  @apply mt-6 mb-3 text-xl font-semibold tracking-snug text-gray-900;
+  @apply mt-8 mb-3 text-xl font-semibold tracking-snug text-gray-900;
 }
 
-.markdown > p > a {
+.markdown > p > a,
+.markdown > ul > li > a  {
   @apply text-indigo-600 font-semibold;
 }
 
