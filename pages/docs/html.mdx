@@ -10,6 +10,12 @@ export default withDocs({
 
 The StaticKit HTML library is designed to be used in environments where you are crafting HTML by hand (as opposed to using something like React). If you are using a static site generator like **Jekyll**, **Hugo**, or **Middleman**, this is the library for you.
 
+This is a working example of a contact form powered by the StaticKit HTML library. Try it out!
+
+<div className="pb-6">
+  <iframe width="100%" height="400" className="rounded-lg" src="//jsfiddle.net/StaticKit/5Lks2b6m/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
+</div>
+
 ## Installation
 
 If you don't have a modern JavaScript build pipeline in place, the CDN method is the quickest way to get up and running — just place our `<script>` tag anywhere on your page and instantiate your components inline:
@@ -38,9 +44,7 @@ import sk from '@statickit/standalone'
 
 ## Forms
 
-The form component allows you to gather form submissions from your frontend without writing any backend code. 
-
-Most other form endpoint services give you a URL to put in the `action` attribute and don't include any JavaScript. **We've intentionally taken a different approach.** 
+Forms allow you to gather submissions without writing a line of backend code. Most other form endpoint services give you a URL to put in the `action` attribute and don't include any JavaScript. **We've intentionally taken a different approach.** 
 
 JavaScript-powered forms allow for a superior user experience:
 
@@ -51,26 +55,18 @@ JavaScript-powered forms allow for a superior user experience:
 
 ### Your first form
 
-At a minimum, you need set your form `id` and `element` selector targeting your `<form>` node:
+All you need to do to bind StaticKit to a `<form>` is run the following initialize call:
 
-```html
-<form id="my-form">
-  <!-- insert fields here -->
-</form>
-
-<script>
-  window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
-
-  sk('form', 'init', {
-    id: '[...]' 
-    element: '#my-form'
-  });
-</script>
-
-<script defer src="https://js.statickit.com/statickit.js"></script>
+```js
+sk('form', 'init', {
+  id: '[...]' 
+  element: '#my-form'
+});
 ```
 
-Below is working example of an opt-in form. Try it out!
+The `id` is the form ID provided by StaticKit (e.g. `f53fe2faa75d`) and the `element` is a DOM selector targeting the `<form>` node. There are more config options documented below.
+
+Here is a working example of an opt-in form. Try it out!
 
 <div className="pb-6">
   <iframe width="100%" height="300" className="rounded-lg" src="//jsfiddle.net/StaticKit/L2hx61cy/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
@@ -104,7 +100,7 @@ Let's step through what's happening here:
 - `replacement` is new element to swap in for the `<form>`
 - The last line does the actual DOM node replacement
 
-If you want to redirect to a different page, you can do that too:
+If you want to redirect to a different page, you can do that instead:
 
 ```js
 sk('form', 'init', {
@@ -112,6 +108,69 @@ sk('form', 'init', {
   element: '#my-form',
   onSuccess: function(config) {
     window.location.href = '/thank-you';
+  }
+});
+```
+
+### Rendering validation errors
+
+Most of the time, it will be sufficient to use standard HTML validation attributes to prevent bad submissions, such as the `required` attribute. But you can optionally configure server-side validations to ensure bad data does not slip through.
+
+When validation errors occur, the client library will look for an element with a `data-sk-error` attribute and populate it with validation errors for the corresponding field:
+
+```diff
+  <form id="my-form">
+    <label for="email">Email</label>
+    <input id="email" type="email" name="email" value="" />
++   <div data-sk-error="email" class="error-message"></div>
+    <button type="submit">Sign up</button>
+  </form>
+```
+
+### Setting fields programmatically
+
+If you need to include some additional fields programmatically, you can define them in the `data` config.
+
+```js
+// This will append a `userAgent` field to the form data
+sk('form', 'init', {
+  id: '[...]',
+  element: '#my-form',
+  data: {
+    userAgent: navigator.userAgent
+  }
+});
+```
+
+Your `data` object can include either static values or functions (that will be evaluated at submission time):
+
+```js
+sk('form', 'init', {
+  id: '[...]',
+  element: '#my-form'
+  data: {
+    pageTitle: function() {
+      return document.title;
+    }
+  }
+});
+```
+
+### Customizing email subject line & reply-to address
+
+If you have an email notifications configured for your form, you can customize the subject line and reply-to address by including special fields in your form submission:
+
+- `_subject` — use this field to set the subject line
+- `_replyto` or `email` — use either of these fields to set the reply address
+
+You may add `<input>` fields to your form to make these settable by the user, or set them programmatically:
+
+```js
+sk('form', 'init', {
+  id: '[...]',
+  element: '#my-form',
+  data: {
+    _subject: 'New contact submission'
   }
 });
 ```
