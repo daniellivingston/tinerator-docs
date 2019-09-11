@@ -29,13 +29,9 @@ export default props => (
           </a>
         </Link>
       </div>
-      <div className="hidden sm:block text-sm text-gray-700">
+      <div className="hidden sm:block text-sm font-semibold text-gray-700">
         <Link href="/docs">
           <a className="px-3">Docs</a>
-        </Link>
-
-        <Link href="/guides">
-          <a className="px-3">Guides</a>
         </Link>
 
         <a
