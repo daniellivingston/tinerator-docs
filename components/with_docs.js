@@ -104,8 +104,8 @@ export default meta => ({ children }) => {
                 <Nav currentPath={meta.path} />
               </div>
             </div>
-            <div className="flex flex-grow-1 min-w-0">
-              <div className="sm:ml-16 lg:mr-16 flex-grow-1 min-w-0 max-w-2xl">
+            <div className="flex flex-grow min-w-0">
+              <div className="sm:ml-16 lg:mr-16 flex-grow min-w-0 max-w-2xl">
                 <div className="markdown">{children}</div>
                 <DocumentFooter next={meta.next} />
               </div>
