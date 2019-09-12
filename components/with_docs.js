@@ -113,23 +113,22 @@ export default meta => ({ children }) => {
             description={meta.description}
             path={meta.path}
           />
-          <HeaderWrapper className="fixed top-0 left-0 right-0 bg-white z-20">
+          <div className="border-b">
             <Header pageTitle={meta.title} />
-          </HeaderWrapper>
-
-          <div className="mx-auto px-6 pt-32 pb-12 container sm:flex">
+          </div>
+          <div className="mx-auto px-6 pt-6 pb-12 container sm:flex">
             <div className="flex-shrink-0 relative pb-12 sm:w-32 lg:w-40">
-              <div className="sm:fixed">
+              <div className="pt-8 sm:sticky sm:top-0">
                 <Nav currentPath={meta.path} />
               </div>
             </div>
             <div className="flex flex-grow min-w-0">
-              <div className="sm:ml-16 lg:mr-16 flex-grow min-w-0 max-w-2xl">
+              <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0 max-w-2xl">
                 <div className="markdown">{children}</div>
                 <DocumentFooter next={meta.next} />
               </div>
               <div className="flex-shrink-0 hidden lg:block relative w-48">
-                <div className="fixed">
+                <div className="pt-8 sticky top-0">
                   <TOC items={meta.toc} />
                 </div>
               </div>
