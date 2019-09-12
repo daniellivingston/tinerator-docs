@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './header';
 import Footer from './footer';
 import OpenGraph from './open_graph';
 import { MDXProvider } from '@mdx-js/react';
 import Nav from './docs/nav';
+import Link from 'next/link';
 
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
@@ -24,7 +25,7 @@ const components = {
 const HeaderWrapper = props => {
   const injectedClasses = props.className || '';
   const [scrolledTop, setScrolledTop] = useState(true);
-  const scrollClass = scrolledTop ? '' : 'shadow-lg';
+  const scrollClass = scrolledTop ? 'border-b' : 'shadow-lg';
 
   useInterval(() => {
     setScrolledTop(window.scrollY == 0);
@@ -51,13 +52,34 @@ const TOC = ({ items = [] }) => {
   return (
     <div>
       <h5 className="pb-3 text-xs uppercase text-gray-600 font-bold tracking-wider">
-        Table of Contents
+        On this page
       </h5>
       <ul className="text-gray-700 text-sm">
         {items.map(item => (
           <TOCItem key={item[2]} item={item} />
         ))}
       </ul>
+    </div>
+  );
+};
+
+const NextLink = props => {
+  return (
+    <Link href={props.path}>
+      <a className="block flex-grow text-right">
+        <div className="pb-1 text-sm">Next</div>
+        <div className="text-xl text-indigo-600 font-semibold">
+          {props.label}
+        </div>
+      </a>
+    </Link>
+  );
+};
+
+const DocumentFooter = ({ next }) => {
+  return (
+    <div className="flex my-8 py-6 border-t">
+      {next ? <NextLink {...next} /> : ''}
     </div>
   );
 };
@@ -83,8 +105,9 @@ export default meta => ({ children }) => {
               </div>
             </div>
             <div className="flex flex-grow-1 min-w-0">
-              <div className="sm:ml-16 lg:mr-16 flex-grow-1 min-w-0 markdown max-w-2xl">
-                {children}
+              <div className="sm:ml-16 lg:mr-16 flex-grow-1 min-w-0 max-w-2xl">
+                <div className="markdown">{children}</div>
+                <DocumentFooter next={meta.next} />
               </div>
               <div className="flex-shrink-0 hidden lg:block relative w-48">
                 <div className="fixed">

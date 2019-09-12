@@ -1,4 +1,5 @@
-import withDocs from '../../components/with_docs';
+import withDocs from '../../../components/with_docs';
+import Link from 'next/link';
 
 export default withDocs({
   title: 'HTML Library',
@@ -6,22 +7,20 @@ export default withDocs({
   path: '/docs/html',
   toc: [
     [1, "Installation", "#installation"]
-  ]
+  ],
+  next: {
+    path: '/docs/html/forms',
+    label: 'Forms'
+  }
 });
 
-# HTML Library
+# HTML
 
 The StaticKit HTML library is designed to be used in environments where you are crafting HTML by hand (as opposed to using something like React). If you are using a static site generator like **Jekyll**, **Hugo**, or **Middleman**, this is the library for you.
 
-Here's a example of a working contact form powered by the StaticKit HTML library. Try it out!
-
-<div className="pb-6">
-  <iframe width="100%" height="400" className="rounded-lg" src="//jsfiddle.net/StaticKit/5Lks2b6m/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
-</div>
-
 ## Installation
 
-If you don't have a modern JavaScript build pipeline in place, the CDN method is the quickest way to get up and running — just place our `<script>` tag anywhere on your page and instantiate your components inline:
+If you don't have a modern JavaScript build pipeline in place, the CDN method is the quickest way to get up and running — just place our `<script>` tag anywhere on your page:
 
 ```html
 <script defer src="https://js.statickit.com/statickit.js"></script>
@@ -30,17 +29,21 @@ If you don't have a modern JavaScript build pipeline in place, the CDN method is
   window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
 
   // Put your StaticKit calls here
+  // sk('form', 'init', { ... })
 </script>
 ```
 
-If you have a JavaScript build pipeline in place, it's best to install StaticKit as a dependency and `import` it in your JavaScript bundle:
+If you have a JavaScript build pipeline in place, it's best to install StaticKit as a dependency:
 
 ```shell
 npm i @statickit/standalone
 ```
 
+In your JavaScript file:
+
 ```js
 import sk from '@statickit/standalone'
 
 // Put your StaticKit calls here
+// sk('form', 'init', { ... })
 ```

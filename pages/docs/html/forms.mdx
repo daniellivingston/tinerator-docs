@@ -8,16 +8,16 @@ export default withDocs({
     [1, "Getting started", "#getting-started"],
     [1, "Handling success", "#handling-success"],
     [1, "Handling errors", "#handling-errors"],
-    [1, "Setting fields with code", "#setting-fields-with-code"],
-    [1, "Subject and reply address", "#subject-and-reply-address"]
+    [1, "Programmatic fields", "#programmatic-fields"],
+    [1, "Email subject and reply-to", "#email-subject-and-reply-to"]
   ]
 });
 
 # Forms
 
-Forms allow you to gather submissions without writing a line of backend code. Most other form endpoint services give you a URL to put in the `action` attribute and don't include any JavaScript. **We've intentionally taken a different approach.** 
+The form component allows you to gather submissions from your website without writing a line of backend code. 
 
-JavaScript-powered forms allow for a superior user experience:
+Most other form endpoint services give you a URL to put in the `action` attribute and don't include any JavaScript. **We've intentionally taken a different approach** to offer a superior user experience:
 
 - Validations errors can be rendered inline
 - You can render an inline post-submit message
@@ -26,7 +26,13 @@ JavaScript-powered forms allow for a superior user experience:
 
 ## Getting started
 
-All you need to do to bind StaticKit to a `<form>` is run the following initialize call:
+At a minimum, you just need a `<form>` element on your page and the following code:
+
+```html
+<form id="#my-form">
+  <!-- your fields here -->
+</form>
+```
 
 ```js
 sk('form', 'init', {
@@ -98,7 +104,7 @@ When validation errors occur, the client library will look for an element with a
   </form>
 ```
 
-## Setting fields with code
+## Programmatic fields
 
 If you need to include some additional fields programmatically, you can define them in the `data` config.
 

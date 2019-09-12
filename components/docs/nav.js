@@ -34,7 +34,7 @@ const Section = ({ path, label, currentPath, sections }) => {
       section.path == currentPath ? 'text-gray-900' : 'text-gray-600';
 
     return (
-      <li className={`ml-3 ${color}`}>
+      <li className={`ml-4 ${color}`}>
         <Link href={section.path}>
           <a>{section.label}</a>
         </Link>
