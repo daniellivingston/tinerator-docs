@@ -12,7 +12,26 @@ import 'prismjs/components/prism-diff';
 
 import useInterval from './use_interval';
 
+const slugify = text => {
+  return text
+    .toLowerCase()
+    .replace(/\s/g, '-')
+    .replace(/[?!]/g, '');
+};
+
 const components = {
+  h1: ({ children }) => {
+    return <h1 id={slugify(children)}>{children}</h1>;
+  },
+  h2: ({ children }) => {
+    return <h2 id={slugify(children)}>{children}</h2>;
+  },
+  h3: ({ children }) => {
+    return <h3 id={slugify(children)}>{children}</h3>;
+  },
+  h4: ({ children }) => {
+    return <h4 id={slugify(children)}>{children}</h4>;
+  },
   pre: props => {
     useEffect(() => {
       Prism.highlightAll();
