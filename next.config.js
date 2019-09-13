@@ -1,6 +1,10 @@
+const slug = require('rehype-slug');
 const withCSS = require('@zeit/next-css');
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/
+  extension: /\.mdx?$/,
+  options: {
+    rehypePlugins: [slug]
+  }
 });
 
 module.exports = withMDX(

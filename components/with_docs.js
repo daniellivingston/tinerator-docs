@@ -20,18 +20,6 @@ const slugify = text => {
 };
 
 const components = {
-  h1: props => {
-    return <h1 id={slugify(props.children)} {...props} />;
-  },
-  h2: props => {
-    return <h2 id={slugify(props.children)} {...props} />;
-  },
-  h3: props => {
-    return <h3 id={slugify(props.children)} {...props} />;
-  },
-  h4: props => {
-    return <h4 id={slugify(props.children)} {...props} />;
-  },
   pre: props => {
     useEffect(() => {
       Prism.highlightAll();
