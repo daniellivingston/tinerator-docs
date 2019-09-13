@@ -15,18 +15,16 @@ export default withDocs({
 
 # Forms
 
-The form component allows you to gather submissions from your website without writing a line of backend code. 
+The `form` component allows you to gather submissions from your website without writing a line of backend code. It's as simple as dropping a line of JavaScript on your page to get a full-featured form with:
 
-Most other form endpoint services give you a URL to put in the `action` attribute and don't include any JavaScript. **We've intentionally taken a different approach** to offer a superior user experience:
-
-- Validations errors can be rendered inline
-- You can render an inline post-submit message
-- You can hook into other lifecycle callbacks (e.g for analytics)
-- Form spam is less likely because there's not `action` to scrape
+- Inline-rendered validation errors
+- Inline success messages
+- Lifecycle hooks to customize behavior
+- Spam mitigation
 
 ## Getting started
 
-At a minimum, you just need a `<form>` element on your page and the following code:
+At a minimum, you just need a `<form>` element on your page and an initialize call:
 
 ```html
 <form id="#my-form">

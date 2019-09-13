@@ -34,7 +34,7 @@ const Section = ({ path, label, currentPath, sections }) => {
       section.path == currentPath ? 'text-gray-900' : 'text-gray-600';
 
     return (
-      <li className={`ml-4 ${color}`}>
+      <li className={`ml-3 ${color}`}>
         <Link href={section.path}>
           <a>{section.label}</a>
         </Link>
@@ -44,7 +44,7 @@ const Section = ({ path, label, currentPath, sections }) => {
 
   const Subsections = ({ sections }) => {
     return (
-      <ul className="pt-1 text-base font-normal">
+      <ul className="mt-1 py-1 border-l text-base font-normal">
         {sections.map(section => (
           <Subsection key={section.path} section={section} />
         ))}
@@ -56,7 +56,7 @@ const Section = ({ path, label, currentPath, sections }) => {
 
   return (
     <li>
-      <h3 className="pb-1 text-lg text-gray-600 text-xs font-semibold">
+      <h3 className="pb-3 text-lg text-gray-600 text-xs font-semibold">
         <Link href={path}>
           <a className={`${color} hover:text-gray-900`}>{label}</a>
         </Link>

@@ -96,6 +96,7 @@ const NextLink = props => {
 };
 
 const DocumentFooter = ({ next }) => {
+  if (!next) return <></>;
   return (
     <div className="flex my-8 py-6 border-t">
       {next ? <NextLink {...next} /> : ''}
@@ -123,7 +124,7 @@ export default meta => ({ children }) => {
               </div>
             </div>
             <div className="flex flex-grow min-w-0">
-              <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0 max-w-2xl">
+              <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0">
                 <div className="markdown">{children}</div>
                 <DocumentFooter next={meta.next} />
               </div>
