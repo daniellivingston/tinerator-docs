@@ -9,7 +9,8 @@ export default withDocs({
     [1, "Handling success", "#handling-success"],
     [1, "Handling errors", "#handling-errors"],
     [1, "Programmatic fields", "#programmatic-fields"],
-    [1, "Email subject and reply-to", "#email-subject-and-reply-to"]
+    [1, "Email subject and reply-to", "#email-subject-and-reply-to"],
+    [1, "Configuration", "#configuration"]
   ],
   prev: {
     path: '/docs/html',
@@ -151,4 +152,52 @@ sk('form', 'init', {
 });
 ```
 
+## Configuration
 
+### Required properties
+
+There are two required properties: `id` and `element`.
+
+```js
+sk('form', 'init', {
+  id: 'fcd6a6y7f5c2',
+  element: '#my-form'
+})
+```
+
+| Key                     | Type                     | Description                                                  |
+| :---------------------- | :----------------------- | :----------------------------------------------------------- |
+| `id`                    | String                   | The StaticKit form ID                                        |
+| `element`               | String or Element        | A DOM selector for your `<form>` or the actual form element  |
+
+If either of these are not present, initialization will fail.
+
+### Callbacks
+
+You can optionally hook into various points of the form lifecycle using callbacks. 
+
+For example, suppose you want to track an analytics event every time a form is submitted successfully. It might look something like this:
+
+```js
+sk('form', 'init', {
+  // ...
+
+  onSuccess: function(config, resp) {
+    analytics.track('Form submitted', { 
+      email: resp.data.email 
+    });
+
+    window.location.href = '/success';
+  }
+})
+```
+
+Here are all the available callbacks:
+
+| Key                     | Arguments                | Called...                                                    |
+| :---------------------- | :----------------------- | :----------------------------------------------------------- |
+| `onInit`                | config                   | When the form is initialized                                 |
+| `onSubmit`              | config                   | Right before the form is submitted                           |
+| `onSuccess`             | config, response         | When the form it submitted successfully                      |
+| `onError`               | config, errors           | When server-side validation causes the submission to fail    |
+| `onFailure`             | config                   | When the HTTP request unexpectedly fails                     |
