@@ -39,9 +39,9 @@ const Section = ({ path, label, currentPath, sections }) => {
       section.path == currentPath ? 'text-gray-900' : 'text-gray-600';
 
     return (
-      <li className={`ml-3 ${color}`}>
+      <li className={`ml-2 ${color}`}>
         <Link href={section.path}>
-          <a>{section.label}</a>
+          <a>– {section.label}</a>
         </Link>
       </li>
     );
@@ -49,7 +49,7 @@ const Section = ({ path, label, currentPath, sections }) => {
 
   const Subsections = ({ sections }) => {
     return (
-      <ul className="mt-1 py-1 border-l border-gray-400 text-base font-normal">
+      <ul className="mt-1 py-1 border-gray-400 text-base font-normal">
         {sections.map(section => (
           <Subsection key={section.path} section={section} />
         ))}
