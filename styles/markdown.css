@@ -36,9 +36,30 @@
   overflow: auto;
 }
 
+.markdown > table {
+  @apply mb-6 w-full text-gray-800 text-sm;
+}
+
+.markdown > table > thead > tr {
+  @apply border-b border-t;
+}
+
+.markdown > table > thead > tr > th {
+  @apply px-3 py-2 text-left text-sm font-bold bg-gray-100 text-gray-700;
+}
+
+.markdown > table > tbody > tr {
+  @apply border-b;
+}
+
+.markdown > table > tbody > tr > td {
+  @apply p-3;
+}
+
 .markdown > :not(pre) > code,
 .markdown > ul > li > code,
-.markdown > p a > code {
+.markdown > p a > code,
+.markdown > table > tbody > tr > td > code {
   @apply bg-gray-300 rounded-full px-2 text-sm;
   margin-left: 2px;
   margin-right: 2px;

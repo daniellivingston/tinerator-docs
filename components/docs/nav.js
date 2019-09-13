@@ -19,7 +19,12 @@ const sections = [
   {
     path: '/docs/react',
     label: 'React',
-    sections: []
+    sections: [
+      {
+        path: '/docs/react/forms',
+        label: 'Forms'
+      }
+    ]
   }
 ];
 
@@ -44,7 +49,7 @@ const Section = ({ path, label, currentPath, sections }) => {
 
   const Subsections = ({ sections }) => {
     return (
-      <ul className="mt-1 py-1 border-l text-base font-normal">
+      <ul className="mt-1 py-1 border-l border-gray-400 text-base font-normal">
         {sections.map(section => (
           <Subsection key={section.path} section={section} />
         ))}
