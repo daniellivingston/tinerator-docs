@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from './header';
 import Footer from './footer';
 import OpenGraph from './open_graph';
@@ -9,15 +9,6 @@ import Link from 'next/link';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-diff';
-
-import useInterval from './use_interval';
-
-const slugify = text => {
-  return text
-    .toLowerCase()
-    .replace(/\s/g, '-')
-    .replace(/[?!]/g, '');
-};
 
 const components = {
   pre: props => {
@@ -38,20 +29,6 @@ const components = {
       return <a target="_blank" {...props} />;
     }
   }
-};
-
-const HeaderWrapper = props => {
-  const injectedClasses = props.className || '';
-  const [scrolledTop, setScrolledTop] = useState(true);
-  const scrollClass = scrolledTop ? 'border-b' : 'shadow-lg';
-
-  useInterval(() => {
-    setScrolledTop(window.scrollY == 0);
-  }, 100);
-
-  return (
-    <div className={`${injectedClasses} ${scrollClass}`}>{props.children}</div>
-  );
 };
 
 const TOCItem = ({ item }) => {
