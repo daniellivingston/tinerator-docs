@@ -27,7 +27,8 @@
   @apply mb-6;
 }
 
-.markdown > ul {
+.markdown > ul,
+.markdown > ul > li > ul {
   @apply ml-8 list-disc;
 }
 
@@ -37,7 +38,7 @@
 }
 
 .markdown > table {
-  @apply mb-6 w-full text-gray-800 text-sm;
+  @apply mb-6 w-full text-gray-700 text-sm;
 }
 
 .markdown > table > thead > tr {
@@ -58,6 +59,7 @@
 
 .markdown > :not(pre) > code,
 .markdown > ul > li > code,
+.markdown > ul > li > ul > li > code,
 .markdown > p a > code,
 .markdown > table > tbody > tr > td > code {
   @apply bg-gray-300 rounded-full px-2 text-sm;
@@ -65,6 +67,10 @@
   margin-right: 2px;
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+.markdown > table > tbody > tr > td > code {
+  @apply text-xs;
 }
 
 .markdown > .markdown ul {

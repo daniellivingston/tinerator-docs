@@ -15,16 +15,13 @@ export default withDocs({
 
 # HTML Forms
 
-The `form` component allows you to gather submissions from your website without writing a line of backend code. It's as simple as dropping a line of JavaScript on your page to get a full-featured form with:
+The form component gathers and stores HTML `<form>` submissions for you. Under the covers, it works by attaching to the `submit` event and posting the form data to our servers.
 
-- Inline-rendered validation errors
-- Inline success messages
-- Lifecycle hooks to customize behavior
-- Spam mitigation
+For optimal user experience, StaticKit forms are powered by JavaScript — no `action` attribute necessary. This allows us to do things like render validation errors inline and swap out the form with a success message upon submission.
 
 ## Getting started
 
-At a minimum, you just need a `<form>` element on your page and an initialize call:
+At a minimum, you just need a `<form>` element on your page and an `init` call:
 
 ```html
 <form id="#my-form">
@@ -104,7 +101,7 @@ When validation errors occur, the client library will look for an element with a
 
 ## Programmatic fields
 
-If you need to include some additional fields programmatically, you can define them in the `data` config.
+If you need to set some fields programmatically, you can define them in the `data` config.
 
 ```js
 // This will append a `userAgent` field to the form data
@@ -117,7 +114,7 @@ sk('form', 'init', {
 });
 ```
 
-Your `data` object can include either static values or functions (that will be evaluated at submission time):
+The `data` object values can be either static values or functions (that will be evaluated at submission time):
 
 ```js
 sk('form', 'init', {
@@ -133,10 +130,10 @@ sk('form', 'init', {
 
 ## Email subject and reply-to
 
-If you have an email notifications configured for your form, you can customize the subject line and reply-to address by including special fields in your form submission:
+If you have an email notifications configured for your form, you can customize the subject line and reply-to address using special fields:
 
-- `_subject` — use this field to set the subject line
-- `_replyto` or `email` — use either of these fields to set the reply address
+- `_subject`
+- `email` or `_replyto`
 
 You may add `<input>` fields to your form to make these settable by the user, or set them programmatically:
 

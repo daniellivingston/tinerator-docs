@@ -5,22 +5,31 @@ export default withDocs({
   description: 'How to use the StaticKit form component.',
   path: '/docs/react/forms',
   toc: [
-    [1, "Getting started", "#getting-started"],
+    [1, "Getting started", "#the-useform-hook"],
     [1, "Handling errors", "#handling-errors"]
   ]
 });
 
 # React Forms
 
+React forms are powered by a custom [hook](https://reactjs.org/docs/hooks-intro.html) called `useForm`. This hook returns a pair of values: an object containing the current state of the form and a function that performs the actual form submission to our servers.
+
+```js
+const [state, submit] = useForm('XXXXXXXXX');
+```
+
+The `state` object tells you if the form is currently submitting, if it succeeded, and if there are validation errors. The `submit` function is designed to be set as the `onSubmit` handler for your `<form>`. 
+
 ## Getting started
 
-Here's a simple example of a StaticKit-powered form:
+Here's a simple example:
 
 ```jsx
 import { useForm } from '@statickit/react';
 
 function MyForm() {
   // Call the `useForm` hook in your function component
+  // Replace 'XXXXXXXXX' with your StaticKit form id
   const [state, submit] = useForm('XXXXXXXXX');
 
   // Display success message in place of the form
@@ -42,54 +51,71 @@ function MyForm() {
 
 At a minimum, all you have to do is use a `<form>` element and pass `submit` as the `onSubmit` handler.
 
+### State properties
+
 The `state` object contains the following:
 
-| Key            | Description                                                   |
-| :------------- | :------------------------------------------------------------ |
-| `submitting`   | A Boolean indicating whether the form is currently submitting |
-| `succeeded`    | A Boolean indicating whether the form successfully submitted  |
-| `errors`       | An Array of server-side validation errors                     |
+| Key            | Description                                                                         |
+| :------------- | :---------------------------------------------------------------------------------- |
+| `submitting`   | A Boolean indicating whether the form is currently submitting (defaults to `false`) |
+| `succeeded`    | A Boolean indicating whether the form successfully submitted (defaults to `false`)  |
+| `errors`       | An Array of server-side validation errors (defaults to `[]`)                        |
 
-The `errors` objects include the following:
+Items in the `errors` array contain the following:
 
-| Key            | Description                                        |
-| :------------- | :------------------------------------------------- |
-| `field`        | The name of the field                              |
-| `message`      | The error message (e.g. "is required")             |
-| `code`         | The error code (e.g. "REQUIRED" or "EMAIL_FORMAT") |
+| Key            | Description                                                       |
+| :------------- | :---------------------------------------------------------------- |
+| `field`        | The name of the field                                             |
+| `message`      | A human-readable error message fragment (e.g. "is required")      |
+| `code`         | A machine-friendly error code (e.g. "REQUIRED" or "EMAIL_FORMAT") |
+
+### The lifecycle of a form
+
+When the user submits the form, `submitting == true` while the HTTP request is in-progress. If it does not pass server-side validations, `succeeded == false` and `errors` is populated with the specific errors. Otherwise, `succeeded == true`.
 
 ## Handling errors
 
 Here's a more advanced example that displays validation errors for the `email` field:
 
-```jsx
-import { ValidationError, useForm } from '@statickit/react';
+```diff
+- import { useForm } from '@statickit/react';
++ import { ValidationError, useForm } from '@statickit/react';
 
-function MyForm() {
-  const [state, submit] = useForm('XXXXXXXXX');
+  function MyForm() {
+    const [state, submit] = useForm('XXXXXXXXX');
 
-  if (state.succeeded) {
+    if (state.succeeded) {
+      return (
+        <div>Thank you for signing up!</div>
+      )
+    }
+
++   // Render email validation errors and disable the submit button when submitting
     return (
-      <div>Thank you for signing up!</div>
+      <form onSubmit={submit}>
+        <label htmlFor="email">Email</label>
+        <input type="email" name="email" required />
++       <ValidationError field="email" prefix="Email" errors={state.errors} />
+        <button type="submit" disabled={state.submitting}>Sign up</button>
+      </form>
     )
   }
-
-  // Render email validation errors and disable the submit button when submitting
-  return (
-    <form onSubmit={submit}>
-      <label htmlFor="email">Email</label>
-      <input type="email" name="email" required />
-      <ValidationError field="email" prefix="Email" errors={state.errors} />
-      <button type="submit" disabled={state.submitting}>Sign up</button>
-    </form>
-  )
-}
 ```
 
 The `ValidationError` component accepts the following special properties:
 
-- `field` - the name of the field for which to display errors (required)
-- `errors` - the object containing validation errors (required)
-- `prefix` - the human-friendly name of the field (optional, defaults to `This field`)
+- `field` — the name of the field for which to display errors (required)
+- `errors` — the object containing validation errors (required)
+- `prefix` — the human-friendly name of the field (optional, defaults to `This field`)
 
-The rest of the props (such as `className`) are passed along to the `<div>` wrapper.
+If the specified field has a validation error, this component renders a `<div>` containing the error message:
+
+```html
+<div>
+  {prefix} {message}
+</div>
+```
+
+If the field does not have an error, nothing is rendered.
+
+All other props set on `ValidationError` (such as `className`) are passed through to the `<div>` wrapper.
