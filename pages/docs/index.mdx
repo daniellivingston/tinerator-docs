@@ -2,10 +2,22 @@ import withDocs from '../../components/with_docs';
 
 export default withDocs({
   title: 'Documentation',
-  description: 'How to use StaticKit client libraries and APIs.',
+  description: 'Learn how to use StaticKit client libraries and APIs.',
   path: '/docs'
 });
 
 # Introduction
 
-StaticKit is the modern way to gather form submissions from your website. We have out-of-the-box support for modern React-based site generators (like Next.js and Gatsby) and traditional HTML environments (like Jekyll and Hugo).
+StaticKit is the modern way to gather form submissions from your website. We have a few client libraries for different environments:
+
+<div className="my-8 md:flex border-t border-b md:text-center">
+  <a href="/docs/html" className="block px-8 py-12 md:w-1/2 md:border-r border-b md:border-b-0 hover:bg-gray-100">
+    <h2 className="pb-2 text-2xl font-semibold text-indigo-600">HTML</h2>
+    <p>Great for environments where you are authoring plain HTML.</p>
+  </a>
+
+  <a href="/docs/html" className="block px-8 py-12 md:w-1/2 hover:bg-gray-100">
+    <h2 className="pb-2 text-2xl font-semibold text-indigo-600">React</h2>
+    <p>Great for environments where React is available for rendering.</p>
+  </a>
+</div>

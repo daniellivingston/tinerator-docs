@@ -20,17 +20,17 @@ const slugify = text => {
 };
 
 const components = {
-  h1: ({ children }) => {
-    return <h1 id={slugify(children)}>{children}</h1>;
+  h1: props => {
+    return <h1 id={slugify(props.children)} {...props} />;
   },
-  h2: ({ children }) => {
-    return <h2 id={slugify(children)}>{children}</h2>;
+  h2: props => {
+    return <h2 id={slugify(props.children)} {...props} />;
   },
-  h3: ({ children }) => {
-    return <h3 id={slugify(children)}>{children}</h3>;
+  h3: props => {
+    return <h3 id={slugify(props.children)} {...props} />;
   },
-  h4: ({ children }) => {
-    return <h4 id={slugify(children)}>{children}</h4>;
+  h4: props => {
+    return <h4 id={slugify(props.children)} {...props} />;
   },
   pre: props => {
     useEffect(() => {
