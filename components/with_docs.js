@@ -26,6 +26,17 @@ const components = {
     });
 
     return <pre {...props} />;
+  },
+  a: props => {
+    if (props.href.startsWith('/')) {
+      return (
+        <Link href={props.href}>
+          <a {...props} />
+        </Link>
+      );
+    } else {
+      return <a target="_blank" {...props} />;
+    }
   }
 };
 
