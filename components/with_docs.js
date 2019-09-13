@@ -58,6 +58,19 @@ const TOC = ({ items = [] }) => {
   );
 };
 
+const PrevLink = props => {
+  return (
+    <Link href={props.path}>
+      <a className="block flex-grow">
+        <div className="pb-1 text-sm">Previous</div>
+        <div className="text-xl text-indigo-600 font-semibold">
+          {props.label}
+        </div>
+      </a>
+    </Link>
+  );
+};
+
 const NextLink = props => {
   return (
     <Link href={props.path}>
@@ -71,10 +84,11 @@ const NextLink = props => {
   );
 };
 
-const DocumentFooter = ({ next }) => {
-  if (!next) return <></>;
+const DocumentFooter = ({ prev, next }) => {
+  if (!prev && !next) return <></>;
   return (
     <div className="flex my-8 py-6 border-t">
+      {prev ? <PrevLink {...prev} /> : ''}
       {next ? <NextLink {...next} /> : ''}
     </div>
   );
@@ -102,7 +116,7 @@ export default meta => ({ children }) => {
             <div className="flex flex-grow min-w-0">
               <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0">
                 <div className="markdown">{children}</div>
-                <DocumentFooter next={meta.next} />
+                <DocumentFooter prev={meta.prev} next={meta.next} />
               </div>
               <div className="flex-shrink-0 hidden lg:block relative w-48">
                 <div className="pt-8 sticky top-0">
