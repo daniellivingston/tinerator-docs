@@ -26,6 +26,9 @@ module.exports = {
       },
       height: {
         '128': '32rem'
+      },
+      borderRadius: {
+        md: '.375rem'
       }
     }
   },

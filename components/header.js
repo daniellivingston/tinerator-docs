@@ -29,7 +29,7 @@ export default props => (
           </a>
         </Link>
       </div>
-      <div className="hidden sm:block text-sm font-semibold text-gray-700">
+      <div className="hidden sm:block text-sm font-normal text-gray-800">
         <Link href="/docs">
           <a className="px-2">Docs</a>
         </Link>
@@ -46,11 +46,12 @@ export default props => (
           <a className="px-2">Pricing</a>
         </Link>
 
-        <a
-          href="https://app.statickit.com/signup"
-          className="ml-6 btn btn-sm btn-outline"
-        >
-          Sign up
+        <a href="https://app.statickit.com/signin" className="px-2">
+          Sign In
+        </a>
+
+        <a href="https://app.statickit.com/signup" className="ml-4 btn btn-sm">
+          Sign Up
         </a>
       </div>
     </div>
