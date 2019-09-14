@@ -1,9 +1,14 @@
 import withDocs from '../../../components/with_docs';
 
 export default withDocs({
-  title: 'React Forms',
+  title: 'Forms',
   description: 'How to use the StaticKit form component.',
   path: '/docs/react/forms',
+  breadcrumb: {
+    path: '/docs/react',
+    label: 'React Library',
+    rel: 'prev'
+  },
   toc: [
     [1, "Getting started", "#the-useform-hook"],
     [1, "Handling errors", "#handling-errors"]
@@ -14,7 +19,7 @@ export default withDocs({
   },
 });
 
-# React Forms
+# Forms
 
 React forms are powered by a custom [hook](https://reactjs.org/docs/hooks-intro.html) called `useForm`. This hook returns a pair of values: an object containing the current state of the form and a function that performs the actual form submission to our servers.
 

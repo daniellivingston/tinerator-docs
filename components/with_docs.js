@@ -61,7 +61,7 @@ const TOC = ({ items = [] }) => {
 const PrevLink = props => {
   return (
     <Link href={props.path}>
-      <a className="block flex-grow">
+      <a className="block flex-grow" rel="prev">
         <div className="pb-1 text-sm">Previous</div>
         <div className="text-xl text-indigo-600 font-semibold">
           {props.label}
@@ -74,11 +74,21 @@ const PrevLink = props => {
 const NextLink = props => {
   return (
     <Link href={props.path}>
-      <a className="block flex-grow text-right">
+      <a className="block flex-grow text-right" rel="next">
         <div className="pb-1 text-sm">Next</div>
         <div className="text-xl text-indigo-600 font-semibold">
           {props.label}
         </div>
+      </a>
+    </Link>
+  );
+};
+
+const Breadcrumb = props => {
+  return (
+    <Link href={props.path}>
+      <a className="text-base font-semibold text-gray-600" rel={props.rel}>
+        {props.label}
       </a>
     </Link>
   );
@@ -115,6 +125,17 @@ export default meta => ({ children }) => {
             </div>
             <div className="flex flex-grow min-w-0">
               <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0">
+                {meta.breadcrumb ? (
+                  <div className="pb-1">
+                    <Breadcrumb
+                      path={meta.breadcrumb.path}
+                      label={meta.breadcrumb.label}
+                      rel={meta.breadcrumb.rel}
+                    />
+                  </div>
+                ) : (
+                  ''
+                )}
                 <div className="markdown">{children}</div>
                 <DocumentFooter prev={meta.prev} next={meta.next} />
               </div>

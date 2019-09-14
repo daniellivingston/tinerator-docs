@@ -1,9 +1,14 @@
 import withDocs from '../../../components/with_docs';
 
 export default withDocs({
-  title: 'HTML Forms',
+  title: 'Forms - HTML Library',
   description: 'How to use the StaticKit form component.',
   path: '/docs/html/forms',
+  breadcrumb: {
+    path: '/docs/html',
+    label: 'HTML Library',
+    rel: 'prev'
+  },
   toc: [
     [1, "Getting started", "#getting-started"],
     [1, "Handling success", "#handling-success"],
@@ -18,7 +23,7 @@ export default withDocs({
   }
 });
 
-# HTML Forms
+# Forms
 
 The form component gathers and stores HTML `<form>` submissions for you. Under the covers, it works by attaching to the `submit` event and posting the form data to our servers.
 
