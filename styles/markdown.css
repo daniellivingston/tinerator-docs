@@ -69,6 +69,10 @@
   padding-bottom: 2px;
 }
 
+.markdown > h2 > code {
+  @apply text-xl;
+}
+
 .markdown > table > tbody > tr > td > code {
   @apply text-xs;
 }

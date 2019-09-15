@@ -13,7 +13,7 @@ export default withDocs({
     [1, "Getting started", "#getting-started"],
     [1, "Handling success", "#handling-success"],
     [1, "Handling errors", "#handling-errors"],
-    [1, "Programmatic fields", "#programmatic-fields"],
+    [1, "Setting fields in code", "#setting-fields-in-code"],
     [1, "Email subject and reply-to", "#email-subject-and-reply-to"],
     [1, "Configuration", "#configuration"]
   ],
@@ -25,78 +25,94 @@ export default withDocs({
 
 # Forms
 
-The form component gathers and stores HTML `<form>` submissions for you. Under the covers, it works by attaching to the `submit` event and posting the form data to our servers.
-
-For optimal user experience, StaticKit forms are powered by JavaScript — no `action` attribute necessary. This allows us to do things like render validation errors inline and swap out the form with a success message upon submission.
+Forms allow you to gather and store HTML `<form>` submissions with just a few lines of frontend code. For optimal user experience, StaticKit forms are powered by JavaScript (instead of the `action` attribute). This allows us to render inline validation errors, swap out the form with a success message upon submission, and provide lifecycle hooks for custom behavior. 
 
 ## Getting started
 
-At a minimum, you just need a `<form>` element on your page and an `init` call:
+At a minimum, you just need a `<form>` element on your page and an `init` call.
+
+This is a fully functioning form that you can paste in your site:
 
 ```html
-<form id="#my-form">
-  <!-- your fields here -->
+<form id="my-form">
+  <label for="email">Email</label>
+  <input id="email" type="email" name="email" value="" required />
+  <button type="submit">Submit</button>
 </form>
+
+<script>
+  window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
+
+  sk('form', 'init', {
+    id: 'REPLACE_WITH_YOUR_FORM_ID',
+    element: '#my-form'
+  });
+</script>
+
+<script defer src="https://js.statickit.com/statickit.js"></script>
 ```
 
-```js
-sk('form', 'init', {
-  id: '[...]' 
-  element: '#my-form'
-});
-```
-
-Here is a working example of an opt-in form. Try it out!
+This example has no styling, but it works:
 
 <div className="pb-6">
-  <iframe width="100%" height="300" className="rounded-lg" src="//jsfiddle.net/StaticKit/L2hx61cy/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
+  <iframe width="100%" height="300" className="rounded-lg" src="//jsfiddle.net/StaticKit/8Lw6j75y/embedded/result,html/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
 </div>
 
-You'll notice that we are overriding the `onSuccess` callback to replace the form with a custom message — we'll learn about that next.
+**You have full control over the look and feel of your form**. Form builders typically spit out tangled mess of HTML and CSS that will never match your site's aestheic anyway. We've deliberately made the library as unobtrusive as possible.
+
+Note there is no `action` attribute on the form. Under the covers, we attach to the `submit` event and post to our servers in the background. As a bonus, this makes your form less vulnerable to spam because there is no URL exposed in the markup.
+
+Here's a prettier example of a contact form styled with Tailwind CSS.
+
+<div className="pb-6">
+  <iframe width="100%" height="400" className="rounded-lg" src="//jsfiddle.net/StaticKit/5Lks2b6m/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
+</div>
 
 ## Handling success
 
-The most common thing you’ll want to customize is the behavior after the form is submitted. By default, the `<form>` element gets replaced with an unstyled “Thank you!” `<div>` element.
+The most common thing you’ll want to customize what happens after the form is submitted. By default, we replace the `<form>` element with a plain thank you message:
 
-Here's an example config that replaces the form with a custom message:
+```html
+<div>Thank you!</div>
+```
+
+If you want to customize what gets replaced, you can implement your own `onSuccess` callback. Here's an example config that replaces the form with a custom message:
 
 ```js
 sk('form', 'init', {
-  id: '[...]',
-  element: '#my-form',
   onSuccess: function(config) {
     var h = config.h;
     var form = config.form;
     var replacement = h('div.success-message', 'Thank you for joining!');
     form.parentNode.replaceChild(replacement, form);
-  }
+  },
+  // ...
 });
 ```
 
 Let's step through what's happening here:
 
-- `config.h` is a simple helper for creating DOM nodes called [HyperScript](https://github.com/hyperhype/hyperscript)
+- `config.h` is a simple helper for constructing DOM nodes called [HyperScript](https://github.com/hyperhype/hyperscript)
 - `config.form` is a reference to the `<form>` element
-- `replacement` is new element to swap in for the `<form>`
-- The last line does the actual DOM node replacement
+- `replacement` is a new `<div>` with a `success-message` class
+- The last line replaces the form with the replacement element
 
-If you want to redirect to a different page, you can do that instead:
+You aren't limited to just replacing the form. If you want to redirect to a different page, you can do that like this:
 
 ```js
 sk('form', 'init', {
-  id: '[...]',
-  element: '#my-form',
   onSuccess: function(config) {
     window.location.href = '/thank-you';
-  }
+  },
+  // ...
 });
 ```
 
 ## Handling errors
 
-Most of the time, it will be sufficient to use standard HTML validation attributes to prevent bad submissions, such as the `required` attribute. But you can optionally configure server-side validations to ensure bad data does not slip through.
+In most cases, [built-in form validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Using_built-in_form_validation) (such as the `required` attribute) is sufficient to prevent bad submissions from coming through. However, you can configure server-side validations in StaticKit to ensure bad data does not slip through.
 
-When validation errors occur, the client library will look for an element with a `data-sk-error` attribute and populate it with validation errors for the corresponding field:
+When a server-side validation error occurs, the library will look for an element with a `data-sk-error` attribute and populate it with validation errors for the corresponding field:
 
 ```diff
   <form id="my-form">
@@ -107,18 +123,29 @@ When validation errors occur, the client library will look for an element with a
   </form>
 ```
 
-## Programmatic fields
-
-If you need to set some fields programmatically, you can define them in the `data` config.
+You can override this default behavior by implementing your own `renderErrors` function:
 
 ```js
-// This will append a `userAgent` field to the form data
 sk('form', 'init', {
-  id: '[...]',
-  element: '#my-form',
+  renderErrors: function(config, errors) {
+    // your own implementation
+  },
+  // ...
+});
+```
+
+The `renderErrors` function is responsible for clearing error messages for fields that don't have an errors _and_ rendering messages for ones that do have errors.
+
+## Setting fields in code
+
+To set fields programmatically, pass them via the `data` object. For example, this will include a `userAgent` field along with the user-submitted form data:
+
+```js
+sk('form', 'init', {
   data: {
     userAgent: navigator.userAgent
-  }
+  },
+  // ...
 });
 ```
 
@@ -126,13 +153,12 @@ The `data` object values can be either static values or functions (that will be 
 
 ```js
 sk('form', 'init', {
-  id: '[...]',
-  element: '#my-form'
   data: {
     pageTitle: function() {
       return document.title;
     }
-  }
+  },
+  // ...
 });
 ```
 
@@ -141,17 +167,16 @@ sk('form', 'init', {
 If you have an email notifications configured for your form, you can customize the subject line and reply-to address using special fields:
 
 - `_subject`
-- `email` or `_replyto`
+- `_replyto` or `email`
 
-You may add `<input>` fields to your form to make these settable by the user, or set them programmatically:
+You can add `<input>` fields to your form to make these settable by the user or set them programmatically.
 
 ```js
 sk('form', 'init', {
-  id: '[...]',
-  element: '#my-form',
   data: {
     _subject: 'New contact submission'
-  }
+  },
+  // ...
 });
 ```
 

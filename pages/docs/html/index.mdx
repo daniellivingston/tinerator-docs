@@ -16,13 +16,13 @@ export default withDocs({
 
 # HTML Library
 
-The StaticKit HTML library is designed for environments where you are authoring plain HTML (as opposed to using a framework like React). If you are using a static site generator like **Jekyll**, **Hugo**, or **Middleman**, this is the library for you.
-
-Using React? Check out our native [React library](/docs/react) instead.
+The StaticKit HTML library is designed for environments where you are authoring plain HTML (instead a framework like React). If you are using a static site generator like Jekyll, Hugo, or Middleman, this is the library for you.
 
 ## Installation
 
-If you don't have a modern JavaScript build pipeline in place, the CDN method is the quickest way to get up and running — just place our `<script>` tag anywhere on your page:
+The CDN method is the quickest way to get up and running. 
+
+Just place our `<script>` tag anywhere on your page:
 
 ```html
 <script defer src="https://js.statickit.com/statickit.js"></script>
@@ -30,15 +30,18 @@ If you don't have a modern JavaScript build pipeline in place, the CDN method is
 <script>
   window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
 
-  // Put your StaticKit calls here
-  // sk('form', 'init', { ... })
+  sk('form', 'init', { 
+    // ...
+  });
 </script>
 ```
 
-If you have a JavaScript build pipeline in place, it's best to install StaticKit as a dependency:
+Note that our script is loaded asynchronously, so it will never impact your site's performance.
+
+If you have a modern JavaScript pipeline in place, it's best to install StaticKit as a dependency:
 
 ```shell
-npm i @statickit/standalone
+npm install @statickit/standalone
 ```
 
 In your JavaScript file:
@@ -46,6 +49,7 @@ In your JavaScript file:
 ```js
 import sk from '@statickit/standalone'
 
-// Put your StaticKit calls here
-// sk('form', 'init', { ... })
+sk('form', 'init', { 
+  // ...
+});
 ```

@@ -35,7 +35,7 @@ const TOCItem = ({ item }) => {
   const [_level, name, href] = item;
 
   return (
-    <li className="mb-1">
+    <li className="mb-2 hang">
       <a href={href}>{name}</a>
     </li>
   );

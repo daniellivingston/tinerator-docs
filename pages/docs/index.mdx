@@ -3,21 +3,20 @@ import withDocs from '../../components/with_docs';
 export default withDocs({
   title: 'Documentation',
   description: 'Learn how to use StaticKit client libraries and APIs.',
-  path: '/docs'
+  path: '/docs',
+  toc: [
+    [1, "Client Libraries", "#client-libraries"]
+  ],
 });
 
 # Introduction
 
-StaticKit is the modern way to gather form submissions from your website. We have a few client libraries for different environments:
+StaticKit is the modern way to gather form submissions from your website. 
 
-<div className="my-8 md:flex border-t border-b md:text-center">
-  <a href="/docs/html" className="block px-4 md:px-8 py-12 md:w-1/2 md:border-r border-b md:border-b-0 hover:bg-gray-100">
-    <h2 className="pb-1 text-2xl font-semibold text-indigo-600">HTML</h2>
-    <p>Great for environments where you are authoring plain HTML.</p>
-  </a>
+## Client Libraries
 
-  <a href="/docs/react" className="block px-4 md:px-8 py-12 md:w-1/2 hover:bg-gray-100">
-    <h2 className="pb-1 text-2xl font-semibold text-indigo-600">React</h2>
-    <p>Great for environments where React is available for rendering.</p>
-  </a>
-</div>
+We have a few client libraries for different environments:
+
+- [HTML](/docs/html): Great for environments where you are authoring plain HTML.
+- [React](/docs/react): Great for environments where React is available for rendering.
+

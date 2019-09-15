@@ -3,7 +3,7 @@
 @tailwind components;
 
 .btn {
-  @apply text-white font-bold border border-indigo-600 bg-indigo-600 px-4 py-3 cursor-pointer leading-tight rounded-lg;
+  @apply text-white font-semibold border border-gray-800 bg-gray-800 px-5 py-3 cursor-pointer leading-tight;
 }
 
 .btn:focus {
@@ -19,11 +19,11 @@
 }
 
 .btn-sm {
-  @apply px-3 py-2 text-sm rounded-md;
+  @apply px-3 py-2 text-sm;
 }
 
 .btn-xs {
-  @apply px-2 py-1 text-sm rounded;
+  @apply px-2 py-1 text-sm;
 }
 
 .btn-outline {
@@ -58,4 +58,9 @@
 
 .bg-code {
   @apply bg-gray-800;
+}
+
+.hang {
+  margin-left: 1rem;
+  text-indent: -1rem;
 }

@@ -10,7 +10,8 @@ export default withDocs({
     rel: 'prev'
   },
   toc: [
-    [1, "Getting started", "#the-useform-hook"],
+    [1, "Simple example", "#simple-example"],
+    [1, "State", "#state"],
     [1, "Handling errors", "#handling-errors"]
   ],
   prev: {
@@ -21,17 +22,17 @@ export default withDocs({
 
 # Forms
 
-React forms are powered by a custom [hook](https://reactjs.org/docs/hooks-intro.html) called `useForm`. This hook returns a pair of values: an object containing the current state of the form and a function that performs the actual form submission to our servers.
+React forms are powered by a custom [hook](https://reactjs.org/docs/hooks-intro.html) called `useForm`. 
+
+The `useForm` hook returns a pair of values: a `state` object containing the current state of the form and a `submit` function that performs the actual form submission (and updates the `state` accordingly).
 
 ```js
 const [state, submit] = useForm('XXXXXXXXX');
 ```
 
-The `state` object tells you if the form is currently submitting, if it succeeded, and if there are validation errors. The `submit` function is designed to be set as the `onSubmit` handler for your `<form>`. 
+## Simple example
 
-## Getting started
-
-Here's a simple example:
+Here's a form component built with StaticKit:
 
 ```jsx
 import { useForm } from '@statickit/react';
@@ -66,7 +67,7 @@ Here is a working example of an opt-in form. Try it out!
   <iframe width="100%" height="300" className="rounded-lg" src="//jsfiddle.net/StaticKit/w69xerbc/embedded/result,js,html/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
 </div>
 
-### State properties
+## State
 
 The `state` object contains the following:
 
@@ -84,9 +85,13 @@ Items in the `errors` array contain the following:
 | `message`      | A human-readable error message fragment (e.g. "is required")      |
 | `code`         | A machine-friendly error code (e.g. "REQUIRED" or "EMAIL_FORMAT") |
 
-### The lifecycle of a form
+### Lifecycle
 
-When the user submits the form, `submitting == true` while the HTTP request is in-progress. If it does not pass server-side validations, `succeeded == false` and `errors` is populated with the specific errors. Otherwise, `succeeded == true`.
+- When the user submits the form, `submitting` becomes `true`
+- If the submission fails server-side validations:
+  - `succeeded` remains `false`, and
+  - `errors` is populated with the specific errors
+- Otherwise, `succeeded` becomes `true`
 
 ## Handling errors
 
