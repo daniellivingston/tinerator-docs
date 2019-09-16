@@ -10,12 +10,16 @@ export default withDocs({
     rel: 'prev'
   },
   toc: [
-    [1, "Getting started", "#getting-started"],
+    [1, "Simple example", "#simple-example"],
     [1, "Handling success", "#handling-success"],
     [1, "Handling errors", "#handling-errors"],
-    [1, "Setting fields in code", "#setting-fields-in-code"],
-    [1, "Email subject and reply-to", "#email-subject-and-reply-to"],
-    [1, "Configuration", "#configuration"]
+    [1, "Configuration", "#configuration"],
+    [2, "Required properties", "#required-properties"],
+    [2, "Setting fields in code", "#setting-fields-in-code"],
+    [2, "Customizing errors", "#customizing-errors"],
+    [2, "Email properies", "#email-properties"],
+    [2, "Error rendering", "#error-rendering"],
+    [2, "Callbacks", "#callbacks"],
   ],
   prev: {
     path: '/docs/html',
@@ -27,40 +31,15 @@ export default withDocs({
 
 Forms allow you to gather and store HTML `<form>` submissions with just a few lines of frontend code. For optimal user experience, StaticKit forms are powered by JavaScript (instead of the `action` attribute). This allows us to render inline validation errors, swap out the form with a success message upon submission, and provide lifecycle hooks for custom behavior. 
 
-## Getting started
+## Simple example
 
-At a minimum, you just need a `<form>` element on your page and an `init` call.
-
-This is a fully functioning form that you can paste in your site:
-
-```html
-<form id="my-form">
-  <label for="email">Email</label>
-  <input id="email" type="email" name="email" value="" required />
-  <button type="submit">Submit</button>
-</form>
-
-<script>
-  window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
-
-  sk('form', 'init', {
-    id: 'REPLACE_WITH_YOUR_FORM_ID',
-    element: '#my-form'
-  });
-</script>
-
-<script defer src="https://js.statickit.com/statickit.js"></script>
-```
-
-This example has no styling, but it works:
+At a minimum, you just need a `<form>` element on your page and an `init` call. The following is a fully-functioning form that you can paste in your site. For the sake of simplicity, it is unstyled.
 
 <div className="pb-6">
-  <iframe width="100%" height="300" className="rounded-lg" src="//jsfiddle.net/StaticKit/8Lw6j75y/embedded/result,html/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
+  <iframe width="100%" height="380" className="rounded-lg" src="//jsfiddle.net/StaticKit/8Lw6j75y/embedded/html,result/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
 </div>
 
-**You have full control over the look and feel of your form**. Form builders typically spit out tangled mess of HTML and CSS that will never match your site's aestheic anyway. We've deliberately made the library as unobtrusive as possible.
-
-Note there is no `action` attribute on the form. Under the covers, we attach to the `submit` event and post to our servers in the background. As a bonus, this makes your form less vulnerable to spam because there is no URL exposed in the markup.
+Notice there is no `action` attribute on the form. Under the covers, we listen for the `submit` event and post to our servers in the background. As a bonus, this makes your form less vulnerable to spam because there is no URL exposed in the markup.
 
 Here's a prettier example of a contact form styled with Tailwind CSS.
 
@@ -97,7 +76,7 @@ Let's step through what's happening here:
 - `replacement` is a new `<div>` with a `success-message` class
 - The last line replaces the form with the replacement element
 
-You aren't limited to just replacing the form. If you want to redirect to a different page, you can do that like this:
+If you want to redirect to a different page instead, you can do that like this:
 
 ```js
 sk('form', 'init', {
@@ -110,77 +89,32 @@ sk('form', 'init', {
 
 ## Handling errors
 
-In most cases, [built-in form validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Using_built-in_form_validation) (such as the `required` attribute) is sufficient to prevent bad submissions from coming through. However, you can configure server-side validations in StaticKit to ensure bad data does not slip through.
+In many cases, [built-in HTML form validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Using_built-in_form_validation) (such as the `required` attribute) is sufficient to prevent invalid submissions. If it's critical that malformed submissions don't slip though, you can configure server-side validations in StaticKit.
 
 When a server-side validation error occurs, the library will look for an element with a `data-sk-error` attribute and populate it with validation errors for the corresponding field:
 
-```diff
-  <form id="my-form">
-    <label for="email">Email</label>
-    <input id="email" type="email" name="email" value="" />
-+   <div data-sk-error="email" class="error-message"></div>
-    <button type="submit">Sign up</button>
-  </form>
+```html
+<form id="my-form">
+  <!-- ... -->
+  <div data-sk-error="email" class="error-message"></div>
+  <!-- ... -->
+</form>
 ```
 
-You can override this default behavior by implementing your own `renderErrors` function:
-
-```js
-sk('form', 'init', {
-  renderErrors: function(config, errors) {
-    // your own implementation
-  },
-  // ...
-});
-```
-
-The `renderErrors` function is responsible for clearing error messages for fields that don't have an errors _and_ rendering messages for ones that do have errors.
-
-## Setting fields in code
-
-To set fields programmatically, pass them via the `data` object. For example, this will include a `userAgent` field along with the user-submitted form data:
-
-```js
-sk('form', 'init', {
-  data: {
-    userAgent: navigator.userAgent
-  },
-  // ...
-});
-```
-
-The `data` object values can be either static values or functions (that will be evaluated at submission time):
-
-```js
-sk('form', 'init', {
-  data: {
-    pageTitle: function() {
-      return document.title;
-    }
-  },
-  // ...
-});
-```
-
-## Email subject and reply-to
-
-If you have an email notifications configured for your form, you can customize the subject line and reply-to address using special fields:
-
-- `_subject`
-- `_replyto` or `email`
-
-You can add `<input>` fields to your form to make these settable by the user or set them programmatically.
-
-```js
-sk('form', 'init', {
-  data: {
-    _subject: 'New contact submission'
-  },
-  // ...
-});
-```
+You can override this default behavior by [implementing your own `renderErrors` function](#error-rendering).
 
 ## Configuration
+
+Here are all the available configuration properties:
+
+| Key                                | Description                                                        |
+| :--------------------------------- | :----------------------------------------------------------------- |
+| [`id`](#required-properties)       | The StaticKit form ID                                              |
+| [`element`](#required-properties)  | A DOM selector for your `<form>` or the actual form element        |
+| [`data`](#setting-fields-in-code)  | An object containing additional form fields to send                |
+| [`fields`](#customizing-errors)    | An object containing properties for specific fields                |
+| [`on*`](#callbacks)                | Callbacks for various points in the lifecycle                      |
+| [`renderErrors`](#error-rendering) | A function responsible for placing validation errors on the page   |
 
 ### Required properties
 
@@ -200,6 +134,99 @@ sk('form', 'init', {
 
 If either of these are not present, initialization will fail.
 
+### Setting fields in code
+
+To set fields programmatically, use the `data` object:
+
+```js
+sk('form', 'init', {
+  data: {
+    userAgent: navigator.userAgent
+  },
+  // ...
+});
+```
+
+Values can either be static or functions (that will be evaluated at submission time):
+
+```js
+sk('form', 'init', {
+  data: {
+    pageTitle: function() {
+      return document.title;
+    }
+  },
+  // ...
+});
+```
+
+### Customizing errors
+
+Validation error messages read like this by default: **This field is required**. It gets the message across, but can it be improved easily by passing a bit more information via the `fields` config.
+
+#### Setting a pretty name
+
+With the following configuration, validation messages will start with _Email address_ instead of _This field_:
+
+```js
+sk('form', 'init', {
+  data: {
+    fields: {
+      email: {
+        prettyName: "Email address"
+      }
+    }
+  },
+  // ...
+});
+```
+
+#### Overriding error messages
+
+If you want to go fully custom, you can do that too. The following will display the custom message provided if it fails the `required` validation.
+
+```js
+sk('form', 'init', {
+  data: {
+    fields: {
+      email: {
+        prettyName: "Email address",
+        errorMessages: {
+          required: "Oops! You must provide an email address"
+        }
+      }
+    }
+  },
+  // ...
+});
+```
+
+The following server-side validation types are currently available:
+
+| Key                     | Description                                            |
+| :---------------------- | :----------------------------------------------------- |
+| `required`              | Requires a field to be non-blank                       |
+| `emailFormat`           | Requires a field to be formatted like an email address |
+
+
+### Email properties
+
+If you have an email notifications configured for your form, you can customize the subject line and reply-to address using special fields:
+
+- `_subject`
+- `_replyto` or `email`
+
+You can add `<input>` fields to your form to make these settable by the user or set them programmatically.
+
+```js
+sk('form', 'init', {
+  data: {
+    _subject: 'New contact submission'
+  },
+  // ...
+});
+```
+
 ### Callbacks
 
 You can optionally hook into various points of the form lifecycle using callbacks. 
@@ -208,15 +235,14 @@ For example, suppose you want to track an analytics event every time a form is s
 
 ```js
 sk('form', 'init', {
-  // ...
-
   onSuccess: function(config, resp) {
     analytics.track('Form submitted', { 
       email: resp.data.email 
     });
 
     window.location.href = '/success';
-  }
+  },
+  // ...
 })
 ```
 
@@ -226,6 +252,30 @@ Here are all the available callbacks:
 | :---------------------- | :----------------------- | :----------------------------------------------------------- |
 | `onInit`                | config                   | When the form is initialized                                 |
 | `onSubmit`              | config                   | Right before the form is submitted                           |
-| `onSuccess`             | config, response         | When the form it submitted successfully                      |
+| `onSuccess`             | config, [response](#response-object) | When the form it submitted successfully          |
 | `onError`               | config, errors           | When server-side validation causes the submission to fail    |
 | `onFailure`             | config                   | When the HTTP request unexpectedly fails                     |
+
+#### Response Object
+
+The response object received by the `onSuccess` callback looks like this:
+
+| Key                     | Type                     | Description                                                  |
+| :---------------------- | :----------------------- | :----------------------------------------------------------- |
+| `id`                    | String                   | The (unique) form submission id                              |
+| `data`                  | Object                   | The form submission data                                     |
+
+### Error rendering
+
+The `renderErrors` function is responsible for clearing error messages for fields that don't have an errors _and_ rendering messages for ones that do have errors.
+
+```js
+sk('form', 'init', {
+  renderErrors: function(config, errors) {
+    // your own implementation
+  },
+  // ...
+});
+```
+
+The default implementation looks for child elements with the `data-sk-error={field}` attribute and populates the `innerHTML` with the field's error message (or clears the `innerHTML` if there is no error).

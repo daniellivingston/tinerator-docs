@@ -19,7 +19,7 @@ const components = {
     return <pre {...props} />;
   },
   a: props => {
-    if (props.href.startsWith('/')) {
+    if (props.href.startsWith('/') || props.href.startsWith('#')) {
       return (
         <Link href={props.href}>
           <a {...props} />
@@ -32,10 +32,19 @@ const components = {
 };
 
 const TOCItem = ({ item }) => {
-  const [_level, name, href] = item;
+  const [level, name, href] = item;
+  const indent = level => {
+    switch (level) {
+      case 2:
+        return 'pl-4';
+
+      default:
+        return '';
+    }
+  };
 
   return (
-    <li className="mb-2 hang">
+    <li className={`mb-2 hang ${indent(level)}`}>
       <a href={href}>{name}</a>
     </li>
   );
