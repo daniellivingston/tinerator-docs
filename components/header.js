@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 
@@ -15,6 +16,64 @@ const logo = `
 </svg>
 `;
 
+const AuthControls = ({ signedIn }) => {
+  if (signedIn) {
+    return (
+      <a href="https://app.statickit.com/" className="ml-4 btn btn-sm">
+        Dashboard
+      </a>
+    );
+  }
+
+  return (
+    <>
+      <a href="https://app.statickit.com/signin" className="px-2">
+        Sign In
+      </a>
+      <a href="https://app.statickit.com/signup" className="ml-4 btn btn-sm">
+        Sign Up
+      </a>
+    </>
+  );
+};
+
+const Nav = () => {
+  const [signedIn, setSignedIn] = useState(null);
+
+  useEffect(() => {
+    setSignedIn(
+      document.cookie.split(';').filter(item => item.includes('signed_in=true'))
+        .length > 0
+    );
+  });
+
+  if (signedIn == null) {
+    return <></>;
+  }
+
+  return (
+    <>
+      <Link href="/docs">
+        <a className="px-2">Docs</a>
+      </Link>
+
+      <a
+        href="https://jsfiddle.net/user/StaticKit/fiddles/"
+        className="px-2"
+        target="_blank"
+      >
+        Examples
+      </a>
+
+      <Link href="/pricing">
+        <a className="px-2">Pricing</a>
+      </Link>
+
+      <AuthControls signedIn={signedIn} />
+    </>
+  );
+};
+
 export default props => (
   <header className="mx-auto container px-6 py-4">
     <Head>
@@ -30,29 +89,7 @@ export default props => (
         </Link>
       </div>
       <div className="hidden sm:block text-sm font-normal text-gray-800">
-        <Link href="/docs">
-          <a className="px-2">Docs</a>
-        </Link>
-
-        <a
-          href="https://jsfiddle.net/user/StaticKit/fiddles/"
-          className="px-2"
-          target="_blank"
-        >
-          Examples
-        </a>
-
-        <Link href="/pricing">
-          <a className="px-2">Pricing</a>
-        </Link>
-
-        <a href="https://app.statickit.com/signin" className="px-2">
-          Sign In
-        </a>
-
-        <a href="https://app.statickit.com/signup" className="ml-4 btn btn-sm">
-          Sign Up
-        </a>
+        <Nav />
       </div>
     </div>
   </header>
