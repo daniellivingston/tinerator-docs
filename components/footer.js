@@ -12,7 +12,7 @@ const levelLogo = `
 
 export default props => (
   <footer className="border-t">
-    <div className="mx-auto container px-3 py-10">
+    <div className="mx-auto container px-4 py-10">
       <div className="flex flex-wrap pb-6 text-sm text-gray-700">
         <Link href="/docs">
           <a className="px-2 pb-1 whitespace-no-wrap">Docs</a>
@@ -43,7 +43,7 @@ export default props => (
         </Link>
       </div>
 
-      <div className="px-3 flex items-center">
+      <div className="px-2 flex items-center">
         <div className="flex-grow text-sm text-gray-600">
           <span className="mr-5">&copy; Level Technologies, LLC</span>
         </div>
