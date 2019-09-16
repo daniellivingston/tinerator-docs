@@ -14,32 +14,32 @@ export default props => (
   <footer className="border-t">
     <div className="mx-auto container px-3 py-10">
       <div className="flex flex-wrap pb-6 text-sm text-gray-700">
-        <Link href="/guides">
-          <a className="px-3 pb-1 whitespace-no-wrap">Guides</a>
+        <Link href="/docs">
+          <a className="px-2 pb-1 whitespace-no-wrap">Docs</a>
         </Link>
 
         <a
           href="https://jsfiddle.net/user/StaticKit/fiddles/"
-          className="px-3 pb-1 whitespace-no-wrap"
+          className="px-2 pb-1 whitespace-no-wrap"
           target="_blank"
         >
           Examples
         </a>
 
         <Link href="/pricing">
-          <a className="px-3 pb-1">Pricing</a>
+          <a className="px-2 pb-1">Pricing</a>
         </Link>
 
         <a
           href="https://github.com/levelhq/legal/blob/master/privacy-policy.md"
           target="_blank"
-          className="px-3 pb-1 whitespace-no-wrap"
+          className="px-2 pb-1 whitespace-no-wrap"
         >
           Privacy Policy
         </a>
 
         <Link href="/support">
-          <a className="px-3 pb-1 whitespace-no-wrap">Support</a>
+          <a className="px-2 pb-1 whitespace-no-wrap">Support</a>
         </Link>
       </div>
 

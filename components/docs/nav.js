@@ -25,6 +25,11 @@ const sections = [
         label: 'Forms'
       }
     ]
+  },
+  {
+    path: '/guides',
+    label: 'Guides',
+    sections: []
   }
 ];
 
@@ -32,7 +37,9 @@ const Section = ({ path, label, currentPath, sections }) => {
   const isCurrent =
     sections.find(section => {
       return section.path == currentPath;
-    }) || path == currentPath;
+    }) ||
+    path == currentPath ||
+    (path.startsWith('/guides') && currentPath.startsWith('/guides'));
 
   const Subsection = ({ section }) => {
     const color =
@@ -49,7 +56,7 @@ const Section = ({ path, label, currentPath, sections }) => {
 
   const Subsections = ({ sections }) => {
     return (
-      <ul className="mt-1 py-1 border-gray-400 text-base font-normal">
+      <ul className="py-1 border-gray-400 text-base font-normal">
         {sections.map(section => (
           <Subsection key={section.path} section={section} />
         ))}
@@ -61,7 +68,7 @@ const Section = ({ path, label, currentPath, sections }) => {
 
   return (
     <li>
-      <h3 className="pb-3 text-lg text-gray-600 text-xs font-semibold">
+      <h3 className="pb-2 text-lg text-gray-600 text-xs font-semibold">
         <Link href={path}>
           <a className={`${color} hover:text-gray-900`}>{label}</a>
         </Link>

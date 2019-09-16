@@ -1,13 +1,26 @@
-import withGuide from '../../components/with_guide';
+import withDocs from '../../components/with_docs';
 import StepHeading from '../../components/step_heading';
 import BrowserDemo from '../../components/browser_demo';
 
-export default withGuide({
+export default withDocs({
   title: 'Building a Landing Page with Next.js',
-  description:
-    "In this guide, you'll learn how to create a simple landing page to gather email addresses using StaticKit and Next.js",
-  path: '/guides/next-landing-page'
+  description: 'How to create a simple landing page to gather email addresses using StaticKit and Next.js.',
+  path: '/guides/next-landing-page',
+  breadcrumb: {
+    path: '/guides',
+    label: 'Guides',
+    rel: 'prev'
+  },
+  toc: [
+    [1, "Create a new project", "#create-a-new-project"],
+    [1, "Design your landing page", "#design-your-landing-page"],
+    [1, "Create your form", "#create-your-form"],
+    [1, "Wire up your landing page", "#wire-up-your-landing-page"],
+    [1, "Deploy with ZEIT Now", "#deploy-with-zeit-now"]
+  ],
 });
+
+# Building a Landing Page with Next.js
 
 In this guide, we'll walk through how to create and deploy a simple pre-launch landing page to gather email addresses using [StaticKit](https://statickit.com/) and [Next.js](https://nextjs.org/).
 
@@ -18,7 +31,9 @@ Here's a working version of what you'll end up creating:
   label="next-landing-page.statickit.now.sh"
 />
 
-<StepHeading step="1">Create a new Next.js project</StepHeading>
+<h2 id="create-a-new-project">
+  <StepHeading step="1">Create a new project</StepHeading>
+</h2>
 
 Run the following command to create a fresh project:
 
@@ -37,7 +52,9 @@ npm run dev
 
 You should see "Welcome to Next.js" when you open [`http://localhost:3000/`](http://localhost:3000/) in your browser.
 
-<StepHeading step="2">Design your landing page</StepHeading>
+<h2 id="design-your-landing-page">
+  <StepHeading step="2">Design your landing page</StepHeading>
+</h2>
 
 Go ahead and replace the contents of the `pages/index.js` file with the following code. We are using the [Tailwind CSS](https://tailwindcss.com/) framework to style the page. The `<form>` tag is not yet wired up to anything — that's coming next!
 
@@ -110,11 +127,15 @@ const Home = () => (
 export default Home;
 ```
 
-<StepHeading step="3">Create your StaticKit form</StepHeading>
+<h2 id="create-your-form">
+  <StepHeading step="3">Create your form</StepHeading>
+</h2>
 
 In StaticKit, click **Add a site...** in the top navigation to create a new site for your landing page. Then, click **Add a form...** under your new site to create the form.
 
-<StepHeading step="4">Wire up your landing page</StepHeading>
+<h2 id="wire-up-your-landing-page">
+  <StepHeading step="4">Wire up your landing page</StepHeading>
+</h2>
 
 From your project directory, run this command:
 
@@ -150,7 +171,9 @@ Next, import the `useForm` hook and bind the form submit to StaticKit. Be sure t
 
 You now have a working landing page!
 
-<StepHeading step="5">Deploy with ZEIT Now</StepHeading>
+<h2 id="deploy-with-zeit-now">
+  <StepHeading step="5">Deploy with ZEIT Now</StepHeading>
+</h2>
 
 If you have not installed Now, you can do so by [installing Now CLI](https://zeit.co/download).
 
