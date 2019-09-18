@@ -77,12 +77,10 @@ function SupportPage() {
 
         <div className="mx-auto px-6 pt-12 container">
           <div className="pt-6 md:pt-10 pb-12 md:pb-16">
-            <h1 className="pb-2 text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-center">
+            <h1 className="pb-2 text-5xl font-bold leading-tight tracking-tight text-center">
               {title}
             </h1>
-            <p className="text-lg md:text-xl text-gray-700 text-center">
-              {description}
-            </p>
+            <p className="text-lg text-gray-700 text-center">{description}</p>
           </div>
         </div>
 
