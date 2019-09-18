@@ -14,10 +14,10 @@ function PricingPage() {
 
         <div className="mx-auto px-6 pt-12 container">
           <div className="pt-6 md:pt-10 pb-12 md:pb-16">
-            <h1 className="pb-2 text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-center">
+            <h1 className="pb-2 text-5xl md:text-6xl font-bold leading-tight tracking-tight text-center">
               Pricing
             </h1>
-            <p className="text-lg md:text-xl text-gray-700 text-center">
+            <p className="text-lg md:text-2xl text-gray-700 text-center">
               Free to get started, affordable for business.
             </p>
           </div>
