@@ -49,7 +49,7 @@ function HomePage() {
               </p>
 
               <a
-                href="https://app.statickit.com/"
+                href="https://app.statickit.com/signup"
                 className="btn focus:shadow-outline"
               >
                 Create a form
