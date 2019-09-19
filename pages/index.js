@@ -5,6 +5,18 @@ import OpenGraph from '../components/open_graph';
 import ReactDemo from '../components/react_demo';
 import StandaloneDemo from '../components/standalone_demo';
 
+const checkIcon = `
+<svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="check-circle-inside-copy" transform="translate(1.500000, 1.500000)">
+            <circle id="Oval" stroke="#5A67D8" stroke-width="2" fill="#5A67D8" cx="14" cy="14" r="14"></circle>
+            <path d="M20.3,10.5 L12.6000004,18.2" id="Path" stroke="#FFFFFF" stroke-width="3"></path>
+            <path d="M9.1,14.7 L12.6,18.2" id="Path" stroke="#FFFFFF" stroke-width="3"></path>
+        </g>
+    </g>
+</svg>
+`;
+
 function HomePage() {
   const title = 'Modern forms for static sites';
   const description =
@@ -44,13 +56,39 @@ function HomePage() {
                 {title}
               </h1>
 
-              <p className="pb-12 lg:pr-24 text-lg lg:text-xl text-gray-700">
+              <p className="pb-8 lg:pr-24 text-lg lg:text-xl text-gray-700">
                 {description}
               </p>
 
+              <ul className="pb-12 text-lg lg:text-xl text-gray-900 font-bold">
+                <li key="contact-forms" className="pb-2 flex items-center">
+                  <div
+                    className="mr-3"
+                    dangerouslySetInnerHTML={{ __html: checkIcon }}
+                  />
+                  Contact forms
+                </li>
+
+                <li key="landing-pages" className="pb-2 flex items-center">
+                  <div
+                    className="mr-3"
+                    dangerouslySetInnerHTML={{ __html: checkIcon }}
+                  />
+                  Email opt-in forms
+                </li>
+
+                <li key="feedback-surveys" className="pb-2 flex items-center">
+                  <div
+                    className="mr-3"
+                    dangerouslySetInnerHTML={{ __html: checkIcon }}
+                  />
+                  Feedback surveys
+                </li>
+              </ul>
+
               <a
                 href="https://app.statickit.com/signup"
-                className="btn focus:shadow-outline"
+                className="btn btn-lg focus:shadow-outline"
               >
                 Get started now
               </a>
@@ -90,7 +128,7 @@ function HomePage() {
 
           <div className="pb-24">
             <h2 className="px-6 pb-8 text-4xl lg:text-5xl leading-tight tracking-tight font-bold">
-              All the Essentials
+              Batteries Included
             </h2>
 
             <div className="flex flex-wrap">

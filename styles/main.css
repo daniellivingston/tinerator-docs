@@ -26,6 +26,10 @@
   @apply px-2 py-1 text-sm;
 }
 
+.btn-lg {
+  @apply px-6 py-4 text-lg;
+}
+
 .btn-outline {
   @apply bg-white text-indigo-600;
 }
