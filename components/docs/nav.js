@@ -30,6 +30,16 @@ const sections = [
     path: '/guides',
     label: 'Guides',
     sections: []
+  },
+  {
+    path: '/integrations',
+    label: 'Integrations',
+    sections: [
+      {
+        path: '/integrations/zeit',
+        label: 'ZEIT'
+      }
+    ]
   }
 ];
 

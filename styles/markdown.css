@@ -20,6 +20,7 @@
 
 .markdown > p > a,
 .markdown > ul > li > a,
+.markdown > ol > li > a,
 .markdown > table > tbody > tr > td > a {
   @apply text-indigo-600 font-semibold;
 }
@@ -35,6 +36,10 @@
 .markdown > ul,
 .markdown > ul > li > ul {
   @apply ml-8 list-disc;
+}
+
+.markdown > ol {
+  @apply ml-8 list-decimal;
 }
 
 .markdown > pre {
