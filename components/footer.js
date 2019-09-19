@@ -31,7 +31,7 @@ export default props => (
         </Link>
 
         <a
-          href="https://github.com/levelhq/legal/blob/master/privacy-policy.md"
+          href="https://github.com/unstacked/legal/blob/master/privacy-policy.md"
           target="_blank"
           className="px-2 pb-1 whitespace-no-wrap"
         >
