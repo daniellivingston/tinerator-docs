@@ -14,13 +14,9 @@ const icon = `
 
 export default props => {
   return (
-    <div className="pb-1">
-      <Link href={props.href}>
-        <a className="flex items-center text-lg text-indigo-600 font-semibold">
-          <div className="mr-2" dangerouslySetInnerHTML={{ __html: icon }} />
-          <div>{props.children}</div>
-        </a>
-      </Link>
+    <div className="pb-1 flex items-center">
+      <div className="mr-2" dangerouslySetInnerHTML={{ __html: icon }} />
+      <div>{props.children}</div>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import withDocs from '../../components/with_docs';
+import ArrowItem from '../../components/arrow_item';
 
 export default withDocs({
   title: 'Documentation',
@@ -12,7 +13,9 @@ export default withDocs({
 
 # Introduction
 
-StaticKit is the modern way to gather form submissions from your website.
+StaticKit is the modern way to gather form submissions from your frontend _without writing a line of backend code_. It works great with React-based generators, like Next.js and Gatsby, and traditional HTML-based generators, like Jekyll and Hugo.
+
+Here is a working example of a contact form implemented with the StaticKit HTML library:
 
 <div className="pb-6">
   <iframe width="100%" height="400" className="rounded-lg" src="//jsfiddle.net/StaticKit/5Lks2b6m/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
@@ -22,12 +25,22 @@ StaticKit is the modern way to gather form submissions from your website.
 
 We have a few client libraries for different environments:
 
-- [HTML](/docs/html) for when you are authoring plain HTML.
-- [React](/docs/react) for when React is available for rendering.
+<ArrowItem>
+  <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a> for when you are authoring plain HTML
+</ArrowItem>
+
+<ArrowItem>
+  <a href="/docs/react" className="font-semibold text-indigo-600">React</a> for when React is available for rendering
+</ArrowItem>
 
 ## Guides
 
 Learn how you to use StaticKit for different use cases with various static site generators.
 
-- [Building a Landing Page with Next.js](/guides/next-landing-page)
-- [Using Tailwind CSS with Next.js](/guides/next-js-tailwind)
+<ArrowItem>
+  <a href="/guides/next-landing-page" className="font-semibold text-indigo-600">Building a Landing Page with Next.js</a>
+</ArrowItem>
+
+<ArrowItem>
+  <a href="/guides/next-js-tailwind" className="font-semibold text-indigo-600">Using Tailwind CSS with Next.js</a>
+</ArrowItem>

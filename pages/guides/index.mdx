@@ -1,5 +1,5 @@
 import withDocs from '../../components/with_docs';
-import GuideItem from '../../components/guide_item';
+import ArrowItem from '../../components/arrow_item';
 
 export default withDocs({
   title: 'Guides',
@@ -14,5 +14,10 @@ This is a growing collection of guides on how to accomplish different tasks with
 
 ## Next.js
 
-<GuideItem href="/guides/next-landing-page">Building a Landing Page with Next.js</GuideItem>
-<GuideItem href="/guides/next-js-tailwind">Using Tailwind CSS with Next.js</GuideItem>
+<ArrowItem>
+  <a href="/guides/next-landing-page" className="font-semibold text-indigo-600">Building a Landing Page with Next.js</a>
+</ArrowItem>
+
+<ArrowItem>
+  <a href="/guides/next-js-tailwind" className="font-semibold text-indigo-600">Using Tailwind CSS with Next.js</a>
+</ArrowItem>
