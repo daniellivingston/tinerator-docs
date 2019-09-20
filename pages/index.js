@@ -94,18 +94,18 @@ function HomePage() {
               </a>
             </div>
 
-            <div className="relative px-6 py-6 w-full sm:w-1/2 xl:w-3/5">
+            <div className="relative px-6 py-6 w-full sm:w-1/2 xl:w-3/5 overflow-hidden">
               <div
-                className="absolute w-64 h-64 bg-gray-stripes z-10 bottom-0"
-                style={{ marginLeft: -40, marginBottom: -5 }}
+                className="absolute w-64 h-64 bg-gray-stripes z-10"
+                style={{ left: -10, bottom: -5 }}
               ></div>
 
               <div
-                className="absolute w-64 h-64 bg-gray-stripes z-10 right-0 top-0"
-                style={{ marginRight: -10, marginTop: -5 }}
+                className="absolute w-64 h-64 bg-gray-stripes z-10"
+                style={{ right: -10, top: -5 }}
               ></div>
 
-              <div className="relative mb-2 w-full rounded-lg text-sm leading-relaxed overflow-auto bg-code z-20">
+              <div className="relative w-full rounded-lg text-sm leading-relaxed overflow-auto bg-code z-20">
                 <div className="flex bg-gray-700 rounded-t">
                   <button
                     className={tabClass(1, tab)}
