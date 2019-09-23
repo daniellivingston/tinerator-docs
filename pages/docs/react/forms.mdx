@@ -27,7 +27,9 @@ React forms are powered by a custom [hook](https://reactjs.org/docs/hooks-intro.
 The `useForm` hook returns a pair of values: a `state` object containing the current state of the form and a `submit` function that performs the actual form submission (and updates the `state` accordingly).
 
 ```js
-const [state, submit] = useForm('XXXXXXXXX');
+const [state, submit] = useForm({
+  id: 'XXXXXXXXX'
+});
 ```
 
 ## Simple example
@@ -40,7 +42,9 @@ import { useForm } from '@statickit/react';
 function MyForm() {
   // Call the `useForm` hook in your function component
   // Replace 'XXXXXXXXX' with your StaticKit form id
-  const [state, submit] = useForm('XXXXXXXXX');
+  const [state, submit] = useForm({
+    id: 'XXXXXXXXX'
+  });
 
   // Display success message in place of the form
   if (state.succeeded) {
