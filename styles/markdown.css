@@ -10,12 +10,24 @@
   @apply mt-8 mb-4 text-2xl font-semibold tracking-snug text-gray-900;
 }
 
+.markdown > h2 code {
+  @apply text-xl;
+}
+
 .markdown > h3 {
   @apply mt-8 mb-3 text-xl font-semibold tracking-snug text-gray-900;
 }
 
+.markdown > h3 code {
+  @apply text-lg;
+}
+
 .markdown > h4 {
   @apply mt-8 mb-3 text-lg font-semibold tracking-snug text-gray-900;
+}
+
+.markdown > h4 code {
+  @apply text-base;
 }
 
 .markdown > p > a,
@@ -67,7 +79,7 @@
   @apply p-3;
 }
 
-.markdown > :not(pre) > code,
+.markdown > :not(pre):not(h3) > code,
 .markdown > ul > li > code,
 .markdown > ul > li > ul > li > code,
 .markdown > p a > code,

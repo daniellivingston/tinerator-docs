@@ -1,0 +1,93 @@
+import withDocs from '../../../components/with_docs';
+
+export default withDocs({
+  title: 'Core Library',
+  description: 'How to use the core client library for StaticKit.',
+  path: '/docs/core',
+  toc: [
+    [1, "Installation", "#installation"],
+    [1, "Methods", "#methods"]
+  ]
+});
+
+# Core Library
+
+The StaticKit core library powers the environment-specific client libraries ([HTML](/docs/html) and [React](/docs/react)). If you are a library author or you are implementing your own low-level components that need to communicate with StaticKit, this might be the library for you.
+
+## Installation
+
+Run the following to install the package:
+
+```bash
+npm install @statickit/core
+```
+
+Then, import the `StaticKit` constructor in your code:
+
+```js
+import StaticKit from '@statickit/core';
+
+// Constructs an instance of the client
+const statickit = StaticKit();
+```
+
+The client listens for signals to sniff out bots and spammers, so it's best to instantiate the client upon page load and reuse it over the course of the browsing session.
+
+## Methods
+
+### `submitForm([props])`
+
+An [asynchronous function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) that submits form data to the server and returns the result. 
+
+This method accepts the following properties:
+
+| Key                     | Type                     | Description                                                  |
+| :---------------------- | :----------------------- | :----------------------------------------------------------- |
+| `id`                    | String (required)        | The StaticKit form ID.                                       |
+| `endpoint`              | String                   | The API endpoint. Defaults to `https://api.statickit.com`    |
+| `data`                  | Object or FormData       | The form data to send to the server. Defaults to `{}`        |
+
+The return value is an object containing a `body` field and a `response` field with the raw response object.
+
+When the submission succeeds, the `body` will include a submission id and data:
+
+```js
+{
+  "id": "3ac1fb5d-259a-4af5-aac5-2ce53215b6c5",
+  "data": {
+    "email": "test@test.com"
+  }
+}
+```
+
+If there are validation errors, the `body` will include an array of errors and the `response` will have a 422 status code.
+
+```js
+{
+  "errors": [{
+    "code": "REQUIRED",
+    "field": "email",
+    "message": "is required"
+  }]
+}
+```
+
+Here's an example of submitting the data from a `<form>` node to StaticKit and awaiting the response:
+
+```js
+import StaticKit from '@statickit/core';
+
+// Instantiate the client
+const client = StaticKit();
+
+// Fetch the form element and its form data
+const form = document.getElementById('my-form');
+const formData = new FormData(form);
+
+// Submit the data to StaticKit
+const result = await client.submitForm({
+  id: 'f7h7sfg08jff',
+  data: formData
+});
+```
+

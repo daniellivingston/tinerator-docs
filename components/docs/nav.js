@@ -27,6 +27,11 @@ const sections = [
     ]
   },
   {
+    path: '/docs/core',
+    label: 'Core',
+    sections: []
+  },
+  {
     path: '/guides',
     label: 'Guides',
     sections: []

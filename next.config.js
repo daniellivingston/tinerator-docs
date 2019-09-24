@@ -1,9 +1,10 @@
 const slug = require('rehype-slug');
+const link = require('rehype-autolink-headings');
 const withCSS = require('@zeit/next-css');
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
-    rehypePlugins: [slug]
+    rehypePlugins: [slug, [link, { behavior: 'wrap' }]]
   }
 });
 
