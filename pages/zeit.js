@@ -27,7 +27,7 @@ function ZeitPage() {
           title={title}
           description={description}
           path="/"
-          image="https://statickit.com/static/zeit-og-image.jpg"
+          image="https://statickit.com/static/zeit-og.jpg"
           twitterCard="summary_large_image"
         />
         <Header pageTitle={title} />
