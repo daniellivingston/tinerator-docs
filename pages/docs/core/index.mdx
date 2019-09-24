@@ -6,7 +6,8 @@ export default withDocs({
   path: '/docs/core',
   toc: [
     [1, "Installation", "#installation"],
-    [1, "Methods", "#methods"]
+    [1, "Methods", "#methods"],
+    [1, "SSR Support", "#ssr-support"]
   ]
 });
 
@@ -91,3 +92,46 @@ const result = await client.submitForm({
 });
 ```
 
+## SSR Support
+
+Server-side rendering (SSR) is a technique used by static site generators like Next.js to improve site performance. Since the StaticKit client tracks behavior from the browser environment, **the DOM must be available** when the `StaticKit()` call happens.
+
+For example, you **cannot** instantiate the client in the main body of a function React component:
+
+```jsx
+import React from 'react';
+
+function MyForm() {
+  // This will throw an error at compile time
+  const client = StaticKit();
+
+  // ...
+
+  return (
+    <form>...</form>
+  );
+}
+```
+
+Instead, you must instantiate the client when the component is being mounted (such as `componentWillMount` or the `useEffect` hook) and store it in component state.
+
+```diff
+- import React from 'react';
++ import React, { useEffect, useRef } from 'react';
+
+  function MyForm() {
+-   const client = StaticKit();
++   const client = useRef(undefined);
++
++   useEffect(() => {
++     client.current = StaticKit();
++
++     return () => {
++       if (client.current) {
++         client.current.teardown();
++       }
++     }
++   }, []);
+
+    // ...
+```
