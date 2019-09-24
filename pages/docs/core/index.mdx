@@ -92,6 +92,32 @@ const result = await client.submitForm({
 });
 ```
 
+### `teardown()`
+
+This method cleans up resources used by the client.
+
+For example, if you are instantiating the client in a React component, you should tear it down when the component unmounts:
+
+```js
+import React, { useEffect, useRef } from 'react';
+
+function MyForm() {
+  const client = useRef(undefined);
+
+  useEffect(() => {
+    client.current = StaticKit();
+
+    return () => {
+      if (client.current) {
+        client.current.teardown();
+      }
+    }
+  }, []);
+
+  // ...
+}
+```
+
 ## SSR Support
 
 Server-side rendering (SSR) is a technique used by static site generators like Next.js to improve site performance. Since the StaticKit client tracks behavior from the browser environment, **the DOM must be available** when the `StaticKit()` call happens.
