@@ -23,7 +23,13 @@ function ZeitPage() {
   return (
     <div>
       <main>
-        <OpenGraph title={title} description={description} path="/" />
+        <OpenGraph
+          title={title}
+          description={description}
+          path="/"
+          image="/static/zeit-og-image.jpg"
+          twitterCard="summary_large_image"
+        />
         <Header pageTitle={title} />
 
         <div className="mx-auto pt-16 container">
