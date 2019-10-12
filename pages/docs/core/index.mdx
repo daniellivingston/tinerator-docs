@@ -36,9 +36,9 @@ The client listens for signals to sniff out bots and spammers, so it's best to i
 
 ## Methods
 
-### `submitForm([props])`
+### `submitForm(props)`
 
-An [asynchronous function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) that submits form data to the server and returns the result. 
+An method that submits form data to the server and returns a Promise. 
 
 This method accepts the following properties:
 
@@ -47,7 +47,20 @@ This method accepts the following properties:
 | `id`                    | String (required)        | The StaticKit form ID.                                       |
 | `data`                  | Object or FormData       | The form data to send to the server. Defaults to `{}`        |
 
-The return value is an object containing a `body` field and a `response` field with the raw response object.
+The return value resolves to object containing a `body` field and a `response` field:
+
+```js
+client.submitForm({ 
+  id: "...", 
+  data: {
+    // ...
+  }
+}).
+  then(({ body, response }) => { 
+    // If validation errors occur, `response.status` == 422.
+    // If successful, `response.status` == 200.
+  });
+```
 
 When the submission succeeds, the `body` will include a submission id and data:
 
