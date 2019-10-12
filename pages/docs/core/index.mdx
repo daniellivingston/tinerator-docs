@@ -51,14 +51,20 @@ The return value resolves to object containing a `body` field and a `response` f
 
 ```js
 client.submitForm({ 
-  id: "...", 
-  data: {
-    // ...
-  }
+  id: formId, 
+  data: formData
 }).
-  then(({ body, response }) => { 
-    // If validation errors occur, `response.status` == 422.
-    // If successful, `response.status` == 200.
+  then(({ body, response }) => {
+    switch (response.status) {
+      case 200:
+        // Submission succeeded
+      
+      case 422:
+        // Validation errors occurred
+      
+      default:
+        // Something unexpected happened
+    }
   });
 ```
 
@@ -73,7 +79,7 @@ When the submission succeeds, the `body` will include a submission id and data:
 }
 ```
 
-If there are validation errors, the `body` will include an array of errors and the `response` will have a 422 status code.
+If there are validation errors, the `body` will include an array of errors:
 
 ```js
 {
@@ -98,7 +104,7 @@ const form = document.getElementById('my-form');
 const formData = new FormData(form);
 
 // Submit the data to StaticKit
-const result = await client.submitForm({
+const { body, response } = await client.submitForm({
   id: 'f7h7sfg08jff',
   data: formData
 });
