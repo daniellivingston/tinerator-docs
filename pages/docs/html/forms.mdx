@@ -170,11 +170,9 @@ With the following configuration, validation messages will start with _Email add
 
 ```js
 sk('form', 'init', {
-  data: {
-    fields: {
-      email: {
-        prettyName: "Email address"
-      }
+  fields: {
+    email: {
+      prettyName: "Email address"
     }
   },
   // ...
@@ -187,13 +185,11 @@ If you want to go fully custom, you can do that too. The following will display 
 
 ```js
 sk('form', 'init', {
-  data: {
-    fields: {
-      email: {
-        prettyName: "Email address",
-        errorMessages: {
-          required: "Oops! You must provide an email address"
-        }
+  fields: {
+    email: {
+      prettyName: "Email address",
+      errorMessages: {
+        required: "Oops! You must provide an email address"
       }
     }
   },
