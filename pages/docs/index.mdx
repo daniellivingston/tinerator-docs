@@ -6,6 +6,7 @@ export default withDocs({
   description: 'Learn how to use StaticKit client libraries and APIs.',
   path: '/docs',
   toc: [
+    [1, "Deployment", "#deployment"],
     [1, "Client Libraries", "#client-libraries"],
     [1, "Guides", "#guides"]
   ],
@@ -19,27 +20,47 @@ export default withDocs({
 
 StaticKit is the modern way to gather form submissions from your frontend without writing a line of backend code. It works great with React-based generators, like Next.js and Gatsby, and traditional HTML-based generators, like Jekyll and Hugo.
 
-Here is a working example of a contact form implemented with the StaticKit HTML library:
+## Deployment
 
-<div className="pb-6">
-  <iframe width="100%" height="400" className="rounded-lg" src="//jsfiddle.net/StaticKit/5Lks2b6m/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
-</div>
+Configure the resources you need in a `statickit.json` file and deploy via the command line. This allows you to check your configuration into source control and deploy changes during your build process.
+
+```js
+// statickit.json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form"
+    }
+  }
+}
+
+// package.json
+{
+  "scripts": {
+    "build": "statickit deploy"
+  }
+}
+```
+
+<ArrowItem>
+  <a href="/docs/deployment" className="font-semibold text-indigo-600">Learn how to deploy</a>
+</ArrowItem>
 
 ## Client Libraries
 
-We have a few client libraries for different environments:
+We have a few client libraries for wiring up StaticKit resources on the frontend. The HTML library is great for environments where you are authoring plain HTML. If you are using React (e.g. Gatsby or Next.js), then the React library is what you need.
 
 <ArrowItem>
-  <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a> for when you are authoring plain HTML
+  <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>
 </ArrowItem>
 
 <ArrowItem>
-  <a href="/docs/react" className="font-semibold text-indigo-600">React</a> for when React is available for rendering
+  <a href="/docs/react" className="font-semibold text-indigo-600">React</a>
 </ArrowItem>
 
 ## Guides
 
-Learn how you to use StaticKit for different use cases with various static site generators.
+Learn how to use StaticKit with various static site generators.
 
 <ArrowItem>
   <a href="/guides/next-landing-page" className="font-semibold text-indigo-600">Building a Landing Page with Next.js</a>

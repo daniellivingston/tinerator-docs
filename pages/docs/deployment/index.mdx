@@ -1,10 +1,72 @@
 import withDocs from '../../../components/with_docs';
+import ArrowItem from '../../../components/arrow_item';
 
 export default withDocs({
   title: 'Deployment',
   description: 'How to deploy StaticKit resources.',
   path: '/docs/deployment',
-  toc: []
+  toc: [
+    [1, "Install the CLI", "#install-the-cli"],
+    [1, "Configure your site", "#configure-your-site"],
+    [1, "Deploy to StaticKit", "#deploy-to-statickit"]
+  ]
 });
 
 # Deployment
+
+StaticKit sites are configured in a `statickit.json` file and deployed via the [`@statickit/cli`](https://github.com/unstacked/statickit-cli) utility (instead of a traditional web interface). This allows you to check your configuration into source control and deploy changes during your build process.
+
+## Install the CLI
+
+In your project directory, install the StaticKit CLI as a development dependency:
+
+```bash
+npm i --save-dev @statickit/cli
+```
+
+[Source on GitHub](https://github.com/unstacked/statickit-cli) | [npm package](https://www.npmjs.com/package/@statickit/cli)
+
+## Configure your site
+
+By default, the CLI will look for a file named `statickit.json` in the root of your project directory.
+
+Here's an example configuration for a site with a contact form. This form has several required fields and will send a notification to john@example.com upon submission.
+
+```js
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "fields": {
+        "email": {
+          "type": "email",
+          "required": true
+        },
+        "message": {
+          "type": "text",
+          "required": true
+        }
+      },
+      "actions": {
+        "email": {
+          "to": "john@example.com" 
+        }
+      }
+    }
+  }
+}
+```
+
+<ArrowItem>
+  <a href="/docs/deployment/config" className="font-semibold text-indigo-600">Read the complete config docs</a>
+</ArrowItem>
+
+## Deploy to StaticKit
+
+Once you have a `statickit.json` file, run the following command from your project root to deploy it:
+
+```bash
+npx statickit deploy -k YOUR_DEPLOY_KEY
+```
+
+In practice, you should use the `STATICKIT_DEPLOY_KEY` environment variable instead of the `-k` flag. **Do not check your deploy key in to source control.**
