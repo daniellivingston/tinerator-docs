@@ -71,7 +71,7 @@ const PrevLink = props => {
   return (
     <Link href={props.path}>
       <a className="block flex-grow" rel="prev">
-        <div className="pb-1 text-sm">Previous</div>
+        <div className="pb-1 text-sm text-gray-600 font-semibold">Previous</div>
         <div className="text-xl text-indigo-600 font-semibold">
           {props.label}
         </div>
@@ -84,7 +84,7 @@ const NextLink = props => {
   return (
     <Link href={props.path}>
       <a className="block flex-grow text-right" rel="next">
-        <div className="pb-1 text-sm">Next</div>
+        <div className="pb-1 text-sm text-gray-600 font-semibold">Next</div>
         <div className="text-xl text-indigo-600 font-semibold">
           {props.label}
         </div>
