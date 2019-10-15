@@ -12,7 +12,7 @@ const sections = [
     sections: [
       {
         path: '/docs/deployment/config',
-        label: 'Configuration'
+        label: 'Config'
       }
     ]
   },

@@ -22,10 +22,9 @@ StaticKit is the modern way to gather form submissions from your frontend withou
 
 ## Deployment
 
-Configure the resources you need in a `statickit.json` file and deploy via the command line. This allows you to check your configuration into source control and deploy changes during your build process.
+Configure the resources you need in a `statickit.json` file and deploy via the command line (instead of a traditional web interface). This allows you to check your configuration into source control and deploy changes during your build process.
 
 ```js
-// statickit.json
 {
   "forms": {
     "contact": {
@@ -33,17 +32,10 @@ Configure the resources you need in a `statickit.json` file and deploy via the c
     }
   }
 }
-
-// package.json
-{
-  "scripts": {
-    "build": "statickit deploy"
-  }
-}
 ```
 
 <ArrowItem>
-  <a href="/docs/deployment" className="font-semibold text-indigo-600">Learn how to deploy</a>
+  <a href="/docs/deployment" className="font-semibold text-indigo-600">Learn about deployment</a>
 </ArrowItem>
 
 ## Client Libraries
@@ -51,11 +43,11 @@ Configure the resources you need in a `statickit.json` file and deploy via the c
 We have a few client libraries for wiring up StaticKit resources on the frontend. The HTML library is great for environments where you are authoring plain HTML. If you are using React (e.g. Gatsby or Next.js), then the React library is what you need.
 
 <ArrowItem>
-  <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>
+  <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
 </ArrowItem>
 
 <ArrowItem>
-  <a href="/docs/react" className="font-semibold text-indigo-600">React</a>
+  <a href="/docs/react" className="font-semibold text-indigo-600">React</a>: works great with Gatsby, Next.js, etc.
 </ArrowItem>
 
 ## Guides

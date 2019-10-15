@@ -14,7 +14,7 @@ export default withDocs({
 
 # Deployment
 
-StaticKit sites are configured in a `statickit.json` file and deployed via the [`@statickit/cli`](https://github.com/unstacked/statickit-cli) utility (instead of a traditional web interface). This allows you to check your configuration into source control and deploy changes during your build process.
+StaticKit sites are configured with a `statickit.json` file and deployed with a node.js command line utility.
 
 ## Install the CLI
 
@@ -28,7 +28,7 @@ npm i --save-dev @statickit/cli
 
 ## Configure your site
 
-By default, the CLI will look for a file named `statickit.json` in the root of your project directory.
+The CLI will look for a file named `statickit.json` in the root of your project directory.
 
 Here's an example configuration for a site with a contact form. This form has several required fields and will send a notification to john@example.com upon submission.
 
@@ -48,9 +48,9 @@ Here's an example configuration for a site with a contact form. This form has se
         }
       },
       "actions": {
-        "email": {
+        "email": [{
           "to": "john@example.com" 
-        }
+        }]
       }
     }
   }
