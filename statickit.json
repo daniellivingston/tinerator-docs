@@ -1,0 +1,17 @@
+{
+  "forms": {
+    "support": {
+      "name": "Support Form",
+      "fields": {
+        "email": {
+          "type": "email",
+          "required": true
+        },
+        "message": {
+          "type": "text",
+          "required": true
+        }
+      }
+    }
+  }
+}
