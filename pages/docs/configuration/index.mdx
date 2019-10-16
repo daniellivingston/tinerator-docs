@@ -17,7 +17,7 @@ export default withDocs({
 
 # Configuration
 
-StaticKit sites are configured with a `statickit.json` file and deployed via the command line interface (CLI). To get started, install the CLI as a development dependency in your project:
+StaticKit sites are configured with a `statickit.json` file and deployed via the command line interface (CLI). To get started, install the CLI in your project:
 
 ```bash
 npm i --save-dev @statickit/cli
@@ -25,9 +25,7 @@ npm i --save-dev @statickit/cli
 
 [Source on GitHub](https://github.com/unstacked/statickit-cli) | [npm package](https://www.npmjs.com/package/@statickit/cli)
 
-The CLI will look for a file named `statickit.json` in the root of your project directory.
-
-Here's an example of a site with a contact form. This form has a couple required fields and an action configured to send a notification to john@example.com when someone submits it.
+Here's an example of a `statickit.json` file. This site has a contact form with a couple required fields and an action to send a notification to john@example.com when someone submits it.
 
 ```js
 {
