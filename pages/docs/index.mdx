@@ -1,18 +1,19 @@
 import withDocs from '../../components/with_docs';
 import ArrowItem from '../../components/arrow_item';
+import CodeBlock from '../../components/code_block';
 
 export default withDocs({
   title: 'Documentation',
   description: 'Learn how to use StaticKit client libraries and APIs.',
   path: '/docs',
   toc: [
-    [1, "Deployment", "#deployment"],
+    [1, "Configuration", "#configuration"],
     [1, "Client Libraries", "#client-libraries"],
     [1, "Guides", "#guides"]
   ],
   next: {
-    path: '/docs/deployment',
-    label: 'Deployment'
+    path: '/docs/configuration',
+    label: 'Configuration'
   }
 });
 
@@ -20,9 +21,14 @@ export default withDocs({
 
 StaticKit is the modern way to gather form submissions from your frontend without writing a line of backend code. It works great with React-based generators, like Next.js and Gatsby, and traditional HTML-based generators, like Jekyll and Hugo.
 
-## Deployment
+## Configuration
 
-Configure the resources you need in a `statickit.json` file and deploy via the command line (instead of a traditional web interface). This allows you to check your configuration into source control and deploy changes during your build process.
+StaticKit sites are configured with a `statickit.json` file instead of through the web interface. This has some important benefits:
+
+- Your config lives in version control
+- You can see your whole config at glance (instead of clicking though a UI)
+- You can atomically deploy your config during your build process
+- You can easily replicate your config in local, staging, and production environments
 
 ```js
 {
@@ -35,7 +41,7 @@ Configure the resources you need in a `statickit.json` file and deploy via the c
 ```
 
 <ArrowItem>
-  <a href="/docs/deployment" className="font-semibold text-indigo-600">Learn about deployment</a>
+  <a href="/docs/configuration" className="font-semibold text-indigo-600">Check out the config docs</a>
 </ArrowItem>
 
 ## Client Libraries

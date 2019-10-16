@@ -1,0 +1,104 @@
+import withDocs from '../../../components/with_docs';
+import ArrowItem from '../../../components/arrow_item';
+
+export default withDocs({
+  title: 'Configuration',
+  description: 'How to deploy StaticKit resources.',
+  path: '/docs/configuration',
+  toc: [
+    [1, "Deployment", "#deployment"],
+    [2, "ZEIT Now", "#zeit-now"]
+  ],
+  next: {
+    path: '/docs/configuration/schema',
+    label: 'Schema'
+  }
+});
+
+# Configuration
+
+StaticKit sites are configured with a `statickit.json` file and deployed via the command line interface (CLI). To get started, install the CLI as a development dependency in your project:
+
+```bash
+npm i --save-dev @statickit/cli
+```
+
+[Source on GitHub](https://github.com/unstacked/statickit-cli) | [npm package](https://www.npmjs.com/package/@statickit/cli)
+
+The CLI will look for a file named `statickit.json` in the root of your project directory.
+
+Here's an example of a site with a contact form. This form has a couple required fields and an action configured to send a notification to john@example.com when someone submits it.
+
+```js
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "fields": {
+        "email": {
+          "type": "email",
+          "prettyName": "Email address",
+          "required": true
+        },
+        "message": {
+          "type": "text",
+          "prettyName": "Message",
+          "required": true
+        }
+      },
+      "actions": {
+        "email": [{
+          "to": "john@example.com" 
+        }]
+      }
+    }
+  }
+}
+```
+
+<ArrowItem>
+  <a href="/docs/configuration/schema" className="font-semibold text-indigo-600">Explore the complete schema docs</a>
+</ArrowItem>
+
+## Deployment
+
+Once you have a `statickit.json` file, replace `<your-deploy-key>` with your actual key and run the following command:
+
+```bash
+STATICKIT_DEPLOY_KEY=<your-deploy-key> npx statickit deploy
+```
+
+For deploying locally, the CLI will load environment variables from your project `.env` file (if one exists).
+
+**Do not commit your `.env` file to version control.** Instead, add your deploy key to your build platform as a (secret) environment variable. Below are instructions on how to do this on commonly used platforms. 
+
+### ZEIT Now
+
+First, add your deploy key to your `now` secrets:
+
+```bash
+now secrets add statickit-deploy-key <your-deploy-key>
+```
+
+Then, in your `now.json` file, provide the build script with the environment variable:
+
+```js
+{
+  "build": {
+    "env": {
+      "STATICKIT_DEPLOY_KEY": "@statickit-deploy-key"
+    }
+  }
+}
+```
+
+Finally, add StaticKit deployment to your `package.json` build script:
+
+```diff
+  {
+    "scripts": {
+-     "build": "your-build-script"
++     "build": "your-build-script && statickit deploy"
+    }
+  }
+```

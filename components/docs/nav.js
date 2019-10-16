@@ -7,12 +7,12 @@ const sections = [
     sections: []
   },
   {
-    path: '/docs/deployment',
-    label: 'Deployment',
+    path: '/docs/configuration',
+    label: 'Configuration',
     sections: [
       {
-        path: '/docs/deployment/config',
-        label: 'Config'
+        path: '/docs/configuration/schema',
+        label: 'Schema'
       }
     ]
   },
