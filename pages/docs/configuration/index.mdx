@@ -90,13 +90,13 @@ Then, in your `now.json` file, provide the build script with the environment var
 }
 ```
 
-Finally, add StaticKit deployment to your `package.json` build script:
+Finally, add StaticKit deployment to your `now-build` script in `package.json`:
 
 ```diff
   {
     "scripts": {
--     "build": "your-build-script"
-+     "build": "your-build-script && statickit deploy"
+-     "now-build": "your-build-script"
++     "now-build": "your-build-script && statickit deploy"
     }
   }
 ```
