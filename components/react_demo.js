@@ -4,7 +4,9 @@ const code = `
 import { useForm } from '@statickit/react';
 
 function MyForm() {
-  const [state, submit] = useForm('0858b1a135b0');
+  const [state, submit] = useForm({
+    id: '0858b1a135b0'
+  });
 
   if (state.succeeded) {
     return (
