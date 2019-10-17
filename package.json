@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "now-build": "next build && npx statickit deploy",
+    "now-build": "next build && statickit deploy",
     "now-dev": "next -p $PORT",
     "prettier": "npx prettier --write '{components,pages}/**/*.js'"
   },
