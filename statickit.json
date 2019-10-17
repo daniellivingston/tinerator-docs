@@ -11,6 +11,11 @@
           "type": "text",
           "required": true
         }
+      },
+      "actions": {
+        "email": [{
+          "to": "support@statickit.com"
+        }]
       }
     }
   }
