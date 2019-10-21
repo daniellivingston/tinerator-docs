@@ -6,6 +6,7 @@ export default withDocs({
   description: 'How to deploy StaticKit resources.',
   path: '/docs/configuration',
   toc: [
+    [1, "Installation", "#installation"],
     [1, "Deployment", "#deployment"],
     [2, "ZEIT Now", "#zeit-now"]
   ],
@@ -17,7 +18,11 @@ export default withDocs({
 
 # Configuration
 
-StaticKit sites are configured with a `statickit.json` file and deployed via the command line interface (CLI). To get started, install the CLI in your project:
+StaticKit sites are configured with a `statickit.json` file and deployed via the command line. 
+
+## Installation
+
+To get started, install the CLI in your project:
 
 ```bash
 npm i --save-dev @statickit/cli
@@ -25,7 +30,24 @@ npm i --save-dev @statickit/cli
 
 [Source on GitHub](https://github.com/unstacked/statickit-cli) | [npm package](https://www.npmjs.com/package/@statickit/cli)
 
-Here's an example of a `statickit.json` file. This site has a contact form with a couple required fields and an action to send a notification to john@example.com when someone submits it.
+Then, create a `statickit.json` file in the root of your project. To provision forms, all you have to do is give them a name:
+
+```js
+{
+  "forms": {
+    "contact-form": {
+      "name": "Contact Form"
+    },
+    "newsletter": {
+      "name": "Newsletter Opt-In"
+    }
+  }
+}
+```
+
+Later on when you wire up the front end, you'll reference your forms by the keys you chose — in this case, `contact-form` and `newsletter`.
+
+Here's an example of a contact form with some field validation and actions:
 
 ```js
 {
@@ -60,13 +82,13 @@ Here's an example of a `statickit.json` file. This site has a contact form with 
 
 ## Deployment
 
-Once you have a `statickit.json` file, replace `<your-deploy-key>` with your actual key and run the following command:
+Once you have a `statickit.json` file ready, replace `<your-deploy-key>` with your actual key and run the following command:
 
 ```bash
-STATICKIT_DEPLOY_KEY=<your-deploy-key> npx statickit deploy
+npx statickit deploy -k <your-deploy-key>
 ```
 
-For deploying locally, the CLI will load environment variables from your project `.env` file (if one exists).
+The CLI will load environment variables from your project `.env` file (if one exists).
 
 **Do not commit your `.env` file to version control.** Instead, add your deploy key to your build platform as a (secret) environment variable. Below are instructions on how to do this on commonly used platforms. 
 
