@@ -12,7 +12,8 @@ export default withDocs({
   toc: [
     [1, "Simple example", "#simple-example"],
     [1, "State", "#state"],
-    [1, "Handling errors", "#handling-errors"]
+    [1, "Handling errors", "#handling-errors"],
+    [1, "Configuration", "#configuration"]
   ],
   prev: {
     path: '/docs/react',
@@ -28,7 +29,8 @@ The `useForm` hook returns a pair of values: a `state` object containing the cur
 
 ```js
 const [state, submit] = useForm({
-  id: 'XXXXXXXXX'
+  site: 'XXXXXXXXX',
+  form: 'contact-form'
 });
 ```
 
@@ -41,9 +43,10 @@ import { useForm } from '@statickit/react';
 
 function MyForm() {
   // Call the `useForm` hook in your function component
-  // Replace 'XXXXXXXXX' with your StaticKit form id
+  // Replace 'XXXXXXXXX' with your StaticKit site id
   const [state, submit] = useForm({
-    id: 'XXXXXXXXX'
+    site: 'XXXXXXXXX',
+    form: 'contact-form'
   });
 
   // Display success message in place of the form
@@ -143,3 +146,80 @@ If the specified field has a validation error, this component renders a `<div>` 
 If the field does not have an error, nothing is rendered.
 
 All other props set on `ValidationError` (such as `className`) are passed through to the `<div>` wrapper.
+
+## Configuration
+
+The `useForm` hook accepts the following properties:
+
+| Key                                | Type                | Description                                           |
+| :--------------------------------- | :------------------ | :---------------------------------------------------- |
+| [`id`](#id)                        | String              | The form ID                                           |
+| [`site`](#site)                    | String              | The site ID                                           |
+| [`form`](#form)                    | String              | The form key                                          |
+| [`data`](#data)                    | Object              | An object containing additional form fields to send   |
+
+### `id`
+
+- **Type**: String
+- **Description**: The form ID
+- **Example Value**: `f53fe2faa75d`
+
+The property identifies which form to associate submissions with on the server-side.
+
+```js
+const [state, submit] = useForm({
+  id: 'f53fe2faa75d'
+});
+```
+
+### `site`
+
+- **Type**: String
+- **Description**: The site ID
+- **Example Value**: `a38ad7363b35`
+
+Use this property in conjunction with the `form` property to identify the server-side form.
+
+### `form`
+
+- **Type**: String
+- **Description**: The form key
+- **Example Value**: `newsletter`
+
+Use this property in conjunction with the `site` property to identify the server-side form.
+
+```js
+// In your statickit.json file
+{
+  "forms": {
+    "newsletter": {
+      "name": "Newsletter"
+    }
+  }
+}
+
+// In your component
+const [state, submit] = useForm({
+  site: 'a38ad7363b35',
+  form: 'newsletter'
+});
+```
+
+### `data`
+
+- **Type**: Object containing Strings or Functions
+- **Description**: Additional data to include with the form submission.
+
+```js
+const [state, submit] = useForm({
+  site: 'a38ad7363b35',
+  form: 'newsletter',
+  data: {
+    _subject: 'Someone joined the newsletter',
+    pageTitle: function() {
+      // This function will be evaluated at submission time
+      return document.title;
+    }
+  }
+});
+```

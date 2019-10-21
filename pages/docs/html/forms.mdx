@@ -111,7 +111,7 @@ Here are all the available configuration properties:
 | :--------------------------------- | :----------------------------------------------------------------- |
 | [`id`](#required-properties)       | The form ID                                                        |
 | [`site`](#required-properties)     | The site ID                                                        |
-| [`key`](#required-properties)      | The form key                                                       |
+| [`form`](#required-properties)     | The form key                                                       |
 | [`element`](#required-properties)  | A DOM selector for your `<form>` or the actual form element        |
 | [`data`](#setting-fields-in-code)  | An object containing additional form fields to send                |
 | [`fields`](#customizing-errors)    | An object containing properties for specific fields                |
@@ -121,7 +121,7 @@ Here are all the available configuration properties:
 ### Required properties
 
 There are a few required properties:
-- `id` or `site` + `key`
+- `id` or `site` + `form`
 - `element`
 
 For example:
@@ -138,7 +138,7 @@ or
 ```js
 sk('form', 'init', {
   site: 'v8jb8fd9fg9f',
-  key: 'newsletter',
+  form: 'newsletter',
   element: '#my-form'
 })
 ```
@@ -147,7 +147,7 @@ sk('form', 'init', {
 | :---------------------- | :----------------------- | :----------------------------------------------------------- |
 | `id`                    | String                   | The form ID                                                  |
 | `site`                  | String                   | The site ID                                                  |
-| `key`                   | String                   | The form key                                                 |
+| `form`                  | String                   | The form key                                                 |
 | `element`               | String or Element        | A DOM selector for your `<form>` or the actual form element  |
 
 ### Setting fields in code
