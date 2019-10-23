@@ -25,7 +25,7 @@ StaticKit is the modern way to gather form submissions from your static site. It
 
 StaticKit sites are configured with a `statickit.json` file (in the root of your project directory) and deployed from the command line. 
 
-For example, the following will create a form called &ldquo;Contact Form&rdquo; that sends you email notifications: 
+For example, this config tells StaticKit that a &ldquo;Contact Form&rdquo; should exist and that you should receive a notification email after submission: 
 
 ```js
 {
@@ -48,7 +48,7 @@ For example, the following will create a form called &ldquo;Contact Form&rdquo; 
 
 ## Deployment
 
-Once you've created your `statickit.json` file, run the following to install the CLI and deploy:
+Once you've created a `statickit.json` file, run the following to install the CLI and deploy it. Your deploy key can be found in your site "Settings" tab.
 
 ```bash
 npm i --save-dev @statickit/cli

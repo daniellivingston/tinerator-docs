@@ -10,8 +10,7 @@ export default withDocs({
     rel: 'prev'
   },
   toc: [
-    [1, "Simple example", "#simple-example"],
-    [1, "Handling success", "#handling-success"],
+    [1, "Post-submit behavior", "#post-submit-behavior"],
     [1, "Handling errors", "#handling-errors"],
     [1, "Email properties", "#email-properties"],
     [1, "Configuration", "#configuration"]
@@ -24,11 +23,7 @@ export default withDocs({
 
 # Forms
 
-Forms allow you to gather and store HTML `<form>` submissions with just a few lines of code.
-
-## Simple example
-
-The following is a working form that you can paste in your site. It's unstyled for the sake of simplicity.
+Forms allow you to gather and store HTML form submissions with just a few lines of code. Here's an example of a (unstyled) form connected to StaticKit:
 
 <div className="pb-6">
   <iframe width="100%" height="380" className="rounded-lg" src="//jsfiddle.net/StaticKit/8Lw6j75y/embedded/html,result/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
@@ -42,15 +37,15 @@ Here's a prettier example of a contact form styled with Tailwind CSS.
   <iframe width="100%" height="400" className="rounded-lg" src="//jsfiddle.net/StaticKit/5Lks2b6m/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
 </div>
 
-## Handling success
+## Post-submit behavior
 
-The most common thing you’ll want to customize is what happens after the form is submitted. By default, we replace the `<form>` element with a plain thank you message:
+By default, we replace the `<form>` element with a plain thank you message:
 
 ```html
 <div>Thank you!</div>
 ```
 
-If you want to customize what gets replaced, you can implement your own `onSuccess` callback. Here's an example config that replaces the form with a custom message:
+You customize this by implementing your own `onSuccess` callback. For example:
 
 ```js
 sk('form', 'init', {
@@ -84,9 +79,7 @@ sk('form', 'init', {
 
 ## Handling errors
 
-In many cases, [built-in HTML form validation](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Using_built-in_form_validation) (such as the `required` attribute) is sufficient to prevent invalid submissions. If it's critical that malformed submissions don't slip though, you can configure server-side validations in StaticKit.
-
-When a server-side validation error occurs, the library will look for an element with a `data-sk-error` attribute and populate it with validation errors for the corresponding field:
+When a server-side validation error occurs, the library will look for a matching `data-sk-error` attribute and populate the inner text with validation errors for the corresponding field:
 
 ```html
 <form id="my-form">

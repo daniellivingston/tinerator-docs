@@ -10,8 +10,8 @@ export default withDocs({
     rel: 'prev'
   },
   toc: [
-    [1, "Simple example", "#simple-example"],
     [1, "State", "#state"],
+    [1, "Lifecycle", "#lifecycle"],
     [1, "Handling errors", "#handling-errors"],
     [1, "Configuration", "#configuration"]
   ],
@@ -33,8 +33,6 @@ const [state, submit] = useForm({
   form: '<your-form-key>'
 });
 ```
-
-## Simple example
 
 Here's a form component built with StaticKit:
 
@@ -65,9 +63,7 @@ function MyForm() {
 }
 ```
 
-At a minimum, all you have to do is use a `<form>` element and pass `submit` as the `onSubmit` handler.
-
-Here is a working example of an opt-in form. Try it out!
+At a minimum, all you have to do is use a `<form>` element and pass `submit` as the `onSubmit` handler. Try it out!
 
 <div className="pb-6">
   <iframe width="100%" height="300" className="rounded-lg" src="//jsfiddle.net/StaticKit/w69xerbc/embedded/result,js,html/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
@@ -75,7 +71,7 @@ Here is a working example of an opt-in form. Try it out!
 
 ## State
 
-The `state` object contains the following:
+The `state` object contains the following properties:
 
 | Key            | Description                                                                         |
 | :------------- | :---------------------------------------------------------------------------------- |
@@ -83,7 +79,7 @@ The `state` object contains the following:
 | `succeeded`    | A Boolean indicating whether the form successfully submitted (defaults to `false`)  |
 | `errors`       | An Array of server-side validation errors (defaults to `[]`)                        |
 
-Items in the `errors` array contain the following:
+Items in the `errors` array have the following properties:
 
 | Key            | Description                                                       |
 | :------------- | :---------------------------------------------------------------- |
@@ -91,13 +87,14 @@ Items in the `errors` array contain the following:
 | `message`      | A human-readable error message fragment (e.g. "is required")      |
 | `code`         | A machine-friendly error code (e.g. "REQUIRED" or "EMAIL_FORMAT") |
 
-### Lifecycle
+## Lifecycle
+
+The properties in the `state` object change in the following ways:
 
 - When the user submits the form, `submitting` becomes `true`
-- If the submission fails server-side validations:
-  - `succeeded` remains `false`, and
-  - `errors` is populated with the specific errors
-- Otherwise, `succeeded` becomes `true`
+- If the submission fails server-side validations, `errors` is populated with the specific errors
+- If the submission succeeds, `succeeded` becomes `true`
+- After the request completes, `submitting` becomes `false`
 
 ## Handling errors
 
@@ -161,21 +158,21 @@ The `useForm` hook accepts the following properties:
 
 The `form` property corresponds to the key used in your `statickit.json` file:
 
-```js
-// statickit.json
-{
-  "forms": {
-    "newsletter": {
-      "name": "Newsletter Opt-In"
+```diff
+  // statickit.json
+  {
+    "forms": {
++     "newsletter": {
++       "name": "Newsletter Opt-In"
++     }
     }
   }
-}
 
-// In your component
-const [state, submit] = useForm({
-  site: '<your-site-id>',
-  form: '<your-form-key>'
-});
+  // In your component
+  const [state, submit] = useForm({
+    site: '<your-site-id>',
++   form: 'newsletter'
+  });
 ```
 
 ### `data`
@@ -184,16 +181,16 @@ An Object containing Strings or Functions to merge with your form data.
 
 #### Usage Example
 
-```js
-const [state, submit] = useForm({
-  site: '<your-site-id>',
-  form: '<your-form-key>',
-  data: {
-    _subject: 'Someone joined the newsletter',
-    pageTitle: function() {
-      // This function will be evaluated at submission time
-      return document.title;
-    }
-  }
+```diff
+  const [state, submit] = useForm({
+    site: '<your-site-id>',
+    form: '<your-form-key>',
++   data: {
++     _subject: 'Someone joined the newsletter',
++     pageTitle: function() {
++       // This function will be evaluated at submission time
++       return document.title;
++     }
++   }
 });
 ```
