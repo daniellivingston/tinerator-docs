@@ -26,38 +26,9 @@ export default withDocs({
 
 Forms allow you to gather and store HTML `<form>` submissions with just a few lines of code.
 
-```js
-// statickit.json
-{
-  "forms": {
-    "contact-form": {
-      "name": "Contact Form"
-    }
-  }
-}
-```
-
-```html
-<form id="contact-form">
-  <!-- your fields here -->
-</form>
-
-<script>
-  window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
-
-  sk('forms', 'init', {
-    site: '<your-site-id>',
-    form: 'contact-form',
-    element: '#contact-form'
-  });
-</script>
-
-<script defer src="https://js.statickit.com/statickit.js"></script>
-```
-
 ## Simple example
 
-The following is a fully-functioning form that you can paste in your site. For the sake of simplicity, it is unstyled.
+The following is a working form that you can paste in your site. It's unstyled for the sake of simplicity.
 
 <div className="pb-6">
   <iframe width="100%" height="380" className="rounded-lg" src="//jsfiddle.net/StaticKit/8Lw6j75y/embedded/html,result/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>

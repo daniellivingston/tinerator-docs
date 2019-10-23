@@ -88,7 +88,7 @@ export default props => (
           </a>
         </Link>
       </div>
-      <div className="hidden sm:block text-sm font-normal text-gray-800">
+      <div className="hidden sm:block text-sm font-semibold text-gray-600">
         <Nav />
       </div>
     </div>

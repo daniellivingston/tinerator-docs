@@ -30,19 +30,8 @@ The `useForm` hook returns a pair of values: a `state` object containing the cur
 ```js
 const [state, submit] = useForm({
   site: '<your-site-id>',
-  form: 'contact-form'
+  form: '<your-form-key>'
 });
-```
-
-```js
-// statickit.json
-{
-  "forms": {
-    "contact-form": {
-      "name": "Contact Form"
-    }
-  }
-}
 ```
 
 ## Simple example
