@@ -13,13 +13,8 @@ export default withDocs({
     [1, "Simple example", "#simple-example"],
     [1, "Handling success", "#handling-success"],
     [1, "Handling errors", "#handling-errors"],
-    [1, "Configuration", "#configuration"],
-    [2, "Required properties", "#required-properties"],
-    [2, "Setting fields in code", "#setting-fields-in-code"],
-    [2, "Customizing errors", "#customizing-errors"],
-    [2, "Email properies", "#email-properties"],
-    [2, "Error rendering", "#error-rendering"],
-    [2, "Callbacks", "#callbacks"],
+    [1, "Email properties", "#email-properties"],
+    [1, "Configuration", "#configuration"]
   ],
   prev: {
     path: '/docs/html',
@@ -29,11 +24,40 @@ export default withDocs({
 
 # Forms
 
-Forms allow you to gather and store HTML `<form>` submissions with just a few lines of code. 
+Forms allow you to gather and store HTML `<form>` submissions with just a few lines of code.
+
+```js
+// statickit.json
+{
+  "forms": {
+    "contact-form": {
+      "name": "Contact Form"
+    }
+  }
+}
+```
+
+```html
+<form id="contact-form">
+  <!-- your fields here -->
+</form>
+
+<script>
+  window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
+
+  sk('forms', 'init', {
+    site: '<your-site-id>',
+    form: 'contact-form',
+    element: '#contact-form'
+  });
+</script>
+
+<script defer src="https://js.statickit.com/statickit.js"></script>
+```
 
 ## Simple example
 
-At a minimum, you just need a `<form>` element on your page and an `init` call. The following is a fully-functioning form that you can paste in your site. For the sake of simplicity, it is unstyled.
+The following is a fully-functioning form that you can paste in your site. For the sake of simplicity, it is unstyled.
 
 <div className="pb-6">
   <iframe width="100%" height="380" className="rounded-lg" src="//jsfiddle.net/StaticKit/8Lw6j75y/embedded/html,result/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
@@ -101,54 +125,61 @@ When a server-side validation error occurs, the library will look for an element
 </form>
 ```
 
+## Email properties
+
+If you have email notifications configured for your form, you can customize the subject line and reply-to address using special fields:
+
+- `_subject`
+- `_replyto` or `email`
+
+You can either add `<input>` fields to your form (to make these settable by the user) or set them programmatically.
+
+```js
+sk('form', 'init', {
+  data: {
+    _subject: 'New contact submission'
+  },
+  // ...
+});
+```
+
 ## Configuration
 
 Here are all the available configuration properties:
 
 | Key                                | Description                                                        |
 | :--------------------------------- | :----------------------------------------------------------------- |
-| [`id`](#required-properties)       | The form ID                                                        |
-| [`site`](#required-properties)     | The site ID                                                        |
-| [`form`](#required-properties)     | The form key                                                       |
-| [`element`](#required-properties)  | A DOM selector for your `<form>` or the actual form element        |
-| [`data`](#setting-fields-in-code)  | An object containing additional form fields to send                |
-| [`fields`](#customizing-errors)    | An object containing properties for specific fields                |
+| `site` *                           | The site ID (found in your Settings tab)                           |
+| `element` *                        | A DOM selector for your `<form>` or the actual form element        |
+| [`form`](#form) *                  | The form key                                                       |
+| [`data`](#data)                    | An object containing additional form fields to send                |
+| [`fields`](#fields)                | An object containing properties for specific fields                |
+| [`renderErrors`](#render-errors)   | A function responsible for placing validation errors on the page   |
 | [`on*`](#callbacks)                | Callbacks for various points in the lifecycle                      |
-| [`renderErrors`](#error-rendering) | A function responsible for placing validation errors on the page   |
 
-### Required properties
+### `form`
 
-There are a few required properties:
-- `id` or `site` + `form`
-- `element`
-
-For example:
+The `form` property corresponds to the key used in your `statickit.json` file:
 
 ```js
-sk('form', 'init', {
-  id: 'fcd6a6y7f5c2',
-  element: '#my-form'
-})
-```
+// statickit.json
+{
+  "forms": {
+    "newsletter": {
+      "name": "Newsletter Opt-In"
+    }
+  }
+}
 
-or
-
-```js
+// JavaScript on page
 sk('form', 'init', {
-  site: 'v8jb8fd9fg9f',
+  site: '<your-site-id>',
   form: 'newsletter',
   element: '#my-form'
-})
+});
 ```
 
-| Key                     | Type                     | Description                                                  |
-| :---------------------- | :----------------------- | :----------------------------------------------------------- |
-| `id`                    | String                   | The form ID                                                  |
-| `site`                  | String                   | The site ID                                                  |
-| `form`                  | String                   | The form key                                                 |
-| `element`               | String or Element        | A DOM selector for your `<form>` or the actual form element  |
-
-### Setting fields in code
+### `data`
 
 To set fields programmatically, use the `data` object:
 
@@ -174,11 +205,16 @@ sk('form', 'init', {
 });
 ```
 
-### Customizing errors
+### `fields`
 
-Validation error messages read like this by default: **This field is required**. It gets the message across, but can it be improved easily by passing a bit more information via the `fields` config.
+The `fields` object allows you set optional metadata about your fields.
 
-#### Setting a pretty name
+| Key                                            | Type                     | Description                                                  |
+| :--------------------------------------------- | :----------------------- | :----------------------------------------------------------- |
+| [`prettyName`](#fieldskeyprettyname)           | String                   | The human-friendly name (used in error messages)             |
+| [`errorMessages`](#fieldskeyerrormessages)     | Object                   | A object containing custom error messages                    |
+
+### `fields[key].prettyName`
 
 With the following configuration, validation messages will start with _Email address_ instead of _This field_:
 
@@ -193,9 +229,9 @@ sk('form', 'init', {
 });
 ```
 
-#### Overriding error messages
+### `fields[key].errorMessages`
 
-If you want to go fully custom, you can do that too. The following will display the custom message provided if it fails the `required` validation.
+The following will display the custom messages instead of the defaults:
 
 ```js
 sk('form', 'init', {
@@ -203,7 +239,8 @@ sk('form', 'init', {
     email: {
       prettyName: "Email address",
       errorMessages: {
-        required: "Oops! You must provide an email address"
+        required: "Oops! You must provide an email address",
+        emailFormat: "Hmm...this doesn't look like a real address"
       }
     }
   },
@@ -218,24 +255,20 @@ The following server-side validation types are currently available:
 | `required`              | Requires a field to be non-blank                       |
 | `emailFormat`           | Requires a field to be formatted like an email address |
 
+### `renderErrors`
 
-### Email properties
-
-If you have an email notifications configured for your form, you can customize the subject line and reply-to address using special fields:
-
-- `_subject`
-- `_replyto` or `email`
-
-You can add `<input>` fields to your form to make these settable by the user or set them programmatically.
+The `renderErrors` function is responsible for clearing error messages for fields that don't have an errors _and_ rendering messages for ones that do have errors.
 
 ```js
 sk('form', 'init', {
-  data: {
-    _subject: 'New contact submission'
+  renderErrors: function(config, errors) {
+    // your own implementation
   },
   // ...
 });
 ```
+
+The default implementation looks for child elements with the `data-sk-error={field}` attribute and populates the `innerHTML` with the field's error message (or clears the `innerHTML` if there is no error).
 
 ### Callbacks
 
@@ -274,18 +307,3 @@ The response object received by the `onSuccess` callback looks like this:
 | :---------------------- | :----------------------- | :----------------------------------------------------------- |
 | `id`                    | String                   | The (unique) form submission id                              |
 | `data`                  | Object                   | The form submission data                                     |
-
-### Error rendering
-
-The `renderErrors` function is responsible for clearing error messages for fields that don't have an errors _and_ rendering messages for ones that do have errors.
-
-```js
-sk('form', 'init', {
-  renderErrors: function(config, errors) {
-    // your own implementation
-  },
-  // ...
-});
-```
-
-The default implementation looks for child elements with the `data-sk-error={field}` attribute and populates the `innerHTML` with the field's error message (or clears the `innerHTML` if there is no error).

@@ -2,8 +2,8 @@ import withDocs from '../../components/with_docs';
 import ArrowItem from '../../components/arrow_item';
 
 export default withDocs({
-  title: 'Documentation',
-  description: 'Learn how to use StaticKit client libraries and APIs.',
+  title: 'Getting Started',
+  description: 'Learn how to configure and deploy StaticKit.',
   path: '/docs',
   toc: [
     [1, "Configuration", "#configuration"],
@@ -17,15 +17,15 @@ export default withDocs({
   }
 });
 
-# Introduction
+# Getting Started
 
-StaticKit is the modern way to gather form submissions from your frontend without writing a line of backend code. It works great with React-based generators, like Next.js and Gatsby, and traditional HTML-based generators, like Jekyll and Hugo.
+StaticKit is the modern way to gather form submissions from your static site. It works great with React-based generators, like Next.js and Gatsby, and traditional HTML-based generators, like Jekyll and Hugo.
 
 ## Configuration
 
-StaticKit sites are configured with a `statickit.json` file and deployed from the command line. The following config will create a form called &ldquo;Contact Form&rdquo; that notifies you via email. 
+StaticKit sites are configured with a `statickit.json` file (in the root of your project directory) and deployed from the command line. 
 
-Try it out by creating a `statickit.json` file in the root of your project!
+For example, the following will create a form called &ldquo;Contact Form&rdquo; that sends you email notifications: 
 
 ```js
 {
@@ -48,7 +48,7 @@ Try it out by creating a `statickit.json` file in the root of your project!
 
 ## Deployment
 
-Once you've created a `statickit.json` file, run the following to install the CLI and deploy:
+Once you've created your `statickit.json` file, run the following to install the CLI and deploy:
 
 ```bash
 npm i --save-dev @statickit/cli
@@ -61,6 +61,8 @@ npx statickit deploy -k <your-deploy-key>
 
 ## Client Libraries
 
+Use the client library that fits your needs to wire up your StaticKit resources on the front-end.
+
 <ArrowItem>
   <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
 </ArrowItem>
@@ -71,7 +73,7 @@ npx statickit deploy -k <your-deploy-key>
 
 ## FAQ
 
-### Why a config file instead of a web interface?
+### Why use a config file instead of a web interface?
 
 The `statickit.json` config approach has several key advantages:
 

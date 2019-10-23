@@ -27,13 +27,13 @@ This document describes the `statickit.json` schema. Here are the available top-
 
 ## `forms`
 
-The `forms` object is where you define the forms for your site.
+An Object containing form configurations.
 
 | Key                           | Type                     | Description                                                  |
 | :---------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `name`                        | String (required)        | The name of the form                                         |
 | [`actions`](#formskeyactions) | Object                   | Actions to perform after submission                          |
-| [`fields`](#formskeyfields)   | Object                   | Metadata about form fields                                   |
+| [`fields`](#formskeyfields)   | Object                   | Optional metadata about form fields                          |
 
 #### Usage Example
 
@@ -128,9 +128,9 @@ An Array of Objects containing webhook actions.
 
 ## `forms[key].fields`
 
-An Object containing field definitions. 
+An Object containing optional field metadata. 
 
-**Note:** By default, StaticKit will accept any fields you pass in from the client-side, so this is not required. However, defining your fields allows you to add validations (such as marking a field as required) and restrict which fields are allowed.
+**Note:** By default, StaticKit will accept any fields you pass in from the client-side. However, defining your fields here allows you to add validations (such as marking a field as required) and give them human-friendly names.
 
 Field objects can contain the following properties:
 

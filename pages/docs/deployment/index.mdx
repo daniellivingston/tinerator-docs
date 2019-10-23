@@ -5,7 +5,14 @@ export default withDocs({
   title: 'Deployment',
   description: 'How to deploy StaticKit resources.',
   path: '/docs/deployment',
-  toc: [],
+  toc: [
+    [1, "Installing the CLI", "#installing-the-cli"],
+    [1, "Running the command", "#running-the-command"]
+  ],
+  prev: {
+    path: '/docs/configuration',
+    label: 'Configuration'
+  },
   next: {
     path: '/docs/html',
     label: 'HTML Library'
@@ -14,17 +21,35 @@ export default withDocs({
 
 # Deployment
 
-Once you've created a `statickit.json` file, run the following to install the CLI and deploy:
+This document describes how to deploy your config to StaticKit.
+
+## Installing the CLI
+
+Run the following to install the CLI:
 
 ```bash
 npm i --save-dev @statickit/cli
+```
+
+We recommend installing it locally with the `--save-dev` flag to ensure the command is available to run everywhere.
+
+## Running the command
+
+Your site's deploy key can be found under the &ldquo;Settings&rdquo; tab in StaticKit.
+
+```bash
 npx statickit deploy -k <your-deploy-key>
 ```
 
-Instead of using the `-k` flag every time, you can create a `.env` file in the root of your project:
+Instead of using the `-k` flag every time, you can create a `.env` file in the root of your project and define an environment variable:
 
 ```bash
-STATICKIT_DEPLOY_KEY=<your-deploy-key>
+echo "STATICKIT_DEPLOY_KEY=<your-deploy-key>" >> .env
+echo ".env" >> .gitignore
 ```
 
-**Do not commit your `.env` file to version control.** You should treat your deploy key like any other secret token.
+**Do not commit your `.env` file to version control.** You should treat your deploy key like any other secret token. A common convention is to create a `.env.example` file that developers can copy and populate on their local machine:
+
+```bash
+echo "STATICKIT_DEPLOY_KEY=" >> .env.example
+```

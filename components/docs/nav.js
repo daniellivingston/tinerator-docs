@@ -3,7 +3,7 @@ import Link from 'next/link';
 const sections = [
   {
     path: '/docs',
-    label: 'Introduction',
+    label: 'Getting Started',
     sections: []
   },
   {
