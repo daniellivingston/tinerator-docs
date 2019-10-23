@@ -1,0 +1,30 @@
+import withDocs from '../../../components/with_docs';
+import ArrowItem from '../../../components/arrow_item';
+
+export default withDocs({
+  title: 'Deployment',
+  description: 'How to deploy StaticKit resources.',
+  path: '/docs/deployment',
+  toc: [],
+  next: {
+    path: '/docs/html',
+    label: 'HTML Library'
+  }
+});
+
+# Deployment
+
+Once you've created a `statickit.json` file, run the following to install the CLI and deploy:
+
+```bash
+npm i --save-dev @statickit/cli
+npx statickit deploy -k <your-deploy-key>
+```
+
+Instead of using the `-k` flag every time, you can create a `.env` file in the root of your project:
+
+```bash
+STATICKIT_DEPLOY_KEY=<your-deploy-key>
+```
+
+**Do not commit your `.env` file to version control.** You should treat your deploy key like any other secret token.

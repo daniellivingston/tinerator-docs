@@ -1,124 +1,160 @@
 import withDocs from '../../../components/with_docs';
-import ArrowItem from '../../../components/arrow_item';
 
 export default withDocs({
   title: 'Configuration',
-  description: 'How to deploy StaticKit resources.',
+  description: 'The statickit.json config schema',
   path: '/docs/configuration',
   toc: [
-    [1, "Installation", "#installation"],
-    [1, "Deployment", "#deployment"],
-    [2, "ZEIT Now", "#zeit-now"]
+    [1, 'forms', '#forms']
   ],
+  prev: {
+    path: '/docs/introduction',
+    label: 'Introduction'
+  },
   next: {
-    path: '/docs/configuration/schema',
-    label: 'Schema'
+    path: '/docs/deployment',
+    label: 'Deployment'
   }
 });
 
 # Configuration
 
-StaticKit sites are configured with a `statickit.json` file and deployed via the command line. 
+This document describes the `statickit.json` schema. Here are the available top-level keys:
 
-## Installation
+| Key                     | Type                     | Description                                                  |
+| :---------------------- | :----------------------- | :----------------------------------------------------------- |
+| [`forms`](#forms)       | Object                   | An object defining the forms for your site                   |
 
-To get started, install the CLI in your project:
+## `forms`
 
-```bash
-npm i --save-dev @statickit/cli
-```
+The `forms` object is where you define the forms for your site.
 
-[Source on GitHub](https://github.com/unstacked/statickit-cli) | [npm package](https://www.npmjs.com/package/@statickit/cli)
+| Key                           | Type                     | Description                                                  |
+| :---------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `name`                        | String (required)        | The name of the form                                         |
+| [`actions`](#formskeyactions) | Object                   | Actions to perform after submission                          |
+| [`fields`](#formskeyfields)   | Object                   | Metadata about form fields                                   |
 
-Then, create a `statickit.json` file in the root of your project. To provision forms, all you have to do is give them a name:
-
-```js
-{
-  "forms": {
-    "contact-form": {
-      "name": "Contact Form"
-    },
-    "newsletter": {
-      "name": "Newsletter Opt-In"
-    }
-  }
-}
-```
-
-Later on when you wire up the front end, you'll reference your forms by the keys you chose — in this case, `contact-form` and `newsletter`.
-
-Here's an example of a contact form with some field validation and actions:
+#### Usage Example
 
 ```js
 {
   "forms": {
     "contact": {
-      "name": "Contact Form",
-      "fields": {
-        "email": {
-          "type": "email",
-          "prettyName": "Email address",
-          "required": true
-        },
-        "message": {
-          "type": "text",
-          "prettyName": "Message",
-          "required": true
-        }
-      },
-      "actions": {
-        "email": [{
-          "to": "john@example.com" 
-        }]
-      }
+      "name": "Contact Form"
     }
   }
 }
 ```
 
-<ArrowItem>
-  <a href="/docs/configuration/schema" className="font-semibold text-indigo-600">Explore the complete schema docs</a>
-</ArrowItem>
+## `forms[key].actions`
 
-## Deployment
+An Object containing actions to perform after the form is submitted.
 
-Once you have a `statickit.json` file ready, replace `<your-deploy-key>` with your actual key and run the following command:
+| Key                                  | Type                   | Description                                                     |
+| :----------------------------------- | :--------------------- | :-------------------------------------------------------------- |
+| [`email`](#formskeyactionsemail)     | Array of Objects       | Sends an email notification                                     |
+| [`webhook`](#formskeyactionswebhook) | Array of Objects       | Sends a webhook                                                 |
 
-```bash
-npx statickit deploy -k <your-deploy-key>
-```
-
-The CLI will load environment variables from your project `.env` file (if one exists).
-
-**Do not commit your `.env` file to version control.** Instead, add your deploy key to your build platform as a (secret) environment variable. Below are instructions on how to do this on commonly used platforms. 
-
-### ZEIT Now
-
-First, add your deploy key to your `now` secrets:
-
-```bash
-now secrets add statickit-deploy-key <your-deploy-key>
-```
-
-Then, in your `now.json` file, provide the build script with the environment variable:
-
-```js
-{
-  "build": {
-    "env": {
-      "STATICKIT_DEPLOY_KEY": "@statickit-deploy-key"
-    }
-  }
-}
-```
-
-Finally, add StaticKit deployment to your `now-build` script in `package.json`:
+#### Usage Example
 
 ```diff
   {
-    "scripts": {
--     "now-build": "your-build-script"
-+     "now-build": "your-build-script && statickit deploy"
+    "forms": {
+      "contact": {
+        "name": "Contact Form",
++       "actions": {
++         "email": [{
++           "to": "john@example.com"
++         }],
++         "webhook": [{
++           "url": "http://example.com/hook"
++         }]
++       }
+      }
+    }
+  }
+```
+
+## `forms[key].actions.email`
+
+An Array of Objects containing email notification actions.
+
+| Key                        | Type                     | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `to`                       | String (required)        | The email address of the recipient                           |
+
+#### Usage Example
+
+```diff
+  {
+    "forms": {
+      "contact": {
+        "name": "Contact Form"
++       "actions": {
++         "email": [{
++           "to": "john@example.com"
++         }]
++       }
+      }
+    }
+  }
+```
+
+## `forms[key].actions.webhook`
+
+An Array of Objects containing webhook actions.
+
+| Key                        | Type                     | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `url`                      | String (required)        | The endpoint to send the POST request                        |
+
+#### Usage Example
+
+```diff
+  {
+    "forms": {
+      "contact": {
+        "name": "Contact Form"
++       "actions": {
++         "webhook": [{
++           "url": "http://example.com/hook"
++         }]
++       }
+      }
+    }
+  }
+```
+
+## `forms[key].fields`
+
+An Object containing field definitions. 
+
+**Note:** By default, StaticKit will accept any fields you pass in from the client-side, so this is not required. However, defining your fields allows you to add validations (such as marking a field as required) and restrict which fields are allowed.
+
+Field objects can contain the following properties:
+
+| Key                                  | Type                   | Description                                                     |
+| :----------------------------------- | :--------------------- | :-------------------------------------------------------------- |
+| `type`                               | String                 | The field type (`text` or `email`)                              |
+| `prettyName`                         | String                 | The human-friendly name of the field                            |
+| `required`                           | Boolean                | Specifies whether the field is required                         |
+
+#### Usage Example
+
+```diff
+  {
+    "forms": {
+      "contact": {
+        "name": "Contact Form",
++       "fields": {
++         "email": {
++           "type": "email",
++           "prettyName": "Email address",
++           "required": true
++         }
++       }
+      }
     }
   }
 ```

@@ -29,7 +29,7 @@ export default withDocs({
 
 # Forms
 
-Forms allow you to gather and store HTML `<form>` submissions with just a few lines of frontend code. For optimal user experience, StaticKit forms are powered by JavaScript (instead of the `action` attribute). This allows us to render inline validation errors, swap out the form with a success message upon submission, and provide lifecycle hooks for custom behavior. 
+Forms allow you to gather and store HTML `<form>` submissions with just a few lines of code. 
 
 ## Simple example
 
@@ -49,7 +49,7 @@ Here's a prettier example of a contact form styled with Tailwind CSS.
 
 ## Handling success
 
-The most common thing you’ll want to customize what happens after the form is submitted. By default, we replace the `<form>` element with a plain thank you message:
+The most common thing you’ll want to customize is what happens after the form is submitted. By default, we replace the `<form>` element with a plain thank you message:
 
 ```html
 <div>Thank you!</div>
@@ -100,8 +100,6 @@ When a server-side validation error occurs, the library will look for an element
   <!-- ... -->
 </form>
 ```
-
-You can override this default behavior by [implementing your own `renderErrors` function](#error-rendering).
 
 ## Configuration
 

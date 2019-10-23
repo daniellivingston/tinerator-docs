@@ -1,6 +1,5 @@
 import withDocs from '../../components/with_docs';
 import ArrowItem from '../../components/arrow_item';
-import CodeBlock from '../../components/code_block';
 
 export default withDocs({
   title: 'Documentation',
@@ -8,8 +7,9 @@ export default withDocs({
   path: '/docs',
   toc: [
     [1, "Configuration", "#configuration"],
+    [1, "Deployment", "#deployment"],
     [1, "Client Libraries", "#client-libraries"],
-    [1, "Guides", "#guides"]
+    [1, "FAQ", "#faq"]
   ],
   next: {
     path: '/docs/configuration',
@@ -23,30 +23,43 @@ StaticKit is the modern way to gather form submissions from your frontend withou
 
 ## Configuration
 
-StaticKit sites are configured with a `statickit.json` file and provisioned with a `deploy` command. This has some important advantages:
+StaticKit sites are configured with a `statickit.json` file and deployed from the command line. The following config will create a form called &ldquo;Contact Form&rdquo; that notifies you via email. 
 
-- Your config lives in version control
-- You can see your whole config at glance (instead of clicking though a UI)
-- You can atomically deploy your config during your build process
-- You can easily replicate your config in local, staging, and production environments
+Try it out by creating a `statickit.json` file in the root of your project!
 
 ```js
 {
   "forms": {
     "contact": {
-      "name": "Contact Form"
+      "name": "Contact Form",
+      "actions": {
+        "email": [{
+          "to": "<your-email-address>"
+        }]
+      }
     }
   }
 }
 ```
 
 <ArrowItem>
-  <a href="/docs/configuration" className="font-semibold text-indigo-600">Check out the config docs</a>
+  <a href="/docs/configuration" className="font-semibold text-indigo-600">Learn more about configuration</a>
+</ArrowItem>
+
+## Deployment
+
+Once you've created a `statickit.json` file, run the following to install the CLI and deploy:
+
+```bash
+npm i --save-dev @statickit/cli
+npx statickit deploy -k <your-deploy-key>
+```
+
+<ArrowItem>
+  <a href="/docs/deployment" className="font-semibold text-indigo-600">Learn more about deployment</a>
 </ArrowItem>
 
 ## Client Libraries
-
-We have a few client libraries for wiring up StaticKit resources on the frontend. The HTML library is great for environments where you are authoring plain HTML. If you are using React (e.g. Gatsby or Next.js), then the React library is what you need.
 
 <ArrowItem>
   <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
@@ -56,14 +69,13 @@ We have a few client libraries for wiring up StaticKit resources on the frontend
   <a href="/docs/react" className="font-semibold text-indigo-600">React</a>: works great with Gatsby, Next.js, etc.
 </ArrowItem>
 
-## Guides
+## FAQ
 
-Learn how to use StaticKit with various static site generators.
+### Why a config file instead of a web interface?
 
-<ArrowItem>
-  <a href="/guides/next-landing-page" className="font-semibold text-indigo-600">Building a Landing Page with Next.js</a>
-</ArrowItem>
+The `statickit.json` config approach has several key advantages:
 
-<ArrowItem>
-  <a href="/guides/next-js-tailwind" className="font-semibold text-indigo-600">Using Tailwind CSS with Next.js</a>
-</ArrowItem>
+- You can commit your config in version control
+- You can see everything at glance (instead of clicking though a UI)
+- You can deploy your changes during your build process
+- You can replicate the same config in local, staging, and production environments
