@@ -51,8 +51,8 @@ For example, this config tells StaticKit that a &ldquo;Contact Form&rdquo; shoul
 Once you've created a `statickit.json` file, run the following to install the CLI and deploy it. Your deploy key can be found in your site "Settings" tab.
 
 ```bash
-npm i --save-dev @statickit/cli
-npx statickit deploy -k <your-deploy-key>
+npm i -g @statickit/cli
+statickit deploy -k <your-deploy-key>
 ```
 
 <ArrowItem>
@@ -75,9 +75,8 @@ Use the client library that fits your needs to wire up your StaticKit resources 
 
 ### Why use a config file instead of a web interface?
 
-The `statickit.json` config approach has several key advantages:
+This approach has several key advantages over clicking around in a web interface:
 
 - You can commit your config in version control
-- You can see everything at glance (instead of clicking though a UI)
-- You can deploy your changes during your build process
-- You can replicate the same config in local, staging, and production environments
+- You can replicate the same config in multiple environments
+- You can see everything at glance

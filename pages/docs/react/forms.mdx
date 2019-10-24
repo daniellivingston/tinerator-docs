@@ -13,7 +13,7 @@ export default withDocs({
     [1, "State", "#state"],
     [1, "Lifecycle", "#lifecycle"],
     [1, "Handling errors", "#handling-errors"],
-    [1, "Configuration", "#configuration"]
+    [1, "Properties", "#properties"]
   ],
   prev: {
     path: '/docs/react',
@@ -25,7 +25,7 @@ export default withDocs({
 
 React forms are powered by a custom [hook](https://reactjs.org/docs/hooks-intro.html) called `useForm`. 
 
-The `useForm` hook returns a pair of values: a `state` object containing the current state of the form and a `submit` function that performs the actual form submission (and updates the `state` accordingly).
+The `useForm` hook returns a pair of values: a `state` object containing the current state of the form and a `submit` function that performs the actual form submission.
 
 ```js
 const [state, submit] = useForm({
@@ -73,11 +73,13 @@ At a minimum, all you have to do is use a `<form>` element and pass `submit` as 
 
 The `state` object contains the following properties:
 
-| Key            | Description                                                                         |
-| :------------- | :---------------------------------------------------------------------------------- |
-| `submitting`   | A Boolean indicating whether the form is currently submitting (defaults to `false`) |
-| `succeeded`    | A Boolean indicating whether the form successfully submitted (defaults to `false`)  |
-| `errors`       | An Array of server-side validation errors (defaults to `[]`)                        |
+| Key                 | Description                                                                         |
+| :------------------ | :---------------------------------------------------------------------------------- |
+| `submitting`        | A Boolean indicating whether the form is currently submitting (defaults to `false`) |
+| `succeeded`         | A Boolean indicating whether the form successfully submitted (defaults to `false`)  |
+| [`errors`](#errors) | An Array of server-side validation errors (defaults to `[]`)                        |
+
+### `errors`
 
 Items in the `errors` array have the following properties:
 
@@ -144,6 +146,15 @@ If the field does not have an error, nothing is rendered.
 All other props set on `ValidationError` (such as `className`) are passed through to the `<div>` wrapper.
 
 ## Configuration
+
+At a minimum, you must set the `site` and `form` properties:
+
+```js
+const [state, submit] = useForm({
+  site: '<your-site-id>',   // found under the Settings tab
+  form: '<your-form-key>'   // the key used in statickit.json
+});
+```
 
 The `useForm` hook accepts the following properties:
 

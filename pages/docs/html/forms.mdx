@@ -12,8 +12,8 @@ export default withDocs({
   toc: [
     [1, "Post-submit behavior", "#post-submit-behavior"],
     [1, "Handling errors", "#handling-errors"],
-    [1, "Email properties", "#email-properties"],
-    [1, "Configuration", "#configuration"]
+    [1, "Email notifications", "#email-notifications"],
+    [1, "Properties", "#properties"]
   ],
   prev: {
     path: '/docs/html',
@@ -23,15 +23,33 @@ export default withDocs({
 
 # Forms
 
-Forms allow you to gather and store HTML form submissions with just a few lines of code. Here's an example of a (unstyled) form connected to StaticKit:
+HTML forms are powered by a little snippet of JavaScript.
 
-<div className="pb-6">
-  <iframe width="100%" height="380" className="rounded-lg" src="//jsfiddle.net/StaticKit/8Lw6j75y/embedded/html,result/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
-</div>
+```html
+<form id="my-form">
+  <!-- Include any fields you need -->
+  <label for="email">Email</label>
+  <input id="email" type="email" name="email" value="" required />
+  <button type="submit">Submit</button>
+</form>
 
-Notice there is no `action` attribute on the form. Under the covers, we listen for the `submit` event and post to our servers in the background. As a bonus, this makes your form less vulnerable to spam because there is no URL exposed in the markup.
+<script>
+  window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
 
-Here's a prettier example of a contact form styled with Tailwind CSS.
+  sk('form', 'init', {
+    site: '<your-site-id>',   // found under the Settings tab
+    form: '<your-form-key>',  // the key used in statickit.json
+    element: '#my-form'
+  });
+</script>
+
+<!-- Put this anywhere on your page -->
+<script defer src="https://js.statickit.com/statickit.js"></script>
+```
+
+Notice there is no `action` attribute on the form. Under the covers, we listen for the `submit` event and post to our servers in the background. This makes your form less vulnerable to spam because there is no URL exposed in the markup.
+
+Try it out!
 
 <div className="pb-6">
   <iframe width="100%" height="400" className="rounded-lg" src="//jsfiddle.net/StaticKit/5Lks2b6m/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
@@ -89,7 +107,7 @@ When a server-side validation error occurs, the library will look for a matching
 </form>
 ```
 
-## Email properties
+## Email notifications
 
 If you have email notifications configured for your form, you can customize the subject line and reply-to address using special fields:
 
@@ -107,7 +125,17 @@ sk('form', 'init', {
 });
 ```
 
-## Configuration
+## Properties
+
+At a minimum, you must set the `site`, `form` and `element` properties:
+
+```js
+sk('form', 'init', {
+  site: '<your-site-id>',   // found under the Settings tab
+  form: '<your-form-key>',  // the key used in statickit.json
+  element: '#my-form'       // the DOM selector for your <form> element
+})
+```
 
 Here are all the available configuration properties:
 
