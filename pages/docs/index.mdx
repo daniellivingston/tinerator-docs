@@ -6,9 +6,8 @@ export default withDocs({
   description: 'Learn how to configure and deploy StaticKit.',
   path: '/docs',
   toc: [
-    [1, "Configuration", "#configuration"],
-    [1, "Deployment", "#deployment"],
-    [1, "Client Libraries", "#client-libraries"],
+    [1, "Configure your site", "#configure-your-site"],
+    [1, "Build your front end", "#build-your-front-end"],
     [1, "FAQ", "#faq"]
   ],
   next: {
@@ -21,7 +20,7 @@ export default withDocs({
 
 StaticKit is the modern way to gather form submissions from your static site. It works great with React-based generators, like Next.js and Gatsby, and traditional HTML-based generators, like Jekyll and Hugo.
 
-## Configuration
+## Configure your site
 
 StaticKit is configured with a `statickit.json` file (in the root of your project directory) and deployed from the command line. For example, this config tells us that a &ldquo;Contact Form&rdquo; should exist and that you should receive a notification email after submission: 
 
@@ -40,11 +39,11 @@ StaticKit is configured with a `statickit.json` file (in the root of your projec
 }
 ```
 
-<ArrowItem>
-  <a href="/docs/configuration" className="font-semibold text-indigo-600">Learn more about configuration</a>
-</ArrowItem>
-
-## Deployment
+<p>
+  <ArrowItem>
+    <a href="/docs/configuration" className="font-semibold text-indigo-600">Learn more about configuration</a>
+  </ArrowItem>
+</p>
 
 Once you've created a `statickit.json` file, run the following to install the CLI and deploy it. Your deploy key can be found in your site "Settings" tab.
 
@@ -57,9 +56,9 @@ statickit deploy -k <your-deploy-key>
   <a href="/docs/deployment" className="font-semibold text-indigo-600">Learn more about deployment</a>
 </ArrowItem>
 
-## Client Libraries
+## Build your front-end
 
-Use the client library that fits your needs to wire up your StaticKit resources on the front-end.
+We have a few client libraries for different environments.
 
 <ArrowItem>
   <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
