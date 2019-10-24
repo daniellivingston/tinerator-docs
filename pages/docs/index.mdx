@@ -7,8 +7,7 @@ export default withDocs({
   path: '/docs',
   toc: [
     [1, "Configure your site", "#configure-your-site"],
-    [1, "Build your front-end", "#build-your-front-end"],
-    [1, "FAQ", "#faq"]
+    [1, "Build your front-end", "#build-your-front-end"]
   ],
   next: {
     path: '/docs/configuration',
@@ -67,13 +66,3 @@ We have a few client libraries for different environments.
 <ArrowItem>
   <a href="/docs/react" className="font-semibold text-indigo-600">React</a>: works great with Gatsby, Next.js, etc.
 </ArrowItem>
-
-## FAQ
-
-### Why use a config file instead of a web interface?
-
-This approach has several key advantages over clicking around in a web interface:
-
-- You can commit your config in version control
-- You can replicate the same config in multiple environments
-- You can see everything at glance
