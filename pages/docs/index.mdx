@@ -6,8 +6,9 @@ export default withDocs({
   description: 'Learn how to configure and deploy StaticKit.',
   path: '/docs',
   toc: [
+    [1, "Install the CLI", "#install-the-cli"],
     [1, "Configure your site", "#configure-your-site"],
-    [1, "Build your front-end", "#build-your-front-end"]
+    [1, "Wire up your front-end", "#wire-up-your-front-end"]
   ],
   next: {
     path: '/docs/configuration',
@@ -19,45 +20,33 @@ export default withDocs({
 
 StaticKit is the modern way to gather form submissions from your static site. It works great with React-based generators, like Next.js and Gatsby, and traditional HTML-based generators, like Jekyll and Hugo.
 
-## Configure your site
+## Install the CLI
 
-StaticKit is configured with a `statickit.json` file (in the root of your project directory) and deployed from the command line. For example, this config tells us that a &ldquo;Contact Form&rdquo; should exist and that you should receive a notification email after submission: 
-
-```js
-{
-  "forms": {
-    "contact": {
-      "name": "Contact Form",
-      "actions": {
-        "email": [{
-          "to": "<your-email-address>"
-        }]
-      }
-    }
-  }
-}
-```
-
-<p>
-  <ArrowItem>
-    <a href="/docs/configuration" className="font-semibold text-indigo-600">Learn more about configuration</a>
-  </ArrowItem>
-</p>
-
-Once you've created a `statickit.json` file, run the following to install the CLI and deploy it. Your deploy key can be found in your site "Settings" tab.
+Install the command line interface with npm:
 
 ```bash
 npm i -g @statickit/cli
+```
+
+## Configure your site
+
+Your configuration lives in a `statickit.json` file at the root of your project. You can edit it by hand or use the CLI to perform common tasks. Run the following to create a config file, add a contact form, and deploy it.
+
+```bash
+statickit init
+statickit forms add --key "contact-form" --name "Contact Form"
 statickit deploy -k <your-deploy-key>
 ```
 
+It's a good idea to commit your `statickit.json` file to version control.
+
 <ArrowItem>
-  <a href="/docs/deployment" className="font-semibold text-indigo-600">Learn more about deployment</a>
+  <a href="/docs/configuration" className="font-semibold text-indigo-600">Learn more about configuration</a>
 </ArrowItem>
 
-## Build your front-end
+## Wire up your front-end
 
-We have a few client libraries for different environments.
+We have a few client libraries to help bind your front-end components to the StaticKit backend.
 
 <ArrowItem>
   <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
