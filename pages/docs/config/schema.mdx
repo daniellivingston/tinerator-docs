@@ -1,23 +1,28 @@
 import withDocs from '../../../components/with_docs';
 
 export default withDocs({
-  title: 'Configuration',
-  description: 'The statickit.json config schema',
-  path: '/docs/configuration',
+  title: 'Config Schema',
+  description: 'The statickit.json schema reference',
+  path: '/docs/config/schema',
+  breadcrumb: {
+    path: '/docs/config',
+    label: 'Configuration',
+    rel: 'prev'
+  },
   toc: [
     [1, 'forms', '#forms']
   ],
   prev: {
-    path: '/docs/introduction',
-    label: 'Introduction'
+    path: '/docs/config',
+    label: 'Configuration'
   },
   next: {
-    path: '/docs/deployment',
-    label: 'Deployment'
+    path: '/docs/html',
+    label: 'HTML Library'
   }
 });
 
-# Configuration
+# Schema
 
 This document describes the `statickit.json` schema. Here are the available top-level keys:
 

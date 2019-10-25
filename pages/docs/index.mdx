@@ -11,7 +11,7 @@ export default withDocs({
     [1, "Wire up your front-end", "#wire-up-your-front-end"]
   ],
   next: {
-    path: '/docs/configuration',
+    path: '/docs/config',
     label: 'Configuration'
   }
 });
@@ -30,18 +30,17 @@ npm i -g @statickit/cli
 
 ## Configure your site
 
-Your configuration lives in a `statickit.json` file at the root of your project. You can edit it by hand or use the CLI to perform common tasks. Run the following to create a config file, add a contact form, and deploy it.
+Your config lives in a `statickit.json` file at the root of your project. You can edit it by hand or use the CLI to perform common tasks. Run the following to create a config file, add a contact form, and deploy it.
 
 ```bash
-statickit init
-statickit forms add --key "contact-form" --name "Contact Form"
+statickit forms add contact-form "Contact Form"
 statickit deploy -k <your-deploy-key>
 ```
 
 It's a good idea to commit your `statickit.json` file to version control.
 
 <ArrowItem>
-  <a href="/docs/configuration" className="font-semibold text-indigo-600">Learn more about configuration</a>
+  <a href="/docs/config" className="font-semibold text-indigo-600">Learn more about config</a>
 </ArrowItem>
 
 ## Wire up your front-end

@@ -1,0 +1,77 @@
+import withDocs from '../../../components/with_docs';
+import ArrowItem from '../../../components/arrow_item';
+
+export default withDocs({
+  title: 'Config',
+  description: 'How to configure StaticKit',
+  path: '/docs/config',
+  toc: [
+    [1, 'Add a form', '#add-a-form'],
+    [1, 'Deployment', '#deployment']
+  ],
+  prev: {
+    path: '/docs/introduction',
+    label: 'Introduction'
+  },
+  next: {
+    path: '/docs/html',
+    label: 'HTML Library'
+  }
+});
+
+# Config
+
+The CLI comes with helpful commands for performing common tasks like adding a new form. You can use the CLI to make changes or edit your `statickit.json` file by hand — either way is fine!
+
+## Add a form
+
+Run the following command to add a new form to your config file.
+
+```bash
+statickit forms add <key> <name>
+```
+
+If you'd like to add extra functionality (like server-side validations and actions), you can edit the config manually.
+
+<ArrowItem>
+  <a href="/docs/config/schema#forms" className="font-semibold text-indigo-600">Explore the `form` config schema</a>
+</ArrowItem>
+
+### Example 
+
+The following command will change your `statickit.json` file like this:
+
+```bash
+statickit forms add contact-form "Contact Form"
+```
+
+```diff
+  {
+    "forms": {
++     "contact-form": {
++       "name": "Contact Form"
++     }
+    }
+  }
+```
+
+## Deployment
+
+Once you are finished making changes, you can deploy them with the CLI. 
+
+```bash
+statickit deploy -k <your-deploy-key>
+```
+
+Your site's deploy key can be found under the &ldquo;Settings&rdquo; tab in StaticKit. Instead of using the `-k` flag every time, you can create a `.env` file in the root of your project and define an environment variable:
+
+```bash
+echo "STATICKIT_DEPLOY_KEY=<your-deploy-key>" >> .env
+echo ".env" >> .gitignore
+```
+
+**Do not commit your `.env` file to version control.** You should treat your deploy key like any other secret token. A common convention is to create a `.env.example` file (excluding the actual key) that developers can use as a template:
+
+```bash
+echo "STATICKIT_DEPLOY_KEY=" >> .env.example
+```
