@@ -45,7 +45,7 @@ export default props => (
 
       <div className="px-2 flex items-center">
         <div className="flex-grow text-sm text-gray-600">
-          <span className="mr-5">&copy; Level Technologies, LLC</span>
+          <span className="mr-5">&copy; Unstack, LLC</span>
         </div>
         <div>
           <span dangerouslySetInnerHTML={{ __html: levelLogo }} />
