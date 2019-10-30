@@ -1,28 +1,27 @@
 import React, { useEffect } from 'react';
 import App, { Container } from 'next/app';
 import Router from 'next/router';
-import { loadFathom, trackPageView } from '../components/analytics';
+import Fathom from 'fathom-client';
 
 import '../styles/fonts.css';
 import '../styles/main.css';
 import '../styles/markdown.css';
 import '../styles/dracula.css';
 
-Router.events.on('routeChangeComplete', url => {
-  trackPageView();
-  return true;
-});
-
-Router.events.on('routeChangeError', (err, url) => {
-  console.error('Route change error', err, url);
+Router.events.on('routeChangeComplete', () => {
+  Fathom.trackPageview();
 });
 
 function Layout(props) {
   const { children } = props;
 
   useEffect(() => {
-    loadFathom();
-  });
+    if (process.env.NODE_ENV === 'production') {
+      Fathom.load();
+      Fathom.setSiteId('RETLQDNO');
+      Fathom.trackPageview();
+    }
+  }, []);
 
   return <div className="font-sans antialiased text-gray-900">{children}</div>;
 }
