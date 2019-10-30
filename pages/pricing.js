@@ -77,7 +77,7 @@ function PricingPage() {
           <p className="py-16 text-center text-gray-700">
             Need higher limits?{' '}
             <Link href="/support">
-              <a className="font-bold text-indigo-700">Let&rsquo;s chat.</a>
+              <a className="font-semibold text-indigo-600">Let&rsquo;s chat.</a>
             </Link>
           </p>
         </div>
