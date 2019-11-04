@@ -139,8 +139,8 @@ function HomePage() {
             <p className="pb-16 text-lg text-gray-700 sm:text-center">
               A growing collection of pluggable components.
             </p>
-            <div className="-mx-2 sm:flex border-t border-b">
-              <div className="sm:w-1/2 sm:border-r">
+            <div className="-mx-2 sm:flex">
+              <div className="sm:w-1/2">
                 <div className="mx-2 flex rounded-lg py-12 sm:px-6">
                   <div
                     className="mr-4"
