@@ -131,12 +131,12 @@ function HomePage() {
           </div>
         </div>
 
-        <div className="mx-auto container pt-16 sm:pt-24 pb-10 sm:pb-24">
+        <div className="mx-auto container pt-16 sm:pt-24 pb-8 sm:pb-16">
           <div className="px-6 mx-auto max-w-4xl">
             <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-900">
               Plugins
             </h1>
-            <p className="pb-16 text-lg text-gray-700 sm:text-center">
+            <p className="sm:pb-16 text-lg text-gray-700 sm:text-center">
               A growing collection of pluggable components.
             </p>
             <div className="-mx-2 sm:flex">
@@ -187,6 +187,22 @@ function HomePage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto container pb-12 sm:pb-24">
+          <div className="max-w-5xl mx-auto px-6 py-12 sm:flex items-center justify-center bg-gray-300">
+            <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-700">
+              Make your static site dynamic.
+            </div>
+            <div className="flex-shrink-0">
+              <a
+                href="https://app.statickit.com/signup"
+                className="btn sm:block whitespace-no-break"
+              >
+                Get started free
+              </a>
             </div>
           </div>
         </div>
