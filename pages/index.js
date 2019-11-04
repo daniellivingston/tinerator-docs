@@ -2,132 +2,114 @@ import { useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import OpenGraph from '../components/open_graph';
+import CodeBlock from '../components/code_block';
 import ReactDemo from '../components/react_demo';
-import StandaloneDemo from '../components/standalone_demo';
-import FeatureGrid from '../components/feature_grid';
+import Link from 'next/link';
 
-const checkIcon = `
-<svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="check-circle-inside-copy" transform="translate(1.500000, 1.500000)">
-            <circle id="Oval" stroke="#5A67D8" stroke-width="2" fill="#5A67D8" cx="14" cy="14" r="14"></circle>
-            <path d="M20.3,10.5 L12.6000004,18.2" id="Path" stroke="#FFFFFF" stroke-width="3"></path>
-            <path d="M9.1,14.7 L12.6,18.2" id="Path" stroke="#FFFFFF" stroke-width="3"></path>
-        </g>
-    </g>
-</svg>
+const stepOne = `
+npm i -g @statickit/cli
+statickit forms add newsletter "Newsletter"
+statickit deploy
+`;
+
+const stepTwo = `
+npm i @statickit/react
 `;
 
 function HomePage() {
-  const title = 'Modern forms for static sites';
+  const title = 'Serverless plugins for static sites';
   const description =
-    'Gather form submissions from your frontend without writing a line of backend code.';
-
-  const [tab, setTab] = useState(1);
-
-  const tabClass = (idx, selected) => {
-    if (idx == selected) {
-      return 'px-4 py-3 font-bold text-white focus:outline-none bg-code';
-    } else {
-      return 'px-4 py-3 font-bold text-white focus:outline-none';
-    }
-  };
-
-  const tabContent = selected => {
-    switch (selected) {
-      case 0:
-        return <StandaloneDemo />;
-      case 1:
-        return <ReactDemo />;
-      default:
-        return '';
-    }
-  };
+    'StaticKit is a helpful companion to your favorite static site generator';
 
   return (
     <div>
       <main>
         <OpenGraph title={title} description={description} path="/" />
-        <Header pageTitle={title} />
+        <div className="bg-gray-900">
+          <Header pageTitle={title} inverted={true} />
 
-        <div className="mx-auto pt-16 container">
-          <div className="pb-16 sm:pb-32 flex flex-wrap">
-            <div className="px-6 pb-16 sm:pt-16 sm:pb-0 w-full sm:w-1/2 xl:w-2/5">
-              <h1 className="pb-6 text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-                {title}
+          <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
+            <div className="px-6 mx-auto max-w-2xl">
+              <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-tight tracking-tight sm:text-center text-gray-300">
+                Serverless plugins
+                <br />
+                for static sites
               </h1>
 
-              <p className="pb-8 lg:pr-24 text-lg lg:text-xl text-gray-700">
-                {description}
+              <p className="pb-24 text-lg sm:text-xl text-gray-500 sm:text-center max-w-xl mx-auto leading-relaxed">
+                Static sites are awesome! But sometimes you need dynamic
+                functionality, like embedded forms and payment collection.{' '}
+                <strong>StaticKit is the backend you need.</strong>
               </p>
 
-              <ul className="pb-12 text-lg lg:text-xl text-gray-900 font-bold">
-                <li key="contact-forms" className="pb-2 flex items-center">
-                  <div
-                    className="mr-3"
-                    dangerouslySetInnerHTML={{ __html: checkIcon }}
-                  />
-                  Contact forms
-                </li>
+              <div className="pb-16">
+                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-yellow-600 rounded-full">
+                    Step 1
+                  </div>{' '}
+                  <div className="text-yellow-500">Provision your plugins</div>
+                </h2>
 
-                <li key="landing-pages" className="pb-2 flex items-center">
-                  <div
-                    className="mr-3"
-                    dangerouslySetInnerHTML={{ __html: checkIcon }}
-                  />
-                  Email opt-in forms
-                </li>
+                <CodeBlock className="language-shell">
+                  {stepOne.trim()}
+                </CodeBlock>
 
-                <li key="feedback-surveys" className="pb-2 flex items-center">
-                  <div
-                    className="mr-3"
-                    dangerouslySetInnerHTML={{ __html: checkIcon }}
-                  />
-                  Feedback surveys
-                </li>
-              </ul>
+                <p className="px-4 pt-4 text-sm text-gray-500">
+                  You can use the CLI helper commands or edit your{' '}
+                  <Link href="/docs/config">
+                    <a className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
+                      statickit.json
+                    </a>
+                  </Link>{' '}
+                  file by hand.
+                </p>
+              </div>
 
-              <a
-                href="https://app.statickit.com/signup"
-                className="btn btn-lg focus:shadow-outline"
-              >
-                Get started now
-              </a>
-            </div>
+              <div className="pb-16">
+                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-green-600 rounded-full">
+                    Step 2
+                  </div>{' '}
+                  <div className="text-green-500">Install a client library</div>
+                </h2>
 
-            <div className="relative px-6 py-6 w-full sm:w-1/2 xl:w-3/5 overflow-hidden">
-              <div
-                className="absolute w-64 h-64 bg-gray-stripes z-10"
-                style={{ left: -10, bottom: -5 }}
-              ></div>
+                <CodeBlock className="language-shell">
+                  {stepTwo.trim()}
+                </CodeBlock>
 
-              <div
-                className="absolute w-64 h-64 bg-gray-stripes z-10"
-                style={{ right: -10, top: -5 }}
-              ></div>
+                <p className="px-4 pt-4 text-sm text-gray-500">
+                  We have{' '}
+                  <Link href="/docs/react">
+                    <a className="text-indigo-400">React</a>
+                  </Link>{' '}
+                  and{' '}
+                  <Link href="/docs/html">
+                    <a className="text-indigo-400">HTML</a>
+                  </Link>{' '}
+                  client libraries.
+                </p>
+              </div>
 
-              <div className="relative w-full rounded-lg text-sm leading-relaxed overflow-auto bg-code z-20">
-                <div className="flex bg-gray-700 rounded-t">
-                  <button
-                    className={tabClass(1, tab)}
-                    onClick={() => setTab(1)}
-                  >
-                    React
-                  </button>
-                  <button
-                    className={tabClass(0, tab)}
-                    onClick={() => setTab(0)}
-                  >
-                    Plain HTML
-                  </button>
-                </div>
+              <div className="pb-16">
+                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-pink-600 rounded-full">
+                    Step 3
+                  </div>{' '}
+                  <div className="text-pink-500">Wire up your front-end</div>
+                </h2>
 
-                <div>{tabContent(tab)}</div>
+                <ReactDemo />
               </div>
             </div>
           </div>
+        </div>
 
-          <FeatureGrid />
+        <div className="mx-auto container pt-16 sm:pt-24 pb-10 sm:pb-24">
+          <div className="px-6 mx-auto max-w-2xl">
+            <h1 className="pb-6 text-4xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-900">
+              Plugins
+            </h1>
+          </div>
         </div>
       </main>
 

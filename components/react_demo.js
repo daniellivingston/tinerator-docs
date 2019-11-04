@@ -5,7 +5,8 @@ import { useForm } from '@statickit/react';
 
 function MyForm() {
   const [state, submit] = useForm({
-    id: '0858b1a135b0'
+    site: '0858b1a135b0',
+    form: 'newsletter'
   });
 
   if (state.succeeded) {

@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import OpenGraph from '../components/open_graph';
+import ReactDemo from '../components/react_demo';
+import StandaloneDemo from '../components/standalone_demo';
 import FeatureGrid from '../components/forms_features';
 
 const checkIcon = `
@@ -15,32 +18,48 @@ const checkIcon = `
 </svg>
 `;
 
-function ZeitPage() {
-  const title = 'StaticKit + ZEIT Integration';
+function FormsPage() {
+  const title = 'Modern forms for static sites';
   const description =
-    'Provision new forms right from your ZEIT account with our first-class integration.';
+    'Gather form submissions from your frontend without writing a line of backend code.';
+
+  const [tab, setTab] = useState(1);
+
+  const tabClass = (idx, selected) => {
+    if (idx == selected) {
+      return 'px-4 py-3 font-bold text-white focus:outline-none bg-code';
+    } else {
+      return 'px-4 py-3 font-bold text-white focus:outline-none';
+    }
+  };
+
+  const tabContent = selected => {
+    switch (selected) {
+      case 0:
+        return <StandaloneDemo />;
+      case 1:
+        return <ReactDemo />;
+      default:
+        return '';
+    }
+  };
 
   return (
     <div>
       <main>
-        <OpenGraph
-          title={title}
-          description={description}
-          path="/zeit"
-          image="https://statickit.com/static/zeit-og.jpg"
-          twitterCard="summary_large_image"
-        />
+        <OpenGraph title={title} description={description} path="/" />
         <Header pageTitle={title} />
 
         <div className="mx-auto pt-16 container">
-          <div className="pb-16 md:pb-32 lg:flex items-start flex-wrap">
-            <div className="px-6 pb-24 sm:pt-16 w-full lg:w-1/2 xl:w-2/5">
-              <h1 className="flex flex-wrap justify-start pb-6 text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-                <div>StaticKit</div>
-                <div className="relative mx-3 w-12">
-                  <div className="absolute text-red-600 heartbeat">♥️</div>
-                </div>
-                <div>ZEIT</div>
+          <div className="pb-16 sm:pb-32 flex flex-wrap">
+            <div className="px-6 pb-16 sm:pt-16 sm:pb-0 w-full sm:w-1/2 xl:w-2/5">
+              <div className="pb-3">
+                <span className="bg-indigo-600 text-sm text-white font-bold px-3 py-1 rounded-full">
+                  Forms
+                </span>
+              </div>
+              <h1 className="pb-6 text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+                {title}
               </h1>
 
               <p className="pb-8 lg:pr-24 text-lg lg:text-xl text-gray-700">
@@ -74,30 +93,31 @@ function ZeitPage() {
               </ul>
 
               <a
-                href="https://zeit.co/integrations/statickit"
+                href="https://app.statickit.com/signup"
                 className="btn btn-lg focus:shadow-outline"
               >
-                Install in ZEIT
+                Get started now
               </a>
             </div>
 
-            <div className="relative px-6 py-6 w-full lg:w-1/2 xl:w-3/5 overflow-hidden">
-              <div
-                className="absolute w-64 h-64 bg-gray-stripes z-10"
-                style={{ left: -10, bottom: -5 }}
-              ></div>
+            <div className="relative px-6 py-6 w-full sm:w-1/2 xl:w-3/5 overflow-hidden">
+              <div className="relative w-full rounded-lg text-sm leading-relaxed overflow-auto bg-code z-20">
+                <div className="flex bg-gray-700 rounded-t">
+                  <button
+                    className={tabClass(1, tab)}
+                    onClick={() => setTab(1)}
+                  >
+                    React
+                  </button>
+                  <button
+                    className={tabClass(0, tab)}
+                    onClick={() => setTab(0)}
+                  >
+                    Plain HTML
+                  </button>
+                </div>
 
-              <div
-                className="absolute w-64 h-64 bg-gray-stripes z-10"
-                style={{ right: -10, top: -5 }}
-              ></div>
-
-              <div className="relative w-full z-20">
-                <img
-                  src="/static/zeit-screenshot.jpg"
-                  alt="ZEIT screenshot"
-                  className="rounded-lg"
-                />
+                <div>{tabContent(tab)}</div>
               </div>
             </div>
           </div>
@@ -111,4 +131,4 @@ function ZeitPage() {
   );
 }
 
-export default ZeitPage;
+export default FormsPage;
