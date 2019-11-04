@@ -17,9 +17,9 @@ npm i @statickit/react
 `;
 
 const formIcon = `
-<svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="33px" height="33px" viewBox="0 0 33 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="edit-copy-4" transform="translate(0.500000, 0.500000)" stroke="#5A67D8">
+        <g id="edit-copy-4" transform="translate(1.500000, 1.500000)" stroke="#5A67D8" stroke-width="2">
             <path d="M13.3714286,3.25714286 L2.97142857,3.25714286 C1.33035389,3.25714286 0,4.58749674 0,6.22857143 L0,27.0285714 C0,28.6696461 1.33035389,30 2.97142857,30 L23.7714286,30 C25.4125033,30 26.7428571,28.6696461 26.7428571,27.0285714 L26.7428571,16.6285714" id="Path"></path>
             <path d="M24.5142857,1.02857143 C25.7450917,-0.202234541 27.7406225,-0.20223452 28.9714285,1.02857148 C30.2022345,2.25937747 30.2022345,4.25490826 28.9714286,5.48571429 L14.8571429,19.6 L8.91428571,21.0857143 L10.4,15.1428571 L24.5142857,1.02857143 Z" id="Path"></path>
         </g>
@@ -28,9 +28,9 @@ const formIcon = `
 `;
 
 const paymentIcon = `
-<svg width="28px" height="36px" viewBox="0 0 28 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="30px" height="38px" viewBox="0 0 30 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="edit-copy-5" transform="translate(0.500000, 0.500000)" stroke="#38A169">
+        <g id="edit-copy-5" transform="translate(1.500000, 1.500000)" stroke="#38A169" stroke-width="2">
             <path d="M8.16357422,8.25714286 L2.97142857,8.25714286 C1.33035389,8.25714286 0,9.58749674 0,11.2285714 L0,32.0285714 C0,33.6696461 1.33035389,35 2.97142857,35 L23.7714286,35 C25.4125033,35 26.7428571,33.6696461 26.7428571,32.0285714 L26.7428571,25.9143066" id="Path"></path>
             <g id="dollar-sign" transform="translate(12.000000, 0.000000)">
                 <line x1="7.5" y1="0" x2="7.5" y2="27" id="Path"></line>
