@@ -1,7 +1,7 @@
 {
   "forms": {
     "support": {
-      "name": "Support Form",
+      "name": "Support",
       "fields": {
         "email": {
           "type": "email",
