@@ -42,8 +42,7 @@ const paymentIcon = `
 
 function HomePage() {
   const title = 'Serverless plugins for static sites';
-  const description =
-    'StaticKit is a helpful companion to your favorite static site generator';
+  const description = 'StaticKit is a serverless backend for static sites.';
 
   return (
     <div>
