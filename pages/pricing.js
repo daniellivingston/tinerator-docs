@@ -15,7 +15,7 @@ function PricingPage() {
 
         <div className="mx-auto px-6 pt-12 container">
           <div className="pt-6 md:pt-10 pb-12 md:pb-16">
-            <h1 className="pb-2 text-5xl sm:text-6xl font-bold leading-tight tracking-tight text-center">
+            <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-center">
               Pricing
             </h1>
             <p className="text-lg text-gray-700 text-center">
@@ -28,7 +28,7 @@ function PricingPage() {
               <h2 className="text-center text-sm uppercase font-bold tracking-wide text-indigo-600">
                 Sandbox
               </h2>
-              <div className="text-center text-4xl md:text-5xl tracking-tight font-semibold">
+              <div className="text-center text-4xl sm:text-5xl tracking-tight font-bold">
                 Free
               </div>
 
@@ -46,7 +46,7 @@ function PricingPage() {
               <h2 className="text-center text-sm uppercase font-bold tracking-wide text-indigo-600">
                 Production
               </h2>
-              <div className="text-center text-4xl md:text-5xl tracking-tight font-semibold">
+              <div className="text-center text-4xl sm:text-5xl tracking-tight font-bold">
                 $10
                 <span className="text-lg font-normal text-gray-600 tracking-normal">
                   {' '}
