@@ -2,8 +2,7 @@ import Head from 'next/head';
 
 export default props => {
   const url = `https://statickit.com${props.path}`;
-  const image =
-    props.image || 'https://statickit.com/static/logo-inverted-300.png';
+  const image = props.image || 'https://statickit.com/static/og-logo.png';
 
   const twitterCard = props.twitterCard || 'summary';
 
