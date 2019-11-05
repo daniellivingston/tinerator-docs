@@ -11,13 +11,6 @@ import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-diff';
 
 const components = {
-  pre: props => {
-    useEffect(() => {
-      Prism.highlightAll();
-    });
-
-    return <pre {...props} />;
-  },
   a: props => {
     if (props.href.startsWith('/') || props.href.startsWith('#')) {
       return (
@@ -114,6 +107,10 @@ const DocumentFooter = ({ prev, next }) => {
 };
 
 export default meta => ({ children }) => {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
+
   return (
     <MDXProvider components={components}>
       <div>
