@@ -145,8 +145,12 @@ function HomePage() {
                     dangerouslySetInnerHTML={{ __html: formIcon }}
                   ></div>
                   <div>
-                    <h3 className="pb-2 text-2xl font-semibold text-gray-900 tracking-snug leading-snug">
-                      Forms
+                    <h3 className="pb-2 text-2xl font-semibold tracking-snug leading-snug">
+                      <Link href="/forms">
+                        <a className="text-gray-900 hover:text-indigo-600">
+                          Forms
+                        </a>
+                      </Link>
                     </h3>
                     <p className="pb-3 text-gray-700">
                       Gather form submissions from your frontend without writing

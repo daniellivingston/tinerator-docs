@@ -19,7 +19,7 @@ const checkIcon = `
 `;
 
 function FormsPage() {
-  const title = 'Modern forms for static sites';
+  const title = 'Forms';
   const description =
     'Gather form submissions from your frontend without writing a line of backend code.';
 
@@ -53,9 +53,9 @@ function FormsPage() {
         <div className="mx-auto pt-16 container">
           <div className="pb-16 sm:pb-32 flex flex-wrap">
             <div className="px-6 pb-16 sm:pt-16 sm:pb-0 w-full sm:w-1/2 xl:w-2/5">
-              <div className="pb-3">
-                <span className="bg-indigo-600 text-sm text-white font-bold px-3 py-1 rounded-full">
-                  Forms
+              <div className="pb-1">
+                <span className="text-sm text-indigo-600 font-bold uppercase tracking-wider">
+                  Plugins
                 </span>
               </div>
               <h1 className="pb-6 text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
