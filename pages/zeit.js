@@ -82,16 +82,6 @@ function ZeitPage() {
             </div>
 
             <div className="relative px-6 py-6 w-full lg:w-1/2 xl:w-3/5 overflow-hidden">
-              <div
-                className="absolute w-64 h-64 bg-gray-stripes z-10"
-                style={{ left: -10, bottom: -5 }}
-              ></div>
-
-              <div
-                className="absolute w-64 h-64 bg-gray-stripes z-10"
-                style={{ right: -10, top: -5 }}
-              ></div>
-
               <div className="relative w-full z-20">
                 <img
                   src="/static/zeit-screenshot.jpg"

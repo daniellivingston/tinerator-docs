@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import Router from 'next/router';
 import Fathom from 'fathom-client';
 
@@ -31,11 +31,9 @@ class AppWithLayout extends App {
     const { Component, pageProps } = this.props;
 
     return (
-      <Container>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </Container>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     );
   }
 }
