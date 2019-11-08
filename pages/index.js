@@ -145,10 +145,8 @@ function HomePage() {
               Stop reinventing the wheel
             </h1>
             <p className="sm:pb-16 text-lg text-gray-700 sm:text-center">
-              Put down the lambdas, we have a growing collection of plugins for
+              Put down the lambdas. We have a growing collection of plugins for
               you.
-              <br />
-              Backend and client-side included.
             </p>
             <div className="-mx-2 sm:flex">
               <div className="sm:w-1/2">
