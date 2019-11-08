@@ -57,7 +57,7 @@ function HomePage() {
                 Breathe life into your static site
               </h1>
 
-              <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug">
+              <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
                 <p className="pb-4">
                   Static sites are awesome! But some tasks simply require a
                   backend, like forms and payments.{' '}
