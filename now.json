@@ -2,7 +2,6 @@
   "version": 2,
   "name": "statickit-site",
   "scope": "unstacked",
-  "alias": ["statickit.com", "www.statickit.com"],
   "builds": [{ "src": "package.json", "use": "@now/next" }],
   "build": {
     "env": {
