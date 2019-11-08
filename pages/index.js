@@ -57,13 +57,19 @@ function HomePage() {
                 Breathe life into your static site
               </h1>
 
-              <p className="pb-24 text-lg sm:text-xl text-gray-500 sm:text-center max-w-xl mx-auto leading-normal">
-                Static sites are awesome! But some tasks simply require a
-                backend, like forms and payments.{' '}
-                <strong className="text-gray-300">
-                  StaticKit is the serverless backend you need.
-                </strong>
-              </p>
+              <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug">
+                <p className="pb-4">
+                  Static sites are awesome! But some tasks simply require a
+                  backend, like forms and payments.{' '}
+                  <br className="hidden sm:block" />
+                </p>
+
+                <p>
+                  <strong className="mt-4 text-gray-300">
+                    StaticKit is the serverless backend you need.
+                  </strong>
+                </p>
+              </div>
 
               <div className="mx-auto max-w-2xl">
                 <div className="pb-16">
