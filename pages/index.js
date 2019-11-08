@@ -41,8 +41,8 @@ const paymentIcon = `
 `;
 
 function HomePage() {
-  const title = 'Serverless plugins for static sites';
-  const description = 'StaticKit is a serverless backend for static sites.';
+  const title = 'Breathe life into your static site';
+  const description = 'Serverless plugins for static sites';
 
   return (
     <div>
@@ -52,78 +52,82 @@ function HomePage() {
           <Header pageTitle={title} inverted={true} />
 
           <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
-            <div className="px-6 mx-auto max-w-2xl">
-              <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-tight tracking-tight sm:text-center text-gray-300">
-                Serverless plugins
-                <br />
-                for static sites
+            <div className="px-6 mx-auto max-w-5xl">
+              <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
+                Breathe life into your static site
               </h1>
 
-              <p className="pb-24 text-lg sm:text-xl text-gray-500 sm:text-center max-w-xl mx-auto leading-relaxed">
-                Static sites are awesome! But sometimes you need dynamic
-                functionality, like embedded forms and payment collection.{' '}
-                <strong>StaticKit is the backend you need.</strong>
+              <p className="pb-24 text-lg sm:text-xl text-gray-500 sm:text-center max-w-xl mx-auto leading-normal">
+                Static sites are awesome! But some tasks simply require a
+                backend, like forms and payments.{' '}
+                <strong className="text-gray-300">
+                  StaticKit is the serverless backend you need.
+                </strong>
               </p>
 
-              <div className="pb-16">
-                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-yellow-600 rounded-full whitespace-no-wrap">
-                    Step 1
-                  </div>{' '}
-                  <div className="text-yellow-500">
-                    Configure and deploy your plugins
-                  </div>
-                </h2>
+              <div className="mx-auto max-w-2xl">
+                <div className="pb-16">
+                  <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-yellow-600 rounded-full whitespace-no-wrap">
+                      Step 1
+                    </div>{' '}
+                    <div className="text-yellow-500">
+                      Configure and deploy your plugins
+                    </div>
+                  </h2>
 
-                <CodeBlock className="language-shell">
-                  {stepOne.trim()}
-                </CodeBlock>
+                  <CodeBlock className="language-shell">
+                    {stepOne.trim()}
+                  </CodeBlock>
 
-                <p className="px-4 pt-4 text-sm text-gray-500">
-                  You can use the CLI helper commands or edit your{' '}
-                  <Link href="/docs/config">
-                    <a className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
-                      statickit.json
-                    </a>
-                  </Link>{' '}
-                  file by hand.
-                </p>
-              </div>
+                  <p className="px-4 pt-4 text-sm text-gray-500">
+                    You can use the CLI helper commands or edit your{' '}
+                    <Link href="/docs/config">
+                      <a className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
+                        statickit.json
+                      </a>
+                    </Link>{' '}
+                    file by hand.
+                  </p>
+                </div>
 
-              <div className="pb-16">
-                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-green-600 rounded-full whitespace-no-wrap">
-                    Step 2
-                  </div>{' '}
-                  <div className="text-green-500">Install a client library</div>
-                </h2>
+                <div className="pb-16">
+                  <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-green-600 rounded-full whitespace-no-wrap">
+                      Step 2
+                    </div>{' '}
+                    <div className="text-green-500">
+                      Install a client library
+                    </div>
+                  </h2>
 
-                <CodeBlock className="language-shell">
-                  {stepTwo.trim()}
-                </CodeBlock>
+                  <CodeBlock className="language-shell">
+                    {stepTwo.trim()}
+                  </CodeBlock>
 
-                <p className="px-4 pt-4 text-sm text-gray-500">
-                  We have{' '}
-                  <Link href="/docs/react">
-                    <a className="text-indigo-400">React</a>
-                  </Link>{' '}
-                  and{' '}
-                  <Link href="/docs/html">
-                    <a className="text-indigo-400">HTML</a>
-                  </Link>{' '}
-                  client libraries.
-                </p>
-              </div>
+                  <p className="px-4 pt-4 text-sm text-gray-500">
+                    We have{' '}
+                    <Link href="/docs/react">
+                      <a className="text-indigo-400">React</a>
+                    </Link>{' '}
+                    and{' '}
+                    <Link href="/docs/html">
+                      <a className="text-indigo-400">HTML</a>
+                    </Link>{' '}
+                    client libraries.
+                  </p>
+                </div>
 
-              <div className="pb-16">
-                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-pink-600 rounded-full whitespace-no-wrap">
-                    Step 3
-                  </div>{' '}
-                  <div className="text-pink-500">Wire up your front-end</div>
-                </h2>
+                <div className="pb-16">
+                  <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-pink-600 rounded-full whitespace-no-wrap">
+                      Step 3
+                    </div>{' '}
+                    <div className="text-pink-500">Wire up your front-end</div>
+                  </h2>
 
-                <ReactDemo />
+                  <ReactDemo />
+                </div>
               </div>
             </div>
           </div>
@@ -132,10 +136,13 @@ function HomePage() {
         <div className="mx-auto container pt-16 sm:pt-24 pb-8 sm:pb-16">
           <div className="px-6 mx-auto max-w-4xl">
             <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-900">
-              Plugins
+              Stop reinventing the wheel
             </h1>
             <p className="sm:pb-16 text-lg text-gray-700 sm:text-center">
-              A growing collection of pluggable components.
+              Put down the lambdas, we have a growing collection of plugins for
+              you.
+              <br />
+              Backend and client-side included.
             </p>
             <div className="-mx-2 sm:flex">
               <div className="sm:w-1/2">

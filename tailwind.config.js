@@ -29,6 +29,9 @@ module.exports = {
       },
       borderRadius: {
         md: '.375rem'
+      },
+      lineHeight: {
+        tighter: 1.2
       }
     }
   },
