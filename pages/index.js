@@ -59,14 +59,14 @@ function HomePage() {
 
               <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
                 <p className="pb-4">
-                  Static sites are awesome! But some tasks simply require a
-                  backend, like forms and payments.{' '}
-                  <br className="hidden sm:block" />
+                  Static sites are awesome! But sometimes you{' '}
+                  <strong>need</strong> a backend for things like forms and
+                  payments. <br className="hidden sm:block" />
                 </p>
 
                 <p>
                   <strong className="mt-4 text-gray-300">
-                    StaticKit is the serverless backend you need.
+                    StaticKit is the serverless backend for static sites.
                   </strong>
                 </p>
               </div>
@@ -142,11 +142,11 @@ function HomePage() {
         <div className="mx-auto container pt-16 sm:pt-24 pb-8 sm:pb-16">
           <div className="px-6 mx-auto max-w-4xl">
             <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-900">
-              Stop reinventing the wheel
+              You have better things to do than reinvent the wheel
             </h1>
-            <p className="sm:pb-16 text-lg text-gray-700 sm:text-center">
-              Put down the lambdas. We have a growing collection of plugins for
-              you.
+            <p className="pb-6 sm:pb-16 text-lg text-gray-700 sm:text-center mx-auto max-w-xl">
+              We have a growing collection of plugins for you, so you can skip
+              those hand-rolled lambda functions.
             </p>
             <div className="-mx-2 sm:flex">
               <div className="sm:w-1/2">
