@@ -10,7 +10,11 @@ export default withDocs({
     rel: 'prev'
   },
   toc: [
-    [1, 'forms', '#forms']
+    [1, 'Forms', '#forms'],
+    [1, 'Actions', '#actions'],
+    [2, 'Email Notification', '#email-notification'],
+    [2, 'Webhook', '#webhook'],
+    [1, 'Fields', '#fields']
   ],
   prev: {
     path: '/docs/config',
@@ -30,20 +34,20 @@ This document describes the `statickit.json` schema. Here are the available top-
 | :---------------------- | :----------------------- | :----------------------------------------------------------- |
 | [`forms`](#forms)       | Object                   | An object defining the forms for your site                   |
 
-## `forms`
+## Forms
 
-An Object containing form configurations.
+An Object defining forms for your site.
 
 | Key                           | Type                     | Description                                                  |
 | :---------------------------- | :----------------------- | :----------------------------------------------------------- |
-| `name`                        | String (required)        | The name of the form                                         |
-| [`actions`](#formskeyactions) | Object                   | Actions to perform after submission                          |
-| [`fields`](#formskeyfields)   | Object                   | Optional metadata about form fields                          |
-| `allowExtraFields`            | Boolean                  | Determines whethe to accept fields no specified in `fields`. Defaults to `true` |
+| `name` *                      | String                   | The name of the form                                         |
+| [`actions`](#actions)         | Array                    | An Array of actions to perform after submission              |
+| [`fields`](#fields)           | Object                   | Optional metadata about form fields                          |
+| `allowExtraFields`            | Boolean                  | Whether to accept fields not defined under `fields`. Default: `true` |
 
 #### Usage Example
 
-```js
+```json
 {
   "forms": {
     "contact": {
@@ -53,86 +57,83 @@ An Object containing form configurations.
 }
 ```
 
-## `forms[key].actions`
+## Actions
 
-An Object containing actions to perform after the form is submitted.
+An Array of actions to perform after the form is submitted.
 
-| Key                                  | Type                   | Description                                                     |
-| :----------------------------------- | :--------------------- | :-------------------------------------------------------------- |
-| [`email`](#formskeyactionsemail)     | Array of Objects       | Sends an email notification                                     |
-| [`webhook`](#formskeyactionswebhook) | Array of Objects       | Sends a webhook                                                 |
-
-#### Usage Example
-
-```diff
-  {
-    "forms": {
-      "contact": {
-        "name": "Contact Form",
-+       "actions": {
-+         "email": [{
-+           "to": "john@example.com"
-+         }],
-+         "webhook": [{
-+           "url": "http://example.com/hook"
-+         }]
-+       }
-      }
+```json
+{
+   "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "actions": [
+        {
+          "type": "email",
+          "to": "john@example.com"
+        },
+        {
+          "type": "webhook",
+          "url": "http://example.com/hook"
+        }
+      ]
     }
   }
+}
 ```
 
-## `forms[key].actions.email`
+### Email Notification
 
-An Array of Objects containing email notification actions.
+Sends a notification email.
 
 | Key                        | Type                     | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
-| `to`                       | String (required)        | The email address of the recipient                           |
+| `to` *                     | String                   | The email address of the recipient                           |
 
 #### Usage Example
 
-```diff
-  {
-    "forms": {
-      "contact": {
-        "name": "Contact Form"
-+       "actions": {
-+         "email": [{
-+           "to": "john@example.com"
-+         }]
-+       }
-      }
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "actions": [
+        {
+          "type": "email",
+          "to": "john@example.com"
+        }
+      ]
     }
   }
+}
 ```
 
-## `forms[key].actions.webhook`
+### Webhook
 
-An Array of Objects containing webhook actions.
+Sends a webhook (HTTP POST) to a given url.
 
 | Key                        | Type                     | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
-| `url`                      | String (required)        | The endpoint to send the POST request                        |
+| `url` *                    | String                   | The endpoint to send the POST request                        |
 
 #### Usage Example
 
-```diff
-  {
-    "forms": {
-      "contact": {
-        "name": "Contact Form"
-+       "actions": {
-+         "webhook": [{
-+           "url": "http://example.com/hook"
-+         }]
-+       }
-      }
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "actions": [
+        {
+          "type": "webhook",
+          "url": "http://example.com/hook"
+        }
+      ]
     }
   }
+}
 ```
 
-## `forms[key].fields`
+## Fields
 
 An Object containing optional field metadata. 
 
@@ -142,25 +143,25 @@ Field objects can contain the following properties:
 
 | Key                                  | Type                   | Description                                                     |
 | :----------------------------------- | :--------------------- | :-------------------------------------------------------------- |
-| `type`                               | String                 | The field type (`text` or `email`)                              |
+| `type`                               | String                 | The field type (text, email)                                    |
 | `prettyName`                         | String                 | The human-friendly name of the field                            |
 | `required`                           | Boolean                | Specifies whether the field is required                         |
 
 #### Usage Example
 
-```diff
-  {
-    "forms": {
-      "contact": {
-        "name": "Contact Form",
-+       "fields": {
-+         "email": {
-+           "type": "email",
-+           "prettyName": "Email address",
-+           "required": true
-+         }
-+       }
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "fields": {
+        "email": {
+          "type": "email",
+          "prettyName": "Email address",
+          "required": true
+        }
       }
     }
   }
+}
 ```

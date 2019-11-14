@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-diff';
+import 'prismjs/components/prism-json';
 
 const components = {
   a: props => {
