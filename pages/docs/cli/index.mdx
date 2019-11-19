@@ -7,6 +7,7 @@ export default withDocs({
   path: '/docs/cli',
   toc: [
     [1, 'Add a form', '#add-a-form'],
+    [1, 'Add a secret', '#add-a-secret'],
     [1, 'Deploy', '#deploy']
   ],
   prev: {
@@ -21,7 +22,12 @@ export default withDocs({
 
 # CLI
 
-The StaticKit command line interface (CLI) comes with helpful commands for performing common tasks like adding a new form. You can use the CLI to make changes or edit your `statickit.json` file by hand — either way is fine!
+The StaticKit command line interface (CLI) comes with helpful commands for performing common tasks like adding a new form and adding a secret. You can use the CLI to make changes or edit your `statickit.json` file by hand — either way is fine!
+
+| Command                                              | Description                   |
+| :--------------------------------------------------- | :---------------------------- |
+| [`forms add`](#add-a-form)              | Add a form                    |
+| [`secrets add`](#add-a-secret)              | Add a secret                    |
 
 ## Installation
 
@@ -42,7 +48,7 @@ statickit forms add <key> <name>
 If you'd like to add extra functionality (like server-side validations and actions), you can edit the config manually.
 
 <ArrowItem>
-  <a href="/docs/config#forms" className="font-semibold text-indigo-600">Explore the `form` config schema</a>
+  <a href="/docs/config/forms" className="font-semibold text-indigo-600">Explore the `form` config schema</a>
 </ArrowItem>
 
 ### Example 
@@ -61,6 +67,43 @@ statickit forms add contact-form "Contact Form"
 +     }
     }
   }
+```
+
+## Add a secret
+
+Secrets are used to store values that are too sensitive to put in version control, like API keys for external services.
+
+Run the following command to add a secret to your site:
+
+```bash
+statickit secrets add <name> <value>
+```
+
+### Example
+
+The Mailchimp integration needs an API key in order to communicate with your account. This command will create a secret called `mailchimp-api-key`:
+
+```bash command-line
+statickit secrets add mailchimp-api-key "jf89s..."
+```
+
+Then, in your form config, you can reference the secret you just added (notice the `@`-symbol prefix).
+
+```json
+{
+  "forms": {
+    "newsletter": {
+      "name": "Newsletter",
+      "actions": [
+        {
+          "app": "mailchimp",
+          "type": "addOrUpdateContact",
+          "apiKey": "@mailchimp-api-key"
+        }
+      ]
+    }
+  }
+}
 ```
 
 ## Deploy

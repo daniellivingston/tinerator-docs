@@ -1,0 +1,184 @@
+import withDocs from '../../../components/with_docs';
+
+export default withDocs({
+  title: 'Forms - Config',
+  description: 'The statickit.json schema for forms',
+  path: '/docs/config/forms',
+  breadcrumb: {
+    path: '/docs/config',
+    label: 'Config',
+    rel: 'prev'
+  },
+  toc: [
+    [1, 'Actions', '#actions'],
+    [2, 'Email Notification', '#email-notification'],
+    [2, 'Send a Webhook', '#send-a-webhook'],
+    [2, 'Add to Mailchimp', '#add-to-mailchimp'],
+    [1, 'Fields', '#fields']
+  ],
+  prev: {
+    path: '/docs/config',
+    label: 'Config'
+  }
+});
+
+# Forms
+
+The `forms` object is where you declare form resources you need for your site.
+
+| Key                           | Type                     | Description                                                  |
+| :---------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `name` *                      | String                   | The name of the form                                         |
+| [`actions`](#actions)         | Array                    | An Array of actions to perform after submission              |
+| [`fields`](#fields)           | Object                   | Optional metadata about form fields                          |
+| `allowExtraFields`            | Boolean                  | Whether to accept fields not defined under `fields`. Default: `true` |
+
+### Usage Example
+
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "fields": {
+        "email": { "type": "email", "required": true },
+        "message": { "type": "text", "required": true }
+      },
+      "actions": [
+        { "type": "email", "to": "john@example.com" }
+      ]
+    }
+  }
+}
+```
+
+## Actions
+
+An Array of actions to perform after the form is submitted.
+
+| App                     | Type                              | Description                                                  |
+| :---------------------- | :-------------------------------- | :----------------------------------------------------------- |
+| —                      | [`email`](#email-notification)    | Sends a notification email                                   |
+| —                      | [`webhook`](#send-a-webhook)      | Sends a webhook (HTTP POST) to a given url                   |
+| `mailchimp`             | [`addOrUpdateContact`](#add-to-mailchimp) | Adds or updates a Mailchimp contact                  |
+
+### Email Notification
+
+Sends a notification email.
+
+| Key                        | Type                     | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `to` *                     | String                   | The email address of the recipient                           |
+
+#### Usage Example
+
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "actions": [
+        {
+          "type": "email",
+          "to": "john@example.com"
+        }
+      ]
+    }
+  }
+}
+```
+
+### Send a Webhook
+
+Sends a webhook (HTTP POST) to a given url.
+
+| Key                        | Type                     | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `url` *                    | String                   | The endpoint to send the POST request                        |
+
+#### Usage Example
+
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "actions": [
+        {
+          "type": "webhook",
+          "url": "http://example.com/hook"
+        }
+      ]
+    }
+  }
+}
+```
+
+### Add to Mailchimp
+
+Adds or updates a contact in a Mailchimp audience. Under the hood, this action calls the [add or update a list member](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) API endpoint. If the call fails, we'll retry it for you.
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `app`                      | String                   | —                             | Must equal `mailchimp`                                       |
+| `type`                      | String                  | —                             |  Must equal `addOrUpdateContact`                             |
+| `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID                                   |
+| `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key.       |
+| `statusIfNew`              | String                   | `subscribed`                   | The contact's status if they are new (possible values: subscribed, unsubscribed, cleaned, pending, transaction) |
+| `mergeFields`              | Object                   | `{}`                           | A mapping of Mailchimp merge tags to form field names        |
+| `emailAddressField`        | String                   | `email`                        | The email address field name.                                |
+
+#### Usage Example
+
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "actions": [
+        {
+          "app": "mailchimp",
+          "type": "addOrUpdateContact",
+          "audience": "8djs8fg8d",
+          "mergeFields": {
+            "FNAME": "first_name"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+## Fields
+
+An Object containing optional field metadata. 
+
+**Note:** By default, StaticKit will accept any fields you pass in from the client-side. However, defining your fields here allows you to add validations (such as marking a field as required) and give them human-friendly names.
+
+Field objects can contain the following properties:
+
+| Key                                  | Type                   | Description                                                     |
+| :----------------------------------- | :--------------------- | :-------------------------------------------------------------- |
+| `type`                               | String                 | The field type (text, email)                                    |
+| `prettyName`                         | String                 | The human-friendly name of the field                            |
+| `required`                           | Boolean                | Specifies whether the field is required                         |
+
+#### Usage Example
+
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "fields": {
+        "email": {
+          "type": "email",
+          "prettyName": "Email address",
+          "required": true
+        }
+      }
+    }
+  }
+}
+```

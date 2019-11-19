@@ -14,7 +14,12 @@ const sections = [
   {
     path: '/docs/config',
     label: 'Config',
-    sections: []
+    sections: [
+      {
+        path: '/docs/config/forms',
+        label: 'Forms'
+      }
+    ]
   },
   {
     path: '/docs/html',
