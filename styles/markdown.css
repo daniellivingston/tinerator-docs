@@ -89,6 +89,7 @@
   margin-right: 2px;
   padding-top: 2px;
   padding-bottom: 2px;
+  word-break: keep-all;
 }
 
 .markdown > table > tbody > tr > td:not(:first-child) > code {
