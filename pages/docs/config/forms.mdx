@@ -24,14 +24,14 @@ export default withDocs({
 
 # Forms
 
-The `forms` object is where you declare form resources you need for your site.
+The `forms` object is where you declare form resources you need for your site. You can set the following properties on forms:
 
-| Key                           | Type                     | Description                                                  |
-| :---------------------------- | :----------------------- | :----------------------------------------------------------- |
-| `name` *                      | String                   | The name of the form                                         |
-| [`actions`](#actions)         | Array                    | An Array of actions to perform after submission              |
-| [`fields`](#fields)           | Object                   | Optional metadata about form fields                          |
-| `allowExtraFields`            | Boolean                  | Whether to accept fields not defined under `fields`. Default: `true` |
+| Property                      | Type                     | Default        | Description                                         |
+| :---------------------------- | :----------------------- | :------------- | :-------------------------------------------------- |
+| `name` *                      | String                   |                | The name of the form                                |
+| [`actions`](#actions)         | Array                    | `[]`           | An Array of actions to perform after submission     |
+| [`fields`](#fields)           | Object                   | `{}`           | Optional metadata about form fields                 |
+| `allowExtraFields`            | Boolean                  | `true`         | Whether to accept fields not defined under `fields` |
 
 ### Usage Example
 
@@ -46,7 +46,8 @@ The `forms` object is where you declare form resources you need for your site.
       },
       "actions": [
         { "type": "email", "to": "john@example.com" }
-      ]
+      ],
+      "allowExtraFields": false
     }
   }
 }
@@ -55,6 +56,8 @@ The `forms` object is where you declare form resources you need for your site.
 ## Actions
 
 An Array of actions to perform after the form is submitted.
+
+Here are the available actions:
 
 | App                     | Type                              | Description                                                  |
 | :---------------------- | :-------------------------------- | :----------------------------------------------------------- |
@@ -120,8 +123,8 @@ Adds or updates a contact in a Mailchimp audience. Under the hood, this action c
 
 | Key                        | Type                     | Default                        | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
-| `app`                      | String                   | —                             | Must equal `mailchimp`                                       |
-| `type`                      | String                  | —                             |  Must equal `addOrUpdateContact`                             |
+| `app`                      | String                   |                                | Must equal `mailchimp`                                       |
+| `type`                     | String                   |                                | Must equal `addOrUpdateContact`                             |
 | `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID                                   |
 | `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key.       |
 | `statusIfNew`              | String                   | `subscribed`                   | The contact's status if they are new (possible values: subscribed, unsubscribed, cleaned, pending, transaction) |

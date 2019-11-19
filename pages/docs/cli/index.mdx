@@ -26,8 +26,9 @@ The StaticKit command line interface (CLI) comes with helpful commands for perfo
 
 | Command                                              | Description                   |
 | :--------------------------------------------------- | :---------------------------- |
-| [`forms add`](#add-a-form)              | Add a form                    |
-| [`secrets add`](#add-a-secret)              | Add a secret                    |
+| [`forms add`](#add-a-form)                           | Add a form                    |
+| [`secrets add`](#add-a-secret)                       | Add a secret                  |
+| [`deploy`](#deploy)                                  | Deploy your config            |
 
 ## Installation
 
@@ -89,21 +90,21 @@ statickit secrets add mailchimp-api-key "jf89s..."
 
 Then, in your form config, you can reference the secret you just added (notice the `@`-symbol prefix).
 
-```json
-{
-  "forms": {
-    "newsletter": {
-      "name": "Newsletter",
-      "actions": [
-        {
-          "app": "mailchimp",
-          "type": "addOrUpdateContact",
-          "apiKey": "@mailchimp-api-key"
-        }
-      ]
+```diff
+  {
+    "forms": {
+      "newsletter": {
+        "name": "Newsletter",
+        "actions": [
+          {
+            "app": "mailchimp",
+            "type": "addOrUpdateContact",
++           "apiKey": "@mailchimp-api-key"
+          }
+        ]
+      }
     }
   }
-}
 ```
 
 ## Deploy
