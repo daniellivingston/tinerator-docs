@@ -11,6 +11,11 @@
   },
   "routes": [
     {
+      "src": "/docs/config/schema",
+      "status": 308,
+      "headers": { "Location": "/docs/config" }
+    },
+    {
       "src": "/static/fonts/(.*)",
       "headers": { "cache-control": "public, max-age=31536000" },
       "dest": "/static/fonts/$1"
