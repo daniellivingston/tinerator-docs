@@ -44,16 +44,18 @@ An method that submits form data to the server and returns a Promise.
 
 This method accepts the following properties:
 
-| Key                     | Type                     | Description                                                  |
-| :---------------------- | :----------------------- | :----------------------------------------------------------- |
-| `id`                    | String (required)        | The StaticKit form ID.                                       |
-| `data`                  | Object or FormData       | The form data to send to the server. Defaults to `{}`        |
+| Key                     | Type                     | Default        | Description                                                  |
+| :---------------------- | :----------------------- | :------------- | :----------------------------------------------------------- |
+| `site` *                | String                   |                | The StaticKit site ID (found under Settings in the UI)       |
+| `form` *                | String                   |                | The form key from your config (e.g. `contact-form`)          |
+| `data`                  | Object or FormData       | `{}`           | The form data to send to the server                          |
 
 The return value resolves to object containing a `body` field and a `response` field:
 
 ```js
-client.submitForm({ 
-  id: formId, 
+client.submitForm({
+  site: 'sd8fug8d9sd',
+  form: 'contact-form',
   data: formData
 }).
   then(({ body, response }) => {
@@ -88,7 +90,8 @@ If there are validation errors, the `body` will include an array of errors:
   "errors": [{
     "code": "REQUIRED",
     "field": "email",
-    "message": "is required"
+    "message": "is required",
+    "properties": {}
   }]
 }
 ```
@@ -107,7 +110,8 @@ const formData = new FormData(form);
 
 // Submit the data to StaticKit
 const { body, response } = await client.submitForm({
-  id: 'f7h7sfg08jff',
+  site: 'sd8fug8d9sd',
+  form: 'contact-form',
   data: formData
 });
 ```
