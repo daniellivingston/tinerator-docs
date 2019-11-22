@@ -64,22 +64,19 @@ function OptInFormsPage() {
                 Email Opt-In Forms
               </div>
               <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
-                Quit wrestling with crappy <br className="hidden lg:block" />
-                opt-in form markup
+                Quit wrestling with ugly <br className="hidden lg:block" />
+                auto-generated markup
               </h1>
 
               <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
                 <p className="pb-8">
-                  You know that feeling of uncertainty looking at HTML code from
-                  your email provider. Can I change this <code>id</code>? Can I
-                  submit this via AJAX? What happens when submission fails?
-                </p>
-                <p>
-                  With StaticKit, you{' '}
+                  You know that feeling of dismay when you see a wall of HTML
+                  spit out by your email marketing app. With StaticKit,{' '}
                   <strong className="text-gray-300">
-                    bring your own markup
-                  </strong>{' '}
-                  and let our client library handle the tricky parts.
+                    build your form like you normally would
+                  </strong>
+                  {', '}
+                  without all the ceremony.
                 </p>
               </div>
 
