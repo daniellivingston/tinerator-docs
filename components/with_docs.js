@@ -132,7 +132,7 @@ export default meta => ({ children }) => {
               </div>
             </div>
             <div className="flex flex-grow min-w-0">
-              <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0">
+              <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0 min-h-144">
                 {meta.breadcrumb ? (
                   <div className="pb-1">
                     <Breadcrumb

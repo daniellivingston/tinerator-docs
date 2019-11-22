@@ -32,6 +32,9 @@ module.exports = {
       },
       lineHeight: {
         tighter: 1.2
+      },
+      minHeight: {
+        '144': '36rem'
       }
     }
   },
