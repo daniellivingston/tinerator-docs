@@ -69,6 +69,8 @@ Here are the available actions:
 
 Sends a notification email.
 
+**type**: `email`
+
 | Key                        | Type                     | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `to` *                     | String                   | The email address of the recipient                           |
@@ -94,6 +96,8 @@ Sends a notification email.
 ### Send a Webhook
 
 Sends a webhook (HTTP POST) to a given url.
+
+**type**: `webhook`
 
 | Key                        | Type                     | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
@@ -121,15 +125,15 @@ Sends a webhook (HTTP POST) to a given url.
 
 Adds or updates a contact in a Mailchimp audience. Under the hood, this action calls the [add or update a list member](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) API endpoint. If the call fails, we'll retry it for you.
 
+**app**: `mailchimp` | **type**: `addOrUpdateContact`
+
 | Key                        | Type                     | Default                        | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
-| `app`                      | String                   |                                | Must equal `mailchimp`                                       |
-| `type`                     | String                   |                                | Must equal `addOrUpdateContact`                             |
-| `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID                                   |
-| `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key.       |
+| `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID (a static value or a @secret reference)  |
+| `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key (must be a @secret reference) |
 | `statusIfNew`              | String                   | `subscribed`                   | The contact's status if they are new (possible values: subscribed, unsubscribed, cleaned, pending, transaction) |
 | `mergeFields`              | Object                   | `{}`                           | A mapping of Mailchimp merge tags to form field names        |
-| `emailAddressField`        | String                   | `email`                        | The email address field name.                                |
+| `emailAddressField`        | String                   | `email`                        | The email address field name                                 |
 
 #### Usage Example
 
