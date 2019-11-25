@@ -1,10 +1,21 @@
+import { useRef } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import OpenGraph from '../components/open_graph';
 import { ValidationError, useForm } from '@statickit/react';
 
 function ContactForm() {
-  const [state, submit] = useForm('6d92d93d9b3f');
+  const emailEl = useRef(null);
+
+  const [state, submit] = useForm({
+    site: 'a38ad7363b35',
+    form: 'support',
+    data: {
+      _subject: () => {
+        return `${emailEl.current.value} has a support request`;
+      }
+    }
+  });
 
   if (state.succeeded) {
     return (
@@ -27,10 +38,12 @@ function ContactForm() {
           What's your email address?
         </label>
         <input
+          ref={emailEl}
           type="email"
           name="email"
           className="input-field w-full"
           placeholder="me@example.com"
+          autoFocus
           required
         />
         <ValidationError
