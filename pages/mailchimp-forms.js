@@ -2,7 +2,7 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import OpenGraph from '../components/open_graph';
 import CodeBlock from '../components/code_block';
-import ReactDemo from '../components/react_demo';
+import ReactDemo from '../components/demos/mailchimp';
 import Link from 'next/link';
 
 const stepOne = `
@@ -19,6 +19,7 @@ const stepOne = `
 `;
 
 const stepTwo = `
+$ statickit secrets add mailchimp-api-key "..."
 $ statickit deploy
 `;
 
@@ -47,9 +48,9 @@ const paymentIcon = `
 </svg>
 `;
 
-function OptInFormsPage() {
-  const title = 'Opt-In Forms';
-  const description = 'Gather email addresses and forward them to your ESP';
+function MailchimpFormsPage() {
+  const title = 'Mailchimp Forms';
+  const description = 'The easiest way to gather email addresses.';
 
   return (
     <div>
@@ -58,25 +59,26 @@ function OptInFormsPage() {
         <div className="bg-gray-900">
           <Header pageTitle={title} inverted={true} />
 
-          <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
-            <div className="px-6 mx-auto max-w-5xl">
+          <div className="mx-auto container pt-16 sm:pt-24 pb-10 sm:pb-24">
+            <div className="px-6 mx-auto max-w-4xl">
               <div className="mb-12 pb-6 border-b-4 border-gray-800 mx-auto max-w-sm uppercase text-indigo-400 text-sm tracking-widest font-bold text-center">
-                Email Opt-In Forms
+                Mailchimp Forms
               </div>
               <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
-                Quit wrestling with ugly <br className="hidden lg:block" />
-                auto-generated markup
+                Stop wrestling with pregenerated opt-in forms
               </h1>
 
               <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
                 <p className="pb-8">
-                  You know that feeling of dismay when you see a wall of HTML
-                  spit out by your email marketing app. With StaticKit,{' '}
-                  <strong className="text-gray-300">
-                    build your form like you normally would
+                  Mailchimp is a lovely tool. But if you've ever tried to style
+                  their signup forms to match your site, you know just how
+                  painful it can be.
+                </p>
+
+                <p className="pb-8">
+                  <strong class="font-bold text-gray-300">
+                    StaticKit makes gathering emails simple.
                   </strong>
-                  {', '}
-                  without all the ceremony.
                 </p>
               </div>
 
@@ -146,75 +148,10 @@ function OptInFormsPage() {
           </div>
         </div>
 
-        <div className="mx-auto container pt-16 sm:pt-24 pb-8 sm:pb-16">
-          <div className="px-6 mx-auto max-w-4xl">
-            <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-900">
-              You have better things to do than reinvent the wheel
-            </h1>
-            <p className="pb-6 sm:pb-16 text-lg text-gray-700 sm:text-center mx-auto max-w-xl">
-              We have a growing collection of plugins for you, so you can skip
-              those hand-rolled lambda functions.
-            </p>
-            <div className="-mx-2 sm:flex">
-              <div className="sm:w-1/2">
-                <div className="mx-2 flex rounded-lg py-12 sm:px-6">
-                  <div
-                    className="mr-4"
-                    dangerouslySetInnerHTML={{ __html: formIcon }}
-                  ></div>
-                  <div>
-                    <h3 className="pb-2 text-2xl font-semibold tracking-snug leading-snug">
-                      <Link href="/forms">
-                        <a className="text-gray-900 hover:text-indigo-600">
-                          Forms
-                        </a>
-                      </Link>
-                    </h3>
-                    <p className="pb-3 text-gray-700">
-                      Gather form submissions from your frontend without writing
-                      a line of backend code.
-                    </p>
-                    <p>
-                      <Link href="/forms">
-                        <a className="text-indigo-600 font-semibold">
-                          Learn more &rarr;
-                        </a>
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="sm:w-1/2">
-                <div className="mx-2 flex rounded-lg py-12 sm:px-6">
-                  <div
-                    className="-mt-1 mr-4"
-                    dangerouslySetInnerHTML={{ __html: paymentIcon }}
-                  ></div>
-                  <div>
-                    <h3 className="flex items-center pb-2 text-2xl font-semibold leading-snug">
-                      <div className="text-gray-900 tracking-snug">
-                        Payments
-                      </div>
-                      <div className="ml-3 px-2 py-1 rounded-full bg-green-400 text-white text-xs truncate">
-                        Coming Soon
-                      </div>
-                    </h3>
-                    <p className="pb-3 text-gray-700">
-                      Implement Stripe payment flows from your frontend and let
-                      us take care of the server-side stuff.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="mx-auto container pb-8">
           <div className="max-w-5xl mx-auto px-6 py-16 sm:flex items-center justify-center border-t">
             <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-700">
-              Make your static site dynamic.
+              Start gathering email subscribers.
             </div>
             <div className="flex-shrink-0">
               <a
@@ -233,4 +170,4 @@ function OptInFormsPage() {
   );
 }
 
-export default OptInFormsPage;
+export default MailchimpFormsPage;
