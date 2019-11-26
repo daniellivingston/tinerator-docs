@@ -65,7 +65,7 @@ function MailchimpFormsPage() {
                 Mailchimp Forms
               </div>
               <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
-                Stop wrestling with pregenerated opt-in forms
+                Stop wrestling with messy opt-in form markup
               </h1>
 
               <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
