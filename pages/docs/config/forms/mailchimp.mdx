@@ -1,0 +1,62 @@
+import withDocs from '../../../../components/with_docs';
+import ArrowItem from '../../../../components/arrow_item';
+
+export default withDocs({
+  title: 'Mailchimp - Forms - Config',
+  description: 'The statickit.json schema for Mailchimp form actions',
+  path: '/docs/config/forms/mailchimp',
+  breadcrumb: {
+    path: '/docs/config/forms#actions',
+    label: 'Forms › Actions',
+    rel: 'prev'
+  },
+  toc: [
+    [1, 'Add or update contact', '#add-or-update-contact']
+  ],
+  prev: {
+    path: '/docs/config/forms#actions',
+    label: 'Forms'
+  }
+});
+
+# Mailchimp
+
+Getting started? Check out <a href="/guides/mailchimp" className="font-semibold text-indigo-600">How To Connect Forms to Mailchimp</a> guide first.
+
+| Type                              | Description                                                  |
+| :-------------------------------- | :----------------------------------------------------------- |
+| [`addOrUpdateContact`](#add-or-update-contact) | Adds or updates a contact                       |
+
+## Add or update contact
+
+Adds or updates a contact in a Mailchimp audience. Under the hood, this action calls the [add or update a list member](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) API endpoint. If the call fails, we'll retry it for you.
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID (a static value or a @secret reference)  |
+| `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key (must be a @secret reference) |
+| `statusIfNew`              | String                   | `subscribed`                   | The contact's status if they are new (possible values: subscribed, unsubscribed, cleaned, pending, transaction) |
+| `mergeFields`              | Object                   | `{}`                           | A mapping of Mailchimp merge tags to form field names        |
+| `emailAddressField`        | String                   | `email`                        | The email address field name                                 |
+
+#### Usage Example
+
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "actions": [
+        {
+          "app": "mailchimp",
+          "type": "addOrUpdateContact",
+          "audience": "8djs8fg8d",
+          "mergeFields": {
+            "FNAME": "first_name"
+          }
+        }
+      ]
+    }
+  }
+}
+```

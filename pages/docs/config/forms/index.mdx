@@ -1,4 +1,4 @@
-import withDocs from '../../../components/with_docs';
+import withDocs from '../../../../components/with_docs';
 
 export default withDocs({
   title: 'Forms - Config',
@@ -11,9 +11,6 @@ export default withDocs({
   },
   toc: [
     [1, 'Actions', '#actions'],
-    [2, 'Email Notification', '#email-notification'],
-    [2, 'Send a Webhook', '#send-a-webhook'],
-    [2, 'Add to Mailchimp', '#add-to-mailchimp'],
     [1, 'Fields', '#fields']
   ],
   prev: {
@@ -33,7 +30,7 @@ The `forms` object is where you declare form resources you need for your site. Y
 | [`fields`](#fields)           | Object                   | `{}`           | Optional metadata about form fields                 |
 | `allowExtraFields`            | Boolean                  | `true`         | Whether to accept fields not defined under `fields` |
 
-### Usage Example
+### Config Example
 
 ```json
 {
@@ -55,27 +52,28 @@ The `forms` object is where you declare form resources you need for your site. Y
 
 ## Actions
 
-An Array of actions to perform after the form is submitted.
+An Array of actions to perform after the form is submitted. We have a few built-in actions:
 
-Here are the available actions:
+| Type                              | Description                                                  |
+| :-------------------------------- | :----------------------------------------------------------- |
+| [`email`](#send-a-notification-email) | Sends a notification email                                   |
+| [`webhook`](#send-a-webhook)      | Sends a webhook (HTTP POST) to a given url                   |
 
-| App                     | Type                              | Description                                                  |
-| :---------------------- | :-------------------------------- | :----------------------------------------------------------- |
-| —                      | [`email`](#email-notification)    | Sends a notification email                                   |
-| —                      | [`webhook`](#send-a-webhook)      | Sends a webhook (HTTP POST) to a given url                   |
-| `mailchimp`             | [`addOrUpdateContact`](#add-to-mailchimp) | Adds or updates a Mailchimp contact                  |
+We also have integrations with other apps:
 
-### Email Notification
+| App                                          | Description                                                               |
+| :------------------------------------------- | :------------------------------------------------------------------------ |
+| [`mailchimp`](/docs/config/forms/mailchimp)  | Create subscribers and track events in [Mailchimp](https://mailchimp.com) |
 
-Sends a notification email.
+### Send a notification email
 
-**type**: `email`
+Email a simple plain-text notification to somebody when the form is submitted.
 
 | Key                        | Type                     | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `to` *                     | String                   | The email address of the recipient                           |
 
-#### Usage Example
+#### Config Example
 
 ```json
 {
@@ -93,17 +91,15 @@ Sends a notification email.
 }
 ```
 
-### Send a Webhook
+### Send a webhook
 
-Sends a webhook (HTTP POST) to a given url.
-
-**type**: `webhook`
+Send an HTTP POST to a given URL with a JSON body.
 
 | Key                        | Type                     | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `url` *                    | String                   | The endpoint to send the POST request                        |
 
-#### Usage Example
+#### Config Example
 
 ```json
 {
@@ -121,38 +117,28 @@ Sends a webhook (HTTP POST) to a given url.
 }
 ```
 
-### Add to Mailchimp
+#### Request Body
 
-Adds or updates a contact in a Mailchimp audience. Under the hood, this action calls the [add or update a list member](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) API endpoint. If the call fails, we'll retry it for you.
+The body of the webhook contains the following properties in JSON format:
 
-**app**: `mailchimp` | **type**: `addOrUpdateContact`
+| Key                        | Type                     | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `form_id`                  | String                   | The form ID                                                  |
+| `submission_id`            | String                   | The form submission ID                                       |
+| `occurred_at`              | String                   | The submission timestamp (in ISO-8601 format)                |
+| `data`                     | Object                   | The submission fields                                        |
 
-| Key                        | Type                     | Default                        | Description                                                  |
-| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
-| `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID (a static value or a @secret reference)  |
-| `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key (must be a @secret reference) |
-| `statusIfNew`              | String                   | `subscribed`                   | The contact's status if they are new (possible values: subscribed, unsubscribed, cleaned, pending, transaction) |
-| `mergeFields`              | Object                   | `{}`                           | A mapping of Mailchimp merge tags to form field names        |
-| `emailAddressField`        | String                   | `email`                        | The email address field name                                 |
-
-#### Usage Example
+Here's an example:
 
 ```json
 {
-  "forms": {
-    "contact": {
-      "name": "Contact Form",
-      "actions": [
-        {
-          "app": "mailchimp",
-          "type": "addOrUpdateContact",
-          "audience": "8djs8fg8d",
-          "mergeFields": {
-            "FNAME": "first_name"
-          }
-        }
-      ]
-    }
+  "type": "form.submitted",
+  "form_id": "6f711462a450",
+  "submission_id": "ef3f189d-c83d-4210-8320-03b4ee27394d",
+  "occurred_at": "2020-01-01T00:00:00Z",
+  "data": {
+    "first_name": "Bob",
+    "last_name": "Loblaw"
   }
 }
 ```
@@ -171,7 +157,7 @@ Field objects can contain the following properties:
 | `prettyName`                         | String                 | The human-friendly name of the field                            |
 | `required`                           | Boolean                | Specifies whether the field is required                         |
 
-#### Usage Example
+#### Config Example
 
 ```json
 {

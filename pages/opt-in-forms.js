@@ -19,8 +19,11 @@ const stepOne = `
 `;
 
 const stepTwo = `
-$ statickit secrets add mailchimp-api-key "..."
-$ statickit deploy
+statickit secrets add mailchimp-api-key <...>
+`;
+
+const stepThree = `
+statickit deploy
 `;
 
 const formIcon = `
@@ -48,8 +51,8 @@ const paymentIcon = `
 </svg>
 `;
 
-function MailchimpFormsPage() {
-  const title = 'Mailchimp Forms';
+function OptInFormsPage() {
+  const title = 'Email Opt-In Forms';
   const description = 'The easiest way to gather email addresses.';
 
   return (
@@ -62,22 +65,24 @@ function MailchimpFormsPage() {
           <div className="mx-auto container pt-16 sm:pt-24 pb-10 sm:pb-24">
             <div className="px-6 mx-auto max-w-4xl">
               <div className="mb-12 pb-6 border-b-4 border-gray-800 mx-auto max-w-sm uppercase text-indigo-400 text-sm tracking-widest font-bold text-center">
-                Mailchimp Forms
+                Email Opt-In Forms
               </div>
               <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
-                Stop wrestling with messy opt-in form markup
+                Stop fighting with messy opt-in form markup
               </h1>
 
-              <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
+              <div className="max-w-2xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
                 <p className="pb-8">
-                  Mailchimp is a lovely tool. But if you've ever tried to style
-                  their signup forms to match your site, you know just how
-                  painful it can be.
+                  Your email marketing app gives you opt-in forms, but
+                  let&rsquo;s be honest: they&rsquo;re a pain to style, you
+                  don&rsquo;t have much control over their behavior, and
+                  you&rsquo;re never quite sure if you&rsquo;re going to
+                  accidentally break them.
                 </p>
 
                 <p className="pb-8">
                   <strong class="font-bold text-gray-300">
-                    StaticKit makes gathering emails simple.
+                    StaticKit makes gathering emails a breeze.
                   </strong>
                 </p>
               </div>
@@ -110,23 +115,38 @@ function MailchimpFormsPage() {
 
                 <div className="pb-16">
                   <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-green-600 rounded-full whitespace-no-wrap">
+                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-red-600 rounded-full whitespace-no-wrap">
                       Step 2
                     </div>{' '}
-                    <div className="text-green-500">Deploy to StaticKit</div>
+                    <div className="text-red-500">
+                      Authenticate your Mailchimp account
+                    </div>
                   </h2>
 
-                  <CodeBlock className="language-shell">
+                  <CodeBlock className="language-text">
                     {stepTwo.trim()}
                   </CodeBlock>
                 </div>
 
                 <div className="pb-16">
                   <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-pink-600 rounded-full whitespace-no-wrap">
+                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-green-600 rounded-full whitespace-no-wrap">
                       Step 3
                     </div>{' '}
-                    <div className="text-pink-500">Wire up your front-end</div>
+                    <div className="text-green-500">Deploy to StaticKit</div>
+                  </h2>
+
+                  <CodeBlock className="language-shell">
+                    {stepThree.trim()}
+                  </CodeBlock>
+                </div>
+
+                <div className="pb-16">
+                  <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-pink-600 rounded-full whitespace-no-wrap">
+                      Step 4
+                    </div>{' '}
+                    <div className="text-pink-500">Design your interface</div>
                   </h2>
 
                   <ReactDemo />
@@ -170,4 +190,4 @@ function MailchimpFormsPage() {
   );
 }
 
-export default MailchimpFormsPage;
+export default OptInFormsPage;
