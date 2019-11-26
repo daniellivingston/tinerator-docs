@@ -1,0 +1,137 @@
+import withDocs from '../../components/with_docs';
+import StepHeading from '../../components/step_heading';
+import BrowserDemo from '../../components/browser_demo';
+import ArrowItem from '../../components/arrow_item';
+
+export default withDocs({
+  title: 'How To Connect Forms to Mailchimp',
+  description: 'How to add subscribers to Mailchimp and track automation events using StaticKit.',
+  path: '/guides/mailchimp',
+  breadcrumb: {
+    path: '/guides',
+    label: 'Guides',
+    rel: 'prev'
+  },
+  toc: [
+    [1, "Configure your form", "#configure-your-form"],
+    [1, "Add your API key", "#add-your-mailchimp-api-key"],
+    [1, "Configure your fields", "#configure-your-fields"],
+    [1, "Build your form", "#build-your-form"],
+  ],
+});
+
+# How To Connect Forms to Mailchimp
+
+<p className="text-lg">
+  In this guide, you'll learn how to add (or update) subscribers in <a href="https://mailchimp.com/">Mailchimp</a> when someone submits a form.
+</p>
+
+<h2 id="configure-your-form">
+  <StepHeading step="1">Configure your form</StepHeading>
+</h2>
+
+The `addOrUpdateContact` action is what connects StaticKit to Mailchimp.
+
+In your `statickit.json` file, either add a new form or update an existing form's `actions` like this: 
+
+```json
+{
+  "forms": {
+    "opt-in-form": {
+      "name": "Opt-In Form",
+      "fields": {
+        "email": {
+          "type": "email",
+          "prettyName": "Email address"
+        }
+      },
+      "actions": [
+        {
+          "app": "mailchimp",
+          "type": "addOrUpdateContact",
+          "audience": "<replace-with-your-audience-id>"
+        }
+      ]
+    }
+  }
+}
+```
+
+You need to tell StaticKit which `audience` to use. 
+
+Here's where to find your Audience ID:
+
+- Log in to your Mailchimp account
+- Click **Audience** tab at the top
+- Navigate to **Manage Audience › Settings**
+- Click **Audience name and defaults**
+- Locate the ID under the "Audience ID" heading (it looks like `5ca598e7e8`)
+
+<h2 id="add-your-mailchimp-api-key">
+  <StepHeading step="2">Add your API key</StepHeading>
+</h2>
+
+If you deploy now, you will see an error because we don't yet have your API key. 
+
+Here's where to find your API key:
+
+- Log in to your Mailchimp account
+- Open the menu with your avatar in the upper right
+- Navigate to **Profile › Extras › API keys**
+- Under "Your API keys", click **Create A Key**
+
+It will look something like this: `ecee71ce9jkl636820fb55e0163515c6-us16`
+
+Copy the key and run the following command to store this as a secret value:
+
+```bash
+statickit secrets add mailchimp-api-key <paste-api-key-here>
+```
+
+Now, you're ready to deploy:
+
+```bash
+statickit deploy
+```
+
+<h2 id="configure-your-fields">
+  <StepHeading step="3">Configure your fields (optional)</StepHeading>
+</h2>
+
+By default, the `addOrUpdateContact` action uses the `email` field and does not set any merge fields.
+
+You can override the email address field using the `emailAddressField` property:
+
+```json
+{
+  "app": "mailchimp",
+  "type": "addOrUpdateContact",
+  "emailAddressField": "email_address"
+}
+```
+
+If you are gathering additional fields (like first name), you can map them to Mailchimp merge fields:
+
+```json
+{
+  "app": "mailchimp",
+  "type": "addOrUpdateContact",
+  "mergeFields": {
+    "FNAME": "first_name"
+  }
+}
+```
+
+<h2 id="build-your-form">
+  <StepHeading step="4">Build your form</StepHeading>
+</h2>
+
+We have a few client libraries to help bind your front-end components to the StaticKit backend.
+
+<ArrowItem>
+  <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
+</ArrowItem>
+
+<ArrowItem>
+  <a href="/docs/react" className="font-semibold text-indigo-600">React</a>: works great with Gatsby, Next.js, etc.
+</ArrowItem>
