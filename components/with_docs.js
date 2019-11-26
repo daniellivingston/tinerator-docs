@@ -98,6 +98,20 @@ const Breadcrumb = props => {
   );
 };
 
+const Breadcrumbs = props => {
+  if (!props.breadcrumbs) return '';
+
+  const links = props.breadcrumbs.map(props => {
+    return (
+      <li key={props.path}>
+        <Breadcrumb {...props} />
+      </li>
+    );
+  });
+
+  return <ol className="docs-breadcrumbs">{links}</ol>;
+};
+
 const DocumentFooter = ({ prev, next }) => {
   if (!prev && !next) return <></>;
   return (
@@ -133,17 +147,7 @@ export default meta => ({ children }) => {
             </div>
             <div className="flex flex-grow min-w-0">
               <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0 min-h-144">
-                {meta.breadcrumb ? (
-                  <div className="pb-1">
-                    <Breadcrumb
-                      path={meta.breadcrumb.path}
-                      label={meta.breadcrumb.label}
-                      rel={meta.breadcrumb.rel}
-                    />
-                  </div>
-                ) : (
-                  ''
-                )}
+                <Breadcrumbs breadcrumbs={meta.breadcrumbs} />
                 <div className="markdown">{children}</div>
                 <DocumentFooter prev={meta.prev} next={meta.next} />
               </div>

@@ -1,5 +1,19 @@
 @tailwind base;
 
+ol.docs-breadcrumbs {
+  @apply pb-1;
+}
+
+ol.docs-breadcrumbs > li {
+  @apply pr-4 inline-block relative;
+}
+
+ol.docs-breadcrumbs > li:not(:last-child)::after {
+  @apply absolute text-base font-semibold text-gray-600;
+  right: 4px;
+  content: "›";
+}
+
 @tailwind components;
 
 .btn {
