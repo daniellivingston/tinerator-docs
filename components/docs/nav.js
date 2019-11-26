@@ -69,7 +69,8 @@ const Section = ({ path, label, currentPath, sections }) => {
       return section.path == currentPath;
     }) ||
     path == currentPath ||
-    (path.startsWith('/guides') && currentPath.startsWith('/guides'));
+    (path.startsWith('/guides') && currentPath.startsWith('/guides')) ||
+    (path.startsWith('/docs/config') && currentPath.startsWith('/docs/config'));
 
   const Subsection = ({ section }) => {
     const color =
