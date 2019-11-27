@@ -280,7 +280,7 @@ function OptInFormsPage() {
               <div className="pb-4 h-16 flex items-center">
                 <div dangerouslySetInnerHTML={{ __html: shieldIcon }}></div>
               </div>
-              <h2 className="pb-1 text-xl font-semibold">Spam Protection</h2>
+              <h3 className="pb-1 text-xl font-semibold">Spam Protection</h3>
 
               <p className="text-gray-700">
                 Our proprietary spam algorithm keeps bots away, without
@@ -292,7 +292,7 @@ function OptInFormsPage() {
               <div className="pb-4 h-16 flex items-center">
                 <div dangerouslySetInnerHTML={{ __html: validationIcon }}></div>
               </div>
-              <h2 className="pb-1 text-xl font-semibold">Validation Rules</h2>
+              <h3 className="pb-1 text-xl font-semibold">Validation Rules</h3>
 
               <p className="text-gray-700">
                 Ensure invalid submissions don't slip through by setting rules
@@ -304,7 +304,7 @@ function OptInFormsPage() {
               <div className="pb-4 h-16 flex items-center">
                 <div dangerouslySetInnerHTML={{ __html: databaseIcon }}></div>
               </div>
-              <h2 className="pb-1 text-xl font-semibold">Submission Storage</h2>
+              <h3 className="pb-1 text-xl font-semibold">Submission Storage</h3>
 
               <p className="text-gray-700">
                 You can still gather email addresses even if you aren't ready
