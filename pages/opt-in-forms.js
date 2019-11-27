@@ -117,8 +117,9 @@ const mcLogo = `
 `;
 
 function OptInFormsPage() {
-  const title = 'Email Opt-In Forms';
-  const description = 'The easiest way to gather email addresses.';
+  const title = 'Opt-In Forms';
+  const description =
+    'Collect email addresses and forward them to your email marketing app.';
 
   return (
     <div>
@@ -130,7 +131,7 @@ function OptInFormsPage() {
           <div className="mx-auto container pt-16 sm:pt-24 pb-10 sm:pb-24">
             <div className="px-6 mx-auto max-w-4xl">
               <div className="mb-12 pb-6 border-b-4 border-gray-800 mx-auto max-w-sm uppercase text-indigo-400 text-sm tracking-widest font-bold text-center">
-                Email Opt-In Forms
+                Opt-In Forms
               </div>
               <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
                 Stop fighting with messy opt-in form markup

@@ -26,6 +26,17 @@ const optInFormIcon = `
 </svg>
 `;
 
+const contactFormIcon = `
+<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="edit-copy-6" transform="translate(1.000000, 1.000000)" stroke="#5A67D8" stroke-width="2">
+            <path d="M18,4 L4,4 C1.790861,4 0,5.790861 0,8 L0,36 C0,38.209139 1.790861,40 4,40 L32,40 C34.209139,40 36,38.209139 36,36 L36,22" id="Path"></path>
+            <path d="M32.819583,1.23196474 C34.4622027,-0.410654938 37.1254155,-0.41065491 38.7680352,1.2319648 C40.4106549,2.87458452 40.4106549,5.53779727 38.7680353,7.18041702 L19.9312697,26.0171826 L12,28 L13.9828174,20.0687303 L32.819583,1.23196474 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>
+`;
+
 const paymentIcon = `
 <svg width="45px" height="37px" viewBox="0 0 45 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
@@ -146,10 +157,10 @@ function HomePage() {
               We have a growing collection of plugins, so you can skip writing
               one-off serverless functions or building a whole server-side app.
             </p>
-            <div className="-mx-2 sm:flex">
+            <div className="-mx-2 sm:flex flex-wrap">
               <div className="sm:w-1/2">
                 <div className="mx-2 py-12 sm:px-6">
-                  <div className="pb-4 h-16 flex items-center">
+                  <div className="pb-4 h-16 flex items-end">
                     <div
                       dangerouslySetInnerHTML={{ __html: optInFormIcon }}
                     ></div>
@@ -158,13 +169,13 @@ function HomePage() {
                   <h3 className="pb-2 text-2xl font-semibold tracking-snug leading-snug">
                     <Link href="/opt-in-forms">
                       <a className="text-gray-900 hover:text-indigo-600">
-                        Email Opt-In Forms
+                        Opt-In Forms
                       </a>
                     </Link>
                   </h3>
                   <p className="pb-2 text-gray-700">
-                    Stop fighting with messy opt-in form markup. Gather email
-                    subscribers and forward them to your email marketing app.
+                    Collect email addresses and forward them along to your email
+                    marketing app.
                   </p>
                   <p>
                     <Link href="/opt-in-forms">
@@ -178,7 +189,29 @@ function HomePage() {
 
               <div className="sm:w-1/2">
                 <div className="mx-2 py-12 sm:px-6">
-                  <div className="pb-4 h-16 flex items-center">
+                  <div className="pb-4 h-16 flex items-end">
+                    <div
+                      dangerouslySetInnerHTML={{ __html: contactFormIcon }}
+                    ></div>
+                  </div>
+
+                  <h3 className="pb-2 text-2xl font-semibold tracking-snug leading-snug">
+                    <Link href="/opt-in-forms">
+                      <a className="text-gray-900 hover:text-indigo-600">
+                        Contact Forms
+                      </a>
+                    </Link>
+                  </h3>
+                  <p className="pb-2 text-gray-700">
+                    Gather contact form submissions and send a notification
+                    email to the right people.
+                  </p>
+                </div>
+              </div>
+
+              <div className="sm:w-1/2">
+                <div className="mx-2 py-12 sm:px-6">
+                  <div className="pb-4 h-16 flex items-end">
                     <div
                       dangerouslySetInnerHTML={{ __html: paymentIcon }}
                     ></div>
