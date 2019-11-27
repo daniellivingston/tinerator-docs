@@ -3,10 +3,10 @@ import CodeBlock from '../code_block';
 const code = `
 import { useForm } from '@statickit/react';
 
-function OptInForm() {
+function ContactForm() {
   const [state, submit] = useForm({
     site: '0858b1a135b0',
-    form: 'newsletter'
+    form: 'contact'
   });
 
   if (state.succeeded) {
@@ -19,7 +19,11 @@ function OptInForm() {
     <form onSubmit={submit}>
       <label htmlFor="email">Email</label>
       <input id="email" type="email" name="email" required />
-      <button type="submit" disabled={state.submitting}>Notify me</button>
+
+      <label htmlFor="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit" disabled={state.submitting}>Send</button>
     </form>
   );
 }

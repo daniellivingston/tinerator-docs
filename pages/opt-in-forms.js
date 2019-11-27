@@ -2,7 +2,7 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import OpenGraph from '../components/open_graph';
 import CodeBlock from '../components/code_block';
-import ReactDemo from '../components/demos/mailchimp';
+import OptInFormDemo from '../components/demos/mailchimp';
 import Link from 'next/link';
 
 const stepOne = `
@@ -134,7 +134,7 @@ function OptInFormsPage() {
                 Opt-In Forms
               </div>
               <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
-                Stop fighting with messy opt-in form markup
+                Stop fighting messy opt-in form markup
               </h1>
 
               <div className="max-w-2xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
@@ -147,7 +147,7 @@ function OptInFormsPage() {
                 </p>
 
                 <p className="pb-8">
-                  <strong class="font-bold text-gray-300">
+                  <strong className="font-bold text-gray-300">
                     StaticKit makes gathering emails a breeze.
                   </strong>
                 </p>
@@ -215,7 +215,7 @@ function OptInFormsPage() {
                     <div className="text-pink-500">Design your interface</div>
                   </h2>
 
-                  <ReactDemo />
+                  <OptInFormDemo />
 
                   <p className="px-4 pt-4 text-sm text-gray-500">
                     We have{' '}

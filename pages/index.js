@@ -196,7 +196,7 @@ function HomePage() {
                   </div>
 
                   <h3 className="pb-2 text-2xl font-semibold tracking-snug leading-snug">
-                    <Link href="/opt-in-forms">
+                    <Link href="/contact-forms">
                       <a className="text-gray-900 hover:text-indigo-600">
                         Contact Forms
                       </a>
