@@ -205,7 +205,7 @@ function HomePage() {
         </div>
 
         <div className="mx-auto container pb-8">
-          <div className="max-w-5xl mx-auto px-6 py-16 sm:flex items-center justify-center border-t">
+          <div className="max-w-5xl mx-auto px-6 py-20 sm:flex items-center justify-center border-t">
             <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-700">
               Make your static site dynamic.
             </div>

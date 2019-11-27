@@ -30,9 +30,7 @@ export default withDocs({
   <StepHeading step="1">Configure your form</StepHeading>
 </h2>
 
-The `addOrUpdateContact` action is what connects StaticKit to Mailchimp.
-
-In your `statickit.json` file, either add a new form or update an existing form's `actions` like this: 
+In your `statickit.json` file, either add a new form or update an existing form's `actions`: 
 
 ```json
 {
@@ -57,9 +55,7 @@ In your `statickit.json` file, either add a new form or update an existing form'
 }
 ```
 
-You need to tell StaticKit which `audience` to use. 
-
-Here's where to find your Audience ID:
+Here's where to find your Audience ID place in the `audience` property:
 
 - Log in to your Mailchimp account
 - Click **Audience** tab at the top
@@ -71,9 +67,7 @@ Here's where to find your Audience ID:
   <StepHeading step="2">Add your API key</StepHeading>
 </h2>
 
-If you deploy now, you will see an error because we don't yet have your API key. 
-
-Here's where to find your API key:
+Next, you need to save your Mailchimp API key in your StaticKit secrets. Here's where to find it:
 
 - Log in to your Mailchimp account
 - Open the menu with your avatar in the upper right
@@ -98,9 +92,7 @@ statickit deploy
   <StepHeading step="3">Configure your fields (optional)</StepHeading>
 </h2>
 
-By default, the `addOrUpdateContact` action uses the `email` field and does not set any merge fields.
-
-You can override the email address field using the `emailAddressField` property:
+By default, the `addOrUpdateContact` action uses the `email` field. You can override the email address field using the `emailAddressField` property:
 
 ```json
 {
@@ -126,7 +118,7 @@ If you are gathering additional fields (like first name), you can map them to Ma
   <StepHeading step="4">Build your form</StepHeading>
 </h2>
 
-We have a few client libraries to help bind your front-end components to the StaticKit backend.
+We have a few client libraries to help attach your interface to StaticKit:
 
 <ArrowItem>
   <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.

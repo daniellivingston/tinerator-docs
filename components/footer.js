@@ -13,7 +13,7 @@ const levelLogo = `
 export default props => (
   <footer className="bg-gray-100 border-t">
     <div className="mx-auto container px-4 py-12">
-      <div className="flex flex-wrap pb-12 text-gray-600 text-base font-semibold">
+      <div className="flex flex-wrap pb-16 text-gray-600 text-base font-semibold">
         <Link href="/docs">
           <a className="px-3 pb-1 whitespace-no-wrap">Docs</a>
         </Link>
