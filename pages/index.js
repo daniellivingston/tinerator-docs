@@ -217,12 +217,8 @@ function HomePage() {
                     ></div>
                   </div>
 
-                  <h3 className="pb-2 text-2xl font-semibold tracking-snug leading-snug">
-                    <Link href="/forms">
-                      <a className="text-gray-900 hover:text-indigo-600">
-                        Payments
-                      </a>
-                    </Link>
+                  <h3 className="pb-2 text-2xl font-semibold tracking-snug leading-snug text-gray-900">
+                    Payments
                   </h3>
                   <p className="pb-2 text-gray-700">
                     Create Stripe customers, charges, and subscriptions without

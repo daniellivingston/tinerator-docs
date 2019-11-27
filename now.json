@@ -16,6 +16,11 @@
       "headers": { "Location": "/docs/config" }
     },
     {
+      "src": "/forms",
+      "status": 308,
+      "headers": { "Location": "/contact-forms" }
+    },
+    {
       "src": "/static/fonts/(.*)",
       "headers": { "cache-control": "public, max-age=31536000" },
       "dest": "/static/fonts/$1"
