@@ -109,3 +109,7 @@
 .markdown > .markdown ul {
   @apply list-disc;
 }
+
+.markdown > hr {
+  @apply my-6 block border-b;
+}
