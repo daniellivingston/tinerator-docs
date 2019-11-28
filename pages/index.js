@@ -206,6 +206,13 @@ function HomePage() {
                     Gather contact form submissions and send a notification
                     email to the right people.
                   </p>
+                  <p>
+                    <Link href="/contact-forms">
+                      <a className="text-indigo-600 font-semibold">
+                        Learn more &rarr;
+                      </a>
+                    </Link>
+                  </p>
                 </div>
               </div>
 
