@@ -19,7 +19,8 @@ export default withDocs({
     rel: 'prev'
   }],
   toc: [
-    [1, 'Add or update contact', '#add-or-update-contact']
+    [1, 'Add or update contact', '#add-or-update-contact'],
+    [1, 'Create event', '#create-event']
   ],
   prev: {
     path: '/docs/config/forms#actions',
@@ -33,7 +34,8 @@ Getting started? Check out <a href="/guides/mailchimp" className="font-semibold 
 
 | Type                              | Description                                                  |
 | :-------------------------------- | :----------------------------------------------------------- |
-| [`addOrUpdateContact`](#add-or-update-contact) | Adds or updates a contact                       |
+| [`addOrUpdateContact`](#add-or-update-contact) | Add or update an audience member         |
+| [`createEvent`](#create-event)    | Create an event for an audience member                       |
 
 ## Add or update contact
 
@@ -61,6 +63,44 @@ Adds or updates a contact in a Mailchimp audience. Under the hood, this action c
           "audience": "8djs8fg8d",
           "mergeFields": {
             "FNAME": "first_name"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+## Create event
+
+Adds or updates a contact in a Mailchimp audience (to make sure they exist) and then creates an event for the contact, which you can use to trigger automations. Under the hood, this action calls the [add or update a list member](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) and [create an event](https://mailchimp.com/developer/reference/lists/list-members/list-member-events/) API endpoints. If either call fails, we'll retry them for you.
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `name` *                   | String                   |                                | The name of the event (e.g. `joined_newsletter`)             |
+| `properties`               | Object                   | `{}`                           | An optional object containing event properties               |
+| `is_syncing`               | Boolean                  | `false`                        | Events created with the `is_syncing` value set to `true` will not trigger automations |
+| `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID (a static value or a @secret reference)  |
+| `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key (must be a @secret reference) |
+| `statusIfNew`              | String                   | `subscribed`                   | The contact's status if they are new (possible values: subscribed, unsubscribed, cleaned, pending, transaction) |
+| `mergeFields`              | Object                   | `{}`                           | A mapping of Mailchimp merge tags to form field names        |
+| `emailAddressField`        | String                   | `email`                        | The email address field name                                 |
+
+#### Usage Example
+
+```json
+{
+  "forms": {
+    "order-form": {
+      "name": "Order Form",
+      "actions": [
+        {
+          "app": "mailchimp",
+          "type": "createEvent",
+          "audience": "8djs8fg8d",
+          "name": "purchased_book",
+          "properties": {
+            "skill_level": "expert"
           }
         }
       ]
