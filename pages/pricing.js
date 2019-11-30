@@ -28,7 +28,7 @@ function PricingPage() {
               <h2 className="text-center text-sm uppercase font-bold tracking-wide text-indigo-600">
                 Sandbox
               </h2>
-              <div className="text-center text-4xl sm:text-5xl tracking-tight font-bold">
+              <div className="text-center text-4xl sm:text-6xl tracking-tight font-bold">
                 Free
               </div>
 
@@ -46,7 +46,7 @@ function PricingPage() {
               <h2 className="text-center text-sm uppercase font-bold tracking-wide text-indigo-600">
                 Production
               </h2>
-              <div className="text-center text-4xl sm:text-5xl tracking-tight font-bold">
+              <div className="text-center text-4xl sm:text-6xl tracking-tight font-bold">
                 $10
                 <span className="text-lg font-normal text-gray-600 tracking-normal">
                   {' '}
