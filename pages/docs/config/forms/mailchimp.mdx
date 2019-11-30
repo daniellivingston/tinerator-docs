@@ -79,7 +79,7 @@ Adds or updates a contact in a Mailchimp audience (to make sure they exist) and 
 | :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
 | `name` *                   | String                   |                                | The name of the event (e.g. `joined_newsletter`)             |
 | `properties`               | Object                   | `{}`                           | An optional object containing event properties               |
-| `is_syncing`               | Boolean                  | `false`                        | Events created with the `is_syncing` value set to `true` will not trigger automations |
+| `isSyncing`                | Boolean                  | `false`                        | Events created with the `isSyncing` value set to `true` will not trigger automations |
 | `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID (a static value or a @secret reference)  |
 | `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key (must be a @secret reference) |
 | `statusIfNew`              | String                   | `subscribed`                   | The contact's status if they are new (possible values: subscribed, unsubscribed, cleaned, pending, transaction) |
