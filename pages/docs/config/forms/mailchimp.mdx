@@ -46,7 +46,8 @@ Adds or updates a contact in a Mailchimp audience. Under the hood, this action c
 | `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID (a static value or a @secret reference)  |
 | `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key (must be a @secret reference) |
 | `statusIfNew`              | String                   | `subscribed`                   | The contact's status if they are new (possible values: subscribed, unsubscribed, cleaned, pending, transaction) |
-| `mergeFields`              | Object                   | `{}`                           | A mapping of Mailchimp merge tags to form field names        |
+| `dynamicFields`            | Object                   | `{}`                           | A mapping of Mailchimp merge tags to form field names        |
+| `staticFields`             | Object                   | `{}`                           | Static values to set as merge tags                           |
 | `emailAddressField`        | String                   | `email`                        | The email address field name                                 |
 
 #### Usage Example
@@ -61,8 +62,11 @@ Adds or updates a contact in a Mailchimp audience. Under the hood, this action c
           "app": "mailchimp",
           "type": "addOrUpdateContact",
           "audience": "8djs8fg8d",
-          "mergeFields": {
+          "dynamicFields": {
             "FNAME": "first_name"
+          },
+          "staticFields": {
+            "PLAN_NAME": "Pro"
           }
         }
       ]
@@ -83,7 +87,8 @@ Adds or updates a contact in a Mailchimp audience (to make sure they exist) and 
 | `audience`                 | String                   | `@mailchimp-audience`          | Your Mailchimp audience ID (a static value or a @secret reference)  |
 | `apiKey`                   | String                   | `@mailchimp-api-key`           | The name of the StaticKit secret holding your API key (must be a @secret reference) |
 | `statusIfNew`              | String                   | `subscribed`                   | The contact's status if they are new (possible values: subscribed, unsubscribed, cleaned, pending, transaction) |
-| `mergeFields`              | Object                   | `{}`                           | A mapping of Mailchimp merge tags to form field names        |
+| `dynamicFields`            | Object                   | `{}`                           | A mapping of Mailchimp merge tags to form field names        |
+| `staticFields`             | Object                   | `{}`                           | Static values to set as merge tags                           |
 | `emailAddressField`        | String                   | `email`                        | The email address field name                                 |
 
 #### Usage Example
