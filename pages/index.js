@@ -228,8 +228,16 @@ function HomePage() {
                     Payments
                   </h3>
                   <p className="pb-2 text-gray-700">
-                    Create Stripe customers, charges, and subscriptions without
-                    writing a line of backend code.
+                    Build{' '}
+                    <a
+                      href="https://stripe.com/docs/strong-customer-authentication"
+                      className="text-indigo-600"
+                      target="_blank"
+                    >
+                      SCA-ready
+                    </a>{' '}
+                    purchase flows for one-time purchases, SaaS subscriptions,
+                    and more, without writing any backend code.
                   </p>
                   <p>
                     <span className="px-2 py-1 rounded-full bg-green-400 text-white text-xs truncate font-bold">
