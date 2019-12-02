@@ -1,0 +1,134 @@
+import withDocs from '../../components/with_docs';
+import StepHeading from '../../components/step_heading';
+import BrowserDemo from '../../components/browser_demo';
+import ArrowItem from '../../components/arrow_item';
+
+export default withDocs({
+  title: 'How To Connect Forms to ConvertKit',
+  description: 'How to add subscribers to ConvertKit and tag them using StaticKit.',
+  path: '/guides/convertkit',
+  breadcrumbs: [{
+    path: '/guides',
+    label: 'Guides',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Configure your form", "#configure-your-form"],
+    [1, "Add your API secret", "#add-your-api-secret"],
+    [1, "Configure your fields", "#configure-your-fields"],
+    [1, "Build your form", "#build-your-form"],
+  ],
+});
+
+# How To Connect Forms to ConvertKit
+
+<p className="text-lg">
+  In this guide, you'll learn how to add subscribers and apply tags to them in <a href="https://convertkit.com/">ConvertKit</a> when someone submits a form.
+</p>
+
+<h2 id="configure-your-form">
+  <StepHeading step="1">Configure your form</StepHeading>
+</h2>
+
+In your `statickit.json` file, either add a new form or update an existing form's `actions`: 
+
+```json
+{
+  "forms": {
+    "opt-in-form": {
+      "name": "Opt-In Form",
+      "fields": {
+        "email": {
+          "type": "email",
+          "prettyName": "Email address"
+        }
+      },
+      "actions": [
+        {
+          "app": "convertkit",
+          "type": "applyTags",
+          "tags": ["Newsletter"]
+        }
+      ]
+    }
+  }
+}
+```
+
+The `tags` you specify must already exist in your ConvertKit account. To add a tag:
+
+- Log in to your ConvertKit account
+- Click **+ Create a Tag** in the right-had sidebar of your dashboard
+
+<h2 id="add-your-api-secret">
+  <StepHeading step="2">Add your API secret</StepHeading>
+</h2>
+
+Next, you need to save your ConvertKit API Secret in your StaticKit secrets. Here's where to find it:
+
+- Log in to your ConvertKit account
+- Click the dropdown in the upper-right and [navigate to "General" settings](https://app.convertkit.com/account/edit)
+- Halfway down the page, click "Show" under the "API Secret" heading
+
+It will look something like this: `c6GMu91Hn4_YggEwGik5ooz9Ww8yibSwRtoqz-Xr88I`
+
+Copy the key and run the following command to store this as a secret value:
+
+```bash
+statickit secrets add convertkit-api-secret <paste-api-secret-here>
+```
+
+Now, you're ready to deploy:
+
+```bash
+statickit deploy
+```
+
+<h2 id="configure-your-fields">
+  <StepHeading step="3">Configure your fields (optional)</StepHeading>
+</h2>
+
+By default, the `applyTags` action uses the `email` and `first_name` fields. You can override them like this:
+
+```json
+{
+  "app": "convertkit",
+  "type": "applyTags",
+  "emailAddressField": "email_address",
+  "firstNameField": "name"
+}
+```
+
+Your form does not have to collect a first name, but it must have an email address field.
+
+If you are gathering additional fields (like last name), you can map them to ConvertKit custom fields:
+
+```json
+{
+  "app": "mailchimp",
+  "type": "addOrUpdateContact",
+  "dynamicFields": {
+    "last_name": "last_name"
+  }
+}
+```
+
+The fields you use must already exist in your ConvertKit account.
+
+<h2 id="build-your-form">
+  <StepHeading step="4">Build your form</StepHeading>
+</h2>
+
+We have a few client libraries to help attach your interface to StaticKit:
+
+<ArrowItem>
+  <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
+</ArrowItem>
+
+<ArrowItem>
+  <a href="/docs/react" className="font-semibold text-indigo-600">React</a>: works great with Gatsby, Next.js, etc.
+</ArrowItem>
+
+---
+
+Check out the [ConvertKit reference](/docs/config/forms/convertkit) to see all available actions and properties.

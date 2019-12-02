@@ -1,0 +1,68 @@
+import withDocs from '../../../../components/with_docs';
+import ArrowItem from '../../../../components/arrow_item';
+
+export default withDocs({
+  title: 'ConvertKit - Forms - Config',
+  description: 'The statickit.json schema for ConvertKit form actions',
+  path: '/docs/config/forms/convertkit',
+  breadcrumbs: [{
+    path: '/docs/config',
+    label: 'Config',
+    rel: 'prev'
+  }, {
+    path: '/docs/config/forms',
+    label: 'Forms',
+    rel: 'prev'
+  }, {
+    path: '/docs/config/forms#actions',
+    label: 'Actions',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, 'Apply tags', '#apply-tags'],
+  ],
+  prev: {
+    path: '/docs/config/forms#actions',
+    label: 'Forms'
+  }
+});
+
+# ConvertKit
+
+Getting started? Check out <a href="/guides/convertkit" className="font-semibold text-indigo-600">How To Connect Forms to ConvertKit</a> guide first.
+
+| Type                              | Description                                                  |
+| :-------------------------------- | :----------------------------------------------------------- |
+| [`applyTags`](#apply-tags)        | Add a subscriber and apply tags                              |
+
+## Apply tags
+
+Adds a subscrber to ConvertKit and applies one or more tags. Under the hood, this action calls the [tag a subscriber](https://developers.convertkit.com/#tag-a-subscriber) API endpoint. If the call fails, we'll retry it for you.
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `tags` *                   | Array                    |                                | A list of tags to apply to the subscriber                    |
+| `apiSecret`                | String                   | `@convertkit-api-secret`       | The name of the StaticKit secret holding your API secret (must be a @secret reference) |
+| `dynamicFields`            | Object                   | `{}`                           | A mapping of ConvertKit custom fields to form field names    |
+| `staticFields`             | Object                   | `{}`                           | Static values to set as ConvertKit custom fields             |
+| `emailAddressField`        | String                   | `email`                        | The email address field name                                 |
+| `firstNameField`           | String                   | `first_name`                   | The "first name" field name                                  |
+
+#### Usage Example
+
+```json
+{
+  "forms": {
+    "contact": {
+      "name": "Contact Form",
+      "actions": [
+        {
+          "app": "convertkit",
+          "type": "applyTags",
+          "tags": ["Newsletter"]
+        }
+      ]
+    }
+  }
+}
+```
