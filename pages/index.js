@@ -50,8 +50,8 @@ const paymentIcon = `
 `;
 
 function HomePage() {
-  const title = 'Breathe life into your static site';
-  const description = 'Serverless plugins for static sites';
+  const title = 'Serverless Plugins for Static Sites';
+  const description = 'Opt-in forms, contact forms, payments, and more.';
 
   return (
     <div>
@@ -63,14 +63,14 @@ function HomePage() {
           <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
             <div className="px-6 mx-auto max-w-5xl">
               <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
-                Breathe life into your static site
+                Why write backend code if you don&rsquo;t have to?
               </h1>
 
               <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
                 <p className="pb-4">
                   Static sites are awesome! But sometimes you{' '}
                   <strong>need</strong> a backend for things like forms and
-                  payments. <br className="hidden sm:block" />
+                  payments.
                 </p>
 
                 <p>
@@ -151,11 +151,11 @@ function HomePage() {
         <div className="mx-auto container pt-16 sm:pt-24 pb-8 sm:pb-16">
           <div className="px-6 mx-auto max-w-4xl">
             <h1 className="pb-6 text-3xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-900">
-              Because you don&rsquo;t really want to roll your own backend.
+              Powerful plugins at your fingertips
             </h1>
             <p className="pb-6 sm:pb-16 text-lg sm:text-xl text-gray-700 sm:text-center mx-auto max-w-2xl">
-              We have a growing collection of plugins, so you can skip writing
-              one-off serverless functions or building a whole server-side app.
+              We have a growing collection of plugins, so you can skip hacking
+              together serverless functions or building a whole backend app.
             </p>
             <div className="-mx-2 sm:flex flex-wrap">
               <div className="sm:w-1/2">
@@ -245,7 +245,7 @@ function HomePage() {
         <div className="mx-auto container">
           <div className="max-w-5xl mx-auto px-6 py-20 sm:flex items-center justify-center border-t">
             <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-700">
-              Make your static site dynamic.
+              Breathe life into your static site.
             </div>
             <div className="flex-shrink-0">
               <a
