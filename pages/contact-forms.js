@@ -12,7 +12,7 @@ const stepOne = `
       "name": "Contact Form",
       "fields": {
         "email": { "type": "email", "required": true },
-        "message": { "type": "text", "required": true}
+        "message": { "type": "text", "required": true }
       },
       "actions": [
         { "type": "email", "to": "jane@example.com" }
