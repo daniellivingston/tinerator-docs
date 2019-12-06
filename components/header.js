@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import useSWR from 'swr';
-import graphql from '../utils/graphql';
+import { useViewer } from '../data/viewer';
 
 const logo = inverted => {
   const color = inverted ? '#fff' : '#000';
@@ -25,57 +24,39 @@ const logo = inverted => {
 };
 
 const AuthControls = () => {
-  const fetcher = async () => {
-    const query = `
-      query Viewer {
-        viewer {
-          email
-          avatarUrl
-        }
-      }
-    `;
+  const { data: viewer } = useViewer();
+  const endpoint =
+    process.env.NODE_ENV === 'production'
+      ? 'https://app.statickit.com'
+      : 'http://localhost:4000';
 
-    const resp = await graphql(query, {});
+  // Waiting on the request
+  if (!viewer) return <></>;
 
-    if (resp.ok) {
-      const body = await resp.json();
-      return body.data.viewer;
-    } else {
-      return 'unauthenticated';
-    }
-  };
-
-  const { data: viewer } = useSWR('viewer', fetcher);
-
-  switch (viewer) {
-    case undefined:
-      return <></>;
-
-    case 'unauthenticated':
-      return (
-        <>
-          <a href="https://app.statickit.com/signin" className="px-2">
-            Sign In
-          </a>
-          <a
-            href="https://app.statickit.com/signup"
-            className="ml-4 btn btn-sm"
-          >
-            Sign Up
-          </a>
-        </>
-      );
-
-    default:
-      return (
-        <a href="https://app.statickit.com/" className="mx-4">
-          <img
-            src={viewer.avatarUrl}
-            className="w-8 h-8 rounded-full shadow-md"
-          />
+  // User is not logged-in
+  if (viewer === 'anonymous') {
+    return (
+      <>
+        <a href={`${endpoint}/signin`} className="px-2">
+          Sign In
         </a>
-      );
+        <a href={`${endpoint}/signup`} className="ml-4 btn btn-sm">
+          Sign Up
+        </a>
+      </>
+    );
   }
+
+  return (
+    <Link href="/">
+      <a className="mx-4">
+        <img
+          src={viewer.avatarUrl}
+          className="w-8 h-8 rounded-full shadow-md"
+        />
+      </a>
+    </Link>
+  );
 };
 
 export default props => (
