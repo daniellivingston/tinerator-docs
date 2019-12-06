@@ -45,6 +45,7 @@ function SitePage(props) {
 }
 
 SitePage.getInitialProps = async ({ query, req, res }) => {
+  console.log(req);
   const { id } = query;
 
   try {
