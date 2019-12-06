@@ -17,7 +17,7 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 @tailwind components;
 
 .btn {
-  @apply text-white font-semibold border border-gray-800 bg-gray-800 px-5 py-3 cursor-pointer leading-tight;
+  @apply text-white font-bold border border-gray-800 bg-gray-800 px-5 py-3 leading-tight;
 }
 
 .btn:focus {
@@ -57,11 +57,21 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 }
 
 .input-field {
-  @apply px-4 py-3 border border-gray-200 bg-gray-200 leading-tight;
+  @apply p-4 border border-gray-200 bg-gray-200 leading-tight;
 }
 
-.input-field:focus {
+.input-field:focus,
+.input-field:focus-within {
   @apply bg-white border-gray-500 outline-none;
+}
+
+.input-field-inverse {
+  @apply p-4 bg-gray-400 leading-tight;
+}
+
+.input-field-inverse:focus,
+.input-field-inverse:focus-within {
+  @apply bg-white outline-none;
 }
 
 @tailwind utilities;

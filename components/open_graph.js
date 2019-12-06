@@ -8,6 +8,8 @@ export default props => {
 
   return (
     <Head>
+      <title>{props.title} · StaticKit</title>
+      <link rel="shortcut icon" href="/favicon.png"></link>
       <link rel="canonical" href={url} />
       <meta
         property="description"
