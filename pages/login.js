@@ -1,20 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import OpenGraph from '../components/open_graph';
 import Logo from '../components/logo';
 import Link from 'next/link';
+import { login, fetchToken } from '../utils/auth';
 
-function LoginPage(props) {
+const ErrorMessage = ({ error }) => {
+  if (!error) return <></>;
+
+  return (
+    <div className="mb-8 p-3 bg-red-600 text-white text-sm font-bold shadow">
+      {error}
+    </div>
+  );
+};
+
+function LoginPage() {
   const title = 'Log in';
   const description = 'Log in to your StaticKit account.';
+  const passwordRef = useRef(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
-  const submit = e => {
+  const submit = async e => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // TODO: actually submit it
+    try {
+      const token = await fetchToken(email, password);
+
+      if (token) {
+        login({ token });
+      } else {
+        setError('These credentials are not valid');
+        setPassword('');
+        setIsSubmitting(false);
+        passwordRef.current.focus();
+      }
+    } catch (e) {
+      console.error(e);
+      setError('An unexpected error occurred');
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -30,6 +58,8 @@ function LoginPage(props) {
           </Link>
         </header>
 
+        <ErrorMessage error={error} />
+
         <form className="pb-8" onSubmit={submit}>
           <div className="pb-6">
             <label
@@ -44,6 +74,7 @@ function LoginPage(props) {
               name="email"
               className="input-field block w-full"
               onChange={e => setEmail(e.target.value)}
+              value={email}
             />
           </div>
 
@@ -55,11 +86,13 @@ function LoginPage(props) {
               Password
             </label>
             <input
+              ref={passwordRef}
               id="password"
               type="password"
               name="password"
               className="input-field block w-full"
               onChange={e => setPassword(e.target.value)}
+              value={password}
             />
           </div>
 

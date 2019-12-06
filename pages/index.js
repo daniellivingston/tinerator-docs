@@ -5,7 +5,6 @@ import CodeBlock from '../components/code_block';
 import ReactDemo from '../components/react_demo';
 import Link from 'next/link';
 import Viewer from '../data/viewer';
-import cookie from '../utils/cookie';
 
 const stepOne = `
 npm i -g @statickit/cli
@@ -274,8 +273,8 @@ function HomePage(props) {
   );
 }
 
-HomePage.getInitialProps = async ({ req }) => {
-  const viewer = await Viewer.fetch(cookie(req));
+HomePage.getInitialProps = async context => {
+  const viewer = await Viewer.fetch(context);
   return { viewer };
 };
 

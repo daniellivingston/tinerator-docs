@@ -1,7 +1,8 @@
 import useSWR from 'swr';
 import graphql from '../utils/graphql';
+import { getToken } from '../utils/auth';
 
-export const fetch = async cookie => {
+export const fetch = async context => {
   const query = `
     query Viewer {
       viewer {
@@ -11,7 +12,9 @@ export const fetch = async cookie => {
     }
   `;
 
-  const resp = await graphql(query, {}, { cookie });
+  const token = getToken(context);
+  if (!token) return 'anonymous';
+  const resp = await graphql(query, {}, token);
 
   if (resp.ok) {
     const body = await resp.json();

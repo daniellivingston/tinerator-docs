@@ -18,9 +18,10 @@ const AuthControls = props => {
   if (viewer === 'anonymous') {
     return (
       <>
-        <a href={`${endpoint}/signin`} className="px-2">
-          Sign In
-        </a>
+        <Link href="/login">
+          <a className="px-2">Sign In</a>
+        </Link>
+
         <a href={`${endpoint}/signup`} className="ml-4 btn btn-sm">
           Sign Up
         </a>

@@ -5,12 +5,11 @@ const endpoint =
     ? 'https://api.statickit.com'
     : 'http://localhost:4000';
 
-export default (query, variables, opts) => {
+export default (query, variables, token) => {
   const headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
   };
-
-  if (opts && opts.cookie) headers.cookie = opts.cookie;
 
   return fetch(`${endpoint}/graphql`, {
     method: 'POST',

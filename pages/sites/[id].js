@@ -2,10 +2,10 @@ import React from 'react';
 import Header from '../../components/header';
 import OpenGraph from '../../components/open_graph';
 import graphql from '../../utils/graphql';
-import cookie from '../../utils/cookie';
 import { redirectToSignin } from '../../utils/auth';
+import cookies from 'next-cookies';
 
-const fetchData = (_, id, cookie) => {
+const fetchData = (_, id, context) => {
   const query = `
     {
       viewer {
@@ -24,8 +24,8 @@ const fetchData = (_, id, cookie) => {
   `;
 
   const variables = { siteId: id };
-
-  return graphql(query, variables, { cookie });
+  const { token } = cookies(context);
+  return graphql(query, variables, token);
 };
 
 function SitePage(props) {
@@ -44,23 +44,22 @@ function SitePage(props) {
   );
 }
 
-SitePage.getInitialProps = async ({ query, req, res }) => {
-  console.log(req);
-  const { id } = query;
+SitePage.getInitialProps = async context => {
+  const { id } = context.query;
 
   try {
-    const resp = await fetchData('site', id, cookie(req));
+    const resp = await fetchData('site', id, context);
 
     if (resp.ok) {
       const body = await resp.json();
       const data = body.data;
       return { data, query };
     } else {
-      return redirectToSignin(res);
+      return redirectToSignin(context.res);
     }
   } catch (err) {
     console.log(err);
-    return redirectToSignin(res);
+    return redirectToSignin(context.res);
   }
 };
 
