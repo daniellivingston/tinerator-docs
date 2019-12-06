@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import useSWR from 'swr';
+import graphql from '../utils/graphql';
 
 const logo = inverted => {
   const color = inverted ? '#fff' : '#000';
@@ -22,54 +24,58 @@ const logo = inverted => {
   `;
 };
 
-const AuthControls = ({ signedIn }) => {
-  if (signedIn) {
-    return (
-      <a href="https://app.statickit.com/" className="ml-4 btn btn-sm">
-        Dashboard
-      </a>
-    );
+const AuthControls = () => {
+  const fetcher = async () => {
+    const query = `
+      query Viewer {
+        viewer {
+          email
+          avatarUrl
+        }
+      }
+    `;
+
+    const resp = await graphql(query, {});
+
+    if (resp.ok) {
+      const body = await resp.json();
+      return body.data.viewer;
+    } else {
+      return 'unauthenticated';
+    }
+  };
+
+  const { data: viewer } = useSWR('viewer', fetcher);
+
+  switch (viewer) {
+    case undefined:
+      return <></>;
+
+    case 'unauthenticated':
+      return (
+        <>
+          <a href="https://app.statickit.com/signin" className="px-2">
+            Sign In
+          </a>
+          <a
+            href="https://app.statickit.com/signup"
+            className="ml-4 btn btn-sm"
+          >
+            Sign Up
+          </a>
+        </>
+      );
+
+    default:
+      return (
+        <a href="https://app.statickit.com/" className="mx-4">
+          <img
+            src={viewer.avatarUrl}
+            className="w-8 h-8 rounded-full shadow-md"
+          />
+        </a>
+      );
   }
-
-  return (
-    <>
-      <a href="https://app.statickit.com/signin" className="px-2">
-        Sign In
-      </a>
-      <a href="https://app.statickit.com/signup" className="ml-4 btn btn-sm">
-        Sign Up
-      </a>
-    </>
-  );
-};
-
-const Nav = () => {
-  const [signedIn, setSignedIn] = useState(null);
-
-  useEffect(() => {
-    setSignedIn(
-      document.cookie.split(';').filter(item => item.includes('signed_in=true'))
-        .length > 0
-    );
-  });
-
-  if (signedIn == null) {
-    return <></>;
-  }
-
-  return (
-    <>
-      <Link href="/docs">
-        <a className="px-2">Docs</a>
-      </Link>
-
-      <Link href="/pricing">
-        <a className="px-2">Pricing</a>
-      </Link>
-
-      <AuthControls signedIn={signedIn} />
-    </>
-  );
 };
 
 export default props => (
@@ -86,8 +92,16 @@ export default props => (
           </a>
         </Link>
       </div>
-      <div className="hidden sm:block font-semibold text-gray-600 text-sm">
-        <Nav />
+      <div className="hidden sm:flex items-center justify-end font-semibold text-gray-600 text-sm">
+        <Link href="/docs">
+          <a className="px-2">Docs</a>
+        </Link>
+
+        <Link href="/pricing">
+          <a className="px-2">Pricing</a>
+        </Link>
+
+        <AuthControls />
       </div>
     </div>
   </header>

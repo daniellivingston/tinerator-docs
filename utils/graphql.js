@@ -5,7 +5,7 @@ export default (query, variables, opts) => {
     'Content-Type': 'application/json'
   };
 
-  if (opts.cookie) headers.cookie = opts.cookie;
+  if (opts && opts.cookie) headers.cookie = opts.cookie;
 
   return fetch('http://localhost:4000/graphql', {
     method: 'POST',
