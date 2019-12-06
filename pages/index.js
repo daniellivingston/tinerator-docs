@@ -4,6 +4,8 @@ import OpenGraph from '../components/open_graph';
 import CodeBlock from '../components/code_block';
 import ReactDemo from '../components/react_demo';
 import Link from 'next/link';
+import Viewer from '../data/viewer';
+import cookie from '../utils/cookie';
 
 const stepOne = `
 npm i -g @statickit/cli
@@ -49,7 +51,7 @@ const paymentIcon = `
 </svg>
 `;
 
-function HomePage() {
+function HomePage(props) {
   const title = 'Serverless Plugins for Static Sites';
   const description = 'Opt-in forms, contact forms, payments, and more.';
 
@@ -58,7 +60,7 @@ function HomePage() {
       <main>
         <OpenGraph title={title} description={description} path="/" />
         <div className="bg-gray-900">
-          <Header pageTitle={title} inverted={true} />
+          <Header pageTitle={title} inverted={true} viewer={props.viewer} />
 
           <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
             <div className="px-6 mx-auto max-w-5xl">
@@ -271,5 +273,10 @@ function HomePage() {
     </div>
   );
 }
+
+HomePage.getInitialProps = async ({ req }) => {
+  const viewer = await Viewer.fetch(cookie(req));
+  return { viewer };
+};
 
 export default HomePage;

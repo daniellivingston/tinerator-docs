@@ -5,7 +5,7 @@ import graphql from '../../utils/graphql';
 import cookie from '../../utils/cookie';
 import { redirectToSignin } from '../../utils/auth';
 
-const fetchData = ([_, id, cookie]) => {
+const fetchData = (_, id, cookie) => {
   const query = `
     {
       viewer {
@@ -48,7 +48,7 @@ SitePage.getInitialProps = async ({ query, req, res }) => {
   const { id } = query;
 
   try {
-    const resp = await fetchData(['site', id, cookie(req)]);
+    const resp = await fetchData('site', id, cookie(req));
 
     if (resp.ok) {
       const body = await resp.json();

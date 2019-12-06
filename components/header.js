@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useViewer } from '../data/viewer';
@@ -23,8 +23,9 @@ const logo = inverted => {
   `;
 };
 
-const AuthControls = () => {
-  const { data: viewer } = useViewer();
+const AuthControls = props => {
+  const { data: viewer } = useViewer({ initialData: props.viewer });
+
   const endpoint =
     process.env.NODE_ENV === 'production'
       ? 'https://app.statickit.com'
@@ -48,42 +49,41 @@ const AuthControls = () => {
   }
 
   return (
-    <Link href="/">
-      <a className="mx-4">
-        <img
-          src={viewer.avatarUrl}
-          className="w-8 h-8 rounded-full shadow-md"
-        />
-      </a>
-    </Link>
+    <a href={`${endpoint}/`} className="mx-4">
+      <img src={viewer.avatarUrl} className="w-8 h-8 rounded-full shadow-md" />
+    </a>
   );
 };
 
-export default props => (
-  <header className="mx-auto container px-6 py-4">
-    <Head>
-      <title>{props.pageTitle} · StaticKit</title>
-      <link rel="shortcut icon" href="/favicon.png"></link>
-    </Head>
-    <div className="flex items-center h-10">
-      <div className="flex-grow">
-        <Link href="/">
-          <a className="flex items-center">
-            <span dangerouslySetInnerHTML={{ __html: logo(props.inverted) }} />
-          </a>
-        </Link>
-      </div>
-      <div className="hidden sm:flex items-center justify-end font-semibold text-gray-600 text-sm">
-        <Link href="/docs">
-          <a className="px-2">Docs</a>
-        </Link>
+export default props => {
+  return (
+    <header className="mx-auto container px-6 py-4">
+      <Head>
+        <title>{props.pageTitle} · StaticKit</title>
+        <link rel="shortcut icon" href="/favicon.png"></link>
+      </Head>
+      <div className="flex items-center h-10">
+        <div className="flex-grow">
+          <Link href="/">
+            <a className="flex items-center">
+              <span
+                dangerouslySetInnerHTML={{ __html: logo(props.inverted) }}
+              />
+            </a>
+          </Link>
+        </div>
+        <div className="hidden sm:flex items-center justify-end font-semibold text-gray-600 text-sm">
+          <Link href="/docs">
+            <a className="px-2">Docs</a>
+          </Link>
 
-        <Link href="/pricing">
-          <a className="px-2">Pricing</a>
-        </Link>
+          <Link href="/pricing">
+            <a className="px-2">Pricing</a>
+          </Link>
 
-        <AuthControls />
+          <AuthControls viewer={props.viewer} />
+        </div>
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};

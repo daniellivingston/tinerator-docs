@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import graphql from '../utils/graphql';
 
-export const fetcher = async (_, cookie) => {
+export const fetch = async cookie => {
   const query = `
     query Viewer {
       viewer {
@@ -22,9 +22,7 @@ export const fetcher = async (_, cookie) => {
 };
 
 export const useViewer = config => {
-  // Cookies are automatically included in client-side requests
-  // The authentication cookie is set as HttpOnly, so it's not accessible
-  // from JavaScript.
-  const cookie = undefined;
-  return useSWR(['viewer', cookie], fetcher, config);
+  return useSWR('viewer', async _ => await fetch(), config);
 };
+
+export default { useViewer, fetch };
