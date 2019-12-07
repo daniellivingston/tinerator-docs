@@ -2,7 +2,8 @@ import React from 'react';
 import Header from '../../components/header';
 import OpenGraph from '../../components/open_graph';
 import graphql from '../../utils/graphql';
-import { redirectToSignin } from '../../utils/auth';
+import { redirectToLogin } from '../../utils/auth';
+import { useSiteData, fetch } from '../../data/site';
 import cookies from 'next-cookies';
 
 const fetchData = (_, id, context) => {
@@ -28,9 +29,9 @@ const fetchData = (_, id, context) => {
   return graphql(query, variables, token);
 };
 
-function SitePage(props) {
-  const data = props.data;
-  const title = 'Site';
+function SitePage({ data: initialData, query }) {
+  const { data, error } = useSiteData(query.id, { initialData });
+  const title = data && data.site ? data.site.name : 'Site';
 
   return (
     <div>
@@ -45,21 +46,15 @@ function SitePage(props) {
 }
 
 SitePage.getInitialProps = async context => {
-  const { id } = context.query;
+  const { query } = context;
 
   try {
-    const resp = await fetchData('site', id, context);
-
-    if (resp.ok) {
-      const body = await resp.json();
-      const data = body.data;
-      return { data, query };
-    } else {
-      return redirectToSignin(context.res);
-    }
+    const data = await fetch(query.id, context);
+    if (!data) redirectToLogin(context);
+    return { data, query };
   } catch (err) {
     console.log(err);
-    return redirectToSignin(context.res);
+    return redirectToLogin(context);
   }
 };
 

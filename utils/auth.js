@@ -20,7 +20,13 @@ export const logout = () => {
   Router.push('/login');
 };
 
-export const redirectToSignin = res => {
+export const authenticate = (viewer, context = {}) => {
+  if (viewer === 'anonymous') redirectToLogin(context);
+};
+
+export const redirectToLogin = (context = {}) => {
+  const { res } = context;
+
   if (res) {
     res
       .writeHead(302, {
