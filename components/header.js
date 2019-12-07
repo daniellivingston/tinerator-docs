@@ -4,9 +4,7 @@ import Logo from './logo';
 import { useViewer } from '../data/viewer';
 import UserMenu from '../components/user_menu';
 
-const AuthControls = props => {
-  const { data: viewer } = useViewer({ initialData: props.viewer });
-
+const AuthControls = ({ viewer }) => {
   const endpoint =
     process.env.NODE_ENV === 'production'
       ? 'https://app.statickit.com'
@@ -58,6 +56,8 @@ const NavLinks = ({ viewer }) => {
 };
 
 export default props => {
+  const { data: viewer } = useViewer({ initialData: props.viewer });
+
   return (
     <header className="mx-auto container px-6 py-4">
       <div className="flex items-center h-10">
@@ -69,8 +69,8 @@ export default props => {
           </Link>
         </div>
         <div className="hidden sm:flex items-center justify-end font-semibold text-gray-600 text-sm">
-          <NavLinks viewer={props.viewer} />
-          <AuthControls viewer={props.viewer} />
+          <NavLinks viewer={viewer} />
+          <AuthControls viewer={viewer} />
         </div>
       </div>
     </header>
