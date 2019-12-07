@@ -4,6 +4,7 @@ import OpenGraph from '../components/open_graph';
 import CodeBlock from '../components/code_block';
 import OptInFormDemo from '../components/demos/mailchimp';
 import Link from 'next/link';
+import { useViewer } from '../data/viewer';
 
 const stepOne = `
 {
@@ -136,12 +137,14 @@ function OptInFormsPage() {
   const description =
     'Collect email addresses and forward them to your email marketing app.';
 
+  const { data: viewer } = useViewer();
+
   return (
     <div>
       <main>
         <OpenGraph title={title} description={description} path="/" />
         <div className="bg-gray-900">
-          <Header pageTitle={title} inverted={true} />
+          <Header viewer={viewer} inverted={true} />
 
           <div className="mx-auto container pt-16 sm:pt-24 pb-10 sm:pb-24">
             <div className="px-6 mx-auto max-w-4xl">
