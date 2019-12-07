@@ -33,6 +33,30 @@ const AuthControls = props => {
   return <UserMenu viewer={viewer} />;
 };
 
+const NavLinks = ({ viewer }) => {
+  if (!viewer || viewer === 'anonymous') {
+    return (
+      <>
+        <Link href="/docs">
+          <a className="px-2">Docs</a>
+        </Link>
+
+        <Link href="/pricing">
+          <a className="px-2">Pricing</a>
+        </Link>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Link href="/docs">
+        <a className="px-2">Docs</a>
+      </Link>
+    </>
+  );
+};
+
 export default props => {
   return (
     <header className="mx-auto container px-6 py-4">
@@ -45,14 +69,7 @@ export default props => {
           </Link>
         </div>
         <div className="hidden sm:flex items-center justify-end font-semibold text-gray-600 text-sm">
-          <Link href="/docs">
-            <a className="px-2">Docs</a>
-          </Link>
-
-          <Link href="/pricing">
-            <a className="px-2">Pricing</a>
-          </Link>
-
+          <NavLinks viewer={props.viewer} />
           <AuthControls viewer={props.viewer} />
         </div>
       </div>
