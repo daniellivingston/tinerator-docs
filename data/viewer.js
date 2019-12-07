@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import useSWR, { trigger } from 'swr';
 import graphql from '../utils/graphql';
 import { getToken } from '../utils/auth';
 
@@ -24,8 +24,12 @@ export const fetch = async context => {
   }
 };
 
+export const revalidate = () => {
+  trigger('viewer');
+};
+
 export const useViewer = config => {
   return useSWR('viewer', async _ => await fetch(), config);
 };
 
-export default { useViewer, fetch };
+export default { useViewer, fetch, revalidate };

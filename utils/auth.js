@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import cookie from 'js-cookie';
 import cookies from 'next-cookies';
+import Viewer from '../data/viewer';
 
 const endpoint =
   process.env.NODE_ENV == 'production'
@@ -9,7 +10,14 @@ const endpoint =
 
 export const login = ({ token }) => {
   cookie.set('token', token, { expires: 365 });
+  Viewer.revalidate();
   Router.push('/');
+};
+
+export const logout = () => {
+  cookie.remove('token');
+  Viewer.revalidate();
+  Router.push('/login');
 };
 
 export const redirectToSignin = res => {

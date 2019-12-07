@@ -2,7 +2,8 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        'outline-inner': 'inset 0 0 0 3px rgba(66,153,225,0.5)'
+        'outline-inner': 'inset 0 0 0 3px rgba(66,153,225,0.5)',
+        menu: '0 2px 15px -3px rgba(0, 0, 0, 0.2)'
       },
       letterSpacing: {
         snug: '-.0125em'

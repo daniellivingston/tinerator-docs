@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Logo from './logo';
 import { useViewer } from '../data/viewer';
+import UserMenu from '../components/user_menu';
 
 const AuthControls = props => {
   const { data: viewer } = useViewer({ initialData: props.viewer });
@@ -29,11 +30,7 @@ const AuthControls = props => {
     );
   }
 
-  return (
-    <a href={`${endpoint}/`} className="mx-4">
-      <img src={viewer.avatarUrl} className="w-8 h-8 rounded-full shadow-md" />
-    </a>
-  );
+  return <UserMenu viewer={viewer} />;
 };
 
 export default props => {
