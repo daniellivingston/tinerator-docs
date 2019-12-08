@@ -36,11 +36,11 @@ const NavLinks = ({ viewer }) => {
     return (
       <>
         <Link href="/docs">
-          <a className="px-2">Docs</a>
+          <a className="block px-2">Docs</a>
         </Link>
 
         <Link href="/pricing">
-          <a className="px-2">Pricing</a>
+          <a className="block px-2">Pricing</a>
         </Link>
       </>
     );

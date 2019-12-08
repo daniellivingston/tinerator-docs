@@ -9,7 +9,7 @@ function UserMenu({ viewer }) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative flex">
       <button className="mx-4" onClick={toggleMenu}>
         <img
           src={viewer.avatarUrl}
@@ -17,14 +17,14 @@ function UserMenu({ viewer }) {
         />
       </button>
       <div
-        className={`mt-2 mr-4 py-2 bg-white absolute right-0 w-32 rounded-lg shadow-menu ${
+        className={`mt-10 mr-4 py-2 bg-white absolute right-0 w-32 rounded-lg shadow-menu ${
           isOpen ? '' : 'hidden'
         }`}
       >
         <ul className="text-gray-700">
           <li key="logout">
             <button
-              className="px-4 py-2 w-full hover:bg-gray-100 text-left font-semibold"
+              className="px-4 py-2 w-full hover:bg-gray-100 text-left"
               onClick={logout}
             >
               Log out

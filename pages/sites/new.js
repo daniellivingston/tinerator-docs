@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Header from '../../components/header';
 import OpenGraph from '../../components/open_graph';
 import ValidationError from '../../components/validation_error';
@@ -10,6 +10,7 @@ import graphql from '../../utils/graphql';
 function NewSitePage({ viewer: initialViewer }) {
   const title = 'New Site';
   const description = 'Create a new StaticKit site.';
+  const router = useRouter();
   const { data: viewer } = useViewer({ initialData: initialViewer });
   const nameRef = useRef(null);
   const [name, setName] = useState('');
@@ -49,7 +50,7 @@ function NewSitePage({ viewer: initialViewer }) {
         } = await resp.json();
 
         if (payload.success) {
-          Router.push(`/sites/${payload.site.id}`);
+          router.push(`/sites/${payload.site.id}`);
         } else {
           setErrors(payload.errors);
           setIsSubmitting(false);
@@ -81,7 +82,7 @@ function NewSitePage({ viewer: initialViewer }) {
                     ref={nameRef}
                     type="text"
                     name="name"
-                    placeholder="My Fabulous Website"
+                    placeholder="acme.com"
                     className="input-field-inverse w-full"
                     name={name}
                     onChange={e => setName(e.target.value)}
