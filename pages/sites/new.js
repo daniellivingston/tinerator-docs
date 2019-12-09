@@ -109,7 +109,8 @@ function NewSitePage({ viewerData: initialViewerData }) {
 }
 
 NewSitePage.getInitialProps = async context => {
-  const viewerData = await fetchViewer(context);
+  const token = getToken(context);
+  const viewerData = await fetchViewer(token);
   if (viewerData.status === 'unauthorized') redirectToLogin(context);
   return { viewerData };
 };
