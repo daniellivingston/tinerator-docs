@@ -246,8 +246,6 @@ function ContactFormsPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

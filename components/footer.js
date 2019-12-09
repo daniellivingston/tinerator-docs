@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default props => (
+const Footer = () => (
   <footer className="bg-gray-900">
     <div className="mx-auto container px-4 py-12">
       <div className="flex flex-wrap pb-12 text-gray-500 text-base font-semibold">
@@ -41,3 +41,5 @@ export default props => (
     </div>
   </footer>
 );
+
+export default Footer;

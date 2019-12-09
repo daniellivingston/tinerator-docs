@@ -101,8 +101,6 @@ function SupportPage() {
           <ContactForm />
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

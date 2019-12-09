@@ -95,8 +95,6 @@ function ZeitPage() {
           <FeatureGrid />
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

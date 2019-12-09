@@ -266,8 +266,6 @@ function HomePage(props) {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

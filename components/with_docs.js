@@ -159,8 +159,6 @@ export default meta => ({ children }) => {
             </div>
           </div>
         </main>
-
-        <Footer />
       </div>
     </MDXProvider>
   );
