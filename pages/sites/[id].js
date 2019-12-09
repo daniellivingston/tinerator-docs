@@ -6,15 +6,17 @@ import { useRouter } from 'next/router';
 import { getToken, redirectToLogin } from '../../utils/auth';
 import { useSite, fetch as fetchSite } from '../../data/site';
 
-function SitePage({ data: initialData }) {
+function SitePage({ siteData: initialSiteData }) {
   const router = useRouter();
-  const { data, error } = useSite(router.query.id, { initialData });
+  const { data: siteData, error } = useSite(router.query.id, {
+    initialData: initialSiteData
+  });
 
-  if (data.status === 'notFound') {
+  if (siteData && siteData.status === 'notFound') {
     return <Error statusCode={404} />;
   }
 
-  const title = data && data.site ? data.site.name : 'Site';
+  const title = siteData && siteData.site ? siteData.site.name : 'Site';
 
   return (
     <div>
@@ -33,9 +35,9 @@ SitePage.getInitialProps = async context => {
   const token = getToken(context);
 
   try {
-    const resp = await fetchSite(query.id, token);
-    if (resp.status == 'unauthorized') redirectToLogin(context);
-    return { data: resp };
+    const siteData = await fetchSite(query.id, token);
+    if (siteData.status == 'unauthorized') redirectToLogin(context);
+    return { siteData };
   } catch (err) {
     console.log(err);
     return redirectToLogin(context);

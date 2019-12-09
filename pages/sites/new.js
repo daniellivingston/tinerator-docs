@@ -4,7 +4,7 @@ import Header from '../../components/header';
 import OpenGraph from '../../components/open_graph';
 import ValidationError from '../../components/validation_error';
 import { useViewer, fetch as fetchViewer } from '../../data/viewer';
-import { authenticate, getToken } from '../../utils/auth';
+import { getToken } from '../../utils/auth';
 import graphql from '../../utils/graphql';
 
 function NewSitePage({ viewerData: initialViewerData }) {
@@ -95,7 +95,7 @@ function NewSitePage({ viewerData: initialViewerData }) {
                   />
                 </div>
                 <div>
-                  <button type="submit" className="btn">
+                  <button type="submit" className="btn" disabled={isSubmitting}>
                     Get started
                   </button>
                 </div>
@@ -110,7 +110,7 @@ function NewSitePage({ viewerData: initialViewerData }) {
 
 NewSitePage.getInitialProps = async context => {
   const viewerData = await fetchViewer(context);
-  authenticate(viewerData, context);
+  if (viewerData.status === 'unauthorized') redirectToLogin(context);
   return { viewerData };
 };
 

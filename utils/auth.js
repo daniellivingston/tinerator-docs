@@ -20,10 +20,6 @@ export const logout = () => {
   Router.push('/login');
 };
 
-export const authenticate = ({ status }, context = {}) => {
-  if (status === 'unauthorized') redirectToLogin(context);
-};
-
 export const redirectToLogin = (context = {}) => {
   const { res } = context;
 
