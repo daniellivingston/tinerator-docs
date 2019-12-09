@@ -8,6 +8,9 @@ export const fetch = async token => {
       viewer {
         email
         avatarUrl
+        defaultSite {
+          id
+        }
       }
     }
   `;
