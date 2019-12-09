@@ -1,17 +1,20 @@
 import { fetch as fetchViewer } from '../data/viewer';
+import { getToken } from '../utils/auth';
 import HomePage from '../pages/home';
+import DashboardPage from '../pages/dashboard';
 
 function IndexPage(props) {
   const { viewerData } = props;
-  if (viewerData.status === 'unauthorized') {
+  if (viewerData.status === 'ok') {
+    return <DashboardPage {...props} />;
+  } else {
     return <HomePage {...props} />;
   }
-
-  return <div></div>;
 }
 
 IndexPage.getInitialProps = async context => {
-  const viewerData = await fetchViewer(context);
+  const token = getToken(context);
+  const viewerData = await fetchViewer(token);
   return { viewerData };
 };
 

@@ -31,7 +31,7 @@ function LoginPage() {
       const token = await fetchToken(email, password);
 
       if (token) {
-        login({ token });
+        await login({ token });
       } else {
         setError('These credentials are not valid');
         setPassword('');

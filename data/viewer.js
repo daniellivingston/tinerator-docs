@@ -1,8 +1,8 @@
-import useSWR, { trigger } from 'swr';
+import useSWR, { trigger, mutate } from 'swr';
 import graphql from '../utils/graphql';
 import { getToken } from '../utils/auth';
 
-export const fetch = async context => {
+export const fetch = async token => {
   const query = `
     query Viewer {
       viewer {
@@ -12,7 +12,6 @@ export const fetch = async context => {
     }
   `;
 
-  const token = getToken(context);
   if (!token) return { status: 'unauthorized' };
 
   try {
@@ -34,10 +33,19 @@ export const fetch = async context => {
   }
 };
 
-export const revalidate = () => {
-  trigger('viewer');
+export const revalidate = token => {
+  trigger(['viewer', token]);
+};
+
+export const prefetch = async token => {
+  mutate(['viewer', token], await fetch(token));
 };
 
 export const useViewer = config => {
-  return useSWR('viewer', async _ => await fetch(), config);
+  const token = getToken();
+  return useSWR(
+    ['viewer', token],
+    async (_, token) => await fetch(token),
+    config
+  );
 };

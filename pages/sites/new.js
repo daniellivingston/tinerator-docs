@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import Header from '../../components/header';
 import OpenGraph from '../../components/open_graph';
 import ValidationError from '../../components/validation_error';

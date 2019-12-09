@@ -1,16 +1,16 @@
 import Router from 'next/router';
 import cookie from 'js-cookie';
 import cookies from 'next-cookies';
-import { revalidate } from '../data/viewer';
+import { revalidate, prefetch } from '../data/viewer';
 
 const endpoint =
   process.env.NODE_ENV == 'production'
     ? 'https://api.statickit.com'
     : 'http://localhost:4000';
 
-export const login = ({ token }) => {
+export const login = async ({ token }) => {
   cookie.set('token', token, { expires: 365 });
-  revalidate();
+  await prefetch(token);
   Router.push('/');
 };
 
