@@ -58,7 +58,7 @@ function HomePage(props) {
       <main>
         <OpenGraph title={title} description={description} path="/" />
         <div className="bg-gray-900">
-          <Header inverted={true} viewer={props.viewer} />
+          <Header inverted={true} viewerData={props.viewerData} />
 
           <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
             <div className="px-6 mx-auto max-w-5xl">

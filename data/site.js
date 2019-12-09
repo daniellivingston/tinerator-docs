@@ -2,7 +2,7 @@ import useSWR, { trigger } from 'swr';
 import graphql from '../utils/graphql';
 import { getToken } from '../utils/auth';
 
-export const fetch = async (id, context) => {
+export const fetch = async (id, token) => {
   const query = `
     query Site(
       $id: String
@@ -14,24 +14,38 @@ export const fetch = async (id, context) => {
     }
   `;
 
-  const token = getToken(context);
-  if (!token) return null;
-  const resp = await graphql(query, { id }, token);
+  if (!token) return { status: 'unauthorized' };
 
-  if (resp.ok) {
-    const { data } = await resp.json();
-    return data;
-  } else {
-    return null;
+  try {
+    const resp = await graphql(query, { id }, token);
+
+    if (resp.status === 401) return { status: 'unauthorized' };
+    if (resp.status >= 400 && resp.status < 500)
+      return { status: 'clientError' };
+    if (resp.status >= 500) return { status: 'serverError' };
+
+    const {
+      data: { site }
+    } = await resp.json();
+
+    if (!site) return { status: 'notFound' };
+    return { status: 'ok', site };
+  } catch (e) {
+    return { status: 'serverError' };
   }
 };
 
 export const revalidate = id => {
-  trigger(['site', id]);
+  const token = getToken();
+  trigger(['site', id, token]);
 };
 
-export const useSiteData = (id, config) => {
-  return useSWR(['site', id], async (_, id) => await fetch(id), config);
-};
+export const useSite = (id, config = {}) => {
+  const token = getToken();
 
-export default { useSiteData, fetch, revalidate };
+  return useSWR(
+    ['site', id, token],
+    async (_, id, token) => await fetch(id, token),
+    config
+  );
+};

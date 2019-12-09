@@ -8,6 +8,8 @@ function UserMenu({ viewer }) {
     setIsOpen(!isOpen);
   };
 
+  const toggleClass = isOpen ? '' : 'hidden';
+
   return (
     <div className="relative flex">
       <button className="mx-4" onClick={toggleMenu}>
@@ -17,9 +19,7 @@ function UserMenu({ viewer }) {
         />
       </button>
       <div
-        className={`mt-10 mr-4 py-2 bg-white absolute right-0 w-32 rounded-lg shadow-menu ${
-          isOpen ? '' : 'hidden'
-        }`}
+        className={`mt-10 mr-4 py-2 bg-white absolute right-0 w-32 rounded-lg shadow-menu ${toggleClass}`}
       >
         <ul className="text-gray-700">
           <li key="logout">

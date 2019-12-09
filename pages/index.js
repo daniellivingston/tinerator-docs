@@ -1,8 +1,9 @@
-import Viewer from '../data/viewer';
+import { fetch as fetchViewer } from '../data/viewer';
 import HomePage from '../pages/home';
 
 function IndexPage(props) {
-  if (props.viewer === 'anonymous') {
+  const { viewerData } = props;
+  if (viewerData.status === 'unauthorized') {
     return <HomePage {...props} />;
   }
 
@@ -10,8 +11,8 @@ function IndexPage(props) {
 }
 
 IndexPage.getInitialProps = async context => {
-  const viewer = await Viewer.fetch(context);
-  return { viewer };
+  const viewerData = await fetchViewer(context);
+  return { viewerData };
 };
 
 export default IndexPage;

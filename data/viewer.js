@@ -13,14 +13,24 @@ export const fetch = async context => {
   `;
 
   const token = getToken(context);
-  if (!token) return 'anonymous';
-  const resp = await graphql(query, {}, token);
+  if (!token) return { status: 'unauthorized' };
 
-  if (resp.ok) {
-    const body = await resp.json();
-    return body.data.viewer;
-  } else {
-    return 'anonymous';
+  try {
+    const resp = await graphql(query, {}, token);
+
+    if (resp.status === 401) return { status: 'unauthorized' };
+    if (resp.status >= 400 && resp.status < 500)
+      return { status: 'clientError' };
+    if (resp.status >= 500) return { status: 'serverError' };
+
+    const {
+      data: { viewer }
+    } = await resp.json();
+
+    if (!viewer) return { status: 'notFound' };
+    return { status: 'ok', viewer };
+  } catch (e) {
+    return { status: 'serverError' };
   }
 };
 
@@ -31,5 +41,3 @@ export const revalidate = () => {
 export const useViewer = config => {
   return useSWR('viewer', async _ => await fetch(), config);
 };
-
-export default { useViewer, fetch, revalidate };

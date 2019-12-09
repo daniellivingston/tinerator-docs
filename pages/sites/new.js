@@ -3,15 +3,15 @@ import Router, { useRouter } from 'next/router';
 import Header from '../../components/header';
 import OpenGraph from '../../components/open_graph';
 import ValidationError from '../../components/validation_error';
-import Viewer, { useViewer } from '../../data/viewer';
+import { useViewer, fetch as fetchViewer } from '../../data/viewer';
 import { authenticate, getToken } from '../../utils/auth';
 import graphql from '../../utils/graphql';
 
-function NewSitePage({ viewer: initialViewer }) {
+function NewSitePage({ viewerData: initialViewerData }) {
   const title = 'New Site';
   const description = 'Create a new StaticKit site.';
   const router = useRouter();
-  const { data: viewer } = useViewer({ initialData: initialViewer });
+  const { data: viewerData } = useViewer({ initialData: initialViewerData });
   const nameRef = useRef(null);
   const [name, setName] = useState('');
   const [errors, setErrors] = useState([]);
@@ -67,7 +67,7 @@ function NewSitePage({ viewer: initialViewer }) {
       <main>
         <OpenGraph title={title} description={description} path="/sites/new" />
         <div className="bg-gray-900">
-          <Header viewer={viewer} inverted={true} />
+          <Header viewerData={viewerData} inverted={true} />
           <div className="container px-6 py-16 sm:py-24 mx-auto">
             <div className="mx-auto max-w-md">
               <h1 className="pb-2 text-gray-200 text-3xl font-semibold tracking-snug">
@@ -109,9 +109,9 @@ function NewSitePage({ viewer: initialViewer }) {
 }
 
 NewSitePage.getInitialProps = async context => {
-  const viewer = await Viewer.fetch(context);
-  authenticate(viewer, context);
-  return { viewer };
+  const viewerData = await fetchViewer(context);
+  authenticate(viewerData, context);
+  return { viewerData };
 };
 
 export default NewSitePage;

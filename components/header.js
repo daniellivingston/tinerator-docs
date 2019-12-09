@@ -4,17 +4,17 @@ import Logo from './logo';
 import { useViewer } from '../data/viewer';
 import UserMenu from '../components/user_menu';
 
-const AuthControls = ({ viewer }) => {
+const AuthControls = ({ viewerData }) => {
   const endpoint =
     process.env.NODE_ENV === 'production'
       ? 'https://app.statickit.com'
       : 'http://localhost:4000';
 
   // Waiting on the request
-  if (!viewer) return <></>;
+  if (!viewerData) return <></>;
 
   // User is not logged-in
-  if (viewer === 'anonymous') {
+  if (viewerData.status === 'unauthorized') {
     return (
       <>
         <Link href="/login">
@@ -28,11 +28,11 @@ const AuthControls = ({ viewer }) => {
     );
   }
 
-  return <UserMenu viewer={viewer} />;
+  return <UserMenu viewer={viewerData.viewer} />;
 };
 
-const NavLinks = ({ viewer }) => {
-  if (!viewer || viewer === 'anonymous') {
+const NavLinks = ({ viewerData }) => {
+  if (!viewerData || viewerData.status === 'unauthorized') {
     return (
       <>
         <Link href="/docs">
@@ -55,8 +55,8 @@ const NavLinks = ({ viewer }) => {
   );
 };
 
-export default props => {
-  const { data: viewer } = useViewer({ initialData: props.viewer });
+const Header = props => {
+  const { data: viewerData } = useViewer({ initialData: props.viewerData });
 
   return (
     <header className="mx-auto container px-6 py-4">
@@ -69,10 +69,12 @@ export default props => {
           </Link>
         </div>
         <div className="hidden sm:flex items-center justify-end font-semibold text-gray-600 text-sm">
-          <NavLinks viewer={viewer} />
-          <AuthControls viewer={viewer} />
+          <NavLinks viewerData={viewerData} />
+          <AuthControls viewerData={viewerData} />
         </div>
       </div>
     </header>
   );
 };
+
+export default Header;
