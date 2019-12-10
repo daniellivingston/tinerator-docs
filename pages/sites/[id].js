@@ -60,13 +60,13 @@ function SitePage({
             <div className="">
               <div className="w-full md:w-2/3 py-16 text-gray-500">
                 <h2 className="pb-4 text-2xl font-semibold text-gray-300 tracking-snug">
-                  Your site is ready to configure!
+                  Let&rsquo;s configure some plugins!
                 </h2>
                 <p className="pb-4">
-                  From your console,{' '}
+                  From your command line,{' '}
                   <code className="inline-code-inverse">cd</code> into your
                   project directory and run these commands to install the CLI,
-                  generate a config file, and deploy it:
+                  generate a config file, and deploy it to StaticKit:
                 </p>
 
                 <div className="pb-4">
@@ -101,7 +101,7 @@ SitePage.getInitialProps = async context => {
       fetchSite(query.id, token)
     ]);
 
-    if (viewerData.status == 'unauthorized') {
+    if (viewerData.status === 'unauthorized') {
       redirectToLogin(context);
     }
 

@@ -67,7 +67,7 @@ function NewSitePage({ viewerData: initialViewerData }) {
       <main>
         <OpenGraph title={title} description={description} path="/sites/new" />
         <div className="bg-gray-900">
-          <Header viewerData={viewerData} inverted={true} />
+          <Header viewerData={viewerData} inverted={true} showAppNav={false} />
           <div className="container px-6 py-16 sm:py-24 mx-auto">
             <div className="mx-auto max-w-md">
               <h1 className="pb-2 text-gray-200 text-3xl font-semibold tracking-snug">

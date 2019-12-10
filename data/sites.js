@@ -1,15 +1,17 @@
-import useSWR, { trigger, mutate } from 'swr';
+import useSWR, { trigger } from 'swr';
 import graphql from '../utils/graphql';
 import { getToken } from '../utils/auth';
 
 export const fetch = async token => {
   const query = `
-    query Viewer {
-      viewer {
-        email
-        avatarUrl
-        defaultSite {
-          id
+    query Sites {
+      sites(first: 1000) {
+        edges {
+          node {
+            id
+            name
+            deployKey
+          }
         }
       }
     }
@@ -26,29 +28,25 @@ export const fetch = async token => {
     if (resp.status >= 500) return { status: 'serverError' };
 
     const {
-      data: { viewer }
+      data: { sites }
     } = await resp.json();
 
-    if (!viewer) return { status: 'notFound' };
-    return { status: 'ok', viewer };
+    return { status: 'ok', sites };
   } catch (e) {
     return { status: 'serverError' };
   }
 };
 
-export const revalidate = token => {
-  trigger(['viewer', token]);
+export const revalidate = () => {
+  const token = getToken();
+  trigger(['sites', token]);
 };
 
-export const prefetch = async token => {
-  mutate(['viewer', token], await fetch(token));
-};
-
-export const useViewer = config => {
+export const useSites = (config = {}) => {
   const token = getToken();
 
   return useSWR(
-    ['viewer', token],
+    ['sites', token],
     async (_, token) => await fetch(token),
     config
   );

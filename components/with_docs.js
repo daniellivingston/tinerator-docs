@@ -137,7 +137,7 @@ export default meta => ({ children }) => {
             path={meta.path}
           />
           <div className="border-b">
-            <Header pageTitle={meta.title} />
+            <Header />
           </div>
           <div className="mx-auto px-6 pt-6 pb-12 container sm:flex">
             <div className="flex-shrink-0 relative pb-12 sm:w-32 lg:w-40">

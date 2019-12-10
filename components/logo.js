@@ -16,5 +16,5 @@ export default ({ inverted }) => {
   </svg>
   `;
 
-  return <div dangerouslySetInnerHTML={{ __html: svg }} />;
+  return <span dangerouslySetInnerHTML={{ __html: svg }} />;
 };
