@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import Header from '../../components/header';
 import OpenGraph from '../../components/open_graph';
 import CodeBlock from '../../components/code_block';
 import Error from 'next/error';
 import Link from 'next/link';
+import SiteContext from '../../components/site_context';
 import { useRouter } from 'next/router';
 import { getToken, redirectToLogin } from '../../utils/auth';
 import { useViewer, fetch as fetchViewer } from '../../data/viewer';
@@ -21,6 +22,7 @@ function SitePage({
   siteData: initialSiteData
 }) {
   const router = useRouter();
+  const { setSiteId } = useContext(SiteContext);
 
   const { data: viewerData } = useViewer({
     initialData: initialViewerData
@@ -33,6 +35,12 @@ function SitePage({
   if (siteData.status === 'notFound') {
     return <Error statusCode={404} />;
   }
+
+  useEffect(() => {
+    if (siteData.status === 'ok') {
+      setSiteId(siteData.site.id);
+    }
+  }, [siteData]);
 
   const site = siteData.site;
   const title = site.name;

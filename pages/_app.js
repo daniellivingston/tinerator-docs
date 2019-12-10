@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import App from 'next/app';
 import Router from 'next/router';
 import Fathom from 'fathom-client';
 import Footer from '../components/footer';
+import SiteContext from '../components/site_context';
+import cookie from 'js-cookie';
 
 import '../styles/fonts.css';
 import '../styles/main.css';
@@ -15,6 +17,7 @@ Router.events.on('routeChangeComplete', () => {
 
 function Layout(props) {
   const { children } = props;
+  const [siteId, setSiteId] = useState(cookie.get('site'));
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
@@ -27,10 +30,20 @@ function Layout(props) {
   // This flexbox stuff on body is for the sticky footer:
   // https://css-tricks.com/couple-takes-sticky-footer/#article-header-id-3
   return (
-    <div className="font-sans antialiased text-gray-900 flex flex-col h-screen">
-      <div className="flex-grow flex-shrink-0">{children}</div>
-      <Footer />
-    </div>
+    <SiteContext.Provider
+      value={{
+        siteId,
+        setSiteId: id => {
+          cookie.set('site', id);
+          setSiteId(id);
+        }
+      }}
+    >
+      <div className="font-sans antialiased text-gray-900 flex flex-col h-screen">
+        <div className="flex-grow flex-shrink-0">{children}</div>
+        <Footer />
+      </div>
+    </SiteContext.Provider>
   );
 }
 

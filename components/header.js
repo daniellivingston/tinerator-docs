@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Link from 'next/link';
 import Logo from './logo';
+import SiteContext from '../components/site_context';
+import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/router';
 import { useViewer } from '../data/viewer';
 import { useSite } from '../data/site';
@@ -16,28 +18,30 @@ function UserMenu({ viewer }) {
   const toggleClass = isOpen ? '' : 'hidden';
 
   return (
-    <div className="relative flex">
-      <button className="ml-4" onClick={toggleMenu}>
-        <img
-          src={viewer.avatarUrl}
-          className="w-8 h-8 rounded-full shadow-md"
-        />
-      </button>
-      <div
-        className={`mt-12 py-2 bg-white absolute right-0 w-32 rounded shadow-menu ${toggleClass}`}
-      >
-        <ul className="text-gray-700">
-          <li key="logout">
-            <button
-              className="px-4 py-2 w-full hover:bg-gray-200 text-left"
-              onClick={logout}
-            >
-              Log out
-            </button>
-          </li>
-        </ul>
+    <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
+      <div className="relative flex">
+        <button className="ml-4" onClick={toggleMenu}>
+          <img
+            src={viewer.avatarUrl}
+            className="w-8 h-8 rounded-full shadow-md"
+          />
+        </button>
+        <div
+          className={`mt-12 py-2 bg-white absolute right-0 w-32 rounded shadow-menu ${toggleClass}`}
+        >
+          <ul className="text-gray-700">
+            <li key="logout">
+              <button
+                className="px-4 py-2 w-full hover:bg-gray-200 text-left"
+                onClick={logout}
+              >
+                Log out
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </OutsideClickHandler>
   );
 }
 
@@ -89,25 +93,51 @@ const NavLinks = ({ viewerData }) => {
 const SiteSwitcher = ({ currentSite, inverted }) => {
   if (!currentSite) return <></>;
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const toggleClass = isOpen ? '' : 'hidden';
+
   return (
-    <div
-      className={`flex items-center mx-3 py-2 border text-sm rounded cursor-pointer ${
-        inverted
-          ? 'border-gray-700 hover:bg-gray-800'
-          : 'border-gray-400 hover:bg-gray-200'
-      }`}
-    >
-      <div className="pl-3">{currentSite.name}</div>
-      <div className="pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700">
-        <svg
-          className="fill-current h-4 w-4"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
+    <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
+      <div className="relative flex mx-3">
+        <button
+          className={`flex items-center py-2 border text-sm rounded cursor-pointer font-semibold ${
+            inverted
+              ? 'border-gray-700 hover:bg-gray-800'
+              : 'border-gray-400 hover:bg-gray-200'
+          }`}
+          onClick={toggleMenu}
         >
-          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-        </svg>
+          <div className="pl-3">{currentSite.name}</div>
+          <div className="pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700">
+            <svg
+              className="fill-current h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+            </svg>
+          </div>
+        </button>
+        <div
+          className={`mt-12 py-2 w-32 bg-white absolute right-0 rounded shadow-menu z-20 ${toggleClass}`}
+        >
+          <ul className="text-gray-700">
+            <li key="logout">
+              <Link href="/sites/new">
+                <a className="block px-4 py-2 w-full hover:bg-gray-200 text-left">
+                  + New Site
+                </a>
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </OutsideClickHandler>
   );
 };
 
@@ -157,14 +187,16 @@ const SiteNav = ({ site, inverted }) => {
 
 const Header = props => {
   const { data: viewerData } = useViewer({ initialData: props.viewerData });
+  const { siteId } = useContext(SiteContext);
 
   const { data: siteData } = props.siteData
     ? useSite(props.siteData.id, { initialData: props.siteData })
-    : useSite('66e006788e5a');
+    : useSite(siteId);
 
   const site = siteData && siteData.site;
   const textColor = props.inverted ? 'text-gray-500' : 'text-gray-600';
-  const mainLinkPath = props.site ? `/sites/${site.id}` : '/';
+  const mainLinkPath =
+    siteData && siteData.site ? `/sites/${siteData.site.id}` : '/';
 
   return (
     <div className={`${props.inverted ? 'bg-gray-900' : ''}`}>
