@@ -143,7 +143,7 @@ const SiteMenu = ({ currentSite, inverted, inApp }) => {
               sitesData.sites.edges.map(({ node }) => (
                 <SiteMenuItem key={node.id} site={node} inApp={inApp} />
               ))}
-            <li key="logout">
+            <li key="logout" className="mt-2 pt-2 border-t">
               <Link href="/sites/new">
                 <a className="block px-4 py-2 w-full hover:bg-gray-200 text-left">
                   Create a new site
