@@ -12,7 +12,7 @@ export default initialValue => {
     if (ref.current) {
       Prism.highlightElement(ref.current, false);
     }
-  });
+  }, [ref]);
 
   return ref;
 };

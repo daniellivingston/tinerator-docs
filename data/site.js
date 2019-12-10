@@ -10,6 +10,7 @@ export const fetch = async (id, token) => {
       site(id: $id) {
         id
         name
+        deployKey
       }
     }
   `;
@@ -19,19 +20,19 @@ export const fetch = async (id, token) => {
   try {
     const resp = await graphql(query, { id }, token);
 
-    if (resp.status === 401) return { status: 'unauthorized' };
+    if (resp.status === 401) return { status: 'unauthorized', id };
     if (resp.status >= 400 && resp.status < 500)
-      return { status: 'clientError' };
-    if (resp.status >= 500) return { status: 'serverError' };
+      return { status: 'clientError', id };
+    if (resp.status >= 500) return { status: 'serverError', id };
 
     const {
       data: { site }
     } = await resp.json();
 
-    if (!site) return { status: 'notFound' };
-    return { status: 'ok', site };
+    if (!site) return { status: 'notFound', id };
+    return { status: 'ok', site, id };
   } catch (e) {
-    return { status: 'serverError' };
+    return { status: 'serverError', id };
   }
 };
 

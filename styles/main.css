@@ -84,6 +84,14 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
   padding-bottom: 2px;
 }
 
+.inline-code-inverse {
+  @apply bg-gray-800 rounded-full px-2 text-sm;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
 .bg-code {
   @apply bg-gray-800;
 }

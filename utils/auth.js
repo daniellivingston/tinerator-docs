@@ -2,6 +2,7 @@ import Router from 'next/router';
 import cookie from 'js-cookie';
 import cookies from 'next-cookies';
 import { revalidate, prefetch } from '../data/viewer';
+import { redirectTo } from './routing';
 
 const endpoint =
   process.env.NODE_ENV == 'production'
@@ -17,21 +18,11 @@ export const login = async ({ token }) => {
 export const logout = () => {
   cookie.remove('token');
   revalidate();
-  Router.push('/login');
+  redirectToLogin();
 };
 
 export const redirectToLogin = (context = {}) => {
-  const { res } = context;
-
-  if (res) {
-    res
-      .writeHead(302, {
-        Location: '/login'
-      })
-      .end();
-  } else {
-    Router.push('/login');
-  }
+  redirectTo('/login', context);
 };
 
 export const fetchToken = async (email, password) => {

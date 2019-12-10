@@ -1,12 +1,20 @@
 import React from 'react';
 import Header from '../../components/header';
 import OpenGraph from '../../components/open_graph';
+import CodeBlock from '../../components/code_block';
 import Error from 'next/error';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { getToken, redirectToLogin } from '../../utils/auth';
 import { useViewer, fetch as fetchViewer } from '../../data/viewer';
 import { useSite, fetch as fetchSite } from '../../data/site';
+import { stripIndent } from 'common-tags';
+
+const firstDeploy = token => stripIndent`
+npm i -g @statickit/cli
+statickit forms add contact-form "Contact Form"
+statickit deploy -k ${token}
+`;
 
 function SitePage({
   viewerData: initialViewerData,
@@ -38,8 +46,37 @@ function SitePage({
             pageTitle={title}
             inverted={true}
             viewerData={viewerData}
-            site={site}
+            siteData={siteData}
           />
+          <div className="mx-auto container px-6 pt-6 pb-12">
+            <div className="">
+              <div className="w-full md:w-2/3 py-16 text-gray-500">
+                <h2 className="pb-4 text-2xl font-semibold text-gray-300 tracking-snug">
+                  Your site is ready to configure!
+                </h2>
+                <p className="pb-4">
+                  From your console,{' '}
+                  <code className="inline-code-inverse">cd</code> into your
+                  project directory and run these commands to install the CLI,
+                  generate a config file, and deploy it:
+                </p>
+
+                <div className="pb-4">
+                  <CodeBlock className="language-shell">
+                    {firstDeploy(site.deployKey).trim()}
+                  </CodeBlock>
+                </div>
+
+                <p>
+                  <Link href="/docs">
+                    <a className="text-indigo-500 font-bold">
+                      Learn more about configuration &rarr;
+                    </a>
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>

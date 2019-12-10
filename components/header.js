@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Logo from './logo';
 import { useRouter } from 'next/router';
 import { useViewer } from '../data/viewer';
+import { useSite } from '../data/site';
 import { logout } from '../utils/auth';
 
 function UserMenu({ viewer }) {
@@ -16,14 +17,14 @@ function UserMenu({ viewer }) {
 
   return (
     <div className="relative flex">
-      <button className="mx-4" onClick={toggleMenu}>
+      <button className="ml-4" onClick={toggleMenu}>
         <img
           src={viewer.avatarUrl}
           className="w-8 h-8 rounded-full shadow-md"
         />
       </button>
       <div
-        className={`mt-12 mr-4 py-2 bg-white absolute right-0 w-32 rounded shadow-menu ${toggleClass}`}
+        className={`mt-12 py-2 bg-white absolute right-0 w-32 rounded shadow-menu ${toggleClass}`}
       >
         <ul className="text-gray-700">
           <li key="logout">
@@ -85,11 +86,17 @@ const NavLinks = ({ viewerData }) => {
   return <></>;
 };
 
-const SiteSwitcher = ({ currentSite }) => {
+const SiteSwitcher = ({ currentSite, inverted }) => {
   if (!currentSite) return <></>;
 
   return (
-    <div className="flex items-center mx-3 py-2 border border-gray-700 text-sm rounded">
+    <div
+      className={`flex items-center mx-3 py-2 border text-sm rounded cursor-pointer ${
+        inverted
+          ? 'border-gray-700 hover:bg-gray-800'
+          : 'border-gray-400 hover:bg-gray-200'
+      }`}
+    >
       <div className="pl-3">{currentSite.name}</div>
       <div className="pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700">
         <svg
@@ -104,7 +111,7 @@ const SiteSwitcher = ({ currentSite }) => {
   );
 };
 
-const SiteNavLink = ({ path, text }) => {
+const SiteNavLink = ({ path, text, inverted }) => {
   const router = useRouter();
   const isCurrent = path == router.asPath;
 
@@ -113,8 +120,12 @@ const SiteNavLink = ({ path, text }) => {
       <a
         className={`px-3 py-2 rounded font-semibold ${
           isCurrent
-            ? 'text-gray-200 bg-gray-900'
-            : 'text-gray-600 hover:text-gray-500'
+            ? `${inverted ? 'text-gray-200' : 'text-gray-900'}`
+            : `${
+                inverted
+                  ? 'text-gray-600 hover:text-gray-500'
+                  : 'text-gray-600 hover:text-gray-700'
+              }`
         }`}
       >
         {text}
@@ -123,16 +134,22 @@ const SiteNavLink = ({ path, text }) => {
   );
 };
 
-const SiteNav = ({ site }) => {
+const SiteNav = ({ site, inverted }) => {
   if (!site) return <></>;
 
   return (
     <div className="flex items-center">
-      <SiteNavLink key="forms" path={`/sites/${site.id}`} text="Forms" />
       <SiteNavLink
         key="forms"
+        path={`/sites/${site.id}`}
+        text="Forms"
+        inverted={inverted}
+      />
+      <SiteNavLink
+        key="settings"
         path={`/sites/${site.id}/settings`}
         text="Settings"
+        inverted={inverted}
       />
     </div>
   );
@@ -140,31 +157,39 @@ const SiteNav = ({ site }) => {
 
 const Header = props => {
   const { data: viewerData } = useViewer({ initialData: props.viewerData });
+
+  const { data: siteData } = props.siteData
+    ? useSite(props.siteData.id, { initialData: props.siteData })
+    : useSite('66e006788e5a');
+
+  const site = siteData && siteData.site;
   const textColor = props.inverted ? 'text-gray-500' : 'text-gray-600';
-  const mainLinkPath = props.site ? `/sites/${props.site.id}` : '/';
+  const mainLinkPath = props.site ? `/sites/${site.id}` : '/';
 
   return (
-    <header className="mx-auto container px-6 py-4">
-      <div className="flex items-center h-10">
-        <div>
-          <Link href={mainLinkPath}>
-            <a className="flex items-center">
-              <Logo inverted={props.inverted} />
-            </a>
-          </Link>
+    <div className={`${props.inverted ? 'bg-gray-900' : ''}`}>
+      <header className="mx-auto container px-6 py-4">
+        <div className="flex items-center h-10">
+          <div>
+            <Link href={mainLinkPath}>
+              <a className="flex items-center">
+                <Logo inverted={props.inverted} />
+              </a>
+            </Link>
+          </div>
+          <div className="mx-5 flex-grow flex items-center">
+            <SiteNav site={site} inverted={props.inverted} />
+          </div>
+          <div
+            className={`hidden sm:flex items-center justify-end font-semibold text-sm ${textColor}`}
+          >
+            <SiteSwitcher currentSite={site} inverted={props.inverted} />
+            <NavLinks viewerData={viewerData} />
+            <AuthControls viewerData={viewerData} />
+          </div>
         </div>
-        <div className="mx-5 flex-grow flex items-center">
-          <SiteNav site={props.site} />
-        </div>
-        <div
-          className={`hidden sm:flex items-center justify-end font-semibold text-sm ${textColor}`}
-        >
-          <SiteSwitcher currentSite={props.site} />
-          <NavLinks viewerData={viewerData} />
-          <AuthControls viewerData={viewerData} />
-        </div>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 };
 

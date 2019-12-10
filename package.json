@@ -13,6 +13,7 @@
     "@next/mdx": "^9.0.2",
     "@statickit/react": "^1.2.0",
     "@zeit/next-css": "^1.0.1",
+    "common-tags": "^1.8.0",
     "fathom-client": "^1.0.0",
     "isomorphic-unfetch": "^3.0.0",
     "js-cookie": "^2.2.1",
