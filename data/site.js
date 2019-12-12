@@ -11,6 +11,15 @@ export const fetch = async (id, token) => {
         id
         name
         deployKey
+        forms(first: 100) {
+          edges {
+            node {
+              id
+              name
+              submissionCount
+            }
+          }
+        }
       }
     }
   `;

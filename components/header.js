@@ -124,7 +124,7 @@ const SiteMenu = ({ currentSite, inverted, inApp }) => {
           }`}
           onClick={toggleMenu}
         >
-          <div className="pl-3">{currentSite.name}</div>
+          <div className="pl-3 whitespace-no-wrap">{currentSite.name}</div>
           <div className="pointer-events-none inset-y-0 right-0 flex items-center px-2 text-gray-700">
             <svg
               className="fill-current h-4 w-4"
