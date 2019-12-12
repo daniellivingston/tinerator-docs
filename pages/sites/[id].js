@@ -142,6 +142,19 @@ function SitePage({
             <FormList site={site} />
           )}
         </div>
+        <div className="bg-gray-200">
+          <div className="mx-auto container px-6 py-10">
+            <h2 className="pb-1 text-lg font-semibold text-gray-900">
+              Activity Log
+            </h2>
+            <p className="pb-5 text-sm text-gray-600">
+              View recent activity with your plugins.
+            </p>
+            <div className="text-base text-center text-gray-600 rounded-lg py-16 border border-gray-500 border-dashed">
+              There&rsquo;s no activity to show yet!
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
