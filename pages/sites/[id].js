@@ -17,17 +17,6 @@ statickit forms add contact-form "Contact Form"
 statickit deploy -k ${token}
 `;
 
-const formIcon = `
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="edit-copy" transform="translate(0.500000, 0.500000)" stroke="#4299E1">
-            <path d="M6.85714286,2.28571429 L1.52380952,2.28571429 C0.682232762,2.28571429 0,2.96794705 0,3.80952381 L0,14.4761905 C0,15.3177672 0.682232762,16 1.52380952,16 L12.1904762,16 C13.032053,16 13.7142857,15.3177672 13.7142857,14.4761905 L13.7142857,9.14285714" id="Path"></path>
-            <path d="M12.5714286,1.14285714 C13.2026111,0.511674594 14.2259603,0.511674605 14.8571428,1.14285717 C15.4883254,1.77403973 15.4883254,2.79738885 14.8571429,3.42857143 L7.61904762,10.6666667 L4.57142857,11.4285714 L5.33333333,8.38095238 L12.5714286,1.14285714 Z" id="Path"></path>
-        </g>
-    </g>
-</svg>
-`;
-
 const BlankSlate = ({ site }) => {
   return (
     <div className="mx-auto container px-6 pt-6 pb-12">
@@ -77,9 +66,6 @@ const FormItem = ({ form }) => {
     <Link href={`/forms/${form.id}`}>
       <a className="block w-full md:w-1/2 lg:w-1/3 p-3">
         <div className="flex px-5 py-4 bg-gray-800 hover:bg-gray-700 hover:bg-transition rounded-lg">
-          <div className="pr-2 py-1">
-            <span dangerouslySetInnerHTML={{ __html: formIcon }} />
-          </div>
           <div className="flex-grow">
             <h2 className="pb-1 text-lg font-semibold text-gray-200 tracking-snug">
               {form.name}
