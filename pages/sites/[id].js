@@ -60,7 +60,7 @@ function SitePage({
             <div className="">
               <div className="w-full md:w-2/3 py-16 text-gray-500">
                 <h2 className="pb-4 text-2xl font-semibold text-gray-300 tracking-snug">
-                  Let&rsquo;s configure some plugins!
+                  Your site is ready to configure!
                 </h2>
                 <p className="pb-4">
                   From your command line,{' '}

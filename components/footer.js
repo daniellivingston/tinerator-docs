@@ -3,33 +3,39 @@ import Link from 'next/link';
 const Footer = () => (
   <footer className="bg-gray-900">
     <div className="mx-auto container px-4 py-10">
-      <div className="flex flex-wrap pb-12 text-gray-500 text-base font-semibold">
+      <div className="flex flex-wrap pb-12 text-base font-semibold">
         <Link href="/docs">
-          <a className="px-3 pb-1 whitespace-no-wrap">Docs</a>
+          <a className="px-3 pb-1 whitespace-no-wrap text-gray-500 hover:text-gray-400">
+            Docs
+          </a>
         </Link>
 
         <a
           href="https://jsfiddle.net/user/StaticKit/fiddles/"
-          className="px-3 pb-1 whitespace-no-wrap"
+          className="px-3 pb-1 whitespace-no-wrap text-gray-500 hover:text-gray-400"
           target="_blank"
         >
           Examples
         </a>
 
         <Link href="/pricing">
-          <a className="px-3 pb-1">Pricing</a>
+          <a className="px-3 pb-1 whitespace-no-wrap text-gray-500 hover:text-gray-400">
+            Pricing
+          </a>
         </Link>
 
         <a
           href="https://github.com/unstacked/legal/blob/master/privacy-policy.md"
           target="_blank"
-          className="px-3 pb-1 whitespace-no-wrap"
+          className="px-3 pb-1 whitespace-no-wrap text-gray-500 hover:text-gray-400"
         >
           Privacy Policy
         </a>
 
         <Link href="/support">
-          <a className="px-3 pb-1 whitespace-no-wrap">Support</a>
+          <a className="px-3 pb-1 whitespace-no-wrap text-gray-500 hover:text-gray-400">
+            Support
+          </a>
         </Link>
       </div>
 
