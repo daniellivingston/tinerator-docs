@@ -29,15 +29,23 @@ function FormPage({
     initialData: initialFormData
   });
 
-  if (siteData.status === 'notFound') return <Error statusCode={404} />;
-  if (formData.status === 'notFound') return <Error statusCode={404} />;
+  if (siteData && siteData.status === 'notFound') {
+    return <Error statusCode={404} />;
+  }
+
+  if (formData && formData.status === 'notFound') {
+    return <Error statusCode={404} />;
+  }
 
   useEffect(() => {
+    if (!siteData) return;
+
     if (siteData.status === 'ok') {
       setSiteId(siteData.site.id);
     }
   }, [siteData]);
 
+  if (!formData) return <></>;
   const form = formData.form;
 
   return (

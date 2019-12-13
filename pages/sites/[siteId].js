@@ -8,7 +8,11 @@ import SiteContext from '../../components/site_context';
 import { useRouter } from 'next/router';
 import { getToken, redirectToLogin } from '../../utils/auth';
 import { useViewer, fetch as fetchViewer } from '../../data/viewer';
-import { useSite, fetch as fetchSite } from '../../data/site';
+import {
+  useSite,
+  fetch as fetchSite,
+  setInitialState as setInitialSiteState
+} from '../../data/site';
 import { stripIndent } from 'common-tags';
 
 const firstDeploy = token => stripIndent`
@@ -63,7 +67,10 @@ const FormItem = ({ site, form }) => {
   }
 
   return (
-    <Link href={`/sites/${site.id}/forms/${form.key}`}>
+    <Link
+      href="/sites/[siteId]/forms/[formId]"
+      as={`/sites/${site.id}/forms/${form.key}`}
+    >
       <a className="block w-full md:w-1/2 lg:w-1/3 p-3">
         <div className="flex px-5 py-4 bg-gray-800 hover:bg-gray-700 hover:bg-transition rounded-lg">
           <div className="flex-grow">
@@ -81,8 +88,21 @@ const FormItem = ({ site, form }) => {
   );
 };
 
-const FormList = ({ site }) => {
+const FormList = ({ siteData: initialSiteData }) => {
+  const router = useRouter();
+  const { data: siteData, isValidating, error } = useSite(router.query.siteId, {
+    initialData: initialSiteData
+  });
+
+  if (!siteData) return <div className="h-32"></div>;
+  if (error) return <></>;
+
+  const site = siteData.site;
   const forms = site.forms.edges.map(edge => edge.node);
+
+  if (forms.length == 0) {
+    return <BlankSlate site={siteData.site} />;
+  }
 
   return (
     <div className="mx-auto container px-3 pt-6 pb-12">
@@ -101,50 +121,34 @@ function SitePage({
 }) {
   const router = useRouter();
   const { setSiteId } = useContext(SiteContext);
-
   const { data: viewerData } = useViewer({ initialData: initialViewerData });
-
-  const { data: siteData, error } = useSite(router.query.siteId, {
+  const { data: siteData } = useSite(router.query.siteId, {
     initialData: initialSiteData
   });
 
-  if (siteData.status === 'notFound') {
+  if (siteData && siteData.status === 'notFound') {
     return <Error statusCode={404} />;
   }
 
   useEffect(() => {
+    if (!siteData) return;
+
     if (siteData.status === 'ok') {
       setSiteId(siteData.site.id);
     }
   }, [siteData]);
 
+  if (!siteData) return <></>;
   const site = siteData.site;
   const title = site.name;
 
   return (
     <div>
       <main>
-        <OpenGraph title={site.name} description={''} />
+        <OpenGraph title={title} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          {site.forms.edges.length == 0 ? (
-            <BlankSlate site={site} />
-          ) : (
-            <FormList site={site} />
-          )}
-        </div>
-        <div>
-          <div className="mx-auto container px-6 py-10">
-            <h2 className="pb-1 text-lg font-semibold text-gray-900">
-              Activity Log
-            </h2>
-            <p className="pb-5 text-sm text-gray-600">
-              View recent activity with your plugins.
-            </p>
-            <div className="text-base text-center text-gray-600 rounded-lg py-16 border border-gray-500 border-dashed">
-              There&rsquo;s no activity to show yet!
-            </div>
-          </div>
+          <FormList siteData={siteData} />
         </div>
       </main>
     </div>

@@ -80,7 +80,7 @@ const SiteMenuItem = ({ site, inApp }) => {
   if (inApp) {
     return (
       <li>
-        <Link href={`/sites/${site.id}`}>
+        <Link href="/sites/[siteId]" as={`/sites/${site.id}`}>
           <a className="block px-4 py-2 w-full hover:bg-gray-200 text-left">
             {site.name}
           </a>
@@ -207,26 +207,29 @@ const Header = ({
   inverted,
   showAppNav = true
 }) => {
+  const router = useRouter();
   const { data: viewerData } = useViewer({ initialData: initialViewerData });
-  const { siteId } = useContext(SiteContext);
+  const { siteId: defaultSiteId } = useContext(SiteContext);
 
-  const { data: siteData } = initialSiteData
-    ? useSite(initialSiteData.site.id, { initialData: initialSiteData })
-    : useSite(siteId);
+  const { data: siteData } = router.query.siteId
+    ? useSite(router.query.siteId, { initialData: initialSiteData })
+    : useSite(defaultSiteId);
 
-  const inApp = initialSiteData ? true : false;
+  const inApp = router.query.siteId ? true : false;
 
   const site = siteData && siteData.site;
   const textColor = inverted ? 'text-gray-500' : 'text-gray-600';
-  const mainLinkPath =
-    siteData && siteData.site ? `/sites/${siteData.site.id}` : '/';
+  const [mainLinkHref, mainLinkAs] =
+    siteData && siteData.site
+      ? ['/sites/[siteId]', `/sites/${siteData.site.id}`]
+      : ['/', '/'];
 
   return (
     <div className={`${inverted ? 'bg-gray-900' : ''}`}>
       <header className="mx-auto container px-6 py-4">
         <div className="flex items-center h-10">
           <div>
-            <Link href={mainLinkPath}>
+            <Link href={mainLinkHref} as={mainLinkAs}>
               <a className="flex items-center">
                 <Logo inverted={inverted} />
               </a>

@@ -1,4 +1,4 @@
-import useSWR, { trigger } from 'swr';
+import useSWR, { trigger, mutate } from 'swr';
 import graphql from '../utils/graphql';
 import { getToken } from '../utils/auth';
 
@@ -49,6 +49,11 @@ export const fetch = async (id, token) => {
 export const revalidate = id => {
   const token = getToken();
   trigger(['site', id, token]);
+};
+
+export const setInitialState = (id, data) => {
+  const token = getToken();
+  mutate(['site', id, token], data, false);
 };
 
 export const useSite = (id, config = {}) => {
