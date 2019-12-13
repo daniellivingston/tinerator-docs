@@ -157,12 +157,12 @@ const SiteMenu = ({ currentSite, inverted, inApp }) => {
   );
 };
 
-const AppNavItem = ({ path, text, inverted }) => {
+const AppNavItem = ({ href, as, text, inverted }) => {
   const router = useRouter();
-  const isCurrent = path == router.asPath;
+  const isCurrent = href == router.pathname;
 
   return (
-    <Link href={path}>
+    <Link href={href} as={as}>
       <a
         className={`px-3 py-2 rounded font-semibold ${
           isCurrent
@@ -187,13 +187,15 @@ const AppNav = ({ site, inverted }) => {
     <div className="flex items-center">
       <AppNavItem
         key="plugins"
-        path={`/sites/${site.id}`}
+        href="/sites/[siteId]"
+        as={`/sites/${site.id}`}
         text="Plugins"
         inverted={inverted}
       />
       <AppNavItem
         key="settings"
-        path={`/sites/${site.id}/settings`}
+        href="/sites/[siteId]/settings"
+        as={`/sites/${site.id}/settings`}
         text="Settings"
         inverted={inverted}
       />
