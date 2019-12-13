@@ -59,7 +59,7 @@ const FormItem = ({ site, form }) => {
   let submissionLabel;
 
   if (form.submissionCount == 0) {
-    submissionLabel = 'Never submitted';
+    submissionLabel = 'No submissions yet';
   } else if (form.submissionCount == 1) {
     submissionLabel = '1 submission';
   } else {
@@ -74,9 +74,9 @@ const FormItem = ({ site, form }) => {
       <a className="block w-full md:w-1/2 lg:w-1/3 p-3">
         <div className="flex px-5 py-4 bg-gray-800 hover:bg-gray-700 hover:bg-transition rounded-lg">
           <div className="flex-grow">
-            <h2 className="pb-1 text-lg font-semibold text-gray-300 tracking-snug">
+            <h3 className="pb-1 text-lg font-semibold text-gray-300 tracking-snug">
               {form.name}
-            </h2>
+            </h3>
             <p className="text-sm text-gray-500">{submissionLabel}</p>
           </div>
           <div className="flex-shrink-0">
