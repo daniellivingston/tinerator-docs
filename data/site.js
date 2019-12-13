@@ -16,6 +16,7 @@ export const fetch = async (id, token) => {
             node {
               id
               name
+              key
               submissionCount
             }
           }

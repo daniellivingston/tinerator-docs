@@ -211,7 +211,7 @@ const Header = ({
   const { siteId } = useContext(SiteContext);
 
   const { data: siteData } = initialSiteData
-    ? useSite(initialSiteData.id, { initialData: initialSiteData })
+    ? useSite(initialSiteData.site.id, { initialData: initialSiteData })
     : useSite(siteId);
 
   const inApp = initialSiteData ? true : false;

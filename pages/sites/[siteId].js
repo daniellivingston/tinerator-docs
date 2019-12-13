@@ -51,7 +51,7 @@ const BlankSlate = ({ site }) => {
   );
 };
 
-const FormItem = ({ form }) => {
+const FormItem = ({ site, form }) => {
   let submissionLabel;
 
   if (form.submissionCount == 0) {
@@ -63,16 +63,14 @@ const FormItem = ({ form }) => {
   }
 
   return (
-    <Link href={`/forms/${form.id}`}>
+    <Link href={`/sites/${site.id}/forms/${form.key}`}>
       <a className="block w-full md:w-1/2 lg:w-1/3 p-3">
         <div className="flex px-5 py-4 bg-gray-800 hover:bg-gray-700 hover:bg-transition rounded-lg">
           <div className="flex-grow">
-            <h2 className="pb-1 text-lg font-semibold text-gray-200 tracking-snug">
+            <h2 className="pb-1 text-lg font-semibold text-gray-300 tracking-snug">
               {form.name}
             </h2>
-            <p className="text-sm text-gray-500">
-              Form &middot; {submissionLabel}
-            </p>
+            <p className="text-sm text-gray-500">{submissionLabel}</p>
           </div>
           <div className="flex-shrink-0">
             <span className="font-bold text-gray-600">&rarr;</span>
@@ -90,7 +88,7 @@ const FormList = ({ site }) => {
     <div className="mx-auto container px-3 pt-6 pb-12">
       <div className="flex flex-wrap">
         {forms.map(form => (
-          <FormItem key={form.id} form={form} />
+          <FormItem key={form.id} site={site} form={form} />
         ))}
       </div>
     </div>
@@ -104,11 +102,9 @@ function SitePage({
   const router = useRouter();
   const { setSiteId } = useContext(SiteContext);
 
-  const { data: viewerData } = useViewer({
-    initialData: initialViewerData
-  });
+  const { data: viewerData } = useViewer({ initialData: initialViewerData });
 
-  const { data: siteData, error } = useSite(router.query.id, {
+  const { data: siteData, error } = useSite(router.query.siteId, {
     initialData: initialSiteData
   });
 
@@ -128,21 +124,16 @@ function SitePage({
   return (
     <div>
       <main>
-        <OpenGraph title={title} description={''} path="/sites/[id]" />
+        <OpenGraph title={site.name} description={''} />
         <div className="bg-gray-900">
-          <Header
-            pageTitle={title}
-            inverted={true}
-            viewerData={viewerData}
-            siteData={siteData}
-          />
+          <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           {site.forms.edges.length == 0 ? (
             <BlankSlate site={site} />
           ) : (
             <FormList site={site} />
           )}
         </div>
-        <div className="bg-gray-200">
+        <div>
           <div className="mx-auto container px-6 py-10">
             <h2 className="pb-1 text-lg font-semibold text-gray-900">
               Activity Log
@@ -167,7 +158,7 @@ SitePage.getInitialProps = async context => {
   try {
     const [viewerData, siteData] = await Promise.all([
       fetchViewer(token),
-      fetchSite(query.id, token)
+      fetchSite(query.siteId, token)
     ]);
 
     if (viewerData.status === 'unauthorized') {
