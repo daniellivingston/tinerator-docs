@@ -12,6 +12,7 @@ export const fetch = async (siteId, key, token) => {
         form(key: $key) {
           id
           name
+          submissionCount
         }
       }
     }

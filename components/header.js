@@ -196,7 +196,7 @@ const AppNav = ({ site, inverted }) => {
         key="settings"
         href="/sites/[siteId]/settings"
         as={`/sites/${site.id}/settings`}
-        text="Site Settings"
+        text="Settings"
         inverted={inverted}
       />
     </div>
