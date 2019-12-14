@@ -72,7 +72,7 @@ const FormItem = ({ site, form }) => {
       as={`/sites/${site.id}/forms/${form.key}`}
     >
       <a className="block w-full md:w-1/2 lg:w-1/3 p-3">
-        <div className="flex px-5 py-4 bg-gray-800 hover:bg-gray-700 hover:bg-transition rounded-lg">
+        <div className="flex px-5 py-4 bg-gray-800 hover:bg-gray-700 hover:bg-transition rounded-lg shadow-lg">
           <div className="flex-grow">
             <h3 className="pb-1 text-lg font-semibold text-gray-300 tracking-snug">
               {form.name}

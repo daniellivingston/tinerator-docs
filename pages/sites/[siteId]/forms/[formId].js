@@ -16,7 +16,7 @@ const SubmissionItem = ({ submission, index }) => {
   const occurredAt = moment.utc(submission.occurredAt);
 
   return (
-    <div className={`${index % 2 == 1 ? 'bg-gray-200' : 'bg-gray-100'}`}>
+    <div className={`${index % 2 == 1 ? 'bg-gray-100' : 'bg-gray-200'}`}>
       <div className={`mx-auto container md:flex py-4 rounded-lg`}>
         <div className="md:w-1/3 py-3 px-6">
           <time>{occurredAt.format('MMM D, YYYY h:mm a')}</time>
@@ -109,7 +109,7 @@ function FormPage({
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <div className="mx-auto container px-6 pt-6 pb-4">
-            <h1 className="pb-3 text-4xl text-gray-200 font-semibold tracking-snug">
+            <h1 className="pb-4 text-4xl text-gray-200 font-semibold tracking-snug">
               {form.name}
             </h1>
             <div className="flex">
@@ -133,9 +133,9 @@ function FormPage({
             </div>
           </div>
         </div>
-        <div className="bg-gray-800">
+        <div>
           <div className="mx-auto container px-6 py-6">
-            <div className="text-gray-500">
+            <div className="text-gray-700">
               This form has been submitted {form.submissionCount} times.
             </div>
           </div>
