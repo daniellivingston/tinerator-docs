@@ -16,7 +16,7 @@ const SubmissionItem = ({ submission, index }) => {
   const occurredAt = moment.utc(submission.occurredAt);
 
   return (
-    <div className={`${index % 2 == 1 ? 'bg-gray-100' : 'bg-gray-200'}`}>
+    <div className={`${index % 2 == 1 ? '' : 'bg-gray-200'}`}>
       <div className={`mx-auto container md:flex py-4 rounded-lg`}>
         <div className="md:w-1/3 py-3 px-6">
           <time>{occurredAt.format('MMM D, YYYY h:mm a')}</time>
@@ -25,9 +25,7 @@ const SubmissionItem = ({ submission, index }) => {
           {submission.data.map(datum => {
             return (
               <div key={datum.name} className="py-3">
-                <h3 className="pb-1 font-semibold text-gray-700 text-sm">
-                  {datum.name}
-                </h3>
+                <p className="pb-1 font-semibold text-gray-700">{datum.name}</p>
                 <p className="whitespace-pre-wrap">{datum.value}</p>
               </div>
             );
@@ -108,8 +106,8 @@ function FormPage({
         <OpenGraph title={form.name} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          <div className="mx-auto container px-6 pt-6 pb-4">
-            <h1 className="pb-4 text-4xl text-gray-200 font-semibold tracking-snug">
+          <div className="mx-auto container px-6 pt-6 pb-3">
+            <h1 className="pb-3 text-4xl text-gray-200 font-semibold tracking-snug">
               {form.name}
             </h1>
             <div className="flex">
