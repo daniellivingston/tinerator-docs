@@ -83,6 +83,14 @@ const SubmissionTable = ({ form, submissionData, displayFields }) => {
     } catch (e) {}
   };
 
+  if (submissions.length === 0) {
+    return (
+      <div className="rounded-lg border py-16 px-6 text-center text-gray-600">
+        No submissions to show.
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-auto w-full rounded-t-lg">
       <table className="w-full text-gray-800 text-sm">
@@ -185,11 +193,14 @@ function FormPage({
         <OpenGraph title={form.name} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          <div className="mx-auto container px-6 pt-3 pb-3">
-            <h1 className="pb-2 text-3xl text-gray-200 font-semibold tracking-snug">
+          <div className="mx-auto container px-6 pt-2 pb-4">
+            <Link href="/">
+              <a className="text-gray-600 font-semibold">Plugins</a>
+            </Link>
+            <h1 className="pb-3 text-3xl text-gray-200 font-bold tracking-snug">
               {form.name}
             </h1>
-            <div className="flex text-sm">
+            <div className="flex">
               <Link
                 href="/sites/[siteId]/forms/[formId]"
                 as={`/sites/${router.query.siteId}/forms/${router.query.formId}`}
@@ -212,7 +223,7 @@ function FormPage({
         </div>
         <div>
           <div className="mx-auto container px-6 py-6">
-            <div className="text-gray-700 pb-6 text-sm">
+            <div className="text-gray-600 pb-6">
               This form has been submitted {form.submissionCount} times.
             </div>
 

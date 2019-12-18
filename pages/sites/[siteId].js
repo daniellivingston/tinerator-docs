@@ -106,10 +106,18 @@ const FormList = ({ siteData: initialSiteData }) => {
 
   return (
     <div className="mx-auto container px-3 pt-6 pb-12">
-      <div className="flex flex-wrap">
-        {forms.map(form => (
-          <FormItem key={form.id} site={site} form={form} />
-        ))}
+      <div className="sm:flex">
+        <div className="sm:w-56 px-3 py-3 pb-3">
+          <h2 className="pb-1 text-xl font-semibold text-white">Plugins</h2>
+          <p className="text-sm text-gray-600">
+            The resources you&rsquo;ve configured for your site.
+          </p>
+        </div>
+        <div className="sm:flex-grow flex flex-wrap">
+          {forms.map(form => (
+            <FormItem key={form.id} site={site} form={form} />
+          ))}
+        </div>
       </div>
     </div>
   );

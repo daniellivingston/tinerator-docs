@@ -238,7 +238,7 @@ const Header = ({
             </Link>
           </div>
           <div className="mx-5 flex-grow flex items-center">
-            {showAppNav && <AppNav site={site} inverted={inverted} />}
+            {showAppNav && false && <AppNav site={site} inverted={inverted} />}
           </div>
           <div
             className={`flex items-center justify-end font-semibold text-sm ${textColor}`}
