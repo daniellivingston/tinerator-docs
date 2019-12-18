@@ -13,6 +13,7 @@ export const fetch = async (siteId, key, token) => {
           id
           name
           submissionCount
+          displayFields
         }
       }
     }

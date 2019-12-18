@@ -12,31 +12,16 @@ import { useForm, fetch as fetchForm } from '../../../../data/form';
 import { useSubmissions } from '../../../../data/submissions';
 import moment from 'moment';
 
-const SubmissionItem = ({ submission, index }) => {
-  const occurredAt = moment.utc(submission.occurredAt);
+const formatFieldValue = value => {
+  if (!value) return '—';
 
-  return (
-    <div className={`${index % 2 == 1 ? '' : 'bg-gray-200'}`}>
-      <div className={`mx-auto container md:flex py-4 rounded-lg`}>
-        <div className="md:w-1/3 py-3 px-6">
-          <time>{occurredAt.format('MMM D, YYYY h:mm a')}</time>
-        </div>
-        <div className="md:w-2/3 px-6">
-          {submission.data.map(datum => {
-            return (
-              <div key={datum.name} className="py-3">
-                <p className="pb-1 font-semibold text-gray-700">{datum.name}</p>
-                <p className="whitespace-pre-wrap">{datum.value}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
+  return value
+    .split('\n')
+    .slice(0, 3)
+    .join(' ');
 };
 
-const SubmissionList = ({ submissionData }) => {
+const SubmissionTable = ({ submissionData, displayFields }) => {
   if (!submissionData) {
     return (
       <div className="mx-auto container px-6 py-24 text-2xl font-semibold text-gray-500 text-center">
@@ -48,10 +33,46 @@ const SubmissionList = ({ submissionData }) => {
   const submissions = submissionData.submissions.edges.map(edge => edge.node);
 
   return (
-    <div className="text-gray-800">
-      {submissions.map((submission, idx) => (
-        <SubmissionItem submission={submission} index={idx} />
-      ))}
+    <div className="overflow-auto w-full rounded-t-lg">
+      <table className="w-full text-gray-800 text-sm">
+        <thead>
+          <tr className="">
+            <th className="px-3 py-3 text-left font-semibold bg-gray-200 text-gray-700 border-b rounded-tl-lg">
+              created_at
+            </th>
+            {displayFields.map(name => (
+              <th className="px-3 py-3 text-left font-semibold bg-gray-200 text-gray-700 border-b">
+                {name}
+              </th>
+            ))}
+            <th className="w-12 px-3 py-3 text-left text-sm font-semibold bg-gray-200 text-gray-700 border-b rounded-tr-lg"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {submissions.map((submission, idx) => {
+            return (
+              <tr className="border-b align-top hover:bg-gray-100">
+                <td className="px-3 py-4 w-48">
+                  {moment
+                    .utc(submission.occurredAt)
+                    .format('MMM D, YYYY h:mm a')}
+                </td>
+
+                {displayFields.map(field => (
+                  <td className="px-3 py-4">
+                    {formatFieldValue(
+                      (submission.data.find(datum => datum.name == field) || {})
+                        .value
+                    )}
+                  </td>
+                ))}
+
+                <td className="px-3 py-4 w-12"></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
@@ -106,7 +127,7 @@ function FormPage({
         <OpenGraph title={form.name} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          <div className="mx-auto container px-6 pt-6 pb-3">
+          <div className="mx-auto container px-6 pt-3 pb-3">
             <h1 className="pb-3 text-4xl text-gray-200 font-semibold tracking-snug">
               {form.name}
             </h1>
@@ -133,12 +154,16 @@ function FormPage({
         </div>
         <div>
           <div className="mx-auto container px-6 py-6">
-            <div className="text-gray-700">
+            <div className="text-gray-700 pb-6">
               This form has been submitted {form.submissionCount} times.
             </div>
+
+            <SubmissionTable
+              submissionData={submissionData}
+              displayFields={form.displayFields}
+            />
           </div>
         </div>
-        <SubmissionList submissionData={submissionData} />
       </main>
     </div>
   );
