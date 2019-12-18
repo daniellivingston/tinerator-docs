@@ -186,10 +186,10 @@ function FormPage({
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <div className="mx-auto container px-6 pt-3 pb-3">
-            <h1 className="pb-3 text-4xl text-gray-200 font-semibold tracking-snug">
+            <h1 className="pb-2 text-3xl text-gray-200 font-semibold tracking-snug">
               {form.name}
             </h1>
-            <div className="flex">
+            <div className="flex text-sm">
               <Link
                 href="/sites/[siteId]/forms/[formId]"
                 as={`/sites/${router.query.siteId}/forms/${router.query.formId}`}
@@ -212,7 +212,7 @@ function FormPage({
         </div>
         <div>
           <div className="mx-auto container px-6 py-6">
-            <div className="text-gray-700 pb-6">
+            <div className="text-gray-700 pb-6 text-sm">
               This form has been submitted {form.submissionCount} times.
             </div>
 
