@@ -223,7 +223,7 @@ function FormPage({
         </div>
         <div>
           <div className="mx-auto container px-6 py-6">
-            <div className="text-gray-600 pb-6">
+            <div className="text-gray-700 text-sm pb-6">
               This form has been submitted {form.submissionCount} times.
             </div>
 
