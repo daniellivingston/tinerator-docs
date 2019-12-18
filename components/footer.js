@@ -5,7 +5,7 @@ const Footer = () => (
     <div className="mx-auto container px-4 py-10">
       <div className="flex flex-wrap pb-12 text-base font-semibold">
         <Link href="/docs">
-          <a className="px-3 pb-1 whitespace-no-wrap text-gray-600 hover:text-gray-600">
+          <a className="px-3 pb-1 whitespace-no-wrap text-gray-600 hover:text-gray-500">
             Docs
           </a>
         </Link>
