@@ -193,11 +193,13 @@ function FormPage({
         <OpenGraph title={form.name} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          <div className="mx-auto container px-6 pt-2 pb-4">
-            <Link href="/">
-              <a className="text-gray-600 font-semibold">Plugins</a>
-            </Link>
-            <h1 className="pb-3 text-3xl text-gray-200 font-bold tracking-snug">
+          <div className="mx-auto container px-6 pt-4 pb-4">
+            <div className="pb-1">
+              <Link href="/">
+                <a className="text-gray-600 font-semibold">Plugins</a>
+              </Link>
+            </div>
+            <h1 className="pb-3 text-3xl text-gray-100 tracking-snug">
               {form.name}
             </h1>
             <div className="flex">
