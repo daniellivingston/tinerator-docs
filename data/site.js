@@ -1,5 +1,5 @@
 import useSWR, { trigger, mutate } from 'swr';
-import graphql from '../utils/graphql';
+import { graphql } from '../utils/graphql';
 import { getToken } from '../utils/auth';
 
 export const fetch = async (id, token) => {

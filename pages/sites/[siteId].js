@@ -1,18 +1,14 @@
 import React, { useEffect, useContext } from 'react';
-import Header from '../../components/header';
-import OpenGraph from '../../components/open_graph';
-import CodeBlock from '../../components/code_block';
+import Header from 'components/header';
+import OpenGraph from 'components/open_graph';
+import CodeBlock from 'components/code_block';
 import Error from 'next/error';
 import Link from 'next/link';
-import SiteContext from '../../components/site_context';
+import SiteContext from 'components/site_context';
 import { useRouter } from 'next/router';
-import { getToken, redirectToLogin } from '../../utils/auth';
-import { useViewer, fetch as fetchViewer } from '../../data/viewer';
-import {
-  useSite,
-  fetch as fetchSite,
-  setInitialState as setInitialSiteState
-} from '../../data/site';
+import { getToken, redirectToLogin } from 'utils/auth';
+import { useViewer, fetch as fetchViewer } from 'data/viewer';
+import { useSite, fetch as fetchSite } from 'data/site';
 import { stripIndent } from 'common-tags';
 
 const firstDeploy = token => stripIndent`
@@ -69,7 +65,7 @@ const FormItem = ({ site, form }) => {
   return (
     <Link
       href="/sites/[siteId]/forms/[formId]"
-      as={`/sites/${site.id}/forms/${form.key}`}
+      as={`/sites/${site.id}/forms/${form.id}`}
     >
       <a className="block w-full md:w-1/2 lg:w-1/3 p-3">
         <div className="flex px-5 py-4 bg-gray-800 hover:bg-gray-700 hover:bg-transition rounded-lg shadow-lg">
@@ -108,9 +104,9 @@ const FormList = ({ siteData: initialSiteData }) => {
     <div className="mx-auto container px-3 pt-6 pb-12">
       <div className="sm:flex">
         <div className="sm:w-56 px-3 py-3 pb-3">
-          <h2 className="pb-1 text-xl font-semibold text-white">Plugins</h2>
+          <h2 className="pb-1 text-xl font-semibold text-white">Forms</h2>
           <p className="text-sm text-gray-600">
-            The resources you&rsquo;ve configured for your site.
+            The form resources you&rsquo;ve configured for your site.
           </p>
         </div>
         <div className="sm:flex-grow flex flex-wrap">

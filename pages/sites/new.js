@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
-import Header from '../../components/header';
-import OpenGraph from '../../components/open_graph';
-import ValidationError from '../../components/validation_error';
-import { useViewer, fetch as fetchViewer } from '../../data/viewer';
-import { getToken } from '../../utils/auth';
-import graphql from '../../utils/graphql';
+import Header from 'components/header';
+import OpenGraph from 'components/open_graph';
+import ValidationError from 'components/validation_error';
+import { useViewer, fetch as fetchViewer } from 'data/viewer';
+import { getToken } from 'utils/auth';
+import { graphql } from 'utils/graphql';
 
 function NewSitePage({ viewerData: initialViewerData }) {
   const title = 'New Site';

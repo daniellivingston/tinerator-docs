@@ -1,7 +1,6 @@
 import { useRef } from 'react';
-import Header from '../components/header';
-import Footer from '../components/footer';
-import OpenGraph from '../components/open_graph';
+import Header from 'components/header';
+import OpenGraph from 'components/open_graph';
 import { ValidationError, useForm } from '@statickit/react';
 
 function ContactForm() {

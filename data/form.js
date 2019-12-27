@@ -1,15 +1,15 @@
 import useSWR, { trigger } from 'swr';
-import graphql from '../utils/graphql';
+import { graphql } from '../utils/graphql';
 import { getToken } from '../utils/auth';
 
-export const fetch = async (siteId, key, token) => {
+export const fetch = async (siteId, formId, token) => {
   const query = `
     query Form(
       $siteId: ID!
-      $key: String!
+      $formId: String!
     ) {
       site(id: $siteId) {
-        form(key: $key) {
+        form(id: $formId) {
           id
           key
           name
@@ -23,12 +23,12 @@ export const fetch = async (siteId, key, token) => {
   if (!token) return { status: 'unauthorized' };
 
   try {
-    const resp = await graphql(query, { siteId, key }, token);
+    const resp = await graphql(query, { siteId, formId }, token);
 
-    if (resp.status === 401) return { status: 'unauthorized', siteId, key };
+    if (resp.status === 401) return { status: 'unauthorized', siteId, formId };
     if (resp.status >= 400 && resp.status < 500)
-      return { status: 'clientError', siteId, key };
-    if (resp.status >= 500) return { status: 'serverError', siteId, key };
+      return { status: 'clientError', siteId, formId };
+    if (resp.status >= 500) return { status: 'serverError', siteId, formId };
 
     const {
       data: {
@@ -36,24 +36,24 @@ export const fetch = async (siteId, key, token) => {
       }
     } = await resp.json();
 
-    if (!form) return { status: 'notFound', siteId, key };
+    if (!form) return { status: 'notFound', siteId, formId };
     return { status: 'ok', form };
   } catch (e) {
-    return { status: 'serverError', siteId, key };
+    return { status: 'serverError', siteId, formId };
   }
 };
 
-export const revalidate = (siteId, key) => {
+export const revalidate = (siteId, formId) => {
   const token = getToken();
-  trigger(['form', siteId, key, token]);
+  trigger(['form', siteId, formId, token]);
 };
 
-export const useForm = (siteId, key, config = {}) => {
+export const useForm = (siteId, formId, config = {}) => {
   const token = getToken();
 
   return useSWR(
-    ['form', siteId, key, token],
-    async (_, siteId, key, token) => await fetch(siteId, key, token),
+    ['form', siteId, formId, token],
+    async (_, siteId, formId, token) => await fetch(siteId, formId, token),
     config
   );
 };

@@ -2,16 +2,16 @@ import React, { useEffect, useContext } from 'react';
 import Error from 'next/error';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Header from '../../../../components/header';
-import OpenGraph from '../../../../components/open_graph';
-import SiteContext from '../../../../components/site_context';
-import FormHeader from '../../../../components/form_header';
-import { getToken, redirectToLogin } from '../../../../utils/auth';
-import graphql from '../../../../utils/graphql';
-import { useViewer, fetch as fetchViewer } from '../../../../data/viewer';
-import { useSite, fetch as fetchSite } from '../../../../data/site';
-import { useForm, fetch as fetchForm } from '../../../../data/form';
-import { useSubmissions } from '../../../../data/submissions';
+import Header from 'components/header';
+import OpenGraph from 'components/open_graph';
+import SiteContext from 'components/site_context';
+import FormHeader from 'components/form_header';
+import { getToken, redirectToLogin } from 'utils/auth';
+import { graphql } from 'utils/graphql';
+import { useViewer, fetch as fetchViewer } from 'data/viewer';
+import { useSite, fetch as fetchSite } from 'data/site';
+import { useForm, fetch as fetchForm } from 'data/form';
+import { useSubmissions } from 'data/submissions';
 import moment from 'moment';
 
 const trashIcon = `

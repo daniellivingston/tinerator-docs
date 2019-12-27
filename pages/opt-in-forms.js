@@ -1,8 +1,7 @@
-import Header from '../components/header';
-import Footer from '../components/footer';
-import OpenGraph from '../components/open_graph';
-import CodeBlock from '../components/code_block';
-import OptInFormDemo from '../components/demos/mailchimp';
+import Header from 'components/header';
+import OpenGraph from 'components/open_graph';
+import CodeBlock from 'components/code_block';
+import OptInFormDemo from 'components/demos/mailchimp';
 import Link from 'next/link';
 
 const stepOne = `

@@ -5,7 +5,7 @@ const endpoint =
     ? 'https://api.statickit.com'
     : 'http://localhost:4000';
 
-export default (query, variables, token) => {
+export const graphql = (query, variables, token) => {
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`

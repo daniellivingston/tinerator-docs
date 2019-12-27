@@ -1,7 +1,6 @@
-import Header from '../components/header';
-import Footer from '../components/footer';
-import OpenGraph from '../components/open_graph';
-import FeatureGrid from '../components/forms_features';
+import Header from 'components/header';
+import OpenGraph from 'components/open_graph';
+import FeatureGrid from 'components/forms_features';
 
 const checkIcon = `
 <svg width="31px" height="31px" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

@@ -22,21 +22,21 @@ export default function FormHeader({ site, form }) {
     <div className="mx-auto container px-6 pt-4 pb-4">
       <div className="pb-1">
         <Link href="/sites/[siteId]" as={`/sites/${site.id}`}>
-          <a className="text-gray-600 font-semibold">Plugins</a>
+          <a className="text-gray-600 font-semibold">Forms</a>
         </Link>
       </div>
       <h1 className="pb-3 text-3xl text-gray-100 tracking-snug">{form.name}</h1>
       <div className="flex">
         <Tab
           href="/sites/[siteId]/forms/[formId]"
-          as={`/sites/${site.id}/forms/${form.key}`}
+          as={`/sites/${site.id}/forms/${form.id}`}
         >
           Submissions
         </Tab>
 
         <Tab
           href="/sites/[siteId]/forms/[formId]/settings"
-          as={`/sites/${site.id}/forms/${form.key}/settings`}
+          as={`/sites/${site.id}/forms/${form.id}/settings`}
         >
           Settings
         </Tab>

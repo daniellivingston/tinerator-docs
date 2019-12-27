@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import App from 'next/app';
 import Router from 'next/router';
 import Fathom from 'fathom-client';
-import Footer from '../components/footer';
-import SiteContext from '../components/site_context';
+import Footer from 'components/footer';
+import SiteContext from 'components/site_context';
 import cookie from 'js-cookie';
 
 import '../styles/fonts.css';

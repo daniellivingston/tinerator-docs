@@ -1,5 +1,5 @@
 import useSWR, { trigger } from 'swr';
-import graphql from '../utils/graphql';
+import { graphql } from '../utils/graphql';
 import { getToken } from '../utils/auth';
 
 export const fetch = async (siteId, formId, before, after, token) => {
@@ -11,7 +11,7 @@ export const fetch = async (siteId, formId, before, after, token) => {
       $after: String
     ) {
       site(id: $siteId) {
-        form(key: $formId) {
+        form(id: $formId) {
           submissions(
             first: $first,
             after: $after

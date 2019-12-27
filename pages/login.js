@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
-import OpenGraph from '../components/open_graph';
-import Logo from '../components/logo';
+import OpenGraph from 'components/open_graph';
+import Logo from 'components/logo';
 import Link from 'next/link';
-import { login, fetchToken } from '../utils/auth';
+import { login, fetchToken } from 'utils/auth';
 
 const ErrorMessage = ({ error }) => {
   if (!error) return <></>;
