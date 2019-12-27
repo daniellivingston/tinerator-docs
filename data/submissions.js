@@ -77,7 +77,7 @@ export const fetch = async (siteId, formId, before, after, token) => {
 
   try {
     const query = before ? backwardQuery : forwardQuery;
-    const [first, last] = before ? [null, 100] : [100, null];
+    const [first, last] = before ? [null, 50] : [50, null];
     const resp = await graphql(
       query,
       { siteId, formId, first, last, before, after },

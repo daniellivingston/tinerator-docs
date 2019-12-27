@@ -51,7 +51,14 @@ const PrevButton = ({ pageInfo }) => {
 
   return (
     <Link
-      as={`/sites/${router.query.siteId}/forms/${router.query.formId}?before=${pageInfo.startCursor}`}
+      href={{
+        pathname: '/sites/[siteId]/forms/[formId]',
+        query: { before: pageInfo.startCursor }
+      }}
+      as={{
+        pathname: `/sites/${router.query.siteId}/forms/${router.query.formId}`,
+        query: { before: pageInfo.startCursor }
+      }}
     >
       <a className={classes}>&larr;</a>
     </Link>
@@ -72,7 +79,14 @@ const NextButton = ({ pageInfo }) => {
 
   return (
     <Link
-      as={`/sites/${router.query.siteId}/forms/${router.query.formId}?after=${pageInfo.endCursor}`}
+      href={{
+        pathname: '/sites/[siteId]/forms/[formId]',
+        query: { after: pageInfo.endCursor }
+      }}
+      as={{
+        pathname: `/sites/${router.query.siteId}/forms/${router.query.formId}`,
+        query: { after: pageInfo.endCursor }
+      }}
     >
       <a className={classes}>&rarr;</a>
     </Link>
