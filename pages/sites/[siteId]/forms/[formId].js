@@ -51,7 +51,7 @@ const PrevButton = ({ pageInfo }) => {
 
   return (
     <Link
-      href={`/sites/${router.query.siteId}/forms/${router.query.formId}?before=${pageInfo.startCursor}`}
+      as={`/sites/${router.query.siteId}/forms/${router.query.formId}?before=${pageInfo.startCursor}`}
     >
       <a className={classes}>&larr;</a>
     </Link>
@@ -72,7 +72,7 @@ const NextButton = ({ pageInfo }) => {
 
   return (
     <Link
-      href={`/sites/${router.query.siteId}/forms/${router.query.formId}?after=${pageInfo.endCursor}`}
+      as={`/sites/${router.query.siteId}/forms/${router.query.formId}?after=${pageInfo.endCursor}`}
     >
       <a className={classes}>&rarr;</a>
     </Link>
