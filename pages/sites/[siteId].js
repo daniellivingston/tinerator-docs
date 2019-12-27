@@ -90,7 +90,7 @@ const FormItem = ({ site, form }) => {
 
 const FormList = ({ siteData: initialSiteData }) => {
   const router = useRouter();
-  const { data: siteData, isValidating, error } = useSite(router.query.siteId, {
+  const { data: siteData, error } = useSite(router.query.siteId, {
     initialData: initialSiteData
   });
 

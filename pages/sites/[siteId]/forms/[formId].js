@@ -35,6 +35,48 @@ const formatFieldValue = value => {
     .join(' ');
 };
 
+const PrevButton = ({ pageInfo }) => {
+  const router = useRouter();
+
+  const classes = 'block mx-1 px-2 py-1 rounded bg-gray-200 text-gray-700';
+
+  if (!pageInfo.hasPreviousPage)
+    return (
+      <button className={classes.concat(' opacity-50')} disabled={true}>
+        &larr;
+      </button>
+    );
+
+  return (
+    <Link
+      href={`/sites/${router.query.siteId}/forms/${router.query.formId}?before=${pageInfo.startCursor}`}
+    >
+      <a className={classes}>&larr;</a>
+    </Link>
+  );
+};
+
+const NextButton = ({ pageInfo }) => {
+  const router = useRouter();
+
+  const classes = 'block mx-1 px-2 py-1 rounded bg-gray-200 text-gray-700';
+
+  if (!pageInfo.hasNextPage)
+    return (
+      <button className={classes.concat(' opacity-50')} disabled={true}>
+        &rarr;
+      </button>
+    );
+
+  return (
+    <Link
+      href={`/sites/${router.query.siteId}/forms/${router.query.formId}?after=${pageInfo.endCursor}`}
+    >
+      <a className={classes}>&rarr;</a>
+    </Link>
+  );
+};
+
 const SubmissionTable = ({ form, submissionData, displayFields }) => {
   const router = useRouter();
 
@@ -47,6 +89,7 @@ const SubmissionTable = ({ form, submissionData, displayFields }) => {
   }
 
   const submissions = submissionData.submissions.edges.map(edge => edge.node);
+  const pageInfo = submissionData.submissions.pageInfo;
 
   const deleteClicked = async id => {
     const token = getToken();
@@ -100,7 +143,10 @@ const SubmissionTable = ({ form, submissionData, displayFields }) => {
               created_at
             </th>
             {displayFields.map(name => (
-              <th className="px-3 py-3 text-left font-semibold bg-gray-200 text-gray-700 border-b">
+              <th
+                key={`header-${name}`}
+                className="px-3 py-3 text-left font-semibold bg-gray-200 text-gray-700 border-b"
+              >
                 {name}
               </th>
             ))}
@@ -110,7 +156,10 @@ const SubmissionTable = ({ form, submissionData, displayFields }) => {
         <tbody>
           {submissions.map((submission, idx) => {
             return (
-              <tr className="border-b align-top hover:bg-gray-100">
+              <tr
+                key={submission.id}
+                className="border-b align-top hover:bg-gray-100"
+              >
                 <td className="px-3 py-4 w-48">
                   {moment
                     .utc(submission.occurredAt)
@@ -118,7 +167,10 @@ const SubmissionTable = ({ form, submissionData, displayFields }) => {
                 </td>
 
                 {displayFields.map(field => (
-                  <td className="px-3 py-4">
+                  <td
+                    key={`field-${submission.id}-${field}`}
+                    className="px-3 py-4"
+                  >
                     {formatFieldValue(
                       (submission.data.find(datum => datum.name == field) || {})
                         .value
@@ -139,6 +191,11 @@ const SubmissionTable = ({ form, submissionData, displayFields }) => {
           })}
         </tbody>
       </table>
+
+      <div className="py-4 flex items-center justify-center">
+        <PrevButton pageInfo={pageInfo} />
+        <NextButton pageInfo={pageInfo} />
+      </div>
     </div>
   );
 };
@@ -163,10 +220,7 @@ function FormPage({
     initialData: initialFormData
   });
 
-  const { data: submissionData } = useSubmissions(
-    router.query.siteId,
-    router.query.formId
-  );
+  const { data: submissionData } = useSubmissions(router.query);
 
   if (siteData && siteData.status === 'notFound') {
     return <Error statusCode={404} />;
@@ -195,7 +249,7 @@ function FormPage({
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <div className="mx-auto container px-6 pt-4 pb-4">
             <div className="pb-1">
-              <Link href="/">
+              <Link href="/sites/[siteId]" as={`/sites/${router.query.siteId}`}>
                 <a className="text-gray-600 font-semibold">Plugins</a>
               </Link>
             </div>
