@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
 import Logo from './logo';
-import SiteContext from '../components/site_context';
+import SiteContext from 'components/site_context';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/router';
-import { useViewer } from '../data/viewer';
-import { useSite } from '../data/site';
-import { useSites } from '../data/sites';
-import { logout } from '../utils/auth';
+import { useSitesData } from 'data/sites';
+import { logout } from 'utils/auth';
+import { useViewerData } from 'data/viewer';
+import { useSiteData } from 'data/site';
+import { useDefaultSite } from 'utils/default-site';
 
 function UserMenu({ viewer }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -104,7 +105,7 @@ const SiteMenuItem = ({ site, inApp }) => {
 const SiteMenu = ({ currentSite, inverted, inApp }) => {
   if (!currentSite) return <></>;
 
-  const { data: sitesData } = useSites();
+  const { sitesData } = useSitesData();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -210,15 +211,15 @@ const Header = ({
   showAppNav = true
 }) => {
   const router = useRouter();
-  const { data: viewerData } = useViewer({ initialData: initialViewerData });
-  const { siteId: defaultSiteId } = useContext(SiteContext);
+  const defaultSiteId = useDefaultSite();
 
-  const { data: siteData } = router.query.siteId
-    ? useSite(router.query.siteId, { initialData: initialSiteData })
-    : useSite(defaultSiteId);
+  const { viewerData } = useViewerData({ initialData: initialViewerData });
+
+  const { siteData } = router.query.siteId
+    ? useSiteData(router.query.siteId, { initialData: initialSiteData })
+    : useSiteData(defaultSiteId);
 
   const inApp = router.query.siteId ? true : false;
-
   const site = siteData && siteData.site;
   const textColor = inverted ? 'text-gray-500' : 'text-gray-600';
   const [mainLinkHref, mainLinkAs] =

@@ -1,14 +1,14 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import Header from 'components/header';
 import OpenGraph from 'components/open_graph';
 import CodeBlock from 'components/code_block';
 import Error from 'next/error';
 import Link from 'next/link';
-import SiteContext from 'components/site_context';
+import { useDefaultSite } from 'utils/default-site';
+import { useAuthRequired } from 'utils/auth';
 import { useRouter } from 'next/router';
-import { getToken, redirectToLogin } from 'utils/auth';
-import { useViewer, fetch as fetchViewer } from 'data/viewer';
-import { useSite, fetch as fetchSite } from 'data/site';
+import { useViewerData } from 'data/viewer';
+import { useSiteData } from 'data/site';
 import { stripIndent } from 'common-tags';
 
 const firstDeploy = token => stripIndent`
@@ -84,14 +84,9 @@ const FormItem = ({ site, form }) => {
   );
 };
 
-const FormList = ({ siteData: initialSiteData }) => {
-  const router = useRouter();
-  const { data: siteData, error } = useSite(router.query.siteId, {
-    initialData: initialSiteData
-  });
-
+const FormList = ({ siteData }) => {
   if (!siteData) return <div className="h-32"></div>;
-  if (error) return <></>;
+  if (siteData.status !== 'ok') return <></>;
 
   const site = siteData.site;
   const forms = site.forms.edges.map(edge => edge.node);
@@ -119,37 +114,27 @@ const FormList = ({ siteData: initialSiteData }) => {
   );
 };
 
-function SitePage({
-  viewerData: initialViewerData,
-  siteData: initialSiteData
-}) {
+const pageTitle = siteData => {
+  if (!siteData || !siteData.site) return 'Site';
+  return siteData.site.name;
+};
+
+function SitePage() {
   const router = useRouter();
-  const { setSiteId } = useContext(SiteContext);
-  const { data: viewerData } = useViewer({ initialData: initialViewerData });
-  const { data: siteData } = useSite(router.query.siteId, {
-    initialData: initialSiteData
-  });
+  const { viewerData } = useViewerData();
+  const { siteData } = useSiteData(router.query.siteId);
+
+  useAuthRequired(viewerData);
+  useDefaultSite(siteData);
 
   if (siteData && siteData.status === 'notFound') {
     return <Error statusCode={404} />;
   }
 
-  useEffect(() => {
-    if (!siteData) return;
-
-    if (siteData.status === 'ok') {
-      setSiteId(siteData.site.id);
-    }
-  }, [siteData]);
-
-  if (!siteData) return <></>;
-  const site = siteData.site;
-  const title = site.name;
-
   return (
     <div>
       <main>
-        <OpenGraph title={title} description={''} />
+        <OpenGraph title={pageTitle(siteData)} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <FormList siteData={siteData} />
@@ -158,26 +143,5 @@ function SitePage({
     </div>
   );
 }
-
-SitePage.getInitialProps = async context => {
-  const { query } = context;
-  const token = getToken(context);
-
-  try {
-    const [viewerData, siteData] = await Promise.all([
-      fetchViewer(token),
-      fetchSite(query.siteId, token)
-    ]);
-
-    if (viewerData.status === 'unauthorized') {
-      redirectToLogin(context);
-    }
-
-    return { viewerData, siteData };
-  } catch (err) {
-    console.log(err);
-    return redirectToLogin(context);
-  }
-};
 
 export default SitePage;

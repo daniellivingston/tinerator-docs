@@ -111,16 +111,18 @@ export const revalidate = (siteId, key) => {
   trigger(['submissions', siteId, key, token]);
 };
 
-export const useSubmissions = (
+export const useSubmissionsData = (
   { siteId, formId, before, after },
   config = {}
 ) => {
   const token = getToken();
 
-  return useSWR(
+  const { data, ...rest } = useSWR(
     ['submissions', siteId, formId, before, after, token],
     async (_, siteId, formId, before, after, token) =>
       await fetch(siteId, formId, before, after, token),
     config
   );
+
+  return { submissionsData: data, ...rest };
 };

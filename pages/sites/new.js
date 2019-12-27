@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Header from 'components/header';
 import OpenGraph from 'components/open_graph';
 import ValidationError from 'components/validation_error';
-import { useViewer, fetch as fetchViewer } from 'data/viewer';
+import { useViewerData, fetch as fetchViewer } from 'data/viewer';
 import { getToken } from 'utils/auth';
 import { graphql } from 'utils/graphql';
 
@@ -11,7 +11,7 @@ function NewSitePage({ viewerData: initialViewerData }) {
   const title = 'New Site';
   const description = 'Create a new StaticKit site.';
   const router = useRouter();
-  const { data: viewerData } = useViewer({ initialData: initialViewerData });
+  const { viewerData } = useViewerData({ initialData: initialViewerData });
   const nameRef = useRef(null);
   const [name, setName] = useState('');
   const [errors, setErrors] = useState([]);

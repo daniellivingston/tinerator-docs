@@ -15,32 +15,62 @@ const Tab = ({ href, as, children }) => {
   );
 };
 
-export default function FormHeader({ site, form }) {
-  const router = useRouter();
+const Breadcrumb = ({ siteData }) => {
+  if (!siteData) return <></>;
 
+  const site = siteData.site;
+
+  return (
+    <Link href="/sites/[siteId]" as={`/sites/${site.id}`}>
+      <a className="text-gray-600 font-semibold">Forms</a>
+    </Link>
+  );
+};
+
+const Heading = ({ formData }) => {
+  if (!formData) return <></>;
+
+  const form = formData.form;
+
+  return (
+    <h1 className="pb-3 text-3xl text-gray-100 tracking-snug">{form.name}</h1>
+  );
+};
+
+const Tabs = ({ formData, siteData }) => {
+  if (!siteData || !formData) {
+    return <></>;
+  }
+  const site = siteData.site;
+  const form = formData.form;
+
+  return (
+    <div className="flex">
+      <Tab
+        href="/sites/[siteId]/forms/[formId]"
+        as={`/sites/${site.id}/forms/${form.id}`}
+      >
+        Submissions
+      </Tab>
+
+      <Tab
+        href="/sites/[siteId]/forms/[formId]/settings"
+        as={`/sites/${site.id}/forms/${form.id}/settings`}
+      >
+        Settings
+      </Tab>
+    </div>
+  );
+};
+
+export default function FormHeader({ siteData, formData }) {
   return (
     <div className="mx-auto container px-6 pt-4 pb-4">
       <div className="pb-1">
-        <Link href="/sites/[siteId]" as={`/sites/${site.id}`}>
-          <a className="text-gray-600 font-semibold">Forms</a>
-        </Link>
+        <Breadcrumb siteData={siteData} />
       </div>
-      <h1 className="pb-3 text-3xl text-gray-100 tracking-snug">{form.name}</h1>
-      <div className="flex">
-        <Tab
-          href="/sites/[siteId]/forms/[formId]"
-          as={`/sites/${site.id}/forms/${form.id}`}
-        >
-          Submissions
-        </Tab>
-
-        <Tab
-          href="/sites/[siteId]/forms/[formId]/settings"
-          as={`/sites/${site.id}/forms/${form.id}/settings`}
-        >
-          Settings
-        </Tab>
-      </div>
+      <Heading formData={formData} />
+      <Tabs siteData={siteData} formData={formData} />
     </div>
   );
 }

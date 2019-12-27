@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Router from 'next/router';
 import cookie from 'js-cookie';
 import cookies from 'next-cookies';
@@ -43,4 +44,13 @@ export const fetchToken = async (email, password) => {
 export const getToken = (context = {}) => {
   const { token } = cookies(context);
   return token;
+};
+
+export const useAuthRequired = viewerData => {
+  useEffect(() => {
+    if (!viewerData) return;
+    if (viewerData.status === 'unauthorized') {
+      redirectToLogin();
+    }
+  }, [viewerData]);
 };

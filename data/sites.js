@@ -42,12 +42,14 @@ export const revalidate = () => {
   trigger(['sites', token]);
 };
 
-export const useSites = (config = {}) => {
+export const useSitesData = (config = {}) => {
   const token = getToken();
 
-  return useSWR(
+  const { data, ...rest } = useSWR(
     ['sites', token],
     async (_, token) => await fetch(token),
     config
   );
+
+  return { sitesData: data, ...rest };
 };

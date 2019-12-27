@@ -48,12 +48,14 @@ export const revalidate = (siteId, formId) => {
   trigger(['form', siteId, formId, token]);
 };
 
-export const useForm = (siteId, formId, config = {}) => {
+export const useFormData = (siteId, formId, config = {}) => {
   const token = getToken();
 
-  return useSWR(
+  const { data, ...rest } = useSWR(
     ['form', siteId, formId, token],
     async (_, siteId, formId, token) => await fetch(siteId, formId, token),
     config
   );
+
+  return { formData: data, ...rest };
 };

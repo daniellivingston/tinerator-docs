@@ -44,12 +44,14 @@ export const prefetch = async token => {
   mutate(['viewer', token], await fetch(token));
 };
 
-export const useViewer = config => {
+export const useViewerData = config => {
   const token = getToken();
 
-  return useSWR(
+  const { data, ...rest } = useSWR(
     ['viewer', token],
     async (_, token) => await fetch(token),
     config
   );
+
+  return { viewerData: data, ...rest };
 };

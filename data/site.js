@@ -56,12 +56,14 @@ export const setInitialState = (id, data) => {
   mutate(['site', id, token], data, false);
 };
 
-export const useSite = (id, config = {}) => {
+export const useSiteData = (id, config = {}) => {
   const token = getToken();
 
-  return useSWR(
+  const { data, ...rest } = useSWR(
     ['site', id, token],
     async (_, id, token) => await fetch(id, token),
     config
   );
+
+  return { siteData: data, ...rest };
 };

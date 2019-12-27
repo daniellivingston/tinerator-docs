@@ -1,36 +1,35 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Error from 'next/error';
 import { useRouter } from 'next/router';
 import Header from 'components/header';
 import OpenGraph from 'components/open_graph';
-import SiteContext from 'components/site_context';
 import FormHeader from 'components/form_header';
 import { graphql } from 'utils/graphql';
-import { getToken, redirectToLogin } from 'utils/auth';
-import { useViewer, fetch as fetchViewer } from 'data/viewer';
-import { useSite, fetch as fetchSite } from 'data/site';
-import { useForm, fetch as fetchForm } from 'data/form';
+import { useDefaultSite } from 'utils/default-site';
+import { useAuthRequired, getToken } from 'utils/auth';
+import { useViewerData } from 'data/viewer';
+import { useSiteData } from 'data/site';
+import { useFormData } from 'data/form';
 import { ValidationError } from '@statickit/react';
 
-function FormSettingsPage({
-  viewerData: initialViewerData,
-  siteData: initialSiteData,
-  formData: initialFormData
-}) {
+function FormSettingsPage() {
   const router = useRouter();
-  const { setSiteId } = useContext(SiteContext);
 
-  const { data: viewerData } = useViewer({
-    initialData: initialViewerData
-  });
+  const { viewerData } = useViewerData();
+  const { siteData } = useSiteData(router.query.siteId);
+  const { formData } = useFormData(router.query.siteId, router.query.formId);
 
-  const { data: siteData } = useSite(router.query.siteId, {
-    initialData: initialSiteData
-  });
+  useAuthRequired(viewerData);
+  useDefaultSite(siteData);
 
-  const { data: formData } = useForm(router.query.siteId, router.query.formId, {
-    initialData: initialFormData
-  });
+  const [key, setKey] = useState('');
+  const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    if (formData && formData.form) {
+      setKey(formData.form.key);
+    }
+  }, [formData]);
 
   if (siteData && siteData.status === 'notFound') {
     return <Error statusCode={404} />;
@@ -40,25 +39,7 @@ function FormSettingsPage({
     return <Error statusCode={404} />;
   }
 
-  const [key, setKey] = useState(
-    initialFormData ? initialFormData.form.key : ''
-  );
-
-  const [errors, setErrors] = useState([]);
-
-  useEffect(() => {
-    if (!siteData) return;
-
-    if (siteData.status === 'ok') {
-      setSiteId(siteData.site.id);
-    }
-  }, [siteData]);
-
-  useEffect(() => {
-    setKey(formData.form.key);
-  }, [formData]);
-
-  if (!formData) return <></>;
+  if (!formData || !formData.form) return <></>;
 
   const form = formData.form;
 
@@ -102,7 +83,7 @@ function FormSettingsPage({
         <OpenGraph title={form.name} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          <FormHeader site={siteData.site} form={form} />
+          <FormHeader siteData={siteData} formData={formData} />
         </div>
         <div className="mx-auto container py-6">
           <div className="mx-auto sm:flex max-w-3xl py-6">
@@ -147,27 +128,5 @@ function FormSettingsPage({
     </div>
   );
 }
-
-FormSettingsPage.getInitialProps = async context => {
-  const { query } = context;
-  const token = getToken(context);
-
-  try {
-    const [viewerData, siteData, formData] = await Promise.all([
-      fetchViewer(token),
-      fetchSite(query.siteId, token),
-      fetchForm(query.siteId, query.formId, token)
-    ]);
-
-    if (viewerData.status === 'unauthorized') {
-      redirectToLogin(context);
-    }
-
-    return { viewerData, siteData, formData };
-  } catch (err) {
-    console.log(err);
-    return redirectToLogin(context);
-  }
-};
 
 export default FormSettingsPage;

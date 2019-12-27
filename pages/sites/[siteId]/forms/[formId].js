@@ -4,14 +4,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Header from 'components/header';
 import OpenGraph from 'components/open_graph';
-import SiteContext from 'components/site_context';
 import FormHeader from 'components/form_header';
-import { getToken, redirectToLogin } from 'utils/auth';
+import { useDefaultSite } from 'utils/default-site';
+import { useAuthRequired } from 'utils/auth';
+import { getToken } from 'utils/auth';
 import { graphql } from 'utils/graphql';
-import { useViewer, fetch as fetchViewer } from 'data/viewer';
-import { useSite, fetch as fetchSite } from 'data/site';
-import { useForm, fetch as fetchForm } from 'data/form';
-import { useSubmissions } from 'data/submissions';
+import { useViewerData } from 'data/viewer';
+import { useSiteData } from 'data/site';
+import { useFormData } from 'data/form';
+import { useSubmissionsData } from 'data/submissions';
 import moment from 'moment';
 
 const trashIcon = `
@@ -78,10 +79,10 @@ const NextButton = ({ pageInfo }) => {
   );
 };
 
-const SubmissionTable = ({ form, submissionData, displayFields }) => {
+const SubmissionTable = ({ formData, submissionsData }) => {
   const router = useRouter();
 
-  if (!submissionData) {
+  if (!formData || !submissionsData) {
     return (
       <div className="mx-auto container px-6 py-24 text-2xl font-semibold text-gray-500 text-center">
         Loading...
@@ -89,8 +90,10 @@ const SubmissionTable = ({ form, submissionData, displayFields }) => {
     );
   }
 
-  const submissions = submissionData.submissions.edges.map(edge => edge.node);
-  const pageInfo = submissionData.submissions.pageInfo;
+  const form = formData.form;
+  const displayFields = form.displayFields;
+  const submissions = submissionsData.submissions.edges.map(edge => edge.node);
+  const pageInfo = submissionsData.submissions.pageInfo;
 
   const deleteClicked = async id => {
     const token = getToken();
@@ -201,27 +204,33 @@ const SubmissionTable = ({ form, submissionData, displayFields }) => {
   );
 };
 
-function FormPage({
-  viewerData: initialViewerData,
-  siteData: initialSiteData,
-  formData: initialFormData
-}) {
+const SubmissionCount = ({ formData }) => {
+  if (!formData || !formData.form) return <></>;
+
+  const form = formData.form;
+
+  return (
+    <div className="text-gray-700 text-sm pb-6">
+      This form has been submitted {form.submissionCount} times.
+    </div>
+  );
+};
+
+const pageTitle = formData => {
+  if (!formData || !formData.form) return 'Form';
+  return formData.form.name;
+};
+
+function FormPage() {
   const router = useRouter();
-  const { setSiteId } = useContext(SiteContext);
 
-  const { data: viewerData } = useViewer({
-    initialData: initialViewerData
-  });
+  const { viewerData } = useViewerData();
+  const { siteData } = useSiteData(router.query.siteId);
+  const { formData } = useFormData(router.query.siteId, router.query.formId);
+  const { submissionsData } = useSubmissionsData(router.query);
 
-  const { data: siteData } = useSite(router.query.siteId, {
-    initialData: initialSiteData
-  });
-
-  const { data: formData } = useForm(router.query.siteId, router.query.formId, {
-    initialData: initialFormData
-  });
-
-  const { data: submissionData } = useSubmissions(router.query);
+  useAuthRequired(viewerData);
+  useDefaultSite(siteData);
 
   if (siteData && siteData.status === 'notFound') {
     return <Error statusCode={404} />;
@@ -231,35 +240,21 @@ function FormPage({
     return <Error statusCode={404} />;
   }
 
-  useEffect(() => {
-    if (!siteData) return;
-
-    if (siteData.status === 'ok') {
-      setSiteId(siteData.site.id);
-    }
-  }, [siteData]);
-
-  if (!formData) return <></>;
-  const form = formData.form;
-
   return (
     <div>
       <main>
-        <OpenGraph title={form.name} description={''} />
+        <OpenGraph title={pageTitle(formData)} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          <FormHeader site={siteData.site} form={form} />
+          <FormHeader siteData={siteData} formData={formData} />
         </div>
         <div>
           <div className="mx-auto container px-6 py-6">
-            <div className="text-gray-700 text-sm pb-6">
-              This form has been submitted {form.submissionCount} times.
-            </div>
+            <SubmissionCount formData={formData} />
 
             <SubmissionTable
-              form={form}
-              submissionData={submissionData}
-              displayFields={form.displayFields}
+              formData={formData}
+              submissionsData={submissionsData}
             />
           </div>
         </div>
@@ -267,27 +262,5 @@ function FormPage({
     </div>
   );
 }
-
-FormPage.getInitialProps = async context => {
-  const { query } = context;
-  const token = getToken(context);
-
-  try {
-    const [viewerData, siteData, formData] = await Promise.all([
-      fetchViewer(token),
-      fetchSite(query.siteId, token),
-      fetchForm(query.siteId, query.formId, token)
-    ]);
-
-    if (viewerData.status === 'unauthorized') {
-      redirectToLogin(context);
-    }
-
-    return { viewerData, siteData, formData };
-  } catch (err) {
-    console.log(err);
-    return redirectToLogin(context);
-  }
-};
 
 export default FormPage;
