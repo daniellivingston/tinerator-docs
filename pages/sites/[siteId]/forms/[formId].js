@@ -11,7 +11,7 @@ import { getToken } from 'utils/auth';
 import { graphql } from 'utils/graphql';
 import { useViewerData } from 'data/viewer';
 import { useSiteData } from 'data/site';
-import { useFormData } from 'data/form';
+import { useFormData, revalidate as revalidateForm } from 'data/form';
 import {
   useSubmissionsData,
   revalidate as revalidateSubmissions
@@ -142,6 +142,7 @@ const SubmissionTable = ({ formData, submissionsData }) => {
       const resp = await graphql(query, variables, token);
 
       if (resp.ok) {
+        revalidateForm(form.id);
         revalidateSubmissions(router.query);
       }
     } catch (e) {}
