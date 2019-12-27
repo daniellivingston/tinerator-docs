@@ -46,7 +46,7 @@ export const fetch = async (siteId, formId, before, after, token) => {
       $before: String,
     ) {
       site(id: $siteId) {
-        form(key: $formId) {
+        form(id: $formId) {
           submissions(
             last: $last,
             before: $before,
