@@ -11,6 +11,7 @@ export const fetch = async (siteId, key, token) => {
       site(id: $siteId) {
         form(key: $key) {
           id
+          key
           name
           submissionCount
           displayFields

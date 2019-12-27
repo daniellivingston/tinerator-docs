@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Header from '../../../../components/header';
 import OpenGraph from '../../../../components/open_graph';
 import SiteContext from '../../../../components/site_context';
+import FormHeader from '../../../../components/form_header';
 import { getToken, redirectToLogin } from '../../../../utils/auth';
 import graphql from '../../../../utils/graphql';
 import { useViewer, fetch as fetchViewer } from '../../../../data/viewer';
@@ -247,35 +248,7 @@ function FormPage({
         <OpenGraph title={form.name} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          <div className="mx-auto container px-6 pt-4 pb-4">
-            <div className="pb-1">
-              <Link href="/sites/[siteId]" as={`/sites/${router.query.siteId}`}>
-                <a className="text-gray-600 font-semibold">Plugins</a>
-              </Link>
-            </div>
-            <h1 className="pb-3 text-3xl text-gray-100 tracking-snug">
-              {form.name}
-            </h1>
-            <div className="flex">
-              <Link
-                href="/sites/[siteId]/forms/[formId]"
-                as={`/sites/${router.query.siteId}/forms/${router.query.formId}`}
-              >
-                <a className="block py-2 mr-6 text-gray-200 font-semibold">
-                  Submissions
-                </a>
-              </Link>
-
-              <Link
-                href="/sites/[siteId]/forms/[formId]/settings"
-                as={`/sites/${router.query.siteId}/forms/${router.query.formId}/settings`}
-              >
-                <a className="block py-2 mr-6 text-gray-600 hover:text-gray-500 font-semibold">
-                  Settings
-                </a>
-              </Link>
-            </div>
-          </div>
+          <FormHeader site={siteData.site} form={form} />
         </div>
         <div>
           <div className="mx-auto container px-6 py-6">
