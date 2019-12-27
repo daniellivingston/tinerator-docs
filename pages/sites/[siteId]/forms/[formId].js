@@ -12,7 +12,10 @@ import { graphql } from 'utils/graphql';
 import { useViewerData } from 'data/viewer';
 import { useSiteData } from 'data/site';
 import { useFormData } from 'data/form';
-import { useSubmissionsData } from 'data/submissions';
+import {
+  useSubmissionsData,
+  revalidate as revalidateSubmissions
+} from 'data/submissions';
 import moment from 'moment';
 
 const trashIcon = `
@@ -139,7 +142,7 @@ const SubmissionTable = ({ formData, submissionsData }) => {
       const resp = await graphql(query, variables, token);
 
       if (resp.ok) {
-        router.reload();
+        revalidateSubmissions(router.query);
       }
     } catch (e) {}
   };
@@ -240,7 +243,7 @@ function FormPage() {
 
   const { viewerData } = useViewerData();
   const { siteData } = useSiteData(router.query.siteId);
-  const { formData } = useFormData(router.query.siteId, router.query.formId);
+  const { formData } = useFormData(router.query.formId);
   const { submissionsData } = useSubmissionsData(router.query);
 
   useAuthRequired(viewerData);

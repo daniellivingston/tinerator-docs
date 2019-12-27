@@ -2,35 +2,32 @@ import useSWR, { trigger } from 'swr';
 import { graphql } from '../utils/graphql';
 import { getToken } from '../utils/auth';
 
-export const fetch = async (siteId, formId, before, after, token) => {
+export const fetch = async ({ formId, before, after, token }) => {
   const forwardQuery = `
     query Submissions(
-      $siteId: ID!,
       $formId: ID!,
       $first: Int,
       $after: String
     ) {
-      site(id: $siteId) {
-        form(id: $formId) {
-          submissions(
-            first: $first,
-            after: $after
-          ) {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-              startCursor
-              endCursor
-            }
-            edges {
-              node {
-                id
-                data {
-                  name
-                  value
-                }
-                occurredAt
+      form(id: $formId) {
+        submissions(
+          first: $first,
+          after: $after
+        ) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
+          edges {
+            node {
+              id
+              data {
+                name
+                value
               }
+              occurredAt
             }
           }
         }
@@ -40,32 +37,29 @@ export const fetch = async (siteId, formId, before, after, token) => {
 
   const backwardQuery = `
     query Submissions(
-      $siteId: ID!,
       $formId: ID!,
       $last: Int,
       $before: String,
     ) {
-      site(id: $siteId) {
-        form(id: $formId) {
-          submissions(
-            last: $last,
-            before: $before,
-          ) {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-              startCursor
-              endCursor
-            }
-            edges {
-              node {
-                id
-                data {
-                  name
-                  value
-                }
-                occurredAt
+      form(id: $formId) {
+        submissions(
+          last: $last,
+          before: $before,
+        ) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
+          edges {
+            node {
+              id
+              data {
+                name
+                value
               }
+              occurredAt
             }
           }
         }
@@ -80,47 +74,50 @@ export const fetch = async (siteId, formId, before, after, token) => {
     const [first, last] = before ? [null, 50] : [50, null];
     const resp = await graphql(
       query,
-      { siteId, formId, first, last, before, after },
+      { formId, first, last, before, after },
       token
     );
 
-    if (resp.status === 401) return { status: 'unauthorized', siteId, key };
+    if (resp.status === 401) return { status: 'unauthorized' };
     if (resp.status >= 400 && resp.status < 500)
-      return { status: 'clientError', siteId, key };
-    if (resp.status >= 500) return { status: 'serverError', siteId, key };
+      return { status: 'clientError' };
+    if (resp.status >= 500) return { status: 'serverError' };
 
     const body = await resp.json();
 
     const {
       data: {
-        site: {
-          form: { submissions }
-        }
+        form: { submissions }
       }
     } = body;
 
-    if (!submissions) return { status: 'notFound', siteId, key };
+    if (!submissions) return { status: 'notFound' };
     return { status: 'ok', submissions };
   } catch (e) {
-    return { status: 'serverError', siteId, key };
+    return { status: 'serverError' };
   }
 };
 
-export const revalidate = (siteId, key) => {
+export const revalidate = ({ formId, before, after }) => {
   const token = getToken();
-  trigger(['submissions', siteId, key, token]);
+  trigger(['submissions', formId, before, after, token]);
 };
 
-export const useSubmissionsData = (
-  { siteId, formId, before, after },
-  config = {}
-) => {
+export const useSubmissionsData = ({ formId, before, after }, config = {}) => {
   const token = getToken();
 
+  let key;
+
+  if (formId && token) {
+    key = ['submissions', formId, before, after, token];
+  } else {
+    key = null;
+  }
+
   const { data, ...rest } = useSWR(
-    ['submissions', siteId, formId, before, after, token],
-    async (_, siteId, formId, before, after, token) =>
-      await fetch(siteId, formId, before, after, token),
+    key,
+    async (_, formId, before, after, token) =>
+      await fetch({ formId, before, after, token }),
     config
   );
 

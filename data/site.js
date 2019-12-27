@@ -59,8 +59,16 @@ export const setInitialState = (id, data) => {
 export const useSiteData = (id, config = {}) => {
   const token = getToken();
 
+  let key;
+
+  if (id && token) {
+    key = ['site', id, token];
+  } else {
+    key = null;
+  }
+
   const { data, ...rest } = useSWR(
-    ['site', id, token],
+    key,
     async (_, id, token) => await fetch(id, token),
     config
   );

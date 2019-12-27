@@ -17,7 +17,7 @@ function FormSettingsPage() {
 
   const { viewerData } = useViewerData();
   const { siteData } = useSiteData(router.query.siteId);
-  const { formData } = useFormData(router.query.siteId, router.query.formId);
+  const { formData } = useFormData(router.query.formId);
 
   useAuthRequired(viewerData);
   useDefaultSite(siteData);
