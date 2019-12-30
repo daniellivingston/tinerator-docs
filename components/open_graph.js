@@ -8,7 +8,6 @@ export default props => {
 
   return (
     <Head>
-      <link rel="canonical" href={url} />
       <meta
         property="description"
         content={props.description}
