@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const sections = [
   {
@@ -63,7 +64,10 @@ const sections = [
   }
 ];
 
-const Section = ({ path, label, currentPath, sections }) => {
+const Section = ({ path, label, sections }) => {
+  const router = useRouter();
+  const currentPath = router.pathname;
+
   const isCurrent =
     sections.find(section => {
       return section.path == currentPath;
@@ -113,7 +117,7 @@ const Section = ({ path, label, currentPath, sections }) => {
   );
 };
 
-export default ({ currentPath }) => {
+export default () => {
   return (
     <ul>
       {sections.map(section => (
@@ -122,7 +126,6 @@ export default ({ currentPath }) => {
           path={section.path}
           label={section.label}
           sections={section.sections}
-          currentPath={currentPath}
         />
       ))}
     </ul>
