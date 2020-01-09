@@ -16,6 +16,8 @@ Router.events.on('routeChangeComplete', () => {
 });
 
 function App({ Component, pageProps }) {
+  const [siteId, setSiteId] = useState(cookie.get('site'));
+
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       Fathom.load();
@@ -37,7 +39,9 @@ function App({ Component, pageProps }) {
       }}
     >
       <div className="font-sans antialiased text-gray-900 flex flex-col h-screen">
-        <div className="flex-grow flex-shrink-0"><Component {...pageProps} /></div>
+        <div className="flex-grow flex-shrink-0">
+          <Component {...pageProps} />
+        </div>
         <Footer />
       </div>
     </SiteContext.Provider>
