@@ -9,6 +9,8 @@ const withMDX = require('@next/mdx')({
 });
 const path = require('path');
 
+const path = require('path');
+
 module.exports = withMDX(
   withCSS({
     target: 'serverless',

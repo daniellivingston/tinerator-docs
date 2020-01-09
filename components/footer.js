@@ -41,7 +41,7 @@ const Footer = () => (
 
       <div className="px-3 flex items-center">
         <div className="flex-grow text-sm text-gray-600">
-          <span className="mr-5">Copyright &copy; 2019 Unstack, LLC</span>
+          <span className="mr-5">Copyright &copy; 2020 StaticKit</span>
         </div>
       </div>
     </div>

@@ -15,10 +15,7 @@ Router.events.on('routeChangeComplete', () => {
   Fathom.trackPageview();
 });
 
-function Layout(props) {
-  const { children } = props;
-  const [siteId, setSiteId] = useState(cookie.get('site'));
-
+function App({ Component, pageProps }) {
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       Fathom.load();
@@ -40,23 +37,11 @@ function Layout(props) {
       }}
     >
       <div className="font-sans antialiased text-gray-900 flex flex-col h-screen">
-        <div className="flex-grow flex-shrink-0">{children}</div>
+        <div className="flex-grow flex-shrink-0"><Component {...pageProps} /></div>
         <Footer />
       </div>
     </SiteContext.Provider>
   );
 }
 
-class AppWithLayout extends App {
-  render() {
-    const { Component, pageProps } = this.props;
-
-    return (
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    );
-  }
-}
-
-export default AppWithLayout;
+export default App;

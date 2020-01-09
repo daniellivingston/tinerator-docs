@@ -131,22 +131,18 @@ export default meta => ({ children }) => {
     <MDXProvider components={components}>
       <div>
         <main>
-          <OpenGraph
-            title={meta.title}
-            description={meta.description}
-            path={meta.path}
-          />
+          <OpenGraph title={meta.title} description={meta.description} />
           <div className="border-b">
             <Header />
           </div>
           <div className="mx-auto px-6 pt-6 pb-12 container sm:flex">
             <div className="flex-shrink-0 relative pb-12 sm:w-32 lg:w-40">
               <div className="pt-8 sm:sticky sm:top-0">
-                <Nav currentPath={meta.path} />
+                <Nav />
               </div>
             </div>
             <div className="flex flex-grow min-w-0">
-              <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0 min-h-144">
+              <div className="pt-8 sm:ml-16 lg:mr-16 flex-grow min-w-0">
                 <Breadcrumbs breadcrumbs={meta.breadcrumbs} />
                 <div className="markdown">{children}</div>
                 <DocumentFooter prev={meta.prev} next={meta.next} />
