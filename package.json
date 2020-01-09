@@ -14,10 +14,10 @@
     "@statickit/react": "^1.2.0",
     "@zeit/next-css": "^1.0.1",
     "fathom-client": "^2.0.2",
-    "next": "^9.1.2",
+    "next": "^9.1.7",
     "prismjs": "^1.16.0",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-svg": "^10.0.10",
     "rehype-autolink-headings": "^2.0.5",
     "rehype-slug": "^2.0.3"

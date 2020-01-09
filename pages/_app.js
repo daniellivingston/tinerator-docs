@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import App from 'next/app';
 import Router from 'next/router';
 import * as Fathom from 'fathom-client';
 
@@ -12,9 +11,7 @@ Router.events.on('routeChangeComplete', () => {
   Fathom.trackPageview();
 });
 
-function Layout(props) {
-  const { children } = props;
-
+function App({ Component, pageProps }) {
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       Fathom.load();
@@ -23,19 +20,11 @@ function Layout(props) {
     }
   }, []);
 
-  return <div className="font-sans antialiased text-gray-900">{children}</div>;
+  return (
+    <div className="font-sans antialiased text-gray-900">
+      <Component {...pageProps} />
+    </div>
+  );
 }
 
-class AppWithLayout extends App {
-  render() {
-    const { Component, pageProps } = this.props;
-
-    return (
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    );
-  }
-}
-
-export default AppWithLayout;
+export default App;
