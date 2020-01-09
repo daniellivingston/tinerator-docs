@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Router from 'next/router';
 import * as Fathom from 'fathom-client';
-import Footer from '../components/footer';
+import Footer from 'components/footer';
 
 import '../styles/fonts.css';
 import '../styles/main.css';

@@ -1,6 +1,5 @@
-import Header from '../components/header';
-import Footer from '../components/footer';
-import OpenGraph from '../components/open_graph';
+import Header from 'components/header';
+import OpenGraph from 'components/open_graph';
 import Link from 'next/link';
 
 function PricingPage() {

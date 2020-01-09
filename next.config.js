@@ -8,6 +8,8 @@ const withMDX = require('@next/mdx')({
   }
 });
 
+const path = require('path');
+
 module.exports = withMDX(
   withCSS({
     target: 'serverless',
@@ -15,6 +17,14 @@ module.exports = withMDX(
       STATICKIT_URL: process.env.STATICKIT_URL,
       FORM_ID: process.env.FORM_ID
     },
-    pageExtensions: ['js', 'jsx', 'mdx', 'md']
+    pageExtensions: ['js', 'jsx', 'mdx', 'md'],
+    webpack(config, options) {
+      // Allow absolute imports of common paths
+      // See https://github.com/zeit/next.js/blob/master/examples/with-absolute-imports/next.config.js
+      ['components', 'utils', 'data'].forEach(dir => {
+        config.resolve.alias[dir] = path.join(__dirname, dir);
+      });
+      return config;
+    }
   })
 );
