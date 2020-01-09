@@ -82,8 +82,6 @@ function PricingPage() {
           </p>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

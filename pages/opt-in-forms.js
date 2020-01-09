@@ -342,8 +342,6 @@ function OptInFormsPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

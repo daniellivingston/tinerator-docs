@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Router from 'next/router';
 import * as Fathom from 'fathom-client';
+import Footer from '../components/footer';
 
 import '../styles/fonts.css';
 import '../styles/main.css';
@@ -20,9 +21,14 @@ function App({ Component, pageProps }) {
     }
   }, []);
 
+  // This flexbox stuff on body is for the sticky footer:
+  // https://css-tricks.com/couple-takes-sticky-footer/#article-header-id-3
   return (
-    <div className="font-sans antialiased text-gray-900">
-      <Component {...pageProps} />
+    <div className="font-sans antialiased text-gray-900 flex flex-col h-screen">
+      <div className="flex-grow flex-shrink-0">
+        <Component {...pageProps} />
+      </div>
+      <Footer />
     </div>
   );
 }
