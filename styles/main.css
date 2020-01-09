@@ -17,7 +17,7 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 @tailwind components;
 
 .btn {
-  @apply text-white font-semibold border border-gray-800 bg-gray-800 px-5 py-3 cursor-pointer leading-tight;
+  @apply text-white font-bold border border-gray-800 bg-gray-800 px-5 py-3 leading-tight rounded;
 }
 
 .btn:focus {
@@ -57,17 +57,35 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 }
 
 .input-field {
-  @apply px-4 py-3 border border-gray-200 bg-gray-200 leading-tight;
+  @apply p-4 border border-gray-200 bg-gray-200 leading-tight rounded;
 }
 
-.input-field:focus {
+.input-field:focus,
+.input-field:focus-within {
   @apply bg-white border-gray-500 outline-none;
+}
+
+.input-field-inverse {
+  @apply p-4 bg-gray-400 leading-tight rounded;
+}
+
+.input-field-inverse:focus,
+.input-field-inverse:focus-within {
+  @apply bg-white outline-none;
 }
 
 @tailwind utilities;
 
 .inline-code {
   @apply bg-gray-300 rounded-full px-2 text-sm;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.inline-code-inverse {
+  @apply bg-gray-800 rounded-full px-2 text-sm;
   margin-left: 2px;
   margin-right: 2px;
   padding-top: 2px;
@@ -101,4 +119,8 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 
 .heartbeat {
   animation: heartbeat 2s infinite;
+}
+
+hover\:bg-transition:hover {
+  transition: background-color 1s linear;
 }
