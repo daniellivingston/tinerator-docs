@@ -9,13 +9,15 @@ export default withDocs({
     rel: 'prev'
   }],
   toc: [
-    [1, "State object", "#state"],
-    [1, "Handling errors", "#handling-errors"],
-    [1, "Properties", "#properties"]
+    [1, "State object", "#state-object"],
+    [1, "Validations", "#validations"],
+    [1, "Configuration", "#configuration"]
   ]
 });
 
 # useForm
+
+_Versions_: [1.x](/docs/react/1.x/use-form) | **2.x**
 
 The `useForm` [hook](https://reactjs.org/docs/hooks-intro.html) is a simple way to attach an HTML form to your StaticKit site. It returns a state object representing the current state of the form and a submission handler.
 
@@ -65,9 +67,9 @@ State changes over time in the following ways:
 - If the submission succeeds, `succeeded` becomes `true`
 - After the submission request finishes, `submitting` always becomes `false`
 
-## Handling errors
+## Validations
 
-Here's an example using the `ValidationError` component to display field errors:
+Here's an example form using the `ValidationError` component to display field errors:
 
 ```jsx
 import { useForm } from '@statickit/react';
@@ -119,8 +121,9 @@ Here are the acceptable options:
 
 | Key                                | Type                | Description                                           |
 | :--------------------------------- | :------------------ | :---------------------------------------------------- |
-| [`client`](#client)                | StaticKit           | An instance of the StaticKit client                   |
 | [`data`](#data)                    | object              | An object containing additional form fields to send   |
+| `client`                           | StaticKit           | An instance of the StaticKit client                   |
+| `debug`                            | boolean             | Log debug statements for troubleshooting              |
 
 ### `data`
 

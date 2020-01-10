@@ -1,7 +1,7 @@
 import withDocs from 'components/with_docs';
 
 export default withDocs({
-  title: 'useForm (1.x)',
+  title: 'useForm',
   description: 'How to use the StaticKit form component.',
   breadcrumbs: [{
     path: '/docs/react',
@@ -10,17 +10,16 @@ export default withDocs({
   }],
   toc: [
     [1, "Installation", "#installation"],
-    [1, "State Object", "#state"],
+    [1, "State object", "#state-object"],
     [1, "Lifecycle", "#lifecycle"],
     [1, "Handling errors", "#handling-errors"],
-    [1, "Properties", "#properties"]
+    [1, "Configuration", "#configuration"]
   ]
 });
 
-<h1 className="flex items-center">
-  <div className="mr-3">useForm</div> 
-  <div className="text-sm bg-indigo-200 font-bold text-indigo-700 rounded px-2 py-1">1.x</div>
-</h1>
+# useForm
+
+_Versions_: **1.x** | [2.x](/docs/react/use-form)
 
 The `useForm` [hook](https://reactjs.org/docs/hooks-intro.html) is a simple way to attach an HTML form to your StaticKit site. 
 
@@ -71,7 +70,7 @@ At a minimum, all you have to do is use a `<form>` element and pass `handleSubmi
   <iframe width="100%" height="300" className="rounded-lg" src="//jsfiddle.net/StaticKit/w69xerbc/embedded/result,js,html/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
 </div>
 
-## `state` Object
+## State object
 
 The `state` object contains the following properties:
 
