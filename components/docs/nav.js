@@ -23,21 +23,21 @@ const sections = [
     ]
   },
   {
+    path: '/docs/react',
+    label: 'React',
+    sections: [
+      {
+        path: '/docs/react/use-form',
+        label: 'useForm'
+      }
+    ]
+  },
+  {
     path: '/docs/html',
     label: 'HTML',
     sections: [
       {
         path: '/docs/html/forms',
-        label: 'Forms'
-      }
-    ]
-  },
-  {
-    path: '/docs/react',
-    label: 'React',
-    sections: [
-      {
-        path: '/docs/react/forms',
         label: 'Forms'
       }
     ]
@@ -74,7 +74,9 @@ const Section = ({ path, label, sections }) => {
     }) ||
     path == currentPath ||
     (path.startsWith('/guides') && currentPath.startsWith('/guides')) ||
-    (path.startsWith('/docs/config') && currentPath.startsWith('/docs/config'));
+    (path.startsWith('/docs/config') &&
+      currentPath.startsWith('/docs/config')) ||
+    (path.startsWith('/docs/react') && currentPath.startsWith('/docs/react'));
 
   const Subsection = ({ section }) => {
     const color =

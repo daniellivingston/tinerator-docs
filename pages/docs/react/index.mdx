@@ -4,17 +4,18 @@ export default withDocs({
   title: 'React Library',
   description: 'How to use the React client library for StaticKit.',
   toc: [
-    [1, "Installation", "#installation"]
+    [1, "Installation", "#installation"],
+    [1, "Context", "#context"],
   ],
   next: {
-    path: '/docs/react/forms',
-    label: 'Forms'
+    path: '/docs/react/use-form',
+    label: 'useForm'
   }
 });
 
 # React Library
 
-The StaticKit React library works great with static site generators like **Next.js** and **Gatsby** and custom React applications. If you don't have React in your toolchain, check out our [HTML library](/docs/html) instead. 
+The StaticKit React library provides helpful hooks for interfacing with the StaticKit backend. It works great with frameworks like Next.js, Gatsby, and create-react-app, and is fully compatible with server-side prerendering.
 
 [Source on GitHub](https://github.com/unstacked/statickit-react) | [npm package](https://www.npmjs.com/package/@statickit/react)
 
@@ -26,4 +27,26 @@ Run the following to install the package:
 npm install @statickit/react
 ```
 
-This library assumes that React is already installed in your environment. Our components are built with [React Hooks](https://reactjs.org/docs/hooks-intro.html), so **you must be on version 16.8.0 or higher**.
+This library assumes that React is already installed in your environment as a peer dependency. Our helpers rely on [React Hooks](https://reactjs.org/docs/hooks-intro.html), so **you must be on version 16.8.0 or higher**.
+
+## Context
+
+The hooks in this library expect you to place the `<StaticKitProvider>` in your top-level app or layout component. Under the covers, this component instantiates an instance of the StaticKit client and makes it available to child components via the `useStaticKit` hook.
+
+Here's an example of a custom Next.js app file:
+
+```jsx
+import { StaticKitProvider } from '@statickit/react';
+
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="{your-site-id}">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  );
+}
+
+export default App;
+```
+
+**Version Note**: `<StaticKitProvider>` was introduced in version 2.0 of the React library. If you are on version 1.x, [head here for the docs &rarr;](/docs/react/1.x/use-form)
