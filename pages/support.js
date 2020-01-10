@@ -6,9 +6,7 @@ import { ValidationError, useForm } from '@statickit/react';
 function ContactForm() {
   const emailEl = useRef(null);
 
-  const [state, submit] = useForm({
-    site: 'a38ad7363b35',
-    form: 'support',
+  const [state, handleSubmit] = useForm('support', {
     data: {
       _subject: () => {
         return `${emailEl.current.value} has a support request`;
@@ -31,7 +29,7 @@ function ContactForm() {
   }
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={handleSubmit}>
       <div className="pb-6">
         <label htmlFor="email" className="pb-1 block font-bold">
           What's your email address?
