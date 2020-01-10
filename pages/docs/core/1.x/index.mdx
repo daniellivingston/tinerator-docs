@@ -1,0 +1,188 @@
+import withDocs from 'components/with_docs';
+
+export default withDocs({
+  title: 'Core Library',
+  description: 'How to use the core client library for StaticKit.',
+  toc: [
+    [1, "Installation", "#installation"],
+    [1, "Methods", "#methods"],
+    [1, "SSR Support", "#ssr-support"]
+  ]
+});
+
+# Core Library
+
+_Versions_: **1.x** | [2.x](/docs/core)
+
+The StaticKit core library powers the environment-specific client libraries ([HTML](/docs/html) and [React](/docs/react)). If you are a library author or you are implementing your own low-level components that need to communicate with StaticKit, this might be the library for you.
+
+[Source on GitHub](https://github.com/unstacked/statickit-core/tree/v1.x) | [npm package](https://www.npmjs.com/package/@statickit/core)
+
+## Installation
+
+Run the following to install the package:
+
+```bash
+npm install @statickit/core
+```
+
+Then, import the `StaticKit` constructor in your code:
+
+```js
+import StaticKit from '@statickit/core';
+
+// Constructs an instance of the client
+const statickit = StaticKit();
+```
+
+The client listens for signals to sniff out bots and spammers, so it's best to instantiate the client upon page load and reuse it over the course of the browsing session.
+
+## Methods
+
+### `submitForm(props)`
+
+An method that submits form data to the server and returns a Promise. 
+
+This method accepts the following properties:
+
+| Key                     | Type                     | Default        | Description                                                  |
+| :---------------------- | :----------------------- | :------------- | :----------------------------------------------------------- |
+| `site` *                | String                   |                | The StaticKit site ID (found under Settings in the UI)       |
+| `form` *                | String                   |                | The form key from your config (e.g. `contact-form`)          |
+| `data`                  | Object or FormData       | `{}`           | The form data to send to the server                          |
+
+The return value resolves to object containing a `body` field and a `response` field:
+
+```js
+client.submitForm({
+  site: 'sd8fug8d9sd',
+  form: 'contact-form',
+  data: formData
+}).
+  then(({ body, response }) => {
+    switch (response.status) {
+      case 200:
+        // Submission succeeded
+      
+      case 422:
+        // Validation errors occurred
+      
+      default:
+        // Something unexpected happened
+    }
+  });
+```
+
+When the submission succeeds, the `body` will include a submission id and data:
+
+```js
+{
+  "id": "3ac1fb5d-259a-4af5-aac5-2ce53215b6c5",
+  "data": {
+    "email": "test@test.com"
+  }
+}
+```
+
+If there are validation errors, the `body` will include an array of errors:
+
+```js
+{
+  "errors": [{
+    "code": "REQUIRED",
+    "field": "email",
+    "message": "is required",
+    "properties": {}
+  }]
+}
+```
+
+Here's an example of submitting the data from a `<form>` node to StaticKit and awaiting the response:
+
+```js
+import StaticKit from '@statickit/core';
+
+// Instantiate the client
+const client = StaticKit();
+
+// Fetch the form element and its form data
+const form = document.getElementById('my-form');
+const formData = new FormData(form);
+
+// Submit the data to StaticKit
+const { body, response } = await client.submitForm({
+  site: 'sd8fug8d9sd',
+  form: 'contact-form',
+  data: formData
+});
+```
+
+### `teardown()`
+
+This method cleans up resources used by the client.
+
+For example, if you are instantiating the client in a React component, you should tear it down when the component unmounts:
+
+```js
+import React, { useEffect, useRef } from 'react';
+
+function MyForm() {
+  const client = useRef(undefined);
+
+  useEffect(() => {
+    client.current = StaticKit();
+
+    return () => {
+      if (client.current) {
+        client.current.teardown();
+      }
+    }
+  }, []);
+
+  // ...
+}
+```
+
+## SSR Support
+
+Server-side rendering (SSR) is a technique used by static site generators like Next.js to improve site performance. Since the StaticKit client tracks behavior from the browser environment, **the DOM must be available** when the `StaticKit()` call happens.
+
+For example, you **cannot** instantiate the client in the main body of a function React component:
+
+```jsx
+import React from 'react';
+
+function MyForm() {
+  // This will throw an error at compile time
+  const client = StaticKit();
+
+  // ...
+
+  return (
+    <form>...</form>
+  );
+}
+```
+
+Instead, you must instantiate the client when the component is being mounted (such as `componentWillMount` or the `useEffect` hook) and store it in component state.
+
+```diff
+- import React from 'react';
++ import React, { useEffect, useRef } from 'react';
+
+  function MyForm() {
+-   const client = StaticKit();
++   const client = useRef(undefined);
++
++   useEffect(() => {
++     client.current = StaticKit();
++
++     return () => {
++       if (client.current) {
++         client.current.teardown();
++       }
++     }
++   }, []);
+
+    // ...
+```

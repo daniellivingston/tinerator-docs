@@ -15,19 +15,15 @@ export default withDocs({
 
 # React Library
 
-The StaticKit React library provides helpful hooks for interfacing with the StaticKit backend. It works great with frameworks like Next.js and Gatsby, and is fully compatible with server-side prerendering.
+_Versions_: [1.x](/docs/react/1.x) | **2.x**
 
-[Source on GitHub](https://github.com/unstacked/statickit-react) | [npm package](https://www.npmjs.com/package/@statickit/react)
-
-## Installation
-
-Run the following to install the package:
+The StaticKit React library provides helpful hooks for interfacing with the StaticKit backend. This library assumes that React is already installed in your environment as a peer dependency. Our helpers rely on [React Hooks](https://reactjs.org/docs/hooks-intro.html), so **you must be on version 16.8.0 or higher**.
 
 ```bash
 npm install @statickit/react
 ```
 
-This library assumes that React is already installed in your environment as a peer dependency. Our helpers rely on [React Hooks](https://reactjs.org/docs/hooks-intro.html), so **you must be on version 16.8.0 or higher**.
+[Source on GitHub](https://github.com/unstacked/statickit-react) | [npm package](https://www.npmjs.com/package/@statickit/react)
 
 ## Context
 
@@ -48,5 +44,3 @@ function App({ Component, pageProps }) {
 
 export default App;
 ```
-
-**Note**: `<StaticKitProvider>` was introduced in version 2.0 of the React library. If you are on version 1.x, [head here for the 1.x form docs &rarr;](/docs/react/1.x/use-form)
