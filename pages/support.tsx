@@ -1,20 +1,31 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import Header from 'components/header';
 import OpenGraph from 'components/open_graph';
-import { ValidationError, useForm } from '@statickit/react';
+import { useStaticKit } from '@statickit/react';
+import { sendSupportEmail } from '@statickit/functions';
 
 function ContactForm() {
-  const emailEl = useRef(null);
+  const client = useStaticKit();
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [state, handleSubmit] = useForm('support', {
-    data: {
-      _subject: () => {
-        return `${emailEl.current.value} has a support request`;
-      }
-    }
-  });
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitted(true);
 
-  if (state.succeeded) {
+    const resp = await sendSupportEmail(client, {
+      subject: `${email} has a support request`,
+      replyTo: email,
+      fields: { email, message }
+    });
+
+    if (resp.status === 'ok') setIsSubmitted(true);
+    setIsSubmitting(false);
+  };
+
+  if (isSubmitted) {
     return (
       <div className="text-center">
         <p>
@@ -35,19 +46,14 @@ function ContactForm() {
           What's your email address?
         </label>
         <input
-          ref={emailEl}
           type="email"
           name="email"
           className="input-field w-full"
           placeholder="me@example.com"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           autoFocus
           required
-        />
-        <ValidationError
-          field="email"
-          prefix="Email"
-          errors={state.errors}
-          className="text-red-600 font-bold"
         />
       </div>
 
@@ -58,17 +64,13 @@ function ContactForm() {
         <textarea
           name="message"
           className="input-field leading-normal w-full h-32 resize-none"
+          value={message}
+          onChange={e => setMessage(e.target.value)}
           required
         ></textarea>
-        <ValidationError
-          field="message"
-          prefix="Message"
-          errors={state.errors}
-          className="text-red-600 font-bold"
-        />
       </div>
 
-      <button type="submit" className="btn" disabled={state.submitting}>
+      <button type="submit" className="btn" disabled={isSubmitting}>
         Send Message
       </button>
     </form>
