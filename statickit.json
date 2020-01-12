@@ -18,5 +18,11 @@
         }]
       }
     }
+  },
+  "functions": {
+    "sendSupportEmail": {
+      "type": "sendNotification",
+      "to": "support@statickit.com"
+    }
   }
 }
