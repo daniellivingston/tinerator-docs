@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Header from 'components/header';
 import OpenGraph from 'components/open_graph';
 import { useStaticKit } from '@statickit/react';
-import { sendSupportEmail } from '@statickit/functions';
+import { sendSupportEmail } from '../src/functions';
 
 function ContactForm() {
   const client = useStaticKit();
