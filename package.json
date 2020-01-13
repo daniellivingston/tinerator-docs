@@ -11,6 +11,7 @@
   "dependencies": {
     "@mdx-js/loader": "^1.5.3",
     "@next/mdx": "^9.1.7",
+    "@statickit/functions": "github:unstacked/statickit-functions#6df80b1d-9986-455e-a2da-661198cfe15c",
     "@statickit/react": "^2.0.1",
     "@zeit/next-css": "^1.0.1",
     "fathom-client": "^2.0.2",
