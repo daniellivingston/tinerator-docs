@@ -1,22 +1,8 @@
 {
-  "forms": {
-    "support": {
-      "name": "Support",
-      "fields": {
-        "email": {
-          "type": "email",
-          "required": true
-        },
-        "message": {
-          "type": "text",
-          "required": true
-        }
-      },
-      "actions": {
-        "email": [{
-          "to": "support@statickit.com"
-        }]
-      }
+  "functions": {
+    "sendSupportEmail": {
+      "type": "sendNotification",
+      "to": "support@statickit.com"
     }
   }
 }

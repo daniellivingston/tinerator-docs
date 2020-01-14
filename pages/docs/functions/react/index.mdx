@@ -1,0 +1,98 @@
+import withDocs from 'components/with_docs';
+import ArrowItem from 'components/arrow_item';
+
+export default withDocs({
+  title: 'React - Functions',
+  description: 'Using StaticKit functions in React',
+  breadcrumbs: [{
+    path: '/docs/functions',
+    label: 'Functions',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Installation", "#installation"],
+    [1, "Setting up context", "#setting-up-context"],
+    [1, "Building components", "#building-components"]
+  ]
+});
+
+# React
+
+This document describes best practices for using StaticKit functions in React.
+
+## Installation
+
+This library assumes that React is already installed in your environment as a peer dependency. Our helpers rely on [React Hooks](https://reactjs.org/docs/hooks-intro.html), so **you must be on version 16.8.0 or higher**.
+
+```bash
+npm install @statickit/react
+```
+
+[Source on GitHub](https://github.com/unstacked/statickit-react) | [npm package](https://www.npmjs.com/package/@statickit/react)
+
+## Setting up context
+
+It's best to place the `<StaticKitProvider>` in your top-level app or layout component. You must provide your Site ID via the `site` prop.
+
+Here's an example of a custom Next.js `_app.js` file:
+
+```jsx
+import { StaticKitProvider } from '@statickit/react';
+
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="{your-site-id}">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  );
+}
+
+export default App;
+```
+
+This way, you can access an app-wide instance of the StaticKit client in your components:
+
+```jsx
+import { useStaticKit } from '@statickit/react';
+
+function MyComponent() {
+  const client = useStaticKit();
+
+  // ...
+}
+```
+
+## Building components
+
+Suppose you want send yourself an email when someone clicks a special button. 
+
+Here's what your `statickit.json` config might look like:
+
+```json
+{
+  "functions": {
+    "performMagic": { "type": "sendNotification", "to": "me@example.com" }
+  }
+}
+```
+
+And here's what your React component could look like:
+
+```jsx
+import { useStaticKit } from '@statickit/react';
+import { performMagic } from '@statickit/functions';
+
+function MagicButton() {
+  const client = useStaticKit();
+
+  const handleClick = () => {
+    performMagic(client, {
+      subject: 'Magic button was clicked!'
+    });
+  }
+
+  return (
+    <button onClick={handleClick}>Do Magic!</button>
+  );
+}
+```

@@ -1,26 +1,22 @@
 import withDocs from 'components/with_docs';
 
 export default withDocs({
-  title: 'Forms - Config',
-  description: 'The statickit.json schema for forms',
-  breadcrumbs: [{
-    path: '/docs/config',
-    label: 'Config',
-    rel: 'prev'
-  }],
+  title: 'Forms',
+  description: 'Configuring and using forms',
   toc: [
+    [1, 'Configuration', '#configuration'],
     [1, 'Actions', '#actions'],
     [1, 'Fields', '#fields']
-  ],
-  prev: {
-    path: '/docs/config',
-    label: 'Config'
-  }
+  ]
 });
 
 # Forms
 
-The `forms` object is where you declare form resources you need for your site. You can set the following properties on forms:
+Forms are a simple way to gather submissions from your front-end and perform follow-up actions. For example, you can use forms build opt-in forms for Mailchimp or contact forms that email you when submitted.
+
+## Configuration
+
+Forms accept the following config parameters:
 
 | Property                      | Type                     | Default        | Description                                         |
 | :---------------------------- | :----------------------- | :------------- | :-------------------------------------------------- |
@@ -29,7 +25,9 @@ The `forms` object is where you declare form resources you need for your site. Y
 | [`fields`](#fields)           | Object                   | `{}`           | Optional metadata about form fields                 |
 | `allowExtraFields`            | Boolean                  | `true`         | Whether to accept fields not defined under `fields` |
 
-### Config Example
+### Example
+
+Here's an example `statickit.json` file:
 
 ```json
 {
@@ -62,8 +60,8 @@ We also have integrations with other apps:
 
 | App                                           | Description                                                               |
 | :-------------------------------------------- | :------------------------------------------------------------------------ |
-| [`mailchimp`](/docs/config/forms/mailchimp)   | Create subscribers and track events in [Mailchimp](https://mailchimp.com) |
-| [`convertkit`](/docs/config/forms/convertkit) | Create subscribers and apply tags in [ConvertKit](https://convertkit.com) |
+| [`mailchimp`](/docs/forms/actions/mailchimp)   | Create subscribers and track events in [Mailchimp](https://mailchimp.com) |
+| [`convertkit`](/docs/forms/actions/convertkit) | Create subscribers and apply tags in [ConvertKit](https://convertkit.com) |
 
 ### Send a notification email
 
@@ -73,7 +71,7 @@ Email a simple plain-text notification to somebody when the form is submitted.
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `to` *                     | String                   | The email address of the recipient                           |
 
-#### Config Example
+#### Example
 
 ```json
 {
@@ -99,7 +97,7 @@ Send an HTTP POST to a given URL with a JSON body.
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `url` *                    | String                   | The endpoint to send the POST request                        |
 
-#### Config Example
+#### Example
 
 ```json
 {
@@ -157,7 +155,7 @@ Field objects can contain the following properties:
 | `prettyName`                         | String                 | The human-friendly name of the field                            |
 | `required`                           | Boolean                | Specifies whether the field is required                         |
 
-#### Config Example
+#### Example
 
 ```json
 {

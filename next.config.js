@@ -16,7 +16,7 @@ module.exports = withMDX(
       STATICKIT_URL: process.env.STATICKIT_URL,
       FORM_ID: process.env.FORM_ID
     },
-    pageExtensions: ['js', 'jsx', 'mdx', 'md'],
+    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'md'],
     webpack(config, options) {
       // Allow absolute imports of common paths
       // See https://github.com/zeit/next.js/blob/master/examples/with-absolute-imports/next.config.js

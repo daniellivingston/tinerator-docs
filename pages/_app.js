@@ -4,6 +4,7 @@ import * as Fathom from 'fathom-client';
 import Footer from 'components/footer';
 import SiteContext from 'components/site_context';
 import cookie from 'js-cookie';
+import { StaticKitProvider } from '@statickit/react';
 
 import '../styles/fonts.css';
 import '../styles/main.css';
@@ -37,12 +38,14 @@ function App({ Component, pageProps }) {
         }
       }}
     >
-      <div className="font-sans antialiased text-gray-900 flex flex-col h-screen">
-        <div className="flex-grow flex-shrink-0">
-          <Component {...pageProps} />
+      <StaticKitProvider site="a38ad7363b35">
+        <div className="font-sans antialiased text-gray-900 flex flex-col h-screen">
+          <div className="flex-grow flex-shrink-0">
+            <Component {...pageProps} />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </StaticKitProvider>
     </SiteContext.Provider>
   );
 }

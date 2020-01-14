@@ -4,29 +4,39 @@ export default withDocs({
   title: 'Forms - HTML Library',
   description: 'How to use the StaticKit form component.',
   breadcrumbs: [{
-    path: '/docs/html',
-    label: 'HTML',
+    path: '/docs/forms',
+    label: 'Forms',
     rel: 'prev'
   }],
   toc: [
+    [1, "Installation", "#installation"],
     [1, "Post-submit behavior", "#post-submit-behavior"],
     [1, "Handling errors", "#handling-errors"],
     [1, "Email notifications", "#email-notifications"],
     [1, "Properties", "#properties"]
-  ],
-  prev: {
-    path: '/docs/html',
-    label: 'Installation'
-  }
+  ]
 });
 
-# Forms
+# HTML
 
-HTML forms are powered by a little snippet of JavaScript.
+The StaticKit HTML library is designed for environments where you are authoring plain HTML (instead a framework like React). If you are using a static site generator like Jekyll, Hugo, or Middleman, this is the library for you.
+
+## Installation
+
+The CDN method is the quickest way to get up and running. Just place our `<script>` tag anywhere on your page:
+
+```html
+<script defer src="https://js.statickit.com/statickit.js"></script>
+```
+
+[Source on GitHub](https://github.com/unstacked/statickit-html) | [npm package](https://www.npmjs.com/package/@statickit/html)
+
+## Usage
+
+Here's an example of an HTML form attached to StaticKit:
 
 ```html
 <form id="my-form">
-  <!-- Include any fields you need -->
   <label for="email">Email</label>
   <input id="email" type="email" name="email" value="" required />
   <button type="submit">Submit</button>
@@ -38,31 +48,23 @@ HTML forms are powered by a little snippet of JavaScript.
   sk('form', 'init', {
     site: '<your-site-id>',   // found under the Settings tab
     form: '<your-form-key>',  // the key used in statickit.json
-    element: '#my-form'
+    element: '#my-form'       // a selector pointing to the `<form>` element
   });
 </script>
-
-<!-- Put this anywhere on your page -->
 <script defer src="https://js.statickit.com/statickit.js"></script>
 ```
 
 Notice there is no `action` attribute on the form. Under the covers, we listen for the `submit` event and post to our servers in the background. This makes your form less vulnerable to spam because there is no URL exposed in the markup.
 
-Try it out!
-
-<div className="pb-6">
-  <iframe width="100%" height="400" className="rounded-lg" src="//jsfiddle.net/StaticKit/5Lks2b6m/embedded/result,html,js/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
-</div>
-
 ## Post-submit behavior
 
-By default, we replace the `<form>` element with a plain thank you message:
+By default, we replace the `<form>` element with an unstyled thank you message:
 
 ```html
 <div>Thank you!</div>
 ```
 
-You customize this by implementing your own `onSuccess` callback. For example:
+You can customize this by implementing your own `onSuccess` callback:
 
 ```js
 sk('form', 'init', {

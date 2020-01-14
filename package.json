@@ -9,9 +9,10 @@
     "node": "10.x"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.1.0",
-    "@next/mdx": "^9.0.2",
-    "@statickit/react": "^1.2.0",
+    "@mdx-js/loader": "^1.5.3",
+    "@next/mdx": "^9.1.7",
+    "@statickit/functions": "github:unstacked/statickit-functions#5c926756-9c2e-4a1b-a3b6-d106c4aa30bb",
+    "@statickit/react": "^2.0.1",
     "@zeit/next-css": "^1.0.1",
     "common-tags": "^1.8.0",
     "fathom-client": "^2.0.2",
@@ -20,20 +21,23 @@
     "moment": "^2.24.0",
     "next": "^9.1.7",
     "next-cookies": "^2.0.3",
-    "prismjs": "^1.16.0",
+    "prismjs": "^1.18.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-outside-click-handler": "^1.3.0",
-    "react-svg": "^10.0.10",
+    "react-svg": "^10.0.26",
     "rehype-autolink-headings": "^2.0.5",
     "rehype-slug": "^2.0.3",
     "swr": "^0.1.12"
   },
   "devDependencies": {
-    "autoprefixer": "^9.6.0",
+    "@types/node": "^13.1.6",
+    "@types/react": "^16.9.17",
+    "autoprefixer": "^9.7.3",
     "cssnano": "^4.1.10",
     "postcss-easy-import": "^3.0.0",
-    "prettier": "^1.18.2",
-    "tailwindcss": "^1.0.4"
+    "prettier": "^1.19.1",
+    "tailwindcss": "^1.1.4",
+    "typescript": "^3.7.4"
   }
 }

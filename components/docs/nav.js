@@ -8,43 +8,27 @@ const sections = [
     sections: []
   },
   {
-    path: '/docs/cli',
-    label: 'CLI',
-    sections: []
-  },
-  {
-    path: '/docs/config',
-    label: 'Config',
+    path: '/docs/forms',
+    label: 'Forms',
     sections: [
       {
-        path: '/docs/config/forms',
-        label: 'Forms'
-      }
-    ]
-  },
-  {
-    path: '/docs/html',
-    label: 'HTML',
-    sections: [
+        path: '/docs/forms/react',
+        label: 'React'
+      },
       {
-        path: '/docs/html/forms',
-        label: 'Forms'
-      }
-    ]
-  },
-  {
-    path: '/docs/react',
-    label: 'React',
-    sections: [
-      {
-        path: '/docs/react/forms',
-        label: 'Forms'
+        path: '/docs/forms/html',
+        label: 'HTML'
       }
     ]
   },
   {
     path: '/docs/core',
     label: 'Core',
+    sections: []
+  },
+  {
+    path: '/docs/cli',
+    label: 'CLI',
     sections: []
   },
   {
@@ -74,7 +58,12 @@ const Section = ({ path, label, sections }) => {
     }) ||
     path == currentPath ||
     (path.startsWith('/guides') && currentPath.startsWith('/guides')) ||
-    (path.startsWith('/docs/config') && currentPath.startsWith('/docs/config'));
+    (path.startsWith('/docs/forms') && currentPath.startsWith('/docs/forms')) ||
+    (path.startsWith('/docs/functions') &&
+      currentPath.startsWith('/docs/functions')) ||
+    (path.startsWith('/docs/config') &&
+      currentPath.startsWith('/docs/config')) ||
+    (path.startsWith('/docs/react') && currentPath.startsWith('/docs/react'));
 
   const Subsection = ({ section }) => {
     const color =

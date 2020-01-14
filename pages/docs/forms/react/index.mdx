@@ -1,0 +1,179 @@
+import withDocs from 'components/with_docs';
+
+export default withDocs({
+  title: 'React - Forms',
+  description: 'React helpers for StaticKit forms.',
+  breadcrumbs: [{
+    path: '/docs/forms',
+    label: 'Forms',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Installation", "#installation"],
+    [1, "Usage", "#usage"],
+    [1, "State object", "#state-object"],
+    [1, "Validations", "#validations"],
+    [1, "Options", "#options"]
+  ]
+});
+
+# React
+
+Versions: [1.x](/docs/forms/react/1.x) | **2.x**
+
+## Installation
+
+This library assumes that React is already installed in your environment as a peer dependency. Our helpers rely on [React Hooks](https://reactjs.org/docs/hooks-intro.html), so **you must be on version 16.8.0 or higher**.
+
+```bash
+npm install @statickit/react
+```
+
+[Source on GitHub](https://github.com/unstacked/statickit-react) | [npm package](https://www.npmjs.com/package/@statickit/react)
+
+The hooks in this library expect you to place the `<StaticKitProvider>` in your top-level app or layout component. Here's an example of a custom Next.js `_app.js` file:
+
+```jsx
+import { StaticKitProvider } from '@statickit/react';
+
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="{your-site-id}">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  );
+}
+
+export default App;
+```
+
+## Usage
+
+The `useForm` [React hook](https://reactjs.org/docs/hooks-intro.html) is the easiest way to setup a React form with StaticKit.
+
+```jsx
+import { useForm } from '@statickit/react';
+
+function MyForm() {
+  const [state, handleSubmit] = useForm('<form-key>');
+
+  if (state.succeeded) {
+    return <div>Thank you for signing up!</div>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="email">Email</label>
+      <input id="email" type="email" name="email" />
+      <button type="submit" disabled={state.submitting}>Sign up</button>
+    </form>
+  )
+}
+```
+
+## State object
+
+The first value in the array returned by this hook is a state object:
+
+```js
+const [state, handleSubmit] = useForm('<form-key>');
+```
+
+The state object contains the following properties:
+
+| Key                 | Description                                                                         |
+| :------------------ | :---------------------------------------------------------------------------------- |
+| `submitting`        | A Boolean indicating whether the form is currently submitting (defaults to `false`) |
+| `succeeded`         | A Boolean indicating whether the form successfully submitted (defaults to `false`)  |
+| [`errors`](#errors) | An Array of server-side validation errors (defaults to `[]`)                        |
+
+Items in the `errors` array have the following properties:
+
+| Key            | Description                                                       |
+| :------------- | :---------------------------------------------------------------- |
+| `field`        | The name of the field                                             |
+| `message`      | A human-readable error message fragment (e.g. "is required")      |
+| `code`         | A machine-friendly error code (e.g. "REQUIRED" or "EMAIL_FORMAT") |
+| `properties`   | An object containing various additional properties about the error |
+
+State changes over time in the following ways:
+
+- When `handleSubmit` is called, `submitting` becomes `true`
+- If the submission fails server-side validations, `errors` is populated with the specific errors
+- If the submission succeeds, `succeeded` becomes `true`
+- After the submission request finishes, `submitting` always becomes `false`
+
+## Validations
+
+Here's an example form using the `ValidationError` component to display field errors:
+
+```jsx
+import { ValidationError, useForm } from '@statickit/react';
+
+function MyForm() {
+  const [state, handleSubmit] = useForm('<form-key>');
+
+  if (state.succeeded) {
+    return <div>Thank you for signing up!</div>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="email">Email</label>
+      <input type="email" name="email" required />
+      <ValidationError field="email" prefix="Email" errors={state.errors} />
+      <button type="submit" disabled={state.submitting}>Sign up</button>
+    </form>
+  )
+}
+```
+
+The `ValidationError` component accepts the following special properties:
+
+- `field` — the name of the field for which to display errors (required)
+- `errors` — the object containing validation errors (required)
+- `prefix` — the human-friendly name of the field (optional, defaults to "This field")
+
+All other props (such as `className`) are passed through to the `<div>` wrapper. 
+
+If the given field is invalid, this component renders a `<div>` containing the error message:
+
+```jsx
+<div {...props}>
+  {prefix} {message}
+</div>
+```
+
+## Options
+
+This hook accepts two arguments: the form key and an object containing options.
+
+```js
+const [state, handleSubmit] = useForm('<your-form-key>', options);
+```
+
+Here are the acceptable options:
+
+| Key                                | Type                | Description                                           |
+| :--------------------------------- | :------------------ | :---------------------------------------------------- |
+| [`data`](#data)                    | object              | An object containing additional form fields to send   |
+| `client`                           | StaticKit           | An instance of the StaticKit client                   |
+| `debug`                            | boolean             | Log debug statements for troubleshooting              |
+
+### `data`
+
+An Object containing Strings or Functions to merge with your form data.
+
+#### Usage Example
+
+```js
+const [state, submit] = useForm('<form-key'>, {
+  data: {
+    _subject: 'Someone joined the newsletter',
+    pageTitle: function() {
+      // This function will be evaluated at submission time
+      return document.title;
+    }
+  }
+});
+```

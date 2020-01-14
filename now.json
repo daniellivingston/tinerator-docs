@@ -21,6 +21,16 @@
       "headers": { "Location": "/contact-forms" }
     },
     {
+      "src": "/docs/html",
+      "status": 308,
+      "headers": { "Location": "/docs/forms/html" }
+    },
+    {
+      "src": "/docs/react",
+      "status": 308,
+      "headers": { "Location": "/docs/forms/react" }
+    },
+    {
       "src": "/static/fonts/(.*)",
       "headers": { "cache-control": "public, max-age=31536000" },
       "dest": "/static/fonts/$1"

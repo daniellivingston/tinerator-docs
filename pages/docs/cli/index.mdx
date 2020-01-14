@@ -5,9 +5,9 @@ export default withDocs({
   title: 'CLI',
   description: 'How to use the StaticKit CLI',
   toc: [
-    [1, 'Add a form', '#add-a-form'],
-    [1, 'Add a secret', '#add-a-secret'],
-    [1, 'Deploy', '#deploy']
+    [1, 'Installation', '#installation'],
+    [1, 'Deploy', '#deploy'],
+    [1, 'Add a secret', '#add-a-secret']
   ],
   prev: {
     path: '/docs/introduction',
@@ -21,52 +21,42 @@ export default withDocs({
 
 # CLI
 
-The StaticKit command line interface (CLI) comes with helpful commands for performing common tasks like adding a new form and adding a secret. You can use the CLI to make changes or edit your `statickit.json` file by hand — either way is fine!
+The StaticKit command line interface (CLI) comes with helpful commands for managing your site.
 
 | Command                                              | Description                   |
 | :--------------------------------------------------- | :---------------------------- |
-| [`forms add`](#add-a-form)                           | Add a form                    |
-| [`secrets add`](#add-a-secret)                       | Add a secret                  |
 | [`deploy`](#deploy)                                  | Deploy your config            |
+| [`secrets add`](#add-a-secret)                       | Add a secret                  |
 
 ## Installation
 
-Install the command line interface with npm:
+Run the following to install the CLI:
 
 ```bash
 npm i -g @statickit/cli
 ```
 
-## Add a form
+[Source on GitHub](https://github.com/unstacked/statickit-cli) | [npm package](https://www.npmjs.com/package/@statickit/cli)
 
-Run the following command to add a new form to your config file.
+## Deploy
 
-```bash
-statickit forms add <key> <name>
-```
-
-If you'd like to add extra functionality (like server-side validations and actions), you can edit the config manually.
-
-<ArrowItem>
-  <a href="/docs/config/forms" className="font-semibold text-indigo-600">Explore the `form` config schema</a>
-</ArrowItem>
-
-### Example 
-
-The following command will change your `statickit.json` file like this:
+Run the following to deploy your config:
 
 ```bash
-statickit forms add contact-form "Contact Form"
+statickit deploy -k <your-deploy-key>
 ```
 
-```diff
-  {
-    "forms": {
-+     "contact-form": {
-+       "name": "Contact Form"
-+     }
-    }
-  }
+Your site's deploy key can be found under the &ldquo;Settings&rdquo; tab in StaticKit. Instead of using the `-k` flag every time, you can create a `.env` file in the root of your project and define an environment variable:
+
+```bash
+echo "STATICKIT_DEPLOY_KEY=<your-deploy-key>" >> .env
+echo ".env" >> .gitignore
+```
+
+**Do not commit your `.env` file to version control.** You should treat your deploy key like any other secret token. A common convention is to create a `.env.example` file (excluding the actual key) that developers can use as a template:
+
+```bash
+echo "STATICKIT_DEPLOY_KEY=" >> .env.example
 ```
 
 ## Add a secret
@@ -104,25 +94,4 @@ Then, in your form config, you can reference the secret you just added (notice t
       }
     }
   }
-```
-
-## Deploy
-
-Once you are finished making changes to your local config file, you must deploy them to StaticKit with the CLI. 
-
-```bash
-statickit deploy -k <your-deploy-key>
-```
-
-Your site's deploy key can be found under the &ldquo;Settings&rdquo; tab in StaticKit. Instead of using the `-k` flag every time, you can create a `.env` file in the root of your project and define an environment variable:
-
-```bash
-echo "STATICKIT_DEPLOY_KEY=<your-deploy-key>" >> .env
-echo ".env" >> .gitignore
-```
-
-**Do not commit your `.env` file to version control.** You should treat your deploy key like any other secret token. A common convention is to create a `.env.example` file (excluding the actual key) that developers can use as a template:
-
-```bash
-echo "STATICKIT_DEPLOY_KEY=" >> .env.example
 ```

@@ -1,59 +1,58 @@
 import withDocs from 'components/with_docs';
 
 export default withDocs({
-  title: 'Forms',
-  description: 'How to use the StaticKit form component.',
+  title: 'React (1.x) - Forms',
+  description: 'React helpers for StaticKit forms.',
   breadcrumbs: [{
-    path: '/docs/react',
-    label: 'React',
+    path: '/docs/forms',
+    label: 'Forms',
     rel: 'prev'
   }],
   toc: [
-    [1, "State", "#state"],
+    [1, "Installation", "#installation"],
+    [1, "Usage", "#usage"],
+    [1, "State object", "#state-object"],
     [1, "Lifecycle", "#lifecycle"],
     [1, "Handling errors", "#handling-errors"],
-    [1, "Properties", "#properties"]
-  ],
-  prev: {
-    path: '/docs/react',
-    label: 'Installation'
-  },
+    [1, "Options", "#options"]
+  ]
 });
 
-# Forms
+# React
 
-React forms are powered by a custom [hook](https://reactjs.org/docs/hooks-intro.html) called `useForm`. 
+Versions: **1.x** | [2.x](/docs/forms/react)
 
-The `useForm` hook returns a pair of values: a `state` object containing the current state of the form and a `submit` function that performs the actual form submission.
+You are viewing the documentation for the 1.0 version of this library. We recommend upgrading the [2.0 version](/docs/forms/react).
 
-```js
-const [state, submit] = useForm({
-  site: '<your-site-id>',
-  form: '<your-form-key>'
-});
+## Installation
+
+This library assumes that React is already installed in your environment as a peer dependency. Our helpers rely on [React Hooks](https://reactjs.org/docs/hooks-intro.html), so **you must be on version 16.8.0 or higher**.
+
+```bash
+npm install @statickit/react@^1.0
 ```
 
-Here's a form component built with StaticKit:
+[Source on GitHub](https://github.com/unstacked/statickit-react) | [npm package](https://www.npmjs.com/package/@statickit/react)
+
+## Usage
+
+The `useForm` [React hook](https://reactjs.org/docs/hooks-intro.html) is the easiest way to setup a React form with StaticKit.
 
 ```jsx
 import { useForm } from '@statickit/react';
 
 function MyForm() {
-  // Call the `useForm` hook in your function component
-  const [state, submit] = useForm({
+  const [state, handleSubmit] = useForm({
     site: '<your-site-id>',
     form: '<your-form-key>'
   });
 
-  // Display success message in place of the form
   if (state.succeeded) {
-    return (
-      <div>Thank you for signing up!</div>
-    )
+    return <div>Thank you for signing up!</div>;
   }
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="email">Email</label>
       <input id="email" type="email" name="email" />
       <button type="submit">Sign up</button>
@@ -62,15 +61,18 @@ function MyForm() {
 }
 ```
 
-At a minimum, all you have to do is use a `<form>` element and pass `submit` as the `onSubmit` handler. Try it out!
+## State object
 
-<div className="pb-6">
-  <iframe width="100%" height="300" className="rounded-lg" src="//jsfiddle.net/StaticKit/w69xerbc/embedded/result,js,html/dark/" allowFullScreen="allowfullscreen" frameBorder="0"></iframe>
-</div>
+The first value in the array returned by this hook is a state object:
 
-## State
+```js
+const [state, handleSubmit] = useForm({
+  site: '<your-site-id>',
+  form: '<your-form-key>'
+});
+```
 
-The `state` object contains the following properties:
+The state object contains the following properties:
 
 | Key                 | Description                                                                         |
 | :------------------ | :---------------------------------------------------------------------------------- |
@@ -106,7 +108,7 @@ Here's a more advanced example that displays validation errors for the `email` f
 + import { ValidationError, useForm } from '@statickit/react';
 
   function MyForm() {
-    const [state, submit] = useForm('XXXXXXXXX');
+    const [state, handleSubmit] = useForm('XXXXXXXXX');
 
     if (state.succeeded) {
       return (
@@ -116,7 +118,7 @@ Here's a more advanced example that displays validation errors for the `email` f
 
 +   // Render email validation errors and disable the submit button when submitting
     return (
-      <form onSubmit={submit}>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input type="email" name="email" required />
 +       <ValidationError field="email" prefix="Email" errors={state.errors} />
@@ -144,18 +146,18 @@ If the field does not have an error, nothing is rendered.
 
 All other props set on `ValidationError` (such as `className`) are passed through to the `<div>` wrapper.
 
-## Configuration
+## Options
 
 At a minimum, you must set the `site` and `form` properties:
 
 ```js
-const [state, submit] = useForm({
+const [state, handleSubmit] = useForm({
   site: '<your-site-id>',   // found under the Settings tab
   form: '<your-form-key>'   // the key used in statickit.json
 });
 ```
 
-The `useForm` hook accepts the following properties:
+The hook accepts the following properties:
 
 | Key                                | Type                | Description                                           |
 | :--------------------------------- | :------------------ | :---------------------------------------------------- |
