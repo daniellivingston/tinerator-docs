@@ -1,0 +1,48 @@
+import withDocs from 'components/with_docs';
+
+export default withDocs({
+  title: 'Functions Library',
+  description: 'How to use the StaticKit functions library.',
+  toc: [
+  ]
+});
+
+# Functions Library
+
+The StaticKit functions library provides native JavaScript definitions for your StaticKit functions (with TypeScript support). Each time you deploy to StaticKit, the CLI will ensure the most up-to-date version of the library is installed locally to match your config. 
+
+```bash
+statickit deploy
+```
+
+## Usage
+
+Suppose your `statickit.json` contains a `sendEmail` function, like this:
+
+```json
+{
+  "functions": {
+    "sendEmail": {
+      "type": "sendNotification",
+      "to": "me@example.com"
+    }
+  }
+}
+```
+
+Once deployed, you can import your functions in JavaScript:
+
+```js
+import { createClient } from '@statickit/core';
+import { sendEmail } from '@statickit/functions';
+
+let client = createClient({ site: '<site-id>' });
+
+const handler = () => {
+  let resp = await sendEmail(client, {
+    subject: 'You have mail!'
+  });
+
+  if (resp.status === 'ok') { /* ... */ }
+};
+```
