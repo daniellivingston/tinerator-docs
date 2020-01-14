@@ -5,8 +5,8 @@ export default withDocs({
   title: 'CLI',
   description: 'How to use the StaticKit CLI',
   toc: [
+    [1, 'Installation', '#installation'],
     [1, 'Deploy', '#deploy'],
-    [1, 'Add a form', '#add-a-form'],
     [1, 'Add a secret', '#add-a-secret']
   ],
   prev: {
@@ -21,21 +21,22 @@ export default withDocs({
 
 # CLI
 
-The StaticKit command line interface (CLI) comes with helpful commands for performing common tasks like adding a new form and adding a secret. You can use the CLI to make changes or edit your `statickit.json` file by hand — either way is fine!
+The StaticKit command line interface (CLI) comes with helpful commands for managing your site.
 
 | Command                                              | Description                   |
 | :--------------------------------------------------- | :---------------------------- |
 | [`deploy`](#deploy)                                  | Deploy your config            |
-| [`forms add`](#add-a-form)                           | Add a form                    |
 | [`secrets add`](#add-a-secret)                       | Add a secret                  |
 
 ## Installation
 
-Install the command line interface with npm:
+Run the following to install the CLI:
 
 ```bash
 npm i -g @statickit/cli
 ```
+
+[Source on GitHub](https://github.com/unstacked/statickit-cli) | [npm package](https://www.npmjs.com/package/@statickit/cli)
 
 ## Deploy
 
@@ -56,39 +57,6 @@ echo ".env" >> .gitignore
 
 ```bash
 echo "STATICKIT_DEPLOY_KEY=" >> .env.example
-```
-
-
-## Add a form
-
-Run the following command to add a new form to your config file.
-
-```bash
-statickit forms add <key> <name>
-```
-
-If you'd like to add extra functionality (like server-side validations and actions), you can edit the config manually.
-
-<ArrowItem>
-  <a href="/docs/config/forms" className="font-semibold text-indigo-600">Explore the `form` config schema</a>
-</ArrowItem>
-
-### Example 
-
-The following command will change your `statickit.json` file like this:
-
-```bash
-statickit forms add contact-form "Contact Form"
-```
-
-```diff
-  {
-    "forms": {
-+     "contact-form": {
-+       "name": "Contact Form"
-+     }
-    }
-  }
 ```
 
 ## Add a secret

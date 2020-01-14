@@ -1,29 +1,55 @@
 import withDocs from 'components/with_docs';
 
 export default withDocs({
-  title: 'useForm',
-  description: 'How to use the StaticKit form component.',
+  title: 'React - Forms',
+  description: 'React helpers for StaticKit forms.',
   breadcrumbs: [{
-    path: '/docs/react',
-    label: 'React',
+    path: '/docs/forms',
+    label: 'Forms',
     rel: 'prev'
   }],
   toc: [
+    [1, "Installation", "#installation"],
+    [1, "Usage", "#usage"],
     [1, "State object", "#state-object"],
     [1, "Validations", "#validations"],
-    [1, "Configuration", "#configuration"]
-  ],
-  prev: {
-    path: '/docs/react/use-statickit',
-    label: 'useStaticKit'
-  }
+    [1, "Options", "#options"]
+  ]
 });
 
-# useForm
+# React
 
-Versions: [1.x](/docs/react/1.x/use-form) | **2.x**
+Versions: [1.x](/docs/forms/react/1.x) | **2.x**
 
-The `useForm` [hook](https://reactjs.org/docs/hooks-intro.html) is a simple way to attach an HTML form to your StaticKit site. It returns a state object representing the current state of the form and a submission handler.
+## Installation
+
+This library assumes that React is already installed in your environment as a peer dependency. Our helpers rely on [React Hooks](https://reactjs.org/docs/hooks-intro.html), so **you must be on version 16.8.0 or higher**.
+
+```bash
+npm install @statickit/react
+```
+
+[Source on GitHub](https://github.com/unstacked/statickit-react) | [npm package](https://www.npmjs.com/package/@statickit/react)
+
+The hooks in this library expect you to place the `<StaticKitProvider>` in your top-level app or layout component. Here's an example of a custom Next.js `_app.js` file:
+
+```jsx
+import { StaticKitProvider } from '@statickit/react';
+
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="{your-site-id}">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  );
+}
+
+export default App;
+```
+
+## Usage
+
+The `useForm` [React hook](https://reactjs.org/docs/hooks-intro.html) is the easiest way to setup a React form with StaticKit.
 
 ```jsx
 import { useForm } from '@statickit/react';
@@ -46,6 +72,12 @@ function MyForm() {
 ```
 
 ## State object
+
+The first value in the array returned by this hook is a state object:
+
+```js
+const [state, handleSubmit] = useForm('<form-key>');
+```
 
 The state object contains the following properties:
 
@@ -112,9 +144,9 @@ If the given field is invalid, this component renders a `<div>` containing the e
 </div>
 ```
 
-## Configuration
+## Options
 
-This hook accepts two arguments: the form key and an (optional) object containing options.
+This hook accepts two arguments: the form key and an object containing options.
 
 ```js
 const [state, handleSubmit] = useForm('<your-form-key>', options);

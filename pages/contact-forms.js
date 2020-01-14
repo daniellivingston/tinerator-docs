@@ -158,11 +158,11 @@ function ContactFormsPage() {
 
                   <p className="px-4 pt-4 text-sm text-gray-500">
                     We have{' '}
-                    <Link href="/docs/react">
+                    <Link href="/docs/forms/react">
                       <a className="text-indigo-400">React</a>
                     </Link>{' '}
                     and{' '}
-                    <Link href="/docs/html">
+                    <Link href="/docs/forms/html">
                       <a className="text-indigo-400">HTML</a>
                     </Link>{' '}
                     client libraries.
