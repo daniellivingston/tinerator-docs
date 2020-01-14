@@ -36,6 +36,10 @@ pre[class*='language-'] {
   white-space: normal;
 }
 
+.token-line {
+  min-height: 28px;
+}
+
 .token.comment,
 .token.prolog,
 .token.doctype,

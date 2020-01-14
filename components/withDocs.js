@@ -19,7 +19,7 @@ const components = {
     }
   },
   pre: props => <div {...props} />,
-  code: props => <CodeBlock {...props} />
+  code: props => <CodeBlock {...props} trim={true} />
 };
 
 const TOCItem = ({ item }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 
-export default ({ children, className }) => {
+export default ({ children, className, trim }) => {
   const language = className.replace(/language-/, '');
 
   return (
@@ -13,13 +13,17 @@ export default ({ children, className }) => {
     >
       {({ className, tokens, getLineProps, getTokenProps }) => (
         <pre className={className}>
-          {tokens.map((line, i) => (
-            <div key={i} {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span key={key} {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
+          {tokens.map((line, i) => {
+            if (trim && i === tokens.length - 1) return <></>;
+
+            return (
+              <div key={i} {...getLineProps({ line, key: i })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            );
+          })}
         </pre>
       )}
     </Highlight>
