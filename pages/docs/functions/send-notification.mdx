@@ -1,0 +1,74 @@
+import withDocs from 'components/with_docs';
+import ArrowItem from 'components/arrow_item';
+
+export default withDocs({
+  title: 'sendNotification - Functions',
+  description: 'The sendNotification function schema',
+  breadcrumbs: [{
+    path: '/docs/functions',
+    label: 'Functions',
+    rel: 'prev'
+  },
+  {
+    path: '/docs/functions#types',
+    label: 'Types',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Configuration", "#configuration"],
+    [1, "Arguments", "#arguments"],
+    [1, "Return Value", "#return-value"]
+  ]
+});
+
+# sendNotification
+
+Sends a notification email to a specified email address.
+
+## Configuration
+
+This function type accepts the following parameters:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `to` *                     | string                   |                                | The recipient's email address                                |
+
+### Example
+
+```json
+{
+  "functions": {
+    "sendEmail": {
+      "type": "sendNotification",
+      "to": "john@example.com"
+    }
+  }
+}
+```
+
+## Arguments
+
+This function type accepts the following client-side arguments when called:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `subject` *                | string                   |                                | The email subject line                                       |
+| `replyTo`                  | string                   |                                | The Reply-To address                                         |
+
+
+### Example
+
+```js
+import { createClient, sendEmail } from '@statickit/functions';
+
+let client = createClient({ site: '<site-id>' });
+
+let { status } = await sendEmail(client, {
+  subject: "You've got mail!",
+  replyTo: "sender@example.com"
+});
+```
+
+## Response
+
+Returns a [`status`](#).

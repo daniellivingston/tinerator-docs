@@ -1,23 +1,26 @@
 import withDocs from 'components/with_docs';
 
 export default withDocs({
-  title: 'Functions Library',
-  description: 'How to use the StaticKit functions library.',
+  title: 'Functions',
+  description: 'How to use StaticKit functions',
   toc: [
-  ]
+    [1, 'Usage', '#usage'],
+    [1, 'Types', '#types'],
+    [1, 'Responses', '#responses']
+  ],
+  prev: {
+    path: '/docs/config',
+    label: 'Config'
+  }
 });
 
-# Functions Library
+# Functions
 
-The StaticKit functions library provides native JavaScript definitions for your StaticKit functions (with TypeScript support). Each time you deploy to StaticKit, the CLI will ensure the most up-to-date version of the library is installed locally to match your config. 
-
-```bash
-statickit deploy
-```
+StaticKit Functions are serverless functions configured declaratively and callable from your client-side JavaScript. 
 
 ## Usage
 
-Suppose your `statickit.json` contains a `sendEmail` function, like this:
+Suppose your `statickit.json` contains a function called `sendEmail`:
 
 ```json
 {
@@ -30,19 +33,56 @@ Suppose your `statickit.json` contains a `sendEmail` function, like this:
 }
 ```
 
-Once deployed, you can import your functions in JavaScript:
+When you run `statickit deploy`, the CLI will install a node package called `@statickit/functions` that will include native JavaScript definitions for your functions:
 
 ```js
-import { createClient } from '@statickit/core';
-import { sendEmail } from '@statickit/functions';
+import { createClient, sendEmail } from '@statickit/functions';
 
 let client = createClient({ site: '<site-id>' });
 
-const handler = () => {
-  let resp = await sendEmail(client, {
-    subject: 'You have mail!'
-  });
-
-  if (resp.status === 'ok') { /* ... */ }
-};
+let { status } = await sendEmail(client, {
+  subject: 'You have mail!'
+});
 ```
+
+## Types
+
+### Native Functions
+
+These types are native to StaticKit and do not require external app credentials to run.
+
+| Type                              | Description                                                  |
+| :-------------------------------- | :----------------------------------------------------------- |
+| [`sendNotification`](/docs/functions/send-notification) | Sends a notification email      |
+
+## Responses
+
+Function responses **always** include a `status`: `ok`, `invalidArgs`, `invalidConfig`, or `runtimeError`. You can check the status property to implement conditional logic:
+
+```js
+let resp = await sendEmail(client, { subject: 'You have mail!' });
+
+switch (resp.status) {
+  case 'ok':            // success
+  case 'invalidArgs':   // arguments were invalid
+  case 'invalidConfig': // config was invalid
+  case 'runtimeError':  // a runtime error occurred
+}
+```
+
+Successful responses may contain additional properties, depending on the function type.
+
+### Validation Errors
+
+If arguments or config are invalid, the response will include an array of `errors` with one or more error objects:
+
+| Key            | Description                                                       |
+| :------------- | :---------------------------------------------------------------- |
+| `field`        | The name of the field                                             |
+| `message`      | A human-readable error message fragment (e.g. "is required")      |
+| `code`         | A machine-friendly error code (e.g. "REQUIRED" or "EMAIL_FORMAT") |
+| `properties`   | An object containing various additional properties about the error |
+
+### Runtime Errors
+
+If a runtime error occurs, the response will include a `message` describing the error.
