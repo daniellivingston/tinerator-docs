@@ -5,9 +5,9 @@ export default withDocs({
   title: 'CLI',
   description: 'How to use the StaticKit CLI',
   toc: [
+    [1, 'Deploy', '#deploy'],
     [1, 'Add a form', '#add-a-form'],
-    [1, 'Add a secret', '#add-a-secret'],
-    [1, 'Deploy', '#deploy']
+    [1, 'Add a secret', '#add-a-secret']
   ],
   prev: {
     path: '/docs/introduction',
@@ -25,9 +25,9 @@ The StaticKit command line interface (CLI) comes with helpful commands for perfo
 
 | Command                                              | Description                   |
 | :--------------------------------------------------- | :---------------------------- |
+| [`deploy`](#deploy)                                  | Deploy your config            |
 | [`forms add`](#add-a-form)                           | Add a form                    |
 | [`secrets add`](#add-a-secret)                       | Add a secret                  |
-| [`deploy`](#deploy)                                  | Deploy your config            |
 
 ## Installation
 
@@ -36,6 +36,28 @@ Install the command line interface with npm:
 ```bash
 npm i -g @statickit/cli
 ```
+
+## Deploy
+
+Run the following to deploy your config:
+
+```bash
+statickit deploy -k <your-deploy-key>
+```
+
+Your site's deploy key can be found under the &ldquo;Settings&rdquo; tab in StaticKit. Instead of using the `-k` flag every time, you can create a `.env` file in the root of your project and define an environment variable:
+
+```bash
+echo "STATICKIT_DEPLOY_KEY=<your-deploy-key>" >> .env
+echo ".env" >> .gitignore
+```
+
+**Do not commit your `.env` file to version control.** You should treat your deploy key like any other secret token. A common convention is to create a `.env.example` file (excluding the actual key) that developers can use as a template:
+
+```bash
+echo "STATICKIT_DEPLOY_KEY=" >> .env.example
+```
+
 
 ## Add a form
 
@@ -104,25 +126,4 @@ Then, in your form config, you can reference the secret you just added (notice t
       }
     }
   }
-```
-
-## Deploy
-
-Once you are finished making changes to your local config file, you must deploy them to StaticKit with the CLI. 
-
-```bash
-statickit deploy -k <your-deploy-key>
-```
-
-Your site's deploy key can be found under the &ldquo;Settings&rdquo; tab in StaticKit. Instead of using the `-k` flag every time, you can create a `.env` file in the root of your project and define an environment variable:
-
-```bash
-echo "STATICKIT_DEPLOY_KEY=<your-deploy-key>" >> .env
-echo ".env" >> .gitignore
-```
-
-**Do not commit your `.env` file to version control.** You should treat your deploy key like any other secret token. A common convention is to create a `.env.example` file (excluding the actual key) that developers can use as a template:
-
-```bash
-echo "STATICKIT_DEPLOY_KEY=" >> .env.example
 ```

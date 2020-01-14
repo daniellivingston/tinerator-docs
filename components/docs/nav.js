@@ -8,11 +8,6 @@ const sections = [
     sections: []
   },
   {
-    path: '/docs/cli',
-    label: 'CLI',
-    sections: []
-  },
-  {
     path: '/docs/config',
     label: 'Config',
     sections: [
@@ -49,6 +44,11 @@ const sections = [
   {
     path: '/docs/core',
     label: 'Core',
+    sections: []
+  },
+  {
+    path: '/docs/cli',
+    label: 'CLI',
     sections: []
   },
   {

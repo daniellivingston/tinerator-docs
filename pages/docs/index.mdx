@@ -5,8 +5,8 @@ export default withDocs({
   title: 'Getting Started',
   description: 'Learn how to configure and deploy StaticKit.',
   toc: [
-    [1, "Install the CLI", "#install-the-cli"],
-    [1, "Configure your site", "#configure-your-site"],
+    [1, "Installation", "#installation"],
+    [1, "Provision your first form", "#provision-your-first-form"],
     [1, "Wire up your front-end", "#wire-up-your-front-end"]
   ],
   next: {
@@ -17,43 +17,46 @@ export default withDocs({
 
 # Getting Started
 
-StaticKit is the modern way to gather form submissions from your static site. It works great with React-based generators, like Next.js and Gatsby, and traditional HTML-based generators, like Jekyll and Hugo.
+StaticKit is the serverless backend for static sites and modern JavaScript front-ends.
 
-## Install the CLI
+## Installation
 
-Install the command line interface with npm:
+Projects are configured in a `statickit.json` file and deployed with a command-line interface (CLI). Run the following to install the CLI and initialize your project to use StaticKit:
 
 ```bash
+cd /path/to/my-project
 npm i -g @statickit/cli
+statickit init
 ```
 
-<ArrowItem>
-  <a href="/docs/cli" className="font-semibold text-indigo-600">Learn more about the CLI</a>
-</ArrowItem>
+## Provision your first form
 
-## Configure your site
+Open up your `statickit.json` file and replace it with the following:
 
-Your config lives in a `statickit.json` file at the root of your project. You can edit it by hand or use the CLI to perform common tasks. Run the following to create a config file, add a contact form, and deploy it.
+```json
+{
+  "forms": {
+    "contactForm": {
+      "name": "Contact Form"
+    }
+  }
+}
+```
+
+Then, deploy your changes to StaticKit:
 
 ```bash
-statickit forms add contact-form "Contact Form"
 statickit deploy -k <your-deploy-key>
 ```
 
-It's a good idea to commit your `statickit.json` file to version control.
-
-<ArrowItem>
-  <a href="/docs/config" className="font-semibold text-indigo-600">Learn more about config</a>
-</ArrowItem>
-
 ## Wire up your front-end
 
-We have a few client libraries to help bind your front-end components to the StaticKit backend.
-
-<ArrowItem>
-  <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
-</ArrowItem>
+We have a few client libraries to help:
 
 <ArrowItem>
   <a href="/docs/react" className="font-semibold text-indigo-600">React</a>: works great with Gatsby, Next.js, etc.
+</ArrowItem>
+
+<ArrowItem>
+  <a href="/docs/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
 </ArrowItem>
