@@ -5,19 +5,14 @@ export default withDocs({
   title: 'sendNotification - Functions',
   description: 'The sendNotification function schema',
   breadcrumbs: [{
-    path: '/docs/functions',
+    path: '/docs/functions#function-types',
     label: 'Functions',
-    rel: 'prev'
-  },
-  {
-    path: '/docs/functions#types',
-    label: 'Types',
     rel: 'prev'
   }],
   toc: [
     [1, "Configuration", "#configuration"],
     [1, "Arguments", "#arguments"],
-    [1, "Return Value", "#return-value"]
+    [1, "Response", "#response"]
   ]
 });
 
@@ -54,6 +49,7 @@ This function type accepts the following client-side arguments when called:
 | :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
 | `subject` *                | string                   |                                | The email subject line                                       |
 | `replyTo`                  | string                   |                                | The Reply-To address                                         |
+| `fields`                   | object                   | `{}`                           | An object of data to include in the email body               |
 
 
 ### Example
@@ -65,10 +61,27 @@ let client = createClient({ site: '<site-id>' });
 
 let { status } = await sendEmail(client, {
   subject: "You've got mail!",
-  replyTo: "sender@example.com"
+  replyTo: "sender@example.com",
+  fields: {
+    first_name: "Jane",
+    message: "I think you're cool!"
+  }
 });
+```
+
+When called, this function will send a plain-text HTML email to the configured `to` address with the subject line `You've got mail!`:
+
+```text
+first_name:
+Jane
+
+message:
+I think you're cool!
+
+—
+Sent from StaticKit
 ```
 
 ## Response
 
-Returns a [`status`](/docs/functions#responses).
+Returns a [`status`](/docs/functions#responses) and no additional properties.
