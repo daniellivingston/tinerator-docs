@@ -1,0 +1,42 @@
+import withDocs from 'components/with_docs';
+
+export default withDocs({
+  title: 'useStaticKit',
+  description: 'How to use the useStaticKit hook.',
+  breadcrumbs: [{
+    path: '/docs/react',
+    label: 'React',
+    rel: 'prev'
+  }],
+  prev: {
+    path: '/docs/react',
+    label: 'Installation'
+  },
+  next: {
+    path: '/docs/react/use-form',
+    label: 'useForm'
+  }
+});
+
+# useStaticKit
+
+The `useStaticKit` hook returns an instance of the StaticKit client:
+
+```jsx
+import { useStaticKit } from '@statickit/react';
+import { sendNotification } from '@statickit/functions';
+
+function MyComponent() {
+  const client = useStaticKit();
+
+  const handleClick = () => {
+    sendNotification(client, { 
+      subject: "You've got mail!" 
+    });
+  };
+
+  return <button onClick={handleClick}>Send Mail</button>;
+}
+```
+
+You must place the [`StaticKitProvider`](/docs/react#context) higher up in your component tree for this to work.

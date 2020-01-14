@@ -27,6 +27,10 @@ const sections = [
     label: 'React',
     sections: [
       {
+        path: '/docs/react/use-statickit',
+        label: 'useStaticKit'
+      },
+      {
         path: '/docs/react/use-form',
         label: 'useForm'
       }
