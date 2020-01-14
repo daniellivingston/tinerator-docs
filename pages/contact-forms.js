@@ -1,6 +1,6 @@
 import Header from 'components/header';
 import OpenGraph from 'components/open_graph';
-import CodeBlock from 'components/code_block';
+import CodeBlock from 'components/CodeBlock';
 import ContactFormDemo from 'components/demos/contact-form';
 import Link from 'next/link';
 

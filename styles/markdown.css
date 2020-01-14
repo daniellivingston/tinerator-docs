@@ -41,7 +41,8 @@
 .markdown > ul,
 .markdown > ol,
 .markdown > blockquote,
-.markdown > pre {
+.markdown > pre,
+.markdown > div > pre {
   @apply mb-6;
 }
 
@@ -54,8 +55,11 @@
   @apply ml-8 list-decimal;
 }
 
-.markdown > pre {
+.markdown > pre,
+.markdown > div > pre {
   @apply rounded-lg px-4 py-3 bg-gray-800;
+  @apply text-sm font-mono leading-loose;
+  color: #f8f8f2;
   max-height: 500px;
   overflow: auto;
 }

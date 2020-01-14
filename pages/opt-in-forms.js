@@ -1,6 +1,6 @@
 import Header from 'components/header';
 import OpenGraph from 'components/open_graph';
-import CodeBlock from 'components/code_block';
+import CodeBlock from 'components/CodeBlock';
 import OptInFormDemo from 'components/demos/mailchimp';
 import Link from 'next/link';
 

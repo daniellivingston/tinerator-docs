@@ -204,12 +204,12 @@ const AppNav = ({ site, inverted }) => {
   );
 };
 
-const Header = ({
-  viewerData: initialViewerData,
-  siteData: initialSiteData,
-  inverted,
-  showAppNav = true
-}) => {
+const Header = props => {
+  const initialViewerData = props.viewerData;
+  const initialSiteData = props.siteData;
+  const inverted = !!props.inverted;
+  const showAppNav = props.showAppNav === false ? false : true;
+
   const router = useRouter();
   const defaultSiteId = useDefaultSite();
 

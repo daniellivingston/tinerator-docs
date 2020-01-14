@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from 'components/header';
 import OpenGraph from 'components/open_graph';
-import CodeBlock from 'components/code_block';
+import CodeBlock from 'components/CodeBlock';
 import Error from 'next/error';
 import Link from 'next/link';
 import { useDefaultSite } from 'utils/default-site';
@@ -13,7 +13,7 @@ import { stripIndent } from 'common-tags';
 
 const firstDeploy = token => stripIndent`
 npm i -g @statickit/cli
-statickit forms add contact-form "Contact Form"
+statickit init
 statickit deploy -k ${token}
 `;
 

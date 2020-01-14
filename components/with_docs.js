@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from './header';
-import Footer from './footer';
 import OpenGraph from './open_graph';
 import { MDXProvider } from '@mdx-js/react';
 import Nav from './docs/nav';
 import Link from 'next/link';
-
-import Prism from 'prismjs';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-tsx';
-import 'prismjs/components/prism-diff';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-bash';
+import CodeBlock from './CodeBlock';
 
 const components = {
   a: props => {
@@ -24,7 +17,9 @@ const components = {
     } else {
       return <a target="_blank" {...props} />;
     }
-  }
+  },
+  pre: props => <div {...props} />,
+  code: props => <CodeBlock {...props} />
 };
 
 const TOCItem = ({ item }) => {
@@ -124,10 +119,6 @@ const DocumentFooter = ({ prev, next }) => {
 };
 
 export default meta => ({ children }) => {
-  useEffect(() => {
-    Prism.highlightAll();
-  }, []);
-
   return (
     <MDXProvider components={components}>
       <div>

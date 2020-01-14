@@ -10,7 +10,7 @@ function PricingPage() {
     <div>
       <main>
         <OpenGraph title={title} description={description} path="/pricing" />
-        <Header pageTitle={title} />
+        <Header />
 
         <div className="mx-auto px-6 pt-12 container">
           <div className="pt-6 md:pt-10 pb-12 md:pb-16">
