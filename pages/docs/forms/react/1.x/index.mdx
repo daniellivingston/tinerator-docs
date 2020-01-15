@@ -43,8 +43,8 @@ import { useForm } from '@statickit/react';
 
 function MyForm() {
   const [state, handleSubmit] = useForm({
-    site: '<your-site-id>',
-    form: '<your-form-key>'
+    site: '{your-site-id}',
+    form: '{your-form-key}'
   });
 
   if (state.succeeded) {
@@ -67,8 +67,8 @@ The first value in the array returned by this hook is a state object:
 
 ```js
 const [state, handleSubmit] = useForm({
-  site: '<your-site-id>',
-  form: '<your-form-key>'
+  site: '{your-site-id}',
+  form: '{your-form-key}'
 });
 ```
 
@@ -152,8 +152,8 @@ At a minimum, you must set the `site` and `form` properties:
 
 ```js
 const [state, handleSubmit] = useForm({
-  site: '<your-site-id>',   // found under the Settings tab
-  form: '<your-form-key>'   // the key used in statickit.json
+  site: '{your-site-id}',   // found under the Settings tab
+  form: '{your-form-key}'   // the key used in statickit.json
 });
 ```
 
@@ -182,7 +182,7 @@ The `form` property corresponds to the key used in your `statickit.json` file:
 
   // In your component
   const [state, submit] = useForm({
-    site: '<your-site-id>',
+    site: '{your-site-id}',
 +   form: 'newsletter'
   });
 ```
@@ -195,8 +195,8 @@ An Object containing Strings or Functions to merge with your form data.
 
 ```diff
   const [state, submit] = useForm({
-    site: '<your-site-id>',
-    form: '<your-form-key>',
+    site: '{your-site-id}',
+    form: '{your-form-key}',
 +   data: {
 +     _subject: 'Someone joined the newsletter',
 +     pageTitle: function() {

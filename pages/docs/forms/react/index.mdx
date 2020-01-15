@@ -55,7 +55,7 @@ The `useForm` [React hook](https://reactjs.org/docs/hooks-intro.html) is the eas
 import { useForm } from '@statickit/react';
 
 function MyForm() {
-  const [state, handleSubmit] = useForm('<form-key>');
+  const [state, handleSubmit] = useForm('{your-form-key}');
 
   if (state.succeeded) {
     return <div>Thank you for signing up!</div>;
@@ -76,7 +76,7 @@ function MyForm() {
 The first value in the array returned by this hook is a state object:
 
 ```js
-const [state, handleSubmit] = useForm('<form-key>');
+const [state, handleSubmit] = useForm('{your-form-key}');
 ```
 
 The state object contains the following properties:
@@ -113,7 +113,7 @@ Here's an example form using the `ValidationError` component to display field er
 import { ValidationError, useForm } from '@statickit/react';
 
 function MyForm() {
-  const [state, handleSubmit] = useForm('<form-key>');
+  const [state, handleSubmit] = useForm('{your-form-key}');
 
   if (state.succeeded) {
     return <div>Thank you for signing up!</div>;
@@ -151,7 +151,7 @@ If the given field is invalid, this component renders a `<div>` containing the e
 This hook accepts two arguments: the form key and an object containing options.
 
 ```js
-const [state, handleSubmit] = useForm('<your-form-key>', options);
+const [state, handleSubmit] = useForm('{your-form-key}', options);
 ```
 
 Here are the acceptable options:
@@ -169,7 +169,7 @@ An Object containing Strings or Functions to merge with your form data.
 #### Usage Example
 
 ```js
-const [state, submit] = useForm('<form-key'>, {
+const [state, submit] = useForm('{your-form-key}', {
   data: {
     _subject: 'Someone joined the newsletter',
     pageTitle: function() {

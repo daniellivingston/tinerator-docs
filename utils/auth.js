@@ -28,6 +28,7 @@ export const login = async ({ token, nextPath = '/' }) => {
 
 export const logout = () => {
   cookie.remove('token');
+  cookie.remove('site');
   revalidate();
   redirectToLogin();
 };

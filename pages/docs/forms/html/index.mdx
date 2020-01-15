@@ -46,8 +46,8 @@ Here's an example of an HTML form attached to StaticKit:
   window.sk=window.sk||function(){(sk.q=sk.q||[]).push(arguments)};
 
   sk('form', 'init', {
-    site: '<your-site-id>',   // found under the Settings tab
-    form: '<your-form-key>',  // the key used in statickit.json
+    site: '{your-site-id}',   // found under the Settings tab
+    form: '{your-form-key}',  // the key used in statickit.json
     element: '#my-form'       // a selector pointing to the `<form>` element
   });
 </script>
@@ -132,8 +132,8 @@ At a minimum, you must set the `site`, `form` and `element` properties:
 
 ```js
 sk('form', 'init', {
-  site: '<your-site-id>',   // found under the Settings tab
-  form: '<your-form-key>',  // the key used in statickit.json
+  site: '{your-site-id}',   // found under the Settings tab
+  form: '{your-form-key}',  // the key used in statickit.json
   element: '#my-form'       // the DOM selector for your <form> element
 })
 ```
@@ -166,7 +166,7 @@ The `form` property corresponds to the key used in your `statickit.json` file:
 
 // JavaScript on page
 sk('form', 'init', {
-  site: '<your-site-id>',
+  site: '{your-site-id}',
   form: 'newsletter',
   element: '#my-form'
 });

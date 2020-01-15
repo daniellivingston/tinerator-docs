@@ -24,7 +24,7 @@ cd next-landing-page
 npm i @statickit/react
 ```
 
-Go ahead and replace the contents of the `pages/index.js` file with the following code. You'll want to replace `<your-site-id>` with your StaticKit site ID, found under Settings.
+Go ahead and replace the contents of the `pages/index.js` file with the following code. You'll want to replace `{your-site-id}` with your StaticKit site ID, found under Settings.
 
 ```jsx
 import React from 'react';
@@ -34,7 +34,7 @@ import { useForm } from '@statickit/react';
 const OptInForm = () => {
   // Initialize the form hook
   const [state, submit] = useForm({
-    site: '<your-site-id>',
+    site: '{your-site-id}',
     form: 'opt-in-form'
   });
 

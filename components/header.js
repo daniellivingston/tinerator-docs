@@ -12,6 +12,12 @@ import { useDefaultSite } from 'utils/default-site';
 
 function UserMenu({ viewer }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { setSiteId } = useContext(SiteContext);
+
+  const handleLogout = () => {
+    setSiteId(null);
+    logout();
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -35,7 +41,7 @@ function UserMenu({ viewer }) {
             <li key="logout">
               <button
                 className="px-4 py-2 w-full hover:bg-gray-200 text-left"
-                onClick={logout}
+                onClick={handleLogout}
               >
                 Log out
               </button>
