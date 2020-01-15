@@ -1,46 +1,33 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import OpenGraph from 'components/open_graph';
 import Logo from 'components/logo';
 import Link from 'next/link';
-import { login, fetchToken } from 'utils/auth';
+import { signup, login } from 'utils/auth';
+import { ValidationError } from '@statickit/react';
 
-const ErrorMessage = ({ error }) => {
-  if (!error) return <></>;
-
-  return (
-    <div className="mb-8 p-3 bg-red-600 text-white text-sm font-bold shadow">
-      {error}
-    </div>
-  );
-};
-
-function LoginPage() {
-  const title = 'Log in';
-  const description = 'Log in to your StaticKit account.';
-  const passwordRef = useRef(null);
+function SignupPage() {
+  const title = 'Sign up';
+  const description = 'Create a StaticKit account.';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState([]);
 
-  const submit = async e => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const token = await fetchToken(email, password);
+      const resp = await signup(email, password);
 
-      if (token) {
-        await login({ token });
+      if (resp.token) {
+        login({ token: resp.token });
       } else {
-        setError('These credentials are not valid');
-        setPassword('');
+        setErrors(resp.errors || []);
         setIsSubmitting(false);
-        passwordRef.current.focus();
       }
     } catch (e) {
       console.error(e);
-      setError('An unexpected error occurred');
       setIsSubmitting(false);
     }
   };
@@ -58,7 +45,9 @@ function LoginPage() {
           </Link>
         </header>
 
-        <ErrorMessage error={error} />
+        <h1 className="pb-10 text-3xl font-semibold tracking-snug">
+          Sign up for StaticKit
+        </h1>
 
         <form className="pb-8" onSubmit={submit}>
           <div className="pb-6">
@@ -76,6 +65,12 @@ function LoginPage() {
               onChange={e => setEmail(e.target.value)}
               value={email}
             />
+            <ValidationError
+              prefix="Email"
+              field="email"
+              errors={errors}
+              className="pt-2 text-sm text-red-600 font-bold"
+            />
           </div>
 
           <div className="pb-6">
@@ -86,7 +81,6 @@ function LoginPage() {
               Password
             </label>
             <input
-              ref={passwordRef}
               id="password"
               type="password"
               name="password"
@@ -94,17 +88,23 @@ function LoginPage() {
               onChange={e => setPassword(e.target.value)}
               value={password}
             />
+            <ValidationError
+              prefix="Password"
+              field="password"
+              errors={errors}
+              className="pt-2 text-sm text-red-600 font-bold"
+            />
           </div>
 
           <button type="submit" className="btn" disabled={isSubmitting}>
-            Log in to StaticKit
+            Sign up free
           </button>
         </form>
 
         <div className="py-5 border-t text-gray-600 text-sm">
-          <span>Not registered yet? </span>
-          <Link href="/signup">
-            <a className="font-bold text-indigo-600">Sign up free &rarr;</a>
+          <span>Already have an account? </span>
+          <Link href="/login">
+            <a className="font-bold text-indigo-600">Log in &rarr;</a>
           </Link>
         </div>
       </div>
@@ -112,4 +112,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default SignupPage;

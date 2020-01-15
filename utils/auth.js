@@ -10,6 +10,16 @@ const endpoint =
     ? 'https://api.statickit.com'
     : 'http://localhost:4000';
 
+export const signup = async (email, password) => {
+  const resp = await fetch(`${endpoint}/api/users`, {
+    method: 'POST',
+    body: JSON.stringify({ user: { email, password } }),
+    headers: { 'Content-Type': 'application/json' }
+  });
+
+  return await resp.json();
+};
+
 export const login = async ({ token }) => {
   cookie.set('token', token, { expires: 365 });
   await prefetch(token);
@@ -27,7 +37,7 @@ export const redirectToLogin = (context = {}) => {
 };
 
 export const fetchToken = async (email, password) => {
-  const resp = await fetch(`${endpoint}/tokens`, {
+  const resp = await fetch(`${endpoint}/api/tokens`, {
     method: 'POST',
     body: JSON.stringify({ email, password }),
     headers: { 'Content-Type': 'application/json' }
