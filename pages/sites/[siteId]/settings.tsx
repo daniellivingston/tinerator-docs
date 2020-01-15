@@ -81,26 +81,28 @@ function SiteSettingsPage() {
                   </div>
                   <div className="sm:w-2/3 px-6 pb-3">
                     <form
-                      className="mb-3 p-1 pl-3 flex input-field-inverse block"
+                      className="flex input-field-inverse p-0"
                       onSubmit={handleNameSaved}
                     >
                       <input
                         type="text"
                         name="name"
-                        className="block flex-grow bg-transparent focus:outline-none"
+                        className="block p-3 flex-grow bg-transparent focus:outline-none min-w-0"
                         value={name}
                         onChange={e => setName(e.target.value)}
                       />
-                      <button type="submit" className="btn btn-sm">
-                        Save
-                      </button>
+                      <div className="p-1">
+                        <button type="submit" className="btn btn-sm">
+                          Save
+                        </button>
+                      </div>
                     </form>
 
                     <ValidationError
                       prefix="Name"
                       field="name"
                       errors={errors}
-                      className="pb-4 text-sm text-red-700 font-bold"
+                      className="py-2 text-sm text-red-700 font-bold"
                     />
                   </div>
                 </div>
@@ -114,23 +116,21 @@ function SiteSettingsPage() {
                       The public ID for this site.
                     </p>
                   </div>
-                  <div className="sm:w-2/3 px-6 pb-3 flex">
-                    <div className="mb-3 flex p-1 pl-3 border border-transparent bg-gray-800 leading-tight rounded">
-                      <input
-                        type="text"
-                        name="site_id"
-                        className="block font-mono text-gray-200 bg-transparent focus:outline-none"
-                        readOnly={true}
-                        value={slug}
-                      />
+                  <div className="sm:w-2/3 px-6 pb-3">
+                    <div className="flex">
+                      <div className="flex max-w-full border border-transparent bg-gray-800 leading-tight rounded">
+                        <div className="p-3 overflow-auto font-mono text-gray-200 bg-transparent focus:outline-none">
+                          {slug}
+                        </div>
 
-                      <CopyToClipboard text={slug}>
-                        <button type="submit" className="btn btn-sm">
-                          <span
-                            dangerouslySetInnerHTML={{ __html: copyIcon }}
-                          />
-                        </button>
-                      </CopyToClipboard>
+                        <CopyToClipboard text={slug}>
+                          <button type="submit" className="btn btn-sm">
+                            <span
+                              dangerouslySetInnerHTML={{ __html: copyIcon }}
+                            />
+                          </button>
+                        </CopyToClipboard>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -143,21 +143,19 @@ function SiteSettingsPage() {
                     <p className="text-sm text-gray-600">Keep this secret!</p>
                   </div>
                   <div className="sm:w-2/3 px-6 pb-3">
-                    <div className="mb-3 flex p-1 pl-3 border border-transparent bg-gray-800 leading-tight rounded">
-                      <input
-                        type="text"
-                        name="deploy_key"
-                        className="block flex-grow font-mono text-gray-200 bg-transparent focus:outline-none"
-                        readOnly={true}
-                        value={deployKey}
-                      />
-                      <CopyToClipboard text={deployKey}>
-                        <button type="submit" className="btn btn-sm">
-                          <span
-                            dangerouslySetInnerHTML={{ __html: copyIcon }}
-                          />
-                        </button>
-                      </CopyToClipboard>
+                    <div className="flex">
+                      <div className="flex max-w-full border border-transparent bg-gray-800 leading-tight rounded">
+                        <div className="p-3 overflow-auto font-mono text-gray-200 bg-transparent focus:outline-none">
+                          {deployKey}
+                        </div>
+                        <CopyToClipboard text={deployKey}>
+                          <button type="submit" className="btn btn-sm">
+                            <span
+                              dangerouslySetInnerHTML={{ __html: copyIcon }}
+                            />
+                          </button>
+                        </CopyToClipboard>
+                      </div>
                     </div>
                   </div>
                 </div>
