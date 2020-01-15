@@ -65,7 +65,7 @@ const Tabs = ({ formData, siteData }) => {
 
 export default function FormHeader({ siteData, formData }) {
   return (
-    <div className="mx-auto container px-6 pt-4 pb-4">
+    <div className="mx-auto container px-6 py-3">
       <div className="pb-1">
         <Breadcrumb siteData={siteData} />
       </div>
