@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Highlight, { Language, defaultProps } from 'prism-react-renderer';
 import { useDefaultSite } from 'utils/default-site';
 import { useSiteData } from 'data/site';
+import { useViewerData } from 'data/viewer';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const copyIcon = `
@@ -18,6 +19,7 @@ const CodeBlock: React.FC<Props> = ({ children, className, trim }) => {
   const language = className.replace(/language-/, '') as Language;
   const siteId = useDefaultSite();
   const { siteData } = useSiteData(siteId);
+  const { viewerData } = useViewerData();
   const [code, setCode] = useState(children);
 
   useEffect(() => {
@@ -31,8 +33,15 @@ const CodeBlock: React.FC<Props> = ({ children, className, trim }) => {
       newCode = newCode.replace(/<your-deploy-key>/g, siteData.site.deployKey);
     }
 
+    if (viewerData && viewerData.status == 'ok') {
+      newCode = newCode.replace(
+        /\{your-email-address\}/g,
+        viewerData.viewer.email
+      );
+    }
+
     setCode(newCode);
-  }, [siteId, siteData]);
+  }, [siteId, siteData, viewerData]);
 
   return (
     <div className="code-block relative">

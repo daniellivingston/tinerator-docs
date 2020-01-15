@@ -6,12 +6,12 @@ export default withDocs({
   description: 'Learn how to configure and deploy StaticKit.',
   toc: [
     [1, "Installation", "#installation"],
-    [1, "Provision your first form", "#provision-your-first-form"],
-    [1, "Wire up your front-end", "#wire-up-your-front-end"]
+    [1, "Create a function", "#create-a-function"],
+    [1, "Make a call", "#make-a-call"]
   ],
   next: {
-    path: '/docs/forms',
-    label: 'Forms'
+    path: '/docs/functions',
+    label: 'Functions'
   }
 });
 
@@ -31,15 +31,16 @@ statickit init
 
 This will create a bare `statickit.json` file — you should keep this file in source control.
 
-## Provision your first form
+## Create a function
 
 Open up your `statickit.json` file and replace it with the following:
 
 ```json
 {
-  "forms": {
-    "contactForm": {
-      "name": "Contact Form"
+  "functions": {
+    "helloWorld": {
+      "type": "sendNotification",
+      "to": "{your-email-address}"
     }
   }
 }
@@ -51,12 +52,17 @@ Then, deploy your changes to StaticKit:
 statickit deploy -k <your-deploy-key>
 ```
 
-## Wire up your front-end
+This will install the `@statickit/functions` package in your project.
 
-<ArrowItem>
-  <a href="/docs/forms/react" className="font-semibold text-indigo-600">React</a>: works great with Gatsby, Next.js, etc.
-</ArrowItem>
+## Make a call
 
-<ArrowItem>
-  <a href="/docs/forms/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
-</ArrowItem>
+On your front-end, import your `helloWorld` function and call it somewhere:
+
+```js
+import { helloWorld, createClient } from '@statickit/functions';
+let client = createClient({ site: "{your-site-id}" });
+
+helloWorld(client, { subject: "Hello world!" });
+```
+
+You should have received an email! Congratulations, you are off to the races. We have a growing collection function types to help with your server-side needs.

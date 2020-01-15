@@ -8,6 +8,16 @@ const sections = [
     sections: []
   },
   {
+    path: '/docs/functions',
+    label: 'Functions',
+    sections: [
+      {
+        path: '/docs/functions/react',
+        label: 'React'
+      }
+    ]
+  },
+  {
     path: '/docs/forms',
     label: 'Forms',
     sections: [
