@@ -42,7 +42,7 @@
 .markdown > ol,
 .markdown > blockquote,
 .markdown > pre,
-.markdown > div > pre {
+.markdown > div > .code-block {
   @apply mb-6;
 }
 
@@ -56,9 +56,7 @@
 }
 
 .markdown > pre,
-.markdown > div > pre {
-  @apply rounded-lg px-4 py-3 bg-gray-800;
-  @apply text-sm font-mono leading-loose;
+.markdown > div > .code-block > pre {
   color: #f8f8f2;
   max-height: 500px;
   overflow: auto;
