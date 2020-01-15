@@ -19,17 +19,19 @@ export default withDocs({
 
 # Getting Started
 
-StaticKit is the serverless backend for static sites and modern JavaScript front-ends.
+StaticKit is the serverless backend for static sites and modern JavaScript front-ends. Sites are configured via a `statickit.json` file that lives in your repository (alongside your website code) and deployed with a command-line interface (CLI).
 
 ## Installation
 
-Projects are configured in a `statickit.json` file and deployed with a command-line interface (CLI). Run the following to install the CLI and initialize your project to use StaticKit:
+Run the following to install the CLI and initialize your project to use StaticKit:
 
 ```bash
 cd /path/to/my-project
 npm i -g @statickit/cli
 statickit init
 ```
+
+This will create a bare `statickit.json` file — you should keep this file in source control.
 
 ## Provision your first form
 

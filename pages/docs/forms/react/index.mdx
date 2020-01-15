@@ -87,6 +87,15 @@ The state object contains the following properties:
 | `succeeded`         | A Boolean indicating whether the form successfully submitted (defaults to `false`)  |
 | [`errors`](#errors) | An Array of server-side validation errors (defaults to `[]`)                        |
 
+State changes over time in the following ways:
+
+- When `handleSubmit` is called, `submitting` becomes `true`
+- If the submission fails server-side validations, `errors` is populated with the specific errors
+- If the submission succeeds, `succeeded` becomes `true`
+- After the submission request finishes, `submitting` always becomes `false`
+
+### `errors`
+
 Items in the `errors` array have the following properties:
 
 | Key            | Description                                                       |
@@ -95,13 +104,6 @@ Items in the `errors` array have the following properties:
 | `message`      | A human-readable error message fragment (e.g. "is required")      |
 | `code`         | A machine-friendly error code (e.g. "REQUIRED" or "EMAIL_FORMAT") |
 | `properties`   | An object containing various additional properties about the error |
-
-State changes over time in the following ways:
-
-- When `handleSubmit` is called, `submitting` becomes `true`
-- If the submission fails server-side validations, `errors` is populated with the specific errors
-- If the submission succeeds, `succeeded` becomes `true`
-- After the submission request finishes, `submitting` always becomes `false`
 
 ## Validations
 

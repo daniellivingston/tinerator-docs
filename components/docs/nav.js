@@ -23,7 +23,7 @@ const sections = [
   },
   {
     path: '/docs/core',
-    label: 'Core',
+    label: 'Client',
     sections: []
   },
   {
