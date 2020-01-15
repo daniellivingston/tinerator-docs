@@ -1,7 +1,5 @@
 import withDocs from 'components/withDocs';
 import ArrowItem from 'components/arrow_item';
-import DeployKey from 'components/DeployKey';
-import PlainCodeBlock from 'components/PlainCodeBlock';
 
 export default withDocs({
   title: 'Getting Started',
@@ -49,9 +47,9 @@ Open up your `statickit.json` file and replace it with the following:
 
 Then, deploy your changes to StaticKit:
 
-<PlainCodeBlock>
-statickit deploy -k <DeployKey />
-</PlainCodeBlock>
+```bash
+statickit deploy -k <your-deploy-key>
+```
 
 ## Wire up your front-end
 

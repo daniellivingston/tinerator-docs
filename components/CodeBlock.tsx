@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Highlight, { Language, defaultProps } from 'prism-react-renderer';
 import { useDefaultSite } from 'utils/default-site';
+import { useSiteData } from 'data/site';
 
 interface Props {
   className: string;
@@ -11,6 +12,7 @@ interface Props {
 const CodeBlock: React.FC<Props> = ({ children, className, trim }) => {
   const language = className.replace(/language-/, '') as Language;
   const siteId = useDefaultSite();
+  const { siteData } = useSiteData(siteId);
   const [code, setCode] = useState(children);
 
   useEffect(() => {
@@ -20,8 +22,12 @@ const CodeBlock: React.FC<Props> = ({ children, className, trim }) => {
       newCode = newCode.replace(/\{your-site-id\}/g, siteId);
     }
 
+    if (siteData && siteData.status == 'ok') {
+      newCode = newCode.replace(/<your-deploy-key>/g, siteData.site.deployKey);
+    }
+
     setCode(newCode);
-  }, [siteId]);
+  }, [siteId, siteData]);
 
   return (
     <Highlight {...defaultProps} theme={null} code={code} language={language}>
