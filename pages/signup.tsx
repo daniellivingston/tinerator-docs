@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import OpenGraph from 'components/open_graph';
 import Logo from 'components/logo';
+import SiteContext from 'components/site_context';
 import Link from 'next/link';
 import { signup, login } from 'utils/auth';
 import { ValidationError } from '@statickit/react';
@@ -12,6 +13,7 @@ function SignupPage() {
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
+  const { setSiteId } = useContext(SiteContext);
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,7 +23,8 @@ function SignupPage() {
       const resp = await signup(email, password);
 
       if (resp.token) {
-        login({ token: resp.token });
+        setSiteId(resp.site_id);
+        login({ token: resp.token, nextPath: '/docs' });
       } else {
         setErrors(resp.errors || []);
         setIsSubmitting(false);

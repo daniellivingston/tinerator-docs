@@ -2,7 +2,7 @@ import React from 'react';
 
 const SiteContext = React.createContext({
   siteId: null,
-  setSiteId: () => {}
+  setSiteId: id => {}
 });
 
 SiteContext.displayName = 'SiteContext';

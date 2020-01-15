@@ -20,10 +20,10 @@ export const signup = async (email, password) => {
   return await resp.json();
 };
 
-export const login = async ({ token }) => {
+export const login = async ({ token, nextPath = '/' }) => {
   cookie.set('token', token, { expires: 365 });
   await prefetch(token);
-  Router.push('/');
+  Router.push(nextPath);
 };
 
 export const logout = () => {
