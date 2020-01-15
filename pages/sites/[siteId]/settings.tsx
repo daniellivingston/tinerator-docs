@@ -9,6 +9,11 @@ import { useViewerData } from 'data/viewer';
 import { useSiteData, revalidate } from 'data/site';
 import { updateSiteName } from 'data/mutations';
 import { ValidationError } from '@statickit/react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+const copyIcon = `
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+`;
 
 const pageTitle = siteData => {
   if (!siteData || !siteData.site) return 'Site Settings';
@@ -21,11 +26,15 @@ function SiteSettingsPage() {
   const { siteData } = useSiteData(router.query.siteId);
 
   const [name, setName] = useState('');
+  const [slug, setSlug] = useState('');
+  const [deployKey, setDeployKey] = useState('');
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     if (siteData && siteData.site) {
       setName(siteData.site.name);
+      setSlug(siteData.site.id);
+      setDeployKey(siteData.site.deployKey);
     }
   }, [siteData]);
 
@@ -54,14 +63,14 @@ function SiteSettingsPage() {
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <div className="container py-16 sm:py-20 mx-auto">
             <div className="mx-auto max-w-3xl">
-              <div className="px-6">
-                <h1 className="pb-2 text-gray-200 text-3xl tracking-snug">
-                  Site Settings
+              <div className="px-6 pb-6">
+                <h1 className="pb-2 text-gray-200 text-4xl tracking-snug">
+                  Settings
                 </h1>
               </div>
 
-              <div className="mx-auto container py-3">
-                <div className="mx-auto sm:flex max-w-3xl py-6">
+              <div className="mx-auto container py-6">
+                <div className="mx-auto sm:flex max-w-3xl py-3">
                   <div className="sm:w-1/3 px-6 pb-3">
                     <label className="block pb-1 text-gray-400 font-semibold">
                       Site Name
@@ -93,6 +102,63 @@ function SiteSettingsPage() {
                       errors={errors}
                       className="pb-4 text-sm text-red-700 font-bold"
                     />
+                  </div>
+                </div>
+
+                <div className="mx-auto sm:flex max-w-3xl py-3">
+                  <div className="sm:w-1/3 px-6 pb-3">
+                    <label className="block pb-1 text-gray-400 font-semibold">
+                      Site ID
+                    </label>
+                    <p className="text-sm text-gray-600">
+                      The public ID for this site.
+                    </p>
+                  </div>
+                  <div className="sm:w-2/3 px-6 pb-3 flex">
+                    <div className="mb-3 flex p-1 pl-3 border border-transparent bg-gray-800 leading-tight rounded">
+                      <input
+                        type="text"
+                        name="site_id"
+                        className="block font-mono text-gray-200 bg-transparent focus:outline-none"
+                        readOnly={true}
+                        value={slug}
+                      />
+
+                      <CopyToClipboard text={slug}>
+                        <button type="submit" className="btn btn-sm">
+                          <span
+                            dangerouslySetInnerHTML={{ __html: copyIcon }}
+                          />
+                        </button>
+                      </CopyToClipboard>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mx-auto sm:flex max-w-3xl py-3">
+                  <div className="sm:w-1/3 px-6 pb-3">
+                    <label className="block pb-1 text-gray-400 font-semibold">
+                      Deploy Key
+                    </label>
+                    <p className="text-sm text-gray-600">Keep this secret!</p>
+                  </div>
+                  <div className="sm:w-2/3 px-6 pb-3">
+                    <div className="mb-3 flex p-1 pl-3 border border-transparent bg-gray-800 leading-tight rounded">
+                      <input
+                        type="text"
+                        name="deploy_key"
+                        className="block flex-grow font-mono text-gray-200 bg-transparent focus:outline-none"
+                        readOnly={true}
+                        value={deployKey}
+                      />
+                      <CopyToClipboard text={deployKey}>
+                        <button type="submit" className="btn btn-sm">
+                          <span
+                            dangerouslySetInnerHTML={{ __html: copyIcon }}
+                          />
+                        </button>
+                      </CopyToClipboard>
+                    </div>
                   </div>
                 </div>
               </div>
