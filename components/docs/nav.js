@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 const sections = [
   {
     path: '/docs',
-    label: 'Get Started',
+    label: 'Getting Started',
     sections: []
   },
   {
