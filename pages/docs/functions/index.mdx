@@ -34,7 +34,7 @@ When you run `statickit deploy`, we will automatically install an npm package ca
 ```js
 import { createClient, sendEmail } from '@statickit/functions';
 
-let client = createClient({ site: '<site-id>' });
+let client = createClient({ site: '{your-site-id}' });
 
 let { status } = await sendEmail(client, {
   subject: 'You have mail!'

@@ -57,7 +57,7 @@ This function type accepts the following client-side arguments when called:
 ```js
 import { createClient, sendEmail } from '@statickit/functions';
 
-let client = createClient({ site: '<site-id>' });
+let client = createClient({ site: '{your-site-id}' });
 
 let { status } = await sendEmail(client, {
   subject: "You've got mail!",
