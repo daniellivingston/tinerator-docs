@@ -70,7 +70,7 @@ function NewSitePage({ viewerData: initialViewerData }) {
           <Header viewerData={viewerData} inverted={true} showAppNav={false} />
           <div className="container px-6 py-16 sm:py-24 mx-auto">
             <div className="mx-auto max-w-md">
-              <h1 className="pb-2 text-gray-200 text-3xl font-semibold tracking-snug">
+              <h1 className="pb-2 text-gray-200 text-3xl font-normal tracking-snug">
                 Create a new site
               </h1>
               <p className="pb-5 text-gray-500">

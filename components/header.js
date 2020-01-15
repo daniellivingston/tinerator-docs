@@ -10,6 +10,10 @@ import { useViewerData } from 'data/viewer';
 import { useSiteData } from 'data/site';
 import { useDefaultSite } from 'utils/default-site';
 
+const gearIcon = `
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+`;
+
 function UserMenu({ viewer }) {
   const [isOpen, setIsOpen] = useState(false);
   const { setSiteId } = useContext(SiteContext);
@@ -164,49 +168,18 @@ const SiteMenu = ({ currentSite, inverted, inApp }) => {
   );
 };
 
-const AppNavItem = ({ href, as, text, inverted }) => {
-  const router = useRouter();
-  const isCurrent = href == router.pathname;
+const SiteSettingsButton = ({ currentSite }) => {
+  if (!currentSite) return <></>;
 
   return (
-    <Link href={href} as={as}>
-      <a
-        className={`px-3 py-2 rounded font-semibold ${
-          isCurrent
-            ? `${inverted ? 'text-gray-200' : 'text-gray-900'}`
-            : `${
-                inverted
-                  ? 'text-gray-600 hover:text-gray-500'
-                  : 'text-gray-600 hover:text-gray-700'
-              }`
-        }`}
-      >
-        {text}
+    <Link
+      href="/sites/[siteId]/settings"
+      as={`/sites/${currentSite.id}/settings`}
+    >
+      <a className="text-gray-500">
+        <div dangerouslySetInnerHTML={{ __html: gearIcon }} />
       </a>
     </Link>
-  );
-};
-
-const AppNav = ({ site, inverted }) => {
-  if (!site) return <></>;
-
-  return (
-    <div className="flex items-center">
-      <AppNavItem
-        key="plugins"
-        href="/sites/[siteId]"
-        as={`/sites/${site.id}`}
-        text="Plugins"
-        inverted={inverted}
-      />
-      <AppNavItem
-        key="settings"
-        href="/sites/[siteId]/settings"
-        as={`/sites/${site.id}/settings`}
-        text="Settings"
-        inverted={inverted}
-      />
-    </div>
   );
 };
 
@@ -244,12 +217,11 @@ const Header = props => {
               </a>
             </Link>
           </div>
-          <div className="mx-5 flex-grow flex items-center">
-            {showAppNav && false && <AppNav site={site} inverted={inverted} />}
-          </div>
+          <div className="mx-5 flex-grow flex items-center"></div>
           <div
             className={`flex items-center justify-end font-semibold text-sm ${textColor}`}
           >
+            <SiteSettingsButton currentSite={site} inverted={inverted} />
             {showAppNav && (
               <SiteMenu currentSite={site} inverted={inverted} inApp={inApp} />
             )}
