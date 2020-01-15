@@ -4,15 +4,53 @@ export default withDocs({
   title: 'Forms',
   description: 'Configuring and using forms',
   toc: [
+    [1, 'How It Works', '#how-it-works'],
     [1, 'Configuration', '#configuration'],
-    [1, 'Actions', '#actions'],
-    [1, 'Fields', '#fields']
+    [1, 'Post-Submit Actions', '#post-submit-actions'],
+    [1, 'Field Rules', '#field-rules']
   ]
 });
 
 # Forms
 
 Forms are a simple way to gather submissions from your front-end and perform follow-up actions. For example, you can use forms build opt-in forms for Mailchimp or contact forms that email you when submitted.
+
+## How It Works
+
+Suppose you have an opt-in form configured in your `statickit.json` file:
+
+```json
+{
+  "forms": {
+    "optInForm": {
+      "name": "Opt-In Form",
+      "actions": [{ "app": "mailchimp", "type": "addOrUpdateContact" }]
+    }
+  }
+}
+```
+
+You can use one of our JavaScript libraries for attaching the form to your interface. Here's what a form component looks like in React:
+
+```jsx
+import { useForm } from '@statickit/react';
+
+function OptInForm() {
+  const [state, handleSubmit] = useForm('optInForm');
+
+  if (state.succeeded) {
+    return <div>Thank you for signing up!</div>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="email">Email</label>
+      <input id="email" type="email" name="email" />
+      <button type="submit" disabled={state.submitting}>Sign up</button>
+    </form>
+  )
+}
+```
 
 ## Configuration
 
@@ -47,9 +85,9 @@ Here's an example `statickit.json` file:
 }
 ```
 
-## Actions
+## Post-Submit Actions
 
-An Array of actions to perform after the form is submitted. We have a few built-in actions:
+Forms accept an array of actions to perform after submission. We have a few built-in actions:
 
 | Type                              | Description                                                  |
 | :-------------------------------- | :----------------------------------------------------------- |
@@ -141,9 +179,9 @@ Here's an example:
 }
 ```
 
-## Fields
+## Field Rules
 
-An Object containing optional field metadata. 
+You can optionally configure which fields are allowed, the type they should be, and various validation rules for them.
 
 **Note:** By default, StaticKit will accept any fields you pass in from the client-side. However, defining your fields here allows you to add validations (such as marking a field as required) and give them human-friendly names.
 
