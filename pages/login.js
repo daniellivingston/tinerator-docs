@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import OpenGraph from 'components/open_graph';
 import Logo from 'components/logo';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { login, fetchToken } from 'utils/auth';
+import cookie from 'js-cookie';
 
 const ErrorMessage = ({ error }) => {
   if (!error) return <></>;
@@ -22,6 +24,13 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.next) {
+      cookie.set('next', router.query.next);
+    }
+  }, [router]);
 
   const submit = async e => {
     e.preventDefault();
@@ -31,7 +40,9 @@ function LoginPage() {
       const token = await fetchToken(email, password);
 
       if (token) {
-        await login({ token });
+        let nextPath = cookie.get('next') || '/';
+        cookie.remove('next');
+        await login({ token, nextPath });
       } else {
         setError('These credentials are not valid');
         setPassword('');

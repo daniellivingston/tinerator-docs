@@ -1,10 +1,12 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import OpenGraph from 'components/open_graph';
 import Logo from 'components/logo';
 import SiteContext from 'components/site_context';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { signup, login } from 'utils/auth';
 import { ValidationError } from '@statickit/react';
+import cookie from 'js-cookie';
 
 function SignupPage() {
   const title = 'Sign up';
@@ -14,6 +16,13 @@ function SignupPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
   const { setSiteId } = useContext(SiteContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.next) {
+      cookie.set('next', router.query.next);
+    }
+  }, [router]);
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,8 +32,10 @@ function SignupPage() {
       const resp = await signup(email, password);
 
       if (resp.token) {
+        let nextPath = cookie.get('next') || '/docs';
+        cookie.remove('next');
         setSiteId(resp.site_id);
-        login({ token: resp.token, nextPath: '/docs' });
+        login({ token: resp.token, nextPath });
       } else {
         setErrors(resp.errors || []);
         setIsSubmitting(false);
@@ -37,7 +48,7 @@ function SignupPage() {
 
   return (
     <main className="container mx-auto px-6 py-8">
-      <OpenGraph title={title} description={description} path="/login" />
+      <OpenGraph title={title} description={description} />
 
       <div className="max-w-sm mx-auto">
         <header className="pb-16">

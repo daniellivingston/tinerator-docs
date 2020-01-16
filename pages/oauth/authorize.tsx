@@ -6,7 +6,7 @@ import { redirectTo } from 'utils/routing';
 import OpenGraph from 'components/open_graph';
 import Logo from 'components/logo';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Error from 'next/error';
 
 interface Preauth {
@@ -200,6 +200,21 @@ function OAuthAuthorizePage({ preauth }: Props) {
   );
 }
 
+const redirectToLogin = (context: NextPageContext) => {
+  if (context.res) {
+    context.res
+      .writeHead(302, {
+        Location: `/login?next=${encodeURIComponent(context.asPath)}`
+      })
+      .end();
+  } else {
+    Router.push({
+      pathname: '/login',
+      query: { next: Router.asPath }
+    });
+  }
+};
+
 OAuthAuthorizePage.getInitialProps = async (context: NextPageContext) => {
   const token = getToken(context);
 
@@ -229,6 +244,12 @@ OAuthAuthorizePage.getInitialProps = async (context: NextPageContext) => {
 
   try {
     const resp = await graphql(query, context.query, token);
+
+    if (resp.status === 401) {
+      redirectToLogin(context);
+      return;
+    }
+
     const body = await resp.json();
     const preauth = body.data.oauthPreauthorize as Preauth;
 
