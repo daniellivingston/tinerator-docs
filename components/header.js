@@ -221,9 +221,12 @@ const Header = props => {
           <div
             className={`flex items-center justify-end font-semibold text-sm ${textColor}`}
           >
-            <SiteSettingsButton currentSite={site} inverted={inverted} />
             {showAppNav && (
               <SiteMenu currentSite={site} inverted={inverted} inApp={inApp} />
+            )}
+
+            {showAppNav && (
+              <SiteSettingsButton currentSite={site} inverted={inverted} />
             )}
             <GlobalNav viewerData={viewerData} />
           </div>

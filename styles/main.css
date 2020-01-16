@@ -70,7 +70,11 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 }
 
 .input-field-inverse {
-  @apply p-4 border border-transparent bg-gray-400 leading-tight rounded;
+  @apply p-4 border border-transparent bg-gray-300 leading-tight rounded;
+}
+
+.input-field-inverse::placeholder {
+  @apply text-gray-800;
 }
 
 .input-field-inverse:focus,
