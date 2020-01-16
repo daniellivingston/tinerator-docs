@@ -1,3 +1,5 @@
+import React, { PropsWithChildren } from 'react';
+
 const icon = `
   <svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
@@ -10,7 +12,7 @@ const icon = `
   </svg>
 `;
 
-export default props => {
+const ArrowItem: React.FC<PropsWithChildren<{}>> = props => {
   return (
     <div className="pb-1 flex items-center">
       <div className="mr-2" dangerouslySetInnerHTML={{ __html: icon }} />
@@ -18,3 +20,5 @@ export default props => {
     </div>
   );
 };
+
+export default ArrowItem;
