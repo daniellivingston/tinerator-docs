@@ -200,16 +200,16 @@ function OAuthAuthorizePage({ preauth }: Props) {
   );
 }
 
-const redirectToLogin = (context: NextPageContext) => {
+const redirectWithNext = (pathname: string, context: NextPageContext) => {
   if (context.res) {
     context.res
       .writeHead(302, {
-        Location: `/login?next=${encodeURIComponent(context.asPath)}`
+        Location: `${pathname}?next=${encodeURIComponent(context.asPath)}`
       })
       .end();
   } else {
     Router.push({
-      pathname: '/login',
+      pathname,
       query: { next: Router.asPath }
     });
   }
@@ -246,7 +246,7 @@ OAuthAuthorizePage.getInitialProps = async (context: NextPageContext) => {
     const resp = await graphql(query, context.query, token);
 
     if (resp.status === 401) {
-      redirectToLogin(context);
+      redirectWithNext('/signup', context);
       return;
     }
 
