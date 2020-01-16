@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import HeadMatter from 'components/HeadMatter';
 import Logo from 'components/Logo';
-import SiteContext from 'components/site_context';
+import SiteContext from 'components/SiteContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signup, login } from 'utils/auth';
