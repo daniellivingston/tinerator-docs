@@ -61,13 +61,15 @@ function OAuthAuthorizePage({ preauth }: Props) {
         $response_type: String,
         $client_id: String,
         $redirect_uri: String,
-        $scope: String
+        $scope: String,
+        $state: String
       ) {
         oauthAuthorize(
           responseType: $response_type,
           clientId: $client_id,
           redirectUri: $redirect_uri,
-          scope: $scope
+          scope: $scope,
+          state: $state
         ) {
           status
           redirectUri
@@ -98,13 +100,15 @@ function OAuthAuthorizePage({ preauth }: Props) {
         $response_type: String,
         $client_id: String,
         $redirect_uri: String,
-        $scope: String
+        $scope: String,
+        $state: String
       ) {
         oauthDeny(
           responseType: $response_type,
           clientId: $client_id,
           redirectUri: $redirect_uri,
-          scope: $scope
+          scope: $scope,
+          state: $state
         ) {
           status
           redirectUri
@@ -223,13 +227,15 @@ OAuthAuthorizePage.getInitialProps = async (context: NextPageContext) => {
       $response_type: String,
       $client_id: String,
       $redirect_uri: String,
-      $scope: String
+      $scope: String,
+      $state: String
     ) {
       oauthPreauthorize(
         responseType: $response_type,
         clientId: $client_id,
         redirectUri: $redirect_uri,
         scope: $scope
+        state: $state
       ) {
         status
         clientName
