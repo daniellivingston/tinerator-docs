@@ -56,8 +56,8 @@ These function types are native to StaticKit (meaning they don't require externa
 At a minimum, function responses have a `status` property: 
 
 - `ok`: The call succeeded
-- `invalidArgs`: Arguments were invalid, check the [`errors`](#validation-errors) property
-- `invalidConfig`: Config was invalid, check the [`errors`](#validation-errors) property
+- `argumentError`: Arguments were invalid, check the [`errors`](#validation-errors) property
+- `configError`: Config was invalid, check the [`errors`](#validation-errors) property
 - `runtimeError`: A runtime error occurred, check the [`message`](#runtime-errors) property
 
 You can reliably check the `status` property to implement conditional logic:
@@ -67,10 +67,10 @@ try {
   let resp = await sendEmail(client, { subject: 'You have mail!' });
 
   switch (resp.status) {
-    case 'ok':            // success
-    case 'invalidArgs':   // arguments were invalid
-    case 'invalidConfig': // config was invalid
-    case 'runtimeError':  // a runtime error occurred
+    case 'ok':              // success
+    case 'argumentError':   // arguments were invalid
+    case 'configError':     // config was invalid
+    case 'runtimeError':    // a runtime error occurred
   }
 } catch (e) {
   // a network error occurred
