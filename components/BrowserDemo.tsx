@@ -1,4 +1,11 @@
-export default ({ url, label }) => {
+import React from 'react';
+
+interface Props {
+  url: string;
+  label: string;
+}
+
+const BrowserDemo: React.FC<Props> = ({ url, label }) => {
   return (
     <div className="mb-6 w-full">
       <div className="flex items-center p-2 bg-gray-500 rounded-t-lg">
@@ -23,3 +30,5 @@ export default ({ url, label }) => {
     </div>
   );
 };
+
+export default BrowserDemo;
