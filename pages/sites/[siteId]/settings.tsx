@@ -58,14 +58,14 @@ function SiteSettingsPage() {
   return (
     <div>
       <main>
-        <OpenGraph title={pageTitle(siteData)} description={''} />
+        <OpenGraph title={pageTitle(siteData)} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <div className="container py-16 sm:py-20 mx-auto">
             <div className="mx-auto max-w-3xl">
               <div className="px-6 pb-6">
                 <h1 className="pb-2 text-gray-200 text-4xl tracking-snug">
-                  Settings
+                  Site Settings
                 </h1>
               </div>
 
