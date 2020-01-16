@@ -1,5 +1,5 @@
-import Header from 'components/header';
-import OpenGraph from 'components/open_graph';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
 import OptInFormDemo from 'components/demos/mailchimp';
 import Link from 'next/link';
@@ -138,7 +138,7 @@ function OptInFormsPage() {
   return (
     <div>
       <main>
-        <OpenGraph title={title} description={description} path="/" />
+        <HeadMatter title={title} description={description} path="/" />
         <div className="bg-gray-900">
           <Header inverted={true} />
 

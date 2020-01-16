@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import OpenGraph from 'components/open_graph';
-import Logo from 'components/logo';
+import HeadMatter from 'components/HeadMatter';
+import Logo from 'components/Logo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { login, fetchToken } from 'utils/auth';
@@ -58,7 +58,7 @@ function LoginPage() {
 
   return (
     <main className="container mx-auto px-6 py-8">
-      <OpenGraph title={title} description={description} path="/login" />
+      <HeadMatter title={title} description={description} path="/login" />
 
       <div className="max-w-sm mx-auto">
         <header className="pb-16">

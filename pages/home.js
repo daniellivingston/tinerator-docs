@@ -1,7 +1,7 @@
-import Header from 'components/header';
-import OpenGraph from 'components/open_graph';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
-import ReactDemo from 'components/react_demo';
+import ReactDemo from 'components/ReactDemo';
 import Link from 'next/link';
 
 const stepOne = `
@@ -55,7 +55,7 @@ function HomePage(props) {
   return (
     <div>
       <main>
-        <OpenGraph title={title} description={description} path="/" />
+        <HeadMatter title={title} description={description} path="/" />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={props.viewerData} />
 

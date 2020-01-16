@@ -1,7 +1,17 @@
+import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
-export default props => {
-  const url = `https://statickit.com${props.path}`;
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  twitterCard?: string;
+}
+
+const HeadMatter: React.FC<Props> = props => {
+  const router = useRouter();
+  const url = `https://statickit.com${router.asPath}`;
   const image = props.image || 'https://statickit.com/static/og-logo.png';
 
   const twitterCard = props.twitterCard || 'summary';
@@ -32,3 +42,5 @@ export default props => {
     </Head>
   );
 };
+
+export default HeadMatter;

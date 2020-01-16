@@ -3,8 +3,8 @@ import { NextPageContext } from 'next';
 import { graphql } from 'utils/graphql';
 import { getToken } from 'utils/auth';
 import { redirectTo } from 'utils/routing';
-import OpenGraph from 'components/open_graph';
-import Logo from 'components/logo';
+import HeadMatter from 'components/HeadMatter';
+import Logo from 'components/Logo';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import Error from 'next/error';
@@ -157,7 +157,7 @@ function OAuthAuthorizePage({ preauth }: Props) {
 
   return (
     <main className="container mx-auto px-6 py-8">
-      <OpenGraph title={title} description={description} />
+      <HeadMatter title={title} description={description} />
 
       <div className="max-w-xl mx-auto">
         <header className="pb-16">

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Link from 'next/link';
-import Logo from './logo';
-import SiteContext from 'components/site_context';
+import Logo from 'components/Logo';
+import SiteContext from 'components/SiteContext';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/router';
 import { useSitesData } from 'data/sites';

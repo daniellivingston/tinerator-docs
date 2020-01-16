@@ -1,5 +1,5 @@
-import Header from 'components/header';
-import OpenGraph from 'components/open_graph';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
 import Link from 'next/link';
 
 function PricingPage() {
@@ -9,7 +9,7 @@ function PricingPage() {
   return (
     <div>
       <main>
-        <OpenGraph title={title} description={description} path="/pricing" />
+        <HeadMatter title={title} description={description} path="/pricing" />
         <Header />
 
         <div className="mx-auto px-6 pt-12 container">

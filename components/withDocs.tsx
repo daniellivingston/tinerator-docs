@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './header';
-import OpenGraph from './open_graph';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
 import { MDXProvider } from '@mdx-js/react';
 import Nav from './docs/nav';
 import Link from 'next/link';
@@ -95,7 +95,7 @@ const Breadcrumb = props => {
 };
 
 const Breadcrumbs = props => {
-  if (!props.breadcrumbs) return '';
+  if (!props.breadcrumbs) return <></>;
 
   const links = props.breadcrumbs.map(props => {
     return (
@@ -123,7 +123,7 @@ export default meta => ({ children }) => {
     <MDXProvider components={components}>
       <div>
         <main>
-          <OpenGraph title={meta.title} description={meta.description} />
+          <HeadMatter title={meta.title} description={meta.description} />
           <div className="border-b">
             <Header />
           </div>

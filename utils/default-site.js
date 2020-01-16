@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import SiteContext from 'components/site_context';
+import SiteContext from 'components/SiteContext';
 
 export const useDefaultSite = siteData => {
   const { siteId, setSiteId } = useContext(SiteContext);

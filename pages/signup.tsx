@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import OpenGraph from 'components/open_graph';
-import Logo from 'components/logo';
+import HeadMatter from 'components/HeadMatter';
+import Logo from 'components/Logo';
 import SiteContext from 'components/site_context';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -48,7 +48,7 @@ function SignupPage() {
 
   return (
     <main className="container mx-auto px-6 py-8">
-      <OpenGraph title={title} description={description} />
+      <HeadMatter title={title} description={description} />
 
       <div className="max-w-sm mx-auto">
         <header className="pb-16">

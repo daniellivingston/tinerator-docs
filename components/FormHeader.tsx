@@ -1,7 +1,13 @@
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const Tab = ({ href, as, children }) => {
+type TabProps = React.PropsWithChildren<{
+  href: string;
+  as: string;
+}>;
+
+const Tab: React.FC<TabProps> = ({ href, as, children }) => {
   const router = useRouter();
   const isActive = router.pathname === href;
   const classes = `block py-2 mr-6 font-semibold ${

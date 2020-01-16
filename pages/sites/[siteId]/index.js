@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from 'components/header';
-import OpenGraph from 'components/open_graph';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
 import Error from 'next/error';
 import Link from 'next/link';
@@ -134,7 +134,7 @@ function SitePage() {
   return (
     <div>
       <main>
-        <OpenGraph title={pageTitle(siteData)} description={''} />
+        <HeadMatter title={pageTitle(siteData)} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <FormList siteData={siteData} />

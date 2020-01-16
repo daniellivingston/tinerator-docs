@@ -1,4 +1,6 @@
-export default ({ inverted }) => {
+import React from 'react';
+
+const Logo: React.FC<{ inverted: boolean }> = ({ inverted }) => {
   const color = inverted ? '#fff' : '#000';
   const svg = `
   <svg width="96px" height="22px" viewBox="0 0 96 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -18,3 +20,5 @@ export default ({ inverted }) => {
 
   return <span dangerouslySetInnerHTML={{ __html: svg }} />;
 };
+
+export default Logo;

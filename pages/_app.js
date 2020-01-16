@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import * as Fathom from 'fathom-client';
 import Footer from 'components/Footer';
-import SiteContext from 'components/site_context';
+import SiteContext from 'components/SiteContext';
 import cookie from 'js-cookie';
 import { StaticKitProvider } from '@statickit/react';
 

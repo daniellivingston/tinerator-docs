@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Error from 'next/error';
 import { useRouter } from 'next/router';
-import Header from 'components/header';
-import OpenGraph from 'components/open_graph';
-import FormHeader from 'components/form_header';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
+import FormHeader from 'components/FormHeader';
 import { graphql } from 'utils/graphql';
 import { useDefaultSite } from 'utils/default-site';
 import { useAuthRequired, getToken } from 'utils/auth';
@@ -80,7 +80,7 @@ function FormSettingsPage() {
   return (
     <div>
       <main>
-        <OpenGraph title={form.name} description={''} />
+        <HeadMatter title={form.name} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <FormHeader siteData={siteData} formData={formData} />

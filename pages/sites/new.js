@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/router';
-import Header from 'components/header';
-import OpenGraph from 'components/open_graph';
-import ValidationError from 'components/validation_error';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
+import ValidationError from 'components/ValidationError';
 import { useViewerData, fetch as fetchViewer } from 'data/viewer';
 import { getToken } from 'utils/auth';
 import { graphql } from 'utils/graphql';
@@ -65,7 +65,7 @@ function NewSitePage({ viewerData: initialViewerData }) {
   return (
     <div>
       <main>
-        <OpenGraph title={title} description={description} path="/sites/new" />
+        <HeadMatter title={title} description={description} path="/sites/new" />
         <div className="bg-gray-900">
           <Header viewerData={viewerData} inverted={true} showAppNav={false} />
           <div className="container px-6 py-16 sm:py-24 mx-auto">

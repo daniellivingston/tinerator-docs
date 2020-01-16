@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Header from 'components/header';
-import OpenGraph from 'components/open_graph';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
 import { useStaticKit } from '@statickit/react';
 import { sendSupportEmail } from '@statickit/functions';
 
@@ -84,7 +84,7 @@ function SupportPage() {
   return (
     <div>
       <main>
-        <OpenGraph title={title} description={description} path="/support" />
+        <HeadMatter title={title} description={description} path="/support" />
         <Header pageTitle={title} />
 
         <div className="mx-auto px-6 pt-12 container">

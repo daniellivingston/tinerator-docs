@@ -2,9 +2,9 @@ import React, { useEffect, useContext } from 'react';
 import Error from 'next/error';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Header from 'components/header';
-import OpenGraph from 'components/open_graph';
-import FormHeader from 'components/form_header';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
+import FormHeader from 'components/FormHeader';
 import { useDefaultSite } from 'utils/default-site';
 import { useAuthRequired } from 'utils/auth';
 import { getToken } from 'utils/auth';
@@ -261,7 +261,7 @@ function FormPage() {
   return (
     <div>
       <main>
-        <OpenGraph title={pageTitle(formData)} description={''} />
+        <HeadMatter title={pageTitle(formData)} description={''} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <FormHeader siteData={siteData} formData={formData} />

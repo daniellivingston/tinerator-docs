@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Header from 'components/header';
-import OpenGraph from 'components/open_graph';
+import Header from 'components/Header';
+import HeadMatter from 'components/HeadMatter';
 import Error from 'next/error';
 import { useDefaultSite } from 'utils/default-site';
 import { useAuthRequired, getToken } from 'utils/auth';
@@ -58,7 +58,7 @@ function SiteSettingsPage() {
   return (
     <div>
       <main>
-        <OpenGraph title={pageTitle(siteData)} />
+        <HeadMatter title={pageTitle(siteData)} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={viewerData} siteData={siteData} />
           <div className="container py-16 sm:py-20 mx-auto">
