@@ -18,9 +18,9 @@ IndexPage.getInitialProps = async context => {
     } = viewerData.viewer;
 
     if (siteId) {
-      redirectTo(`/sites/${siteId}`, context);
+      redirectTo('/sites/[siteId]', `/sites/${siteId}`, context);
     } else {
-      redirectTo('/sites/new', context);
+      redirectTo('/sites/new', undefined, context);
     }
   }
 

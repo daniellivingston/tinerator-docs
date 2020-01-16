@@ -34,7 +34,7 @@ export const logout = () => {
 };
 
 export const redirectToLogin = (context = {}) => {
-  redirectTo('/login', context);
+  redirectTo('/login', undefined, context);
 };
 
 export const fetchToken = async (email, password) => {
