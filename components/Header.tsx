@@ -31,7 +31,7 @@ function UserMenu({ viewer }) {
 
   return (
     <OutsideClickHandler onOutsideClick={() => setIsOpen(false)}>
-      <div className="relative flex">
+      <div className="relative flex z-20">
         <button className="ml-4 flex-shrink-0" onClick={toggleMenu}>
           <img
             src={viewer.avatarUrl}
@@ -41,8 +41,15 @@ function UserMenu({ viewer }) {
         <div
           className={`mt-12 py-2 bg-white absolute right-0 w-32 rounded shadow-menu ${toggleClass}`}
         >
-          <ul className="text-gray-700">
-            <li key="logout">
+          <ul className="text-gray-700 font-normal">
+            <li key="billing">
+              <Link href="/billing">
+                <a className="block px-4 py-2 w-full hover:bg-gray-200 text-left">
+                  Billing
+                </a>
+              </Link>
+            </li>
+            <li key="logout" className="mt-2 pt-2 border-t">
               <button
                 className="px-4 py-2 w-full hover:bg-gray-200 text-left"
                 onClick={handleLogout}
@@ -155,7 +162,7 @@ const SiteMenu = ({ currentSite, inverted, inApp }) => {
               sitesData.sites.edges.map(({ node }) => (
                 <SiteMenuItem key={node.id} site={node} inApp={inApp} />
               ))}
-            <li key="logout" className="mt-2 pt-2 border-t">
+            <li key="new-site" className="mt-2 pt-2 border-t">
               <Link href="/sites/new">
                 <a className="block px-4 py-2 w-full hover:bg-gray-200 text-left">
                   Create a new site

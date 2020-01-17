@@ -9,7 +9,7 @@ function PricingPage() {
   return (
     <div>
       <main>
-        <HeadMatter title={title} description={description} path="/pricing" />
+        <HeadMatter title={title} description={description} />
         <Header />
 
         <div className="mx-auto px-6 pt-12 container">

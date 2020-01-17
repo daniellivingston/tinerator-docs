@@ -58,7 +58,7 @@ function LoginPage() {
 
   return (
     <main className="container mx-auto px-6 py-8">
-      <HeadMatter title={title} description={description} path="/login" />
+      <HeadMatter title={title} description={description} />
 
       <div className="max-w-sm mx-auto">
         <header className="pb-16">

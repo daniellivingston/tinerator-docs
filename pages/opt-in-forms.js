@@ -138,7 +138,7 @@ function OptInFormsPage() {
   return (
     <div>
       <main>
-        <HeadMatter title={title} description={description} path="/" />
+        <HeadMatter title={title} description={description} />
         <div className="bg-gray-900">
           <Header inverted={true} />
 

@@ -24,7 +24,6 @@ function ZeitPage() {
         <HeadMatter
           title={title}
           description={description}
-          path="/zeit"
           image="https://statickit.com/static/zeit-og.jpg"
           twitterCard="summary_large_image"
         />

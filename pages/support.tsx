@@ -84,7 +84,7 @@ function SupportPage() {
   return (
     <div>
       <main>
-        <HeadMatter title={title} description={description} path="/support" />
+        <HeadMatter title={title} description={description} />
         <Header pageTitle={title} />
 
         <div className="mx-auto px-6 pt-12 container">

@@ -55,7 +55,7 @@ function HomePage(props) {
   return (
     <div>
       <main>
-        <HeadMatter title={title} description={description} path="/" />
+        <HeadMatter title={title} description={description} />
         <div className="bg-gray-900">
           <Header inverted={true} viewerData={props.viewerData} />
 
