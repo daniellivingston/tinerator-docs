@@ -76,11 +76,19 @@ interface Submissions {
   }>;
 }
 
+interface Usage {
+  startAt: string;
+  endAt: string;
+  invocations: number;
+  submissions: number;
+}
+
 export type ViewerData = Ok<{ viewer: Viewer }> | ErrorResponse;
 export type SiteData = Ok<{ site: Site }> | ErrorResponse;
 export type FormData = Ok<{ form: Form }> | ErrorResponse;
 export type SiteListData = Ok<{ sites: SiteList }> | ErrorResponse;
 export type SubmissionsData = Ok<{ submissions: Submissions }> | ErrorResponse;
+export type UsageData = Ok<{ usage: Usage }> | ErrorResponse;
 
 const unauthorized: Unauthorized = { status: 'unauthorized' };
 const serverError: ServerError = { status: 'serverError' };
@@ -378,4 +386,53 @@ export const fetchSubmissions = async (
   // } catch (e) {
   //   return serverError;
   // }
+};
+
+/**
+ * Fetches site usage metrics.
+ *
+ * @param id - the site id
+ * @param token - the auth token
+ */
+export const fetchUsage = async (
+  id: string,
+  token: string
+): Promise<UsageData> => {
+  const query = `
+    query Site(
+      $id: String
+    ) {
+      site(id: $id) {
+        usage {
+          startAt
+          endAt
+          invocations
+          submissions
+        }
+      }
+    }
+  `;
+
+  if (!token) return unauthorized;
+
+  try {
+    const resp = await graphql(query, { id }, token);
+
+    if (resp.status >= 400) {
+      if (resp.status === 401) return unauthorized;
+      if (resp.status < 500) return clientError;
+      return serverError;
+    }
+
+    const {
+      data: {
+        site: { usage }
+      }
+    } = await resp.json();
+
+    if (!usage) return notFound;
+    return { status: 'ok', usage };
+  } catch (e) {
+    return serverError;
+  }
 };

@@ -7,9 +7,12 @@ import { useAuthRequired, getToken } from 'utils/auth';
 import { useRouter } from 'next/router';
 import useViewerData from 'components/useViewerData';
 import useSiteData, { revalidate } from 'components/useSiteData';
+import useUsageData from 'components/useUsageData';
 import { updateSiteName } from 'data/mutations';
 import { ValidationError } from '@statickit/react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { UsageData } from 'data/queries';
+import moment from 'moment';
 
 const copyIcon = `
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
@@ -20,10 +23,37 @@ const pageTitle = siteData => {
   return `Site Settings - ${siteData.site.name}`;
 };
 
+const Usage: React.FC<{ data: UsageData }> = ({ data }) => {
+  if (!data) {
+    return <p>Loading...</p>;
+  }
+
+  if (data.status !== 'ok') {
+    return <p>An error occurred</p>;
+  }
+
+  let usage = data.usage;
+  let startAt = moment.utc(usage.startAt).format('MMM D, YYYY');
+  let endAt = moment.utc(usage.endAt).format('MMM D, YYYY');
+
+  return (
+    <div>
+      <p className="pb-4">
+        From {startAt} to {endAt}:
+      </p>
+      <ul className="list-disc list-inside">
+        <li>{usage.invocations} function invocations</li>
+        <li>{usage.submissions} form submissions</li>
+      </ul>
+    </div>
+  );
+};
+
 function SiteSettingsPage() {
   const router = useRouter();
   const { data: viewerData } = useViewerData();
   const { data: siteData } = useSiteData(router.query.siteId as string);
+  const { data: usageData } = useUsageData(router.query.siteId as string);
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
@@ -156,6 +186,20 @@ function SiteSettingsPage() {
                       </CopyToClipboard>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div className="mx-auto sm:flex max-w-3xl py-3">
+                <div className="sm:w-1/3 px-6 pb-3">
+                  <label className="block pb-1 text-gray-400 font-semibold">
+                    Usage
+                  </label>
+                  <p className="text-sm text-gray-600">
+                    Metrics about your site.
+                  </p>
+                </div>
+                <div className="sm:w-2/3 px-6 pb-3 text-gray-400">
+                  <Usage data={usageData} />
                 </div>
               </div>
             </div>
