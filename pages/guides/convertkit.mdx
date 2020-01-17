@@ -26,9 +26,7 @@ export default withDocs({
   In this guide, you'll learn how to add subscribers and apply tags to them in <a href="https://convertkit.com/">ConvertKit</a> when someone submits a form.
 </p>
 
-<h2 id="configure-your-form">
-  <StepHeading step="1">Configure your form</StepHeading>
-</h2>
+<StepHeading step="1" id="configure-your-form">Configure your form</StepHeading>
 
 In your `statickit.json` file, either add a new form or update an existing form's `actions`: 
 
@@ -60,9 +58,7 @@ The `tags` you specify must already exist in your ConvertKit account. To add a t
 - Log in to your ConvertKit account
 - Click **+ Create a Tag** in the right-hand sidebar of your dashboard
 
-<h2 id="add-your-api-secret">
-  <StepHeading step="2">Add your API secret</StepHeading>
-</h2>
+<StepHeading step="2" id="add-your-api-secret">Add your API secret</StepHeading>
 
 Next, you need to save your ConvertKit API Secret in your StaticKit secrets. Here's where to find it:
 
@@ -84,9 +80,7 @@ Now, you're ready to deploy:
 statickit deploy
 ```
 
-<h2 id="configure-your-fields">
-  <StepHeading step="3">Configure your fields (optional)</StepHeading>
-</h2>
+<StepHeading step="3" id="configure-your-fields">Configure your fields (optional)</StepHeading>
 
 By default, the `applyTags` action uses the `email` and `first_name` fields. You can override them like this:
 
@@ -115,9 +109,7 @@ If you are gathering additional fields (like last name), you can map them to Con
 
 The fields you use must already exist in your ConvertKit account.
 
-<h2 id="build-your-form">
-  <StepHeading step="4">Build your form</StepHeading>
-</h2>
+<StepHeading step="4" id="build-your-form">Build your form</StepHeading>
 
 We have a few client libraries to help attach your interface to StaticKit:
 

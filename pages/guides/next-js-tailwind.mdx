@@ -26,9 +26,7 @@ export default withDocs({
   In this guide, we'll walk through how to install <a href="https://tailwindcss.com/">Tailwind CSS</a> in a new <a href="https://nextjs.org">Next.js</a> project.
 </p>
 
-<h2 id="create-a-new-project">
-  <StepHeading step="1">Create a new project</StepHeading>
-</h2>
+<StepHeading step="1" id="create-a-new-project">Create a new project</StepHeading>
 
 Run the following command to create a fresh project:
 
@@ -47,9 +45,7 @@ npm run dev
 
 You should see "Welcome to Next.js" when you open [`http://localhost:3000/`](http://localhost:3000/) in your browser.
 
-<h2 id="install-dependencies">
-  <StepHeading step="2">Install dependencies</StepHeading>
-</h2>
+<StepHeading step="2" id="install-dependencies">Install dependencies</StepHeading>
 
 Run the following to install Tailwind and its other dependencies:
 
@@ -63,9 +59,7 @@ You'll also need to install the `next-css` plugin:
 npm install @zeit/next-css
 ```
 
-<h2 id="configure-the-build-pipeline">
-  <StepHeading step="3">Configure the build pipeline</StepHeading>
-</h2>
+<StepHeading step="3" id="configure-the-build-pipeline">Configure the build pipeline</StepHeading>
 
 Create a `postcss.config.js` file with the following:
 
@@ -88,9 +82,7 @@ module.exports = withCSS({});
 
 This tells Next.js to process CSS files that you `import` in your code.
 
-<h2 id="add-tailwind-to-your-css">
-  <StepHeading step="4">Add Tailwind to your CSS</StepHeading>
-</h2>
+<StepHeading step="4" id="add-tailwind-to-your-css">Add Tailwind to your CSS</StepHeading>
 
 Create a CSS file in a `styles` directory and add the Tailwind directives:
 
@@ -104,9 +96,7 @@ cat >styles/main.css <<EOL
 EOL
 ```
 
-<h2 id="import-your-css">
-  <StepHeading step="5">Import your CSS</StepHeading>
-</h2>
+<StepHeading step="5" id="import-your-css">Import your CSS</StepHeading>
 
 Open up `pages/index.js` and add your import:
 

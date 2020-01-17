@@ -26,9 +26,7 @@ export default withDocs({
   In this guide, you'll learn how to add (or update) subscribers in <a href="https://mailchimp.com/">Mailchimp</a> when someone submits a form.
 </p>
 
-<h2 id="configure-your-form">
-  <StepHeading step="1">Configure your form</StepHeading>
-</h2>
+<StepHeading step="1" id="configure-your-form">Configure your form</StepHeading>
 
 In your `statickit.json` file, either add a new form or update an existing form's `actions`: 
 
@@ -63,9 +61,7 @@ Here's where to find your Audience ID place in the `audience` property:
 - Click **Audience name and defaults**
 - Locate the ID under the "Audience ID" heading (it looks like `5ca598e7e8`)
 
-<h2 id="add-your-mailchimp-api-key">
-  <StepHeading step="2">Add your API key</StepHeading>
-</h2>
+<StepHeading step="2" id="add-your-mailchimp-api-key">Add your API key</StepHeading>
 
 Next, you need to save your Mailchimp API key in your StaticKit secrets. Here's where to find it:
 
@@ -88,9 +84,7 @@ Now, you're ready to deploy:
 statickit deploy
 ```
 
-<h2 id="configure-your-fields">
-  <StepHeading step="3">Configure your fields (optional)</StepHeading>
-</h2>
+<StepHeading step="3" id="configure-your-fields">Configure your fields (optional)</StepHeading>
 
 By default, the `addOrUpdateContact` action uses the `email` field. You can override the email address field using the `emailAddressField` property:
 
@@ -114,9 +108,7 @@ If you are gathering additional fields (like first name), you can map them to Ma
 }
 ```
 
-<h2 id="build-your-form">
-  <StepHeading step="4">Build your form</StepHeading>
-</h2>
+<StepHeading step="4" id="build-your-form">Build your form</StepHeading>
 
 We have a few client libraries to help attach your interface to StaticKit:
 

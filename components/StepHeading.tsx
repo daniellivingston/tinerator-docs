@@ -2,15 +2,16 @@ import React from 'react';
 
 type Props = React.PropsWithChildren<{
   step: number;
+  id: string;
 }>;
 
 const StepHeading: React.FC<Props> = props => (
-  <div className="flex items-center">
-    <div className="flex-shrink-0 flex items-center justify-center mr-3 rounded-full text-base bg-indigo-600 w-8 h-8 font-bold text-white leading-none">
-      {props.step}
-    </div>
-    <div>{props.children}</div>
-  </div>
+  <h2 id={props.id}>
+    <a href={`#${props.id}`}>
+      <span className="mr-3 font-bold text-gray-500">{props.step}</span>
+      <span>{props.children}</span>
+    </a>
+  </h2>
 );
 
 export default StepHeading;
