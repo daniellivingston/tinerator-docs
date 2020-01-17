@@ -11,11 +11,14 @@ import { getToken } from 'utils/auth';
 import { graphql } from 'utils/graphql';
 import { useViewerData } from 'data/viewer';
 import useSiteData from 'components/useSiteData';
-import { useFormData, revalidate as revalidateForm } from 'data/form';
+import useFormData, {
+  revalidate as revalidateForm
+} from 'components/useFormData';
 import {
   useSubmissionsData,
   revalidate as revalidateSubmissions
 } from 'data/submissions';
+import { FormData } from 'data/query';
 import moment from 'moment';
 
 const trashIcon = `
@@ -103,6 +106,22 @@ const SubmissionTable = ({ formData, submissionsData }) => {
     return (
       <div className="mx-auto container px-6 py-24 text-2xl font-semibold text-gray-500 text-center">
         Loading...
+      </div>
+    );
+  }
+
+  if (formData.status !== 'ok') {
+    return (
+      <div className="mx-auto container px-6 py-24 text-2xl font-semibold text-gray-500 text-center">
+        An error occurred
+      </div>
+    );
+  }
+
+  if (submissionsData.status !== 'ok') {
+    return (
+      <div className="mx-auto container px-6 py-24 text-2xl font-semibold text-gray-500 text-center">
+        An error occurred
       </div>
     );
   }
@@ -236,8 +255,8 @@ const SubmissionCount = ({ formData }) => {
   );
 };
 
-const pageTitle = formData => {
-  if (!formData || !formData.form) return 'Form';
+const pageTitle = (formData: FormData) => {
+  if (!formData || formData.status !== 'ok') return 'Form';
   return formData.form.name;
 };
 
@@ -246,7 +265,7 @@ function FormPage() {
 
   const { viewerData } = useViewerData();
   const { data: siteData } = useSiteData(router.query.siteId as string);
-  const { formData } = useFormData(router.query.formId);
+  const { data: formData } = useFormData(router.query.formId as string);
   const { submissionsData } = useSubmissionsData(
     router.query as { formId: string; before: string; after: string }
   );

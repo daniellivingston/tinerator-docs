@@ -9,7 +9,7 @@ import { useDefaultSite } from 'utils/default-site';
 import { useAuthRequired, getToken } from 'utils/auth';
 import { useViewerData } from 'data/viewer';
 import useSiteData from 'components/useSiteData';
-import { useFormData } from 'data/form';
+import useFormData from 'components/useFormData';
 import { ValidationError } from '@statickit/react';
 
 function FormSettingsPage() {
@@ -17,7 +17,7 @@ function FormSettingsPage() {
 
   const { viewerData } = useViewerData();
   const { data: siteData } = useSiteData(router.query.siteId as string);
-  const { formData } = useFormData(router.query.formId);
+  const { data: formData } = useFormData(router.query.formId as string);
 
   useAuthRequired(viewerData);
   useDefaultSite(siteData);
@@ -26,7 +26,7 @@ function FormSettingsPage() {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    if (formData && formData.form) {
+    if (formData && formData.status === 'ok') {
       setKey(formData.form.key);
     }
   }, [formData]);
@@ -39,7 +39,7 @@ function FormSettingsPage() {
     return <Error statusCode={404} />;
   }
 
-  if (!formData || !formData.form) return <></>;
+  if (!formData || formData.status !== 'ok') return <></>;
 
   const form = formData.form;
 

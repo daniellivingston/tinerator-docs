@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { FormData } from 'data/query';
 
 type TabProps = React.PropsWithChildren<{
   href: string;
@@ -34,7 +35,7 @@ const Breadcrumb = ({ siteData }) => {
 };
 
 const Heading = ({ formData }) => {
-  if (!formData) return <></>;
+  if (!formData || formData.status !== 'ok') return <></>;
 
   const form = formData.form;
 
@@ -44,9 +45,14 @@ const Heading = ({ formData }) => {
 };
 
 const Tabs = ({ formData, siteData }) => {
-  if (!siteData || !formData) {
+  if (!siteData || siteData.status !== 'ok') {
     return <></>;
   }
+
+  if (!formData || formData.status !== 'ok') {
+    return <></>;
+  }
+
   const site = siteData.site;
   const form = formData.form;
 
