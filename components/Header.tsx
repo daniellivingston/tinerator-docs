@@ -168,7 +168,7 @@ const SiteMenu = ({ currentSite, inverted, inApp }) => {
   );
 };
 
-const SiteSettingsButton = ({ currentSite }) => {
+const SiteSettingsButton = ({ currentSite, inverted }) => {
   if (!currentSite) return <></>;
 
   return (
