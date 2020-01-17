@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Router from 'next/router';
 import cookie from 'js-cookie';
 import cookies from 'next-cookies';
-import { revalidate, prefetch } from '../data/viewer';
+import { revalidate, prefetch } from 'components/useViewerData';
 import { redirectTo } from './routing';
 
 const endpoint =

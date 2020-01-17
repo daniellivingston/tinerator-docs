@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Highlight, { Language, defaultProps } from 'prism-react-renderer';
 import { useDefaultSite } from 'utils/default-site';
 import useSiteData from 'components/useSiteData';
-import { useViewerData } from 'data/viewer';
+import useViewerData from 'components/useViewerData';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const copyIcon = `
@@ -18,7 +18,7 @@ const CodeBlock: React.FC<Props> = ({ children, className }) => {
   const language = className.replace(/language-/, '') as Language;
   const siteId = useDefaultSite();
   const { data: siteData } = useSiteData(siteId);
-  const { viewerData } = useViewerData();
+  const { data: viewerData } = useViewerData();
   const [code, setCode] = useState(children);
 
   useEffect(() => {

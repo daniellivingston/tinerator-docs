@@ -1,23 +1,31 @@
 import React, { useState, useRef } from 'react';
+import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import ValidationError from 'components/ValidationError';
-import { useViewerData, fetch as fetchViewer } from 'data/viewer';
-import { getToken } from 'utils/auth';
+import useViewerData from 'components/useViewerData';
+import { ViewerData, fetchViewer } from 'data/query';
+import { getToken, redirectToLogin } from 'utils/auth';
 import { graphql } from 'utils/graphql';
 
-function NewSitePage({ viewerData: initialViewerData }) {
+function NewSitePage({
+  viewerData: initialViewerData
+}: {
+  viewerData: ViewerData;
+}) {
   const title = 'New Site';
   const description = 'Create a new StaticKit site.';
   const router = useRouter();
-  const { viewerData } = useViewerData({ initialData: initialViewerData });
+  const { data: viewerData } = useViewerData({
+    initialData: initialViewerData
+  });
   const nameRef = useRef(null);
   const [name, setName] = useState('');
   const [errors, setErrors] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = async e => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     const token = getToken();
@@ -65,7 +73,7 @@ function NewSitePage({ viewerData: initialViewerData }) {
   return (
     <div>
       <main>
-        <HeadMatter title={title} description={description} path="/sites/new" />
+        <HeadMatter title={title} description={description} />
         <div className="bg-gray-900">
           <Header viewerData={viewerData} inverted={true} showAppNav={false} />
           <div className="container px-6 py-16 sm:py-24 mx-auto">
@@ -84,7 +92,7 @@ function NewSitePage({ viewerData: initialViewerData }) {
                     name="name"
                     placeholder="acme.com"
                     className="input-field-inverse w-full"
-                    name={name}
+                    value={name}
                     onChange={e => setName(e.target.value)}
                   />
                   <ValidationError
@@ -108,7 +116,7 @@ function NewSitePage({ viewerData: initialViewerData }) {
   );
 }
 
-NewSitePage.getInitialProps = async context => {
+NewSitePage.getInitialProps = async (context: NextPageContext) => {
   const token = getToken(context);
   const viewerData = await fetchViewer(token);
   if (viewerData.status === 'unauthorized') redirectToLogin(context);

@@ -5,7 +5,7 @@ import Error from 'next/error';
 import { useDefaultSite } from 'utils/default-site';
 import { useAuthRequired, getToken } from 'utils/auth';
 import { useRouter } from 'next/router';
-import { useViewerData } from 'data/viewer';
+import useViewerData from 'components/useViewerData';
 import useSiteData, { revalidate } from 'components/useSiteData';
 import { updateSiteName } from 'data/mutations';
 import { ValidationError } from '@statickit/react';
@@ -22,7 +22,7 @@ const pageTitle = siteData => {
 
 function SiteSettingsPage() {
   const router = useRouter();
-  const { viewerData } = useViewerData();
+  const { data: viewerData } = useViewerData();
   const { data: siteData } = useSiteData(router.query.siteId as string);
 
   const [name, setName] = useState('');

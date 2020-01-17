@@ -1,5 +1,7 @@
 import { graphql } from 'utils/graphql';
 
+type Ok<T> = { status: 'ok' } & T;
+
 interface Unauthorized {
   status: 'unauthorized';
 }
@@ -17,6 +19,14 @@ interface NotFound {
 }
 
 type ErrorResponse = Unauthorized | ServerError | ClientError | NotFound;
+
+interface Viewer {
+  email: string;
+  avatarUrl: string;
+  defaultSite: {
+    id: string;
+  };
+}
 
 interface Form {
   id: string;
@@ -37,13 +47,54 @@ interface Site {
   };
 }
 
-export type SiteData = { status: 'ok'; site: Site } | ErrorResponse;
-export type FormData = { status: 'ok'; form: Form } | ErrorResponse;
+export type ViewerData = Ok<{ viewer: Viewer }> | ErrorResponse;
+export type SiteData = Ok<{ site: Site }> | ErrorResponse;
+export type FormData = Ok<{ form: Form }> | ErrorResponse;
 
 const unauthorized: Unauthorized = { status: 'unauthorized' };
 const serverError: ServerError = { status: 'serverError' };
 const clientError: ClientError = { status: 'clientError' };
 const notFound: NotFound = { status: 'notFound' };
+
+/**
+ * Fetches the currently logged-in viewer.
+ *
+ * @param token - the auth token
+ */
+export const fetchViewer = async (token: string): Promise<ViewerData> => {
+  const query = `
+    query Viewer {
+      viewer {
+        email
+        avatarUrl
+        defaultSite {
+          id
+        }
+      }
+    }
+  `;
+
+  if (!token) return unauthorized;
+
+  try {
+    const resp = await graphql(query, {}, token);
+
+    if (resp.status >= 400) {
+      if (resp.status === 401) return unauthorized;
+      if (resp.status < 500) return clientError;
+      return serverError;
+    }
+
+    const {
+      data: { viewer }
+    } = await resp.json();
+
+    if (!viewer) return notFound;
+    return { status: 'ok', viewer };
+  } catch (e) {
+    return serverError;
+  }
+};
 
 /**
  * Fetches a site by id.

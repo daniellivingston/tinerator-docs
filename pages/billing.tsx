@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
-import { useViewerData } from 'data/viewer';
+import useViewerData from 'components/useViewerData';
 
 type Props = React.PropsWithChildren<{}>;
 
 const BillingPage: React.FC<Props> = props => {
-  const { viewerData } = useViewerData();
+  const { data: viewerData } = useViewerData();
 
   return (
     <main>

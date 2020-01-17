@@ -6,7 +6,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/router';
 import { useSitesData } from 'data/sites';
 import { logout } from 'utils/auth';
-import { useViewerData } from 'data/viewer';
+import useViewerData from 'components/useViewerData';
 import useSiteData from 'components/useSiteData';
 import { useDefaultSite } from 'utils/default-site';
 
@@ -192,7 +192,9 @@ const Header = props => {
   const router = useRouter();
   const defaultSiteId = useDefaultSite();
 
-  const { viewerData } = useViewerData({ initialData: initialViewerData });
+  const { data: viewerData } = useViewerData({
+    initialData: initialViewerData
+  });
 
   const { data: siteData } = router.query.siteId
     ? useSiteData(router.query.siteId as string, {

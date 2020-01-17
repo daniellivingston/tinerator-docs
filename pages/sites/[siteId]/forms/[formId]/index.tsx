@@ -9,7 +9,7 @@ import { useDefaultSite } from 'utils/default-site';
 import { useAuthRequired } from 'utils/auth';
 import { getToken } from 'utils/auth';
 import { graphql } from 'utils/graphql';
-import { useViewerData } from 'data/viewer';
+import useViewerData from 'components/useViewerData';
 import useSiteData from 'components/useSiteData';
 import useFormData, {
   revalidate as revalidateForm
@@ -263,7 +263,7 @@ const pageTitle = (formData: FormData) => {
 function FormPage() {
   const router = useRouter();
 
-  const { viewerData } = useViewerData();
+  const { data: viewerData } = useViewerData();
   const { data: siteData } = useSiteData(router.query.siteId as string);
   const { data: formData } = useFormData(router.query.formId as string);
   const { submissionsData } = useSubmissionsData(
