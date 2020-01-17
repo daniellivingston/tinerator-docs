@@ -10,7 +10,7 @@ import { useAuthRequired } from 'utils/auth';
 import { getToken } from 'utils/auth';
 import { graphql } from 'utils/graphql';
 import { useViewerData } from 'data/viewer';
-import { useSiteData } from 'data/site';
+import useSiteData from 'components/useSiteData';
 import { useFormData, revalidate as revalidateForm } from 'data/form';
 import {
   useSubmissionsData,
@@ -143,7 +143,9 @@ const SubmissionTable = ({ formData, submissionsData }) => {
 
       if (resp.ok) {
         revalidateForm(form.id);
-        revalidateSubmissions(router.query);
+        revalidateSubmissions(
+          router.query as { formId: string; before: string; after: string }
+        );
       }
     } catch (e) {}
   };
@@ -243,9 +245,11 @@ function FormPage() {
   const router = useRouter();
 
   const { viewerData } = useViewerData();
-  const { siteData } = useSiteData(router.query.siteId);
+  const { data: siteData } = useSiteData(router.query.siteId as string);
   const { formData } = useFormData(router.query.formId);
-  const { submissionsData } = useSubmissionsData(router.query);
+  const { submissionsData } = useSubmissionsData(
+    router.query as { formId: string; before: string; after: string }
+  );
 
   useAuthRequired(viewerData);
   useDefaultSite(siteData);

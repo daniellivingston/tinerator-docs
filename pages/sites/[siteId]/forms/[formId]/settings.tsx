@@ -8,7 +8,7 @@ import { graphql } from 'utils/graphql';
 import { useDefaultSite } from 'utils/default-site';
 import { useAuthRequired, getToken } from 'utils/auth';
 import { useViewerData } from 'data/viewer';
-import { useSiteData } from 'data/site';
+import useSiteData from 'components/useSiteData';
 import { useFormData } from 'data/form';
 import { ValidationError } from '@statickit/react';
 
@@ -16,7 +16,7 @@ function FormSettingsPage() {
   const router = useRouter();
 
   const { viewerData } = useViewerData();
-  const { siteData } = useSiteData(router.query.siteId);
+  const { data: siteData } = useSiteData(router.query.siteId as string);
   const { formData } = useFormData(router.query.formId);
 
   useAuthRequired(viewerData);

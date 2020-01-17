@@ -2,13 +2,13 @@ import React from 'react';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
+import useSiteData from 'components/useSiteData';
 import Error from 'next/error';
 import Link from 'next/link';
 import { useDefaultSite } from 'utils/default-site';
 import { useAuthRequired } from 'utils/auth';
 import { useRouter } from 'next/router';
 import { useViewerData } from 'data/viewer';
-import { useSiteData } from 'data/site';
 import { stripIndent } from 'common-tags';
 
 const firstDeploy = token => stripIndent`
@@ -122,7 +122,7 @@ const pageTitle = siteData => {
 function SitePage() {
   const router = useRouter();
   const { viewerData } = useViewerData();
-  const { siteData } = useSiteData(router.query.siteId);
+  const { data: siteData } = useSiteData(router.query.siteId as string);
 
   useAuthRequired(viewerData);
   useDefaultSite(siteData);

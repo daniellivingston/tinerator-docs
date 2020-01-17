@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { useSitesData } from 'data/sites';
 import { logout } from 'utils/auth';
 import { useViewerData } from 'data/viewer';
-import { useSiteData } from 'data/site';
+import useSiteData from 'components/useSiteData';
 import { useDefaultSite } from 'utils/default-site';
 
 const gearIcon = `
@@ -194,17 +194,18 @@ const Header = props => {
 
   const { viewerData } = useViewerData({ initialData: initialViewerData });
 
-  const { siteData } = router.query.siteId
-    ? useSiteData(router.query.siteId, { initialData: initialSiteData })
+  const { data: siteData } = router.query.siteId
+    ? useSiteData(router.query.siteId as string, {
+        initialData: initialSiteData
+      })
     : useSiteData(defaultSiteId);
 
   const inApp = router.query.siteId ? true : false;
-  const site = siteData && siteData.site;
+  const site = siteData && siteData.status === 'ok' ? siteData.site : undefined;
   const textColor = inverted ? 'text-gray-500' : 'text-gray-600';
-  const [mainLinkHref, mainLinkAs] =
-    siteData && siteData.site
-      ? ['/sites/[siteId]', `/sites/${siteData.site.id}`]
-      : ['/', '/'];
+  const [mainLinkHref, mainLinkAs] = site
+    ? ['/sites/[siteId]', `/sites/${site.id}`]
+    : ['/', '/'];
 
   return (
     <div className={`${inverted ? 'bg-gray-900' : ''}`}>

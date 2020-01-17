@@ -6,7 +6,7 @@ import { useDefaultSite } from 'utils/default-site';
 import { useAuthRequired, getToken } from 'utils/auth';
 import { useRouter } from 'next/router';
 import { useViewerData } from 'data/viewer';
-import { useSiteData, revalidate } from 'data/site';
+import useSiteData, { revalidate } from 'components/useSiteData';
 import { updateSiteName } from 'data/mutations';
 import { ValidationError } from '@statickit/react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -23,7 +23,7 @@ const pageTitle = siteData => {
 function SiteSettingsPage() {
   const router = useRouter();
   const { viewerData } = useViewerData();
-  const { siteData } = useSiteData(router.query.siteId);
+  const { data: siteData } = useSiteData(router.query.siteId as string);
 
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
@@ -31,7 +31,7 @@ function SiteSettingsPage() {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    if (siteData && siteData.site) {
+    if (siteData && siteData.status === 'ok') {
       setName(siteData.site.name);
       setSlug(siteData.site.id);
       setDeployKey(siteData.site.deployKey);
@@ -47,7 +47,7 @@ function SiteSettingsPage() {
 
   const handleNameSaved = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!(siteData && siteData.site)) return;
+    if (!(siteData && siteData.status === 'ok')) return;
 
     let site = siteData.site;
     let payload = await updateSiteName(site.id, name, getToken());
