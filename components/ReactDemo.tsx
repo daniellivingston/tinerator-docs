@@ -21,7 +21,5 @@ function MyForm() {
 `;
 
 export default () => (
-  <CodeBlock className="language-jsx" trim={true}>
-    {code.trim()}
-  </CodeBlock>
+  <CodeBlock className="language-jsx">{code.trim()}</CodeBlock>
 );
