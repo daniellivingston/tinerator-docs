@@ -40,7 +40,7 @@ const CodeBlock: React.FC<Props> = ({ children, className, trim }) => {
       );
     }
 
-    setCode(newCode);
+    setCode(newCode.trim());
   }, [siteId, siteData, viewerData]);
 
   return (
@@ -49,8 +49,6 @@ const CodeBlock: React.FC<Props> = ({ children, className, trim }) => {
         {({ className, tokens, getLineProps, getTokenProps }) => (
           <pre className={className}>
             {tokens.map((line, i) => {
-              if (trim && i === tokens.length - 1) return <></>;
-
               return (
                 <div key={i} {...getLineProps({ line, key: i })}>
                   {line.map((token, key) => (
