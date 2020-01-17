@@ -1,6 +1,6 @@
 import HomePage from './home';
 import { getToken } from 'utils/auth';
-import { fetchViewer } from 'data/query';
+import { fetchViewer } from 'data/queries';
 import { redirectTo } from 'utils/routing';
 
 function IndexPage(props) {

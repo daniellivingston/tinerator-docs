@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FormData } from 'data/query';
+import { FormData } from 'data/queries';
 
 type TabProps = React.PropsWithChildren<{
   href: string;

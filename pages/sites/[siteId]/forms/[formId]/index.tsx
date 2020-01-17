@@ -18,7 +18,7 @@ import {
   useSubmissionsData,
   revalidate as revalidateSubmissions
 } from 'data/submissions';
-import { FormData } from 'data/query';
+import { FormData } from 'data/queries';
 import moment from 'moment';
 
 const trashIcon = `

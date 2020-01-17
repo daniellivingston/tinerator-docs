@@ -4,10 +4,10 @@ import Logo from 'components/Logo';
 import SiteContext from 'components/SiteContext';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useRouter } from 'next/router';
-import { useSitesData } from 'data/sites';
 import { logout } from 'utils/auth';
 import useViewerData from 'components/useViewerData';
 import useSiteData from 'components/useSiteData';
+import useSiteListData from 'components/useSiteListData';
 import { useDefaultSite } from 'utils/default-site';
 
 const gearIcon = `
@@ -115,7 +115,7 @@ const SiteMenuItem = ({ site, inApp }) => {
 const SiteMenu = ({ currentSite, inverted, inApp }) => {
   if (!currentSite) return <></>;
 
-  const { sitesData } = useSitesData();
+  const { data: sitesData } = useSiteListData();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -151,6 +151,7 @@ const SiteMenu = ({ currentSite, inverted, inApp }) => {
         >
           <ul className="text-gray-700">
             {sitesData &&
+              sitesData.status === 'ok' &&
               sitesData.sites.edges.map(({ node }) => (
                 <SiteMenuItem key={node.id} site={node} inApp={inApp} />
               ))}

@@ -47,9 +47,20 @@ interface Site {
   };
 }
 
+interface SiteList {
+  edges: Array<{
+    node: {
+      id: string;
+      name: string;
+      deployKey: string;
+    };
+  }>;
+}
+
 export type ViewerData = Ok<{ viewer: Viewer }> | ErrorResponse;
 export type SiteData = Ok<{ site: Site }> | ErrorResponse;
 export type FormData = Ok<{ form: Form }> | ErrorResponse;
+export type SiteListData = Ok<{ sites: SiteList }> | ErrorResponse;
 
 const unauthorized: Unauthorized = { status: 'unauthorized' };
 const serverError: ServerError = { status: 'serverError' };
@@ -192,6 +203,48 @@ export const fetchForm = async (
 
     if (!form) return notFound;
     return { status: 'ok', form };
+  } catch (e) {
+    return serverError;
+  }
+};
+
+/**
+ * Fetches sites accessible by the logged-in user.
+ *
+ * @param token - the auth token
+ */
+export const fetchSiteList = async (token: string): Promise<SiteListData> => {
+  const query = `
+    query Sites {
+      sites(first: 1000) {
+        edges {
+          node {
+            id
+            name
+            deployKey
+          }
+        }
+      }
+    }
+  `;
+
+  if (!token) return unauthorized;
+
+  try {
+    const resp = await graphql(query, {}, token);
+
+    if (resp.status >= 400) {
+      if (resp.status === 401) return unauthorized;
+      if (resp.status < 500) return clientError;
+      return serverError;
+    }
+
+    const {
+      data: { sites }
+    } = await resp.json();
+
+    if (!sites) return notFound;
+    return { status: 'ok', sites };
   } catch (e) {
     return serverError;
   }

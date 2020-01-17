@@ -1,8 +1,8 @@
 import useSWR, { trigger, mutate } from 'swr';
 import { getToken } from 'utils/auth';
-import { ViewerData, fetchViewer } from 'data/query';
+import { ViewerData, fetchViewer } from 'data/queries';
 
-export const revalidate = (id: string) => {
+export const revalidate = () => {
   const token = getToken();
   trigger(['viewer', token]);
 };

@@ -1,6 +1,6 @@
 import useSWR, { trigger, mutate } from 'swr';
 import { getToken } from 'utils/auth';
-import { SiteData, fetchSite } from 'data/query';
+import { SiteData, fetchSite } from 'data/queries';
 
 type Key = ['site', string, string] | null;
 

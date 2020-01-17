@@ -5,7 +5,7 @@ import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import ValidationError from 'components/ValidationError';
 import useViewerData from 'components/useViewerData';
-import { ViewerData, fetchViewer } from 'data/query';
+import { ViewerData, fetchViewer } from 'data/queries';
 import { getToken, redirectToLogin } from 'utils/auth';
 import { graphql } from 'utils/graphql';
 

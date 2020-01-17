@@ -1,6 +1,6 @@
 import useSWR, { trigger, mutate } from 'swr';
 import { getToken } from 'utils/auth';
-import { FormData, fetchForm } from 'data/query';
+import { FormData, fetchForm } from 'data/queries';
 
 type Key = ['form', string, string] | null;
 
