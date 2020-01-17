@@ -19,7 +19,7 @@ const CodeBlock: React.FC<Props> = ({ children, className }) => {
   const siteId = useDefaultSite();
   const { data: siteData } = useSiteData(siteId);
   const { data: viewerData } = useViewerData();
-  const [code, setCode] = useState(children);
+  const [code, setCode] = useState(children.trim());
 
   useEffect(() => {
     let newCode = children;
