@@ -56,106 +56,104 @@ function SiteSettingsPage() {
   };
 
   return (
-    <div>
-      <main>
-        <HeadMatter title={pageTitle(siteData)} />
-        <div className="bg-gray-900">
-          <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          <div className="container py-16 sm:py-20 mx-auto">
-            <div className="mx-auto max-w-3xl">
-              <div className="px-6 pb-6">
-                <h1 className="pb-2 text-gray-200 text-4xl tracking-snug">
-                  Site Settings
-                </h1>
+    <main>
+      <HeadMatter title={pageTitle(siteData)} />
+      <div className="bg-gray-900">
+        <Header inverted={true} viewerData={viewerData} siteData={siteData} />
+        <div className="container py-16 sm:py-20 mx-auto">
+          <div className="mx-auto max-w-3xl">
+            <div className="px-6 pb-6">
+              <h1 className="pb-2 text-gray-200 text-4xl tracking-snug">
+                Site Settings
+              </h1>
+            </div>
+
+            <div className="mx-auto container py-6">
+              <div className="mx-auto sm:flex max-w-3xl py-3">
+                <div className="sm:w-1/3 px-6 pb-3">
+                  <label className="block pb-1 text-gray-400 font-semibold">
+                    Site Name
+                  </label>
+                  <p className="text-sm text-gray-600">
+                    The name of this site.
+                  </p>
+                </div>
+                <div className="sm:w-2/3 px-6 pb-3">
+                  <form
+                    className="flex input-field-inverse p-0"
+                    onSubmit={handleNameSaved}
+                  >
+                    <input
+                      type="text"
+                      name="name"
+                      className="block p-3 flex-grow bg-transparent focus:outline-none min-w-0"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                    />
+                    <div className="p-1">
+                      <button type="submit" className="btn btn-sm">
+                        Save
+                      </button>
+                    </div>
+                  </form>
+
+                  <ValidationError
+                    prefix="Name"
+                    field="name"
+                    errors={errors}
+                    className="py-2 text-sm text-red-700 font-bold"
+                  />
+                </div>
               </div>
 
-              <div className="mx-auto container py-6">
-                <div className="mx-auto sm:flex max-w-3xl py-3">
-                  <div className="sm:w-1/3 px-6 pb-3">
-                    <label className="block pb-1 text-gray-400 font-semibold">
-                      Site Name
-                    </label>
-                    <p className="text-sm text-gray-600">
-                      The name of this site.
-                    </p>
-                  </div>
-                  <div className="sm:w-2/3 px-6 pb-3">
-                    <form
-                      className="flex input-field-inverse p-0"
-                      onSubmit={handleNameSaved}
-                    >
-                      <input
-                        type="text"
-                        name="name"
-                        className="block p-3 flex-grow bg-transparent focus:outline-none min-w-0"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                      />
-                      <div className="p-1">
-                        <button type="submit" className="btn btn-sm">
-                          Save
-                        </button>
-                      </div>
-                    </form>
-
-                    <ValidationError
-                      prefix="Name"
-                      field="name"
-                      errors={errors}
-                      className="py-2 text-sm text-red-700 font-bold"
-                    />
-                  </div>
+              <div className="mx-auto sm:flex max-w-3xl py-3">
+                <div className="sm:w-1/3 px-6 pb-3">
+                  <label className="block pb-1 text-gray-400 font-semibold">
+                    Site ID
+                  </label>
+                  <p className="text-sm text-gray-600">
+                    The public ID for this site.
+                  </p>
                 </div>
-
-                <div className="mx-auto sm:flex max-w-3xl py-3">
-                  <div className="sm:w-1/3 px-6 pb-3">
-                    <label className="block pb-1 text-gray-400 font-semibold">
-                      Site ID
-                    </label>
-                    <p className="text-sm text-gray-600">
-                      The public ID for this site.
-                    </p>
-                  </div>
-                  <div className="sm:w-2/3 px-6 pb-3">
-                    <div className="flex">
-                      <div className="flex max-w-full border border-transparent bg-gray-800 leading-tight rounded">
-                        <div className="p-3 overflow-auto font-mono text-gray-200 bg-transparent focus:outline-none">
-                          {slug}
-                        </div>
-
-                        <CopyToClipboard text={slug}>
-                          <button type="submit" className="btn btn-sm">
-                            <span
-                              dangerouslySetInnerHTML={{ __html: copyIcon }}
-                            />
-                          </button>
-                        </CopyToClipboard>
+                <div className="sm:w-2/3 px-6 pb-3">
+                  <div className="flex">
+                    <div className="flex max-w-full border border-transparent bg-gray-800 leading-tight rounded">
+                      <div className="p-3 overflow-auto font-mono text-gray-200 bg-transparent focus:outline-none">
+                        {slug}
                       </div>
+
+                      <CopyToClipboard text={slug}>
+                        <button type="submit" className="btn btn-sm">
+                          <span
+                            dangerouslySetInnerHTML={{ __html: copyIcon }}
+                          />
+                        </button>
+                      </CopyToClipboard>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="mx-auto sm:flex max-w-3xl py-3">
-                  <div className="sm:w-1/3 px-6 pb-3">
-                    <label className="block pb-1 text-gray-400 font-semibold">
-                      Deploy Key
-                    </label>
-                    <p className="text-sm text-gray-600">Keep this secret!</p>
-                  </div>
-                  <div className="sm:w-2/3 px-6 pb-3">
-                    <div className="flex">
-                      <div className="flex max-w-full border border-transparent bg-gray-800 leading-tight rounded">
-                        <div className="p-3 overflow-auto font-mono text-gray-200 bg-transparent focus:outline-none">
-                          {deployKey}
-                        </div>
-                        <CopyToClipboard text={deployKey}>
-                          <button type="submit" className="btn btn-sm">
-                            <span
-                              dangerouslySetInnerHTML={{ __html: copyIcon }}
-                            />
-                          </button>
-                        </CopyToClipboard>
+              <div className="mx-auto sm:flex max-w-3xl py-3">
+                <div className="sm:w-1/3 px-6 pb-3">
+                  <label className="block pb-1 text-gray-400 font-semibold">
+                    Deploy Key
+                  </label>
+                  <p className="text-sm text-gray-600">Keep this secret!</p>
+                </div>
+                <div className="sm:w-2/3 px-6 pb-3">
+                  <div className="flex">
+                    <div className="flex max-w-full border border-transparent bg-gray-800 leading-tight rounded">
+                      <div className="p-3 overflow-auto font-mono text-gray-200 bg-transparent focus:outline-none">
+                        {deployKey}
                       </div>
+                      <CopyToClipboard text={deployKey}>
+                        <button type="submit" className="btn btn-sm">
+                          <span
+                            dangerouslySetInnerHTML={{ __html: copyIcon }}
+                          />
+                        </button>
+                      </CopyToClipboard>
                     </div>
                   </div>
                 </div>
@@ -163,8 +161,8 @@ function SiteSettingsPage() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
 
