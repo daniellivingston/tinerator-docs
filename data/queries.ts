@@ -57,15 +57,41 @@ interface SiteList {
   }>;
 }
 
+interface Submissions {
+  pageInfo: {
+    hasPrevPage: boolean;
+    hasNextPage: boolean;
+    startCursor: string;
+    endCursor: string;
+  };
+  edges: Array<{
+    node: {
+      id: string;
+      data: {
+        name: string;
+        value: string;
+      };
+      occurredAt: string;
+    };
+  }>;
+}
+
 export type ViewerData = Ok<{ viewer: Viewer }> | ErrorResponse;
 export type SiteData = Ok<{ site: Site }> | ErrorResponse;
 export type FormData = Ok<{ form: Form }> | ErrorResponse;
 export type SiteListData = Ok<{ sites: SiteList }> | ErrorResponse;
+export type SubmissionsData = Ok<{ submissions: Submissions }> | ErrorResponse;
 
 const unauthorized: Unauthorized = { status: 'unauthorized' };
 const serverError: ServerError = { status: 'serverError' };
 const clientError: ClientError = { status: 'clientError' };
 const notFound: NotFound = { status: 'notFound' };
+
+interface SubmissionsInput {
+  formId: string;
+  before?: string;
+  after?: string;
+}
 
 /**
  * Fetches the currently logged-in viewer.
@@ -248,4 +274,108 @@ export const fetchSiteList = async (token: string): Promise<SiteListData> => {
   } catch (e) {
     return serverError;
   }
+};
+
+/**
+ * Fetches a form submissions.
+ *
+ * @param props
+ */
+export const fetchSubmissions = async (
+  { formId, before, after }: SubmissionsInput,
+  token: string
+): Promise<SubmissionsData> => {
+  const forwardQuery = `
+    query Submissions(
+      $formId: ID!,
+      $first: Int,
+      $after: String
+    ) {
+      form(id: $formId) {
+        submissions(
+          first: $first,
+          after: $after
+        ) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
+          edges {
+            node {
+              id
+              data {
+                name
+                value
+              }
+              occurredAt
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const backwardQuery = `
+    query Submissions(
+      $formId: ID!,
+      $last: Int,
+      $before: String,
+    ) {
+      form(id: $formId) {
+        submissions(
+          last: $last,
+          before: $before,
+        ) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+          }
+          edges {
+            node {
+              id
+              data {
+                name
+                value
+              }
+              occurredAt
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  if (!token) return unauthorized;
+
+  const query = before ? backwardQuery : forwardQuery;
+  const [first, last] = before ? [null, 50] : [50, null];
+
+  // try {
+  const resp = await graphql(
+    query,
+    { formId, first, last, before, after },
+    token
+  );
+
+  if (resp.status >= 400) {
+    if (resp.status === 401) return unauthorized;
+    if (resp.status < 500) return clientError;
+    return serverError;
+  }
+
+  const {
+    data: {
+      form: { submissions }
+    }
+  } = await resp.json();
+
+  if (!submissions) return notFound;
+  return { status: 'ok', submissions };
+  // } catch (e) {
+  //   return serverError;
+  // }
 };

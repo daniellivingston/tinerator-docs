@@ -14,10 +14,9 @@ import useSiteData from 'components/useSiteData';
 import useFormData, {
   revalidate as revalidateForm
 } from 'components/useFormData';
-import {
-  useSubmissionsData,
+import useSubmissionsData, {
   revalidate as revalidateSubmissions
-} from 'data/submissions';
+} from 'components/useSubmissionsData';
 import { FormData } from 'data/queries';
 import moment from 'moment';
 
@@ -266,7 +265,7 @@ function FormPage() {
   const { data: viewerData } = useViewerData();
   const { data: siteData } = useSiteData(router.query.siteId as string);
   const { data: formData } = useFormData(router.query.formId as string);
-  const { submissionsData } = useSubmissionsData(
+  const { data: submissionsData } = useSubmissionsData(
     router.query as { formId: string; before: string; after: string }
   );
 
