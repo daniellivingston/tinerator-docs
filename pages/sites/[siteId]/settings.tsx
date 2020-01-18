@@ -51,7 +51,15 @@ const Billing: React.FC<{ siteData: SiteData; usageData: UsageData }> = ({
     ? formatNumber(account.requestLimit)
     : '∞';
 
-  let cta = () => {
+  let cycleMessage = () => {
+    if (account.currentPeriodEnd) {
+      return `Your billing cycle ends on ${formatDate(
+        account.currentPeriodEnd
+      )}.`;
+    }
+  };
+
+  let upgradeButton = () => {
     if (account.sandbox) {
       return (
         <div className="leading-snug">
@@ -65,6 +73,8 @@ const Billing: React.FC<{ siteData: SiteData; usageData: UsageData }> = ({
       );
     }
   };
+
+  let total = usage.invocations + usage.submissions;
 
   return (
     <div className="leading-relaxed">
@@ -80,19 +90,11 @@ const Billing: React.FC<{ siteData: SiteData; usageData: UsageData }> = ({
       <ul className="ml-4 pb-4 list-disc list-inside">
         <li>{formatNumber(usage.invocations)} function calls</li>
         <li>{formatNumber(usage.submissions)} form submissions</li>
-        <li>
-          {formatNumber(usage.invocations + usage.submissions)} total requests
-        </li>
+        <li>{formatNumber(total)} total requests</li>
       </ul>
       <p>Your limit is {requestLimit} requests.</p>
-      <p className="pb-4">
-        {account.currentPeriodEnd
-          ? `Your billing cycle ends on ${formatDate(
-              account.currentPeriodEnd
-            )}.`
-          : ''}
-      </p>
-      <div>{cta()}</div>
+      <p className="pb-4">{cycleMessage()}</p>
+      <div>{upgradeButton()}</div>
     </div>
   );
 };
