@@ -48,6 +48,7 @@ interface Account {
     | 'INCOMPLETE_EXPIRED';
   planName: string;
   requestLimit: number;
+  sandbox: boolean;
   currentPeriodStart: string;
   currentPeriodEnd: string;
 }
@@ -178,6 +179,7 @@ export const fetchSite = async (
           subscriptionState
           planName
           requestLimit
+          sandbox
           currentPeriodStart
           currentPeriodEnd
         }

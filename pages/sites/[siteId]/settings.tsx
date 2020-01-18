@@ -31,7 +31,7 @@ const formatDate = (dateString: string) => {
   return moment.utc(dateString).format('MMM D, YYYY');
 };
 
-const Usage: React.FC<{ siteData: SiteData; usageData: UsageData }> = ({
+const Billing: React.FC<{ siteData: SiteData; usageData: UsageData }> = ({
   siteData,
   usageData
 }) => {
@@ -51,10 +51,30 @@ const Usage: React.FC<{ siteData: SiteData; usageData: UsageData }> = ({
     ? formatNumber(account.requestLimit)
     : '∞';
 
+  let cta = () => {
+    if (account.sandbox) {
+      return (
+        <div className="leading-snug">
+          <div className="pb-3">
+            <button className="btn">Request an upgrade</button>
+          </div>
+          <small className="text-sm text-gray-600">
+            We'll reach out quickly to get you on the right plan!
+          </small>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="leading-relaxed">
       <p>
         You&rsquo;re on the <strong>{account.planName}</strong> plan.
+      </p>
+      <p>
+        {account.sandbox
+          ? 'Be sure to upgrade to a production plan before going live.'
+          : ''}
       </p>
       <p className="pb-4">Your usage for this billing cycle:</p>
       <ul className="ml-4 pb-4 list-disc list-inside">
@@ -65,13 +85,14 @@ const Usage: React.FC<{ siteData: SiteData; usageData: UsageData }> = ({
         </li>
       </ul>
       <p>Your limit is {requestLimit} requests.</p>
-      <p>
+      <p className="pb-4">
         {account.currentPeriodEnd
           ? `Your billing cycle ends on ${formatDate(
               account.currentPeriodEnd
             )}.`
           : ''}
       </p>
+      <div>{cta()}</div>
     </div>
   );
 };
@@ -219,14 +240,14 @@ function SiteSettingsPage() {
               <div className="mx-auto sm:flex max-w-3xl py-3">
                 <div className="sm:w-1/3 px-6 pb-3">
                   <label className="block pb-1 text-gray-400 font-semibold">
-                    Usage
+                    Billing
                   </label>
                   <p className="text-sm text-gray-600">
-                    Metrics about your site.
+                    Your plan and usage info.
                   </p>
                 </div>
                 <div className="sm:w-2/3 px-6 pb-3 text-gray-400">
-                  <Usage siteData={siteData} usageData={usageData} />
+                  <Billing siteData={siteData} usageData={usageData} />
                 </div>
               </div>
             </div>
