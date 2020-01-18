@@ -36,10 +36,27 @@ interface Form {
   displayFields: string[];
 }
 
+interface Account {
+  subscriptionState:
+    | 'NONE'
+    | 'TRIALING'
+    | 'ACTIVE'
+    | 'PAST_DUE'
+    | 'CANCELED'
+    | 'UNPAID'
+    | 'INCOMPLETE'
+    | 'INCOMPLETE_EXPIRED';
+  planName: string;
+  requestLimit: number;
+  currentPeriodStart: string;
+  currentPeriodEnd: string;
+}
+
 interface Site {
   id: string;
   name: string;
   deployKey: string;
+  account: Account;
   forms: {
     edges: Array<{
       node: Form;
@@ -77,8 +94,6 @@ interface Submissions {
 }
 
 interface Usage {
-  startAt: string;
-  endAt: string;
   invocations: number;
   submissions: number;
 }
@@ -159,6 +174,13 @@ export const fetchSite = async (
         id
         name
         deployKey
+        account {
+          subscriptionState
+          planName
+          requestLimit
+          currentPeriodStart
+          currentPeriodEnd
+        }
         forms(first: 100) {
           edges {
             node {
@@ -404,8 +426,6 @@ export const fetchUsage = async (
     ) {
       site(id: $id) {
         usage {
-          startAt
-          endAt
           invocations
           submissions
         }
