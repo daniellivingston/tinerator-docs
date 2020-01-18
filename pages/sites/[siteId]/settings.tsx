@@ -11,7 +11,9 @@ import useUsageData from 'components/useUsageData';
 import { updateSiteName } from 'data/mutations';
 import { ValidationError } from '@statickit/react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { SiteData, UsageData } from 'data/queries';
+import { SiteData, UsageData, ViewerData } from 'data/queries';
+import { useStaticKit } from '@statickit/react';
+import { requestUpgrade } from '@statickit/functions';
 import moment from 'moment';
 
 const copyIcon = `
@@ -31,10 +33,15 @@ const formatDate = (dateString: string) => {
   return moment.utc(dateString).format('MMM D, YYYY');
 };
 
-const Billing: React.FC<{ siteData: SiteData; usageData: UsageData }> = ({
-  siteData,
-  usageData
-}) => {
+const Billing: React.FC<{
+  viewerData: ViewerData;
+  siteData: SiteData;
+  usageData: UsageData;
+}> = ({ viewerData, siteData, usageData }) => {
+  const client = useStaticKit();
+  const [requestingUpgrade, setRequestingUpgrade] = useState(false);
+  const [upgradeRequested, setUpgradeRequested] = useState(false);
+
   if (!siteData || !usageData) {
     return <p>Loading...</p>;
   }
@@ -59,18 +66,52 @@ const Billing: React.FC<{ siteData: SiteData; usageData: UsageData }> = ({
     }
   };
 
+  let handleUpgradeRequest = async () => {
+    if (!viewerData) return;
+    if (viewerData.status !== 'ok') return;
+
+    setRequestingUpgrade(true);
+
+    let viewer = viewerData.viewer;
+
+    let resp = await requestUpgrade(client, {
+      subject: `${site.name} (${site.id}) requested an upgrade`,
+      replyTo: viewer.email,
+      fields: {
+        invocations: usage.invocations,
+        submissions: usage.submissions
+      }
+    });
+
+    if (resp.status === 'ok') {
+      setUpgradeRequested(true);
+    } else {
+      setRequestingUpgrade(false);
+    }
+  };
+
   let upgradeButton = () => {
     if (account.sandbox) {
-      return (
-        <div className="leading-snug">
-          <div className="pb-3">
-            <button className="btn">Request an upgrade</button>
+      if (upgradeRequested) {
+        return <p>Thanks! We'll be in touch shortly.</p>;
+      } else {
+        return (
+          <div className="leading-snug">
+            <div className="pb-3">
+              <button
+                className="btn"
+                onClick={handleUpgradeRequest}
+                disabled={requestingUpgrade}
+              >
+                Request an upgrade
+              </button>
+            </div>
+            <small className="text-sm text-gray-600">
+              We'll reach out quickly to get you on the right plan!
+            </small>
           </div>
-          <small className="text-sm text-gray-600">
-            We'll reach out quickly to get you on the right plan!
-          </small>
-        </div>
-      );
+        );
+      }
     }
   };
 
@@ -249,7 +290,11 @@ function SiteSettingsPage() {
                   </p>
                 </div>
                 <div className="sm:w-2/3 px-6 pb-3 text-gray-400">
-                  <Billing siteData={siteData} usageData={usageData} />
+                  <Billing
+                    viewerData={viewerData}
+                    siteData={siteData}
+                    usageData={usageData}
+                  />
                 </div>
               </div>
             </div>

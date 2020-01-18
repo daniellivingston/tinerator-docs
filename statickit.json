@@ -3,6 +3,10 @@
     "sendSupportEmail": {
       "type": "sendNotification",
       "to": "support@statickit.com"
+    },
+    "requestUpgrade": {
+      "type": "sendNotification",
+      "to": "support@statickit.com"
     }
   }
 }
