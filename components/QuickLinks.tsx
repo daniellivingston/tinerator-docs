@@ -7,7 +7,7 @@ const QuickLinks = () => {
         <div className="px-6 py-6 w-full md:w-1/2 lg:w-1/3">
           <h2 className="flex items-center pb-3 text-xl font-semibold text-gray-800">
             <div className="mr-3">Getting Started</div>
-            <div className="px-2 py-px bg-indigo-100 text-indigo-600 text-xs font-bold rounded-full">
+            <div className="px-2 py-px bg-orange-200 text-orange-600 text-xs font-bold rounded-full">
               Docs
             </div>
           </h2>
@@ -27,7 +27,7 @@ const QuickLinks = () => {
         <div className="px-6 py-6 w-full md:w-1/2 lg:w-1/3">
           <h2 className="flex items-center pb-3 text-xl font-semibold text-gray-800">
             <div className="mr-3">Functions</div>
-            <div className="px-2 py-px bg-indigo-100 text-indigo-600 text-xs font-bold rounded-full">
+            <div className="px-2 py-px bg-orange-200 text-orange-600 text-xs font-bold rounded-full">
               Docs
             </div>
           </h2>
@@ -46,7 +46,7 @@ const QuickLinks = () => {
         <div className="px-6 py-6 w-full md:w-1/2 lg:w-1/3">
           <h2 className="flex items-center pb-3 text-xl font-semibold text-gray-800">
             <div className="mr-3">Forms</div>
-            <div className="px-2 py-px bg-indigo-100 text-indigo-600 text-xs font-bold rounded-full">
+            <div className="px-2 py-px bg-orange-200 text-orange-600 text-xs font-bold rounded-full">
               Docs
             </div>
           </h2>
