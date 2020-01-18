@@ -74,14 +74,14 @@ function NewSitePage({
     <div>
       <main>
         <HeadMatter title={title} description={description} />
-        <div className="bg-gray-900">
-          <Header viewerData={viewerData} inverted={true} showAppNav={false} />
+        <div>
+          <Header viewerData={viewerData} inverted={false} showAppNav={false} />
           <div className="container px-6 py-16 sm:py-24 mx-auto">
             <div className="mx-auto max-w-md">
-              <h1 className="pb-2 text-gray-200 text-3xl font-normal tracking-snug">
+              <h1 className="pb-2 text-gray-900 text-3xl font-normal tracking-snug">
                 Create a new site
               </h1>
-              <p className="pb-5 text-gray-500">
+              <p className="pb-5 text-gray-700">
                 Just give your site a name and you&rsquo;ll be on your way!
               </p>
               <form onSubmit={submit}>
@@ -91,7 +91,7 @@ function NewSitePage({
                     type="text"
                     name="name"
                     placeholder="acme.com"
-                    className="input-field-inverse w-full"
+                    className="input-field w-full"
                     value={name}
                     onChange={e => setName(e.target.value)}
                   />

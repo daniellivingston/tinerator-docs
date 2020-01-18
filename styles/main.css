@@ -73,6 +73,7 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
   @apply p-4 border border-transparent bg-gray-300 leading-tight rounded;
 }
 
+.input-field::placeholder,
 .input-field-inverse::placeholder {
   @apply text-gray-800;
 }
