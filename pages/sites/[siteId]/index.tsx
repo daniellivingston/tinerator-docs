@@ -140,7 +140,7 @@ function SitePage() {
           <FormList siteData={siteData} />
         </div>
         <div className="mx-auto container">
-          <div className="flex flex-wrap py-16">
+          <div className="flex flex-wrap py-12">
             <div className="px-6 py-6 w-full md:w-1/2 lg:w-1/3">
               <h2 className="flex items-center pb-3 text-xl font-semibold text-gray-800">
                 <div className="mr-3">Getting Started</div>
