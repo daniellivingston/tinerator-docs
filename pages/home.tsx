@@ -2,18 +2,44 @@ import React from 'react';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
-import ReactDemo from 'components/ReactDemo';
 import Link from 'next/link';
 import { ViewerData } from 'data/queries';
 
 const stepOne = `
-npm i -g @statickit/cli
-statickit forms add newsletter "Newsletter"
-statickit deploy
+{
+  "functions": {
+    "sendContactForm": {
+      "type": "sendNotification",
+      "to": "me@example.com"
+    }
+  }
+}
 `;
 
 const stepTwo = `
-npm i @statickit/react
+statickit deploy
+`;
+
+const stepThree = `
+import React from 'react';
+import { useStaticKit } from '@statickit/react';
+import { sendContactForm } from '@statickit/functions';
+
+function ContactForm() {
+  const client = useStaticKit();
+
+  const submit = async () => {
+    let { status } = await sendContactForm(client, {
+      subject: 'New contact submission'
+    })
+  };
+
+  return (
+    <button onClick={submit}>Submit</button>
+  );
+}
+
+export default ContactForm;
 `;
 
 const optInFormIcon = `
@@ -55,7 +81,7 @@ interface Props {
 }
 
 const HomePage: React.FC<Props> = ({ viewerData }) => {
-  const title = 'Serverless Plugins for Static Sites';
+  const title = 'No-code backend for front-end developers';
   const description = 'Opt-in forms, contact forms, payments, and more.';
 
   return (
@@ -68,19 +94,22 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
           <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
             <div className="px-6 mx-auto max-w-5xl">
               <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
-                Why write backend code if you don&rsquo;t have to?
+                The no-code backend for
+                <br />
+                front-end developers
               </h1>
 
               <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
                 <p className="pb-4">
-                  Static sites are awesome! But sometimes you{' '}
-                  <strong>need</strong> a backend for things like forms and
-                  payments.
+                  You can accomplish so much with just JavaScript! But sometimes
+                  you <strong>need</strong> a backend, for things like sending
+                  emails and collecting payments.
                 </p>
 
                 <p>
                   <strong className="mt-4 text-gray-300">
-                    StaticKit is the serverless backend for static sites.
+                    StaticKit gives you backend functionality, packaged up as
+                    plain old JavaScript functions.
                   </strong>
                 </p>
               </div>
@@ -92,22 +121,20 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                       Step 1
                     </div>{' '}
                     <div className="text-yellow-500">
-                      Configure and deploy your plugins
+                      Configure the functions you need
                     </div>
                   </h2>
 
-                  <CodeBlock className="language-shell">
+                  <CodeBlock className="language-json">
                     {stepOne.trim()}
                   </CodeBlock>
 
                   <p className="px-4 pt-4 text-sm text-gray-500">
-                    You can use the CLI helper commands or edit your{' '}
-                    <Link href="/docs/config">
-                      <a className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
-                        statickit.json
-                      </a>
-                    </Link>{' '}
-                    file by hand.
+                    This is an example
+                    <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
+                      statickit.json
+                    </span>{' '}
+                    file.
                   </p>
                 </div>
 
@@ -116,9 +143,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                     <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-green-600 rounded-full whitespace-no-wrap">
                       Step 2
                     </div>{' '}
-                    <div className="text-green-500">
-                      Install a client library
-                    </div>
+                    <div className="text-green-500">Deploy your config</div>
                   </h2>
 
                   <CodeBlock className="language-shell">
@@ -126,15 +151,11 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                   </CodeBlock>
 
                   <p className="px-4 pt-4 text-sm text-gray-500">
-                    We have{' '}
-                    <Link href="/docs/forms/react">
-                      <a className="text-indigo-400">React</a>
-                    </Link>{' '}
-                    and{' '}
-                    <Link href="/docs/forms/html">
-                      <a className="text-indigo-400">HTML</a>
-                    </Link>{' '}
-                    client libraries.
+                    Upon deployment, we'll install a
+                    <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
+                      @statickit/functions
+                    </span>
+                    with your function definitions.
                   </p>
                 </div>
 
@@ -143,10 +164,19 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                     <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-pink-600 rounded-full whitespace-no-wrap">
                       Step 3
                     </div>{' '}
-                    <div className="text-pink-500">Wire up your front-end</div>
+                    <div className="text-pink-500">
+                      Call your functions in your JavaScript
+                    </div>
                   </h2>
 
-                  <ReactDemo />
+                  <CodeBlock className="language-jsx">
+                    {stepThree.trim()}
+                  </CodeBlock>
+
+                  <p className="px-4 pt-4 text-sm text-gray-500">
+                    You can call your functions from React components, or
+                    whatever else you are using.
+                  </p>
                 </div>
               </div>
             </div>
@@ -156,11 +186,10 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
         <div className="mx-auto container pt-16 sm:pt-24 pb-8 sm:pb-16">
           <div className="px-6 mx-auto max-w-4xl">
             <h1 className="pb-6 text-3xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-900">
-              Powerful plugins at your fingertips
+              Powerful functions at your fingertips
             </h1>
             <p className="pb-6 sm:pb-16 text-lg sm:text-xl text-gray-700 sm:text-center mx-auto max-w-2xl">
-              We have a growing collection of plugins, so you can skip hacking
-              together serverless functions or building a whole backend app.
+              We have a growing collection of pre-built serverless functions.
             </p>
             <div className="-mx-2 sm:flex flex-wrap">
               <div className="sm:w-1/2">
