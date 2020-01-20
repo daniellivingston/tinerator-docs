@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { NextPageContext } from 'next';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
-import Error from 'next/error';
+import NextError from 'next/error';
 import { useDefaultSite } from 'utils/default-site';
-import { useAuthRequired, getToken } from 'utils/auth';
+import { useAuthRequired, getToken, redirectToLogin } from 'utils/auth';
 import { useRouter } from 'next/router';
 import useViewerData from 'components/useViewerData';
 import useSiteData, { revalidate } from 'components/useSiteData';
@@ -11,7 +12,15 @@ import useUsageData from 'components/useUsageData';
 import { updateSiteName } from 'data/mutations';
 import { ValidationError } from '@statickit/react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { SiteData, UsageData, ViewerData } from 'data/queries';
+import {
+  SiteData,
+  UsageData,
+  ViewerData,
+  Viewer,
+  Site,
+  fetchViewer,
+  fetchSite
+} from 'data/queries';
 import { useStaticKit } from '@statickit/react';
 import { requestUpgrade } from '@statickit/functions';
 import moment from 'moment';
@@ -141,16 +150,26 @@ const Billing: React.FC<{
   );
 };
 
-function SiteSettingsPage() {
+function SiteSettingsPage({
+  viewer: initialViewer,
+  site: initialSite
+}: {
+  viewer: Viewer;
+  site: Site;
+}) {
   const router = useRouter();
 
-  const { data: viewerData } = useViewerData();
-  const { data: siteData } = useSiteData(router.query.siteId as string);
+  const { data: viewerData } = useViewerData({
+    initialData: { status: 'ok', viewer: initialViewer }
+  });
+  const { data: siteData } = useSiteData(router.query.siteId as string, {
+    initialData: { status: 'ok', site: initialSite }
+  });
   const { data: usageData } = useUsageData(router.query.siteId as string);
 
-  const [name, setName] = useState('');
-  const [slug, setSlug] = useState('');
-  const [deployKey, setDeployKey] = useState('');
+  const [name, setName] = useState(initialSite.name);
+  const [slug, setSlug] = useState(initialSite.id);
+  const [deployKey, setDeployKey] = useState(initialSite.deployKey);
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
@@ -165,7 +184,7 @@ function SiteSettingsPage() {
   useDefaultSite(siteData);
 
   if (siteData && siteData.status === 'notFound') {
-    return <Error statusCode={404} />;
+    return <NextError statusCode={404} />;
   }
 
   const handleNameSaved = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -307,5 +326,18 @@ function SiteSettingsPage() {
     </main>
   );
 }
+
+SiteSettingsPage.getInitialProps = async (context: NextPageContext) => {
+  const token = getToken(context);
+  const viewerData = await fetchViewer(token);
+  if (viewerData.status === 'unauthorized') redirectToLogin(context);
+  const siteData = await fetchSite(context.query.siteId as string, token);
+
+  if (viewerData.status === 'ok' && siteData.status === 'ok') {
+    return { viewer: viewerData.viewer, site: siteData.site };
+  } else {
+    throw new Error('viewer or site not available');
+  }
+};
 
 export default SiteSettingsPage;
