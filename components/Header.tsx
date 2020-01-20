@@ -79,7 +79,7 @@ const GlobalNav = ({ viewerData }) => {
         </Link>
 
         <Link href="/login">
-          <a className="px-2">Sign In</a>
+          <a className="block px-2">Sign In</a>
         </Link>
 
         <Link href="/signup">

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 function PricingPage() {
   const title = 'Pricing';
-  const description = 'Free to get started, affordable for business.';
+  const description = 'Get started for free.';
 
   return (
     <div>
@@ -15,10 +15,10 @@ function PricingPage() {
         <div className="mx-auto px-6 pt-12 container">
           <div className="pt-6 md:pt-10 pb-12 md:pb-16">
             <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-center">
-              Pricing
+              Fair &amp; Simple Pricing
             </h1>
             <p className="text-lg text-gray-700 text-center">
-              Free to get started, affordable for business.
+              Free in development &amp; affordable in production.
             </p>
           </div>
 
@@ -27,39 +27,52 @@ function PricingPage() {
               <h2 className="text-center text-sm uppercase font-bold tracking-wide text-indigo-600">
                 Sandbox
               </h2>
-              <div className="text-center text-4xl sm:text-6xl tracking-tight font-bold">
+              <div className="text-center text-4xl sm:text-5xl tracking-tight font-bold">
                 Free
               </div>
-
               <p className="text-center text-base text-gray-700">
-                For light personal use and testing.
+                Great for developing your site.
               </p>
               <p className="text-center text-base text-gray-700">
-                Up to 100 form submissions / month.
+                Up to 100{' '}
+                <a href="#requests" className="border-b border-dashed">
+                  requests
+                </a>{' '}
+                / month.
               </p>
               <p className="pb-2 text-center text-base text-gray-700">
-                Unlimited forms.
+                <a href="#sandbox-limits" className="border-b border-dashed">
+                  Sandbox limits
+                </a>{' '}
+                apply.
               </p>
             </div>
             <div className="px-6 py-16 md:w-1/2">
               <h2 className="text-center text-sm uppercase font-bold tracking-wide text-indigo-600">
                 Production
               </h2>
-              <div className="text-center text-4xl sm:text-6xl tracking-tight font-bold">
-                $10
-                <span className="text-lg font-normal text-gray-600 tracking-normal">
-                  {' '}
-                  / site / mo
-                </span>
+              <div className="flex items-center justify-center flex-wrap">
+                <div className="py-2 sm:text-lg text-gray-600">Starts at</div>
+                <div className="px-3 text-4xl sm:text-5xl font-bold tracking-tight">
+                  $20
+                </div>
+                <div className="py-2 sm:text-lg text-gray-600">/ site / mo</div>
               </div>
               <p className="text-center text-base text-gray-700">
-                For businesses and agencies.
+                Great for live production sites.
               </p>
               <p className="text-center text-base text-gray-700">
-                Up to 1,000 form submissions / month.
+                <a href="#requests" className="border-b border-dashed">
+                  Request
+                </a>{' '}
+                limits scale as you grow.
               </p>
-              <p className="pb-2 text-center text-base text-gray-700">
-                Unlimited forms.
+              <p className="text-center text-base text-gray-700">
+                No{' '}
+                <a href="#sandbox-limits" className="border-b border-dashed">
+                  sandbox limits
+                </a>
+                .
               </p>
             </div>
           </div>
@@ -73,12 +86,96 @@ function PricingPage() {
             </a>
           </div>
 
-          <p className="py-16 text-center text-gray-700">
-            Need higher limits?{' '}
-            <Link href="/support">
-              <a className="font-semibold text-indigo-600">Let&rsquo;s chat.</a>
-            </Link>
-          </p>
+          <div className="py-16 max-w-md mx-auto">
+            <dl>
+              <dt>
+                <h2
+                  id="requests"
+                  className="pb-3 text-xl font-semibold tracking-snug"
+                >
+                  How do request limits work?
+                </h2>
+              </dt>
+              <dd className="pb-16">
+                <p className="pb-6 text-gray-700">
+                  A{' '}
+                  <Link href="/docs/functions">
+                    <a className="text-indigo-600">function call</a>
+                  </Link>{' '}
+                  and a{' '}
+                  <Link href="/docs/forms">
+                    <a className="text-indigo-600">form submission</a>
+                  </Link>{' '}
+                  each constitute a request. Here are the production tiers:
+                </p>
+                <div className="pb-12">
+                  <table className="w-full">
+                    <thead>
+                      <tr>
+                        <th className="px-3 py-3 text-center border-b text-sm">
+                          Requests
+                        </th>
+                        <th className="px-3 py-3 text-center border-b text-sm">
+                          Price
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="px-3 pt-3 text-center">1,000</td>
+                        <td className="px-3 pt-3 text-center">
+                          <span className="text-lg font-bold">$20</span>{' '}
+                          <span className="text-base text-gray-600">
+                            / month
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-3 text-center">5,000</td>
+                        <td className="px-3 text-center">
+                          <span className="text-lg font-bold">$50</span>{' '}
+                          <span className="text-base text-gray-600">
+                            / month
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-3 text-center">10,000</td>
+                        <td className="px-3 text-center">
+                          <span className="text-lg font-bold">$100</span>{' '}
+                          <span className="text-base text-gray-600">
+                            / month
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="">
+                  Please{' '}
+                  <Link href="/support">
+                    <a className="text-indigo-600">reach out</a>
+                  </Link>{' '}
+                  if you need higher limits.
+                </div>
+              </dd>
+
+              <dt>
+                <h2 className="pb-3 text-xl font-semibold tracking-snug">
+                  What are the sandbox limits?
+                </h2>
+              </dt>
+              <dd className="pb-16">
+                <p className="text-gray-700">
+                  On the sandbox plan, requests are capped at 100 per month and
+                  some functions come with specific limitations (consult the
+                  docs for details). It&rsquo;s best to upgrade to a production
+                  plan before going live.
+                </p>
+              </dd>
+            </dl>
+          </div>
         </div>
       </main>
     </div>
