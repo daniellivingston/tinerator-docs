@@ -24,7 +24,23 @@ cd next-landing-page
 npm i @statickit/react
 ```
 
-Go ahead and replace the contents of the `pages/index.js` file with the following code. You'll want to replace `{your-site-id}` with your StaticKit site ID, found under Settings.
+Create a `pages/_app.js` file with the following contents:
+
+```jsx
+import { StaticKitProvider } from '@statickit/react';
+
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="aeaa35c5c10b">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  );
+}
+
+export default App;
+```
+
+Then, replace the contents of the `pages/index.js` file:
 
 ```jsx
 import React from 'react';
@@ -33,10 +49,7 @@ import { useForm } from '@statickit/react';
 
 const OptInForm = () => {
   // Initialize the form hook
-  const [state, submit] = useForm({
-    site: '{your-site-id}',
-    form: 'opt-in-form'
-  });
+  const [state, submit] = useForm('optInForm');
 
   // Display a success message if form was submitted successfully
   if (state.succeeded) {
@@ -112,11 +125,11 @@ const Home = () => (
 export default Home;
 ```
 
-Run the following to install the CLI, add the `opt-in-form` to your config, and deploy. Your deploy key can be found under Settings.
+Run the following to install the CLI, add the `optInForm` to your config, and deploy. Your deploy key can be found under Settings.
 
 ```bash
 npm i -g @statickit/cli
-statickit forms add opt-in-form "Opt-In Form"
+statickit forms add optInForm "Opt-In Form"
 statickit deploy -k <your-deploy-key>
 ```
 
