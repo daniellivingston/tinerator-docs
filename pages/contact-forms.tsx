@@ -1,7 +1,8 @@
+import React from 'react';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
-import ContactFormDemo from 'components/demos/contact-form';
+import ContactFormDemo from 'components/demos/ContactForm';
 import Link from 'next/link';
 
 const stepOne = `
@@ -72,7 +73,7 @@ const databaseIcon = `
 </svg>
 `;
 
-function ContactFormsPage() {
+const ContactFormsPage: React.FC<{}> = () => {
   const title = 'Contact Forms';
   const description =
     'Gather contact form submissions and send a notification email to the right people.';
@@ -247,6 +248,6 @@ function ContactFormsPage() {
       </main>
     </div>
   );
-}
+};
 
 export default ContactFormsPage;

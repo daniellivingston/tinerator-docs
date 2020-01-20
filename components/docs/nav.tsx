@@ -1,7 +1,17 @@
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const sections = [
+interface Section {
+  path: string;
+  label: string;
+  sections: {
+    path: string;
+    label: string;
+  }[];
+}
+
+const sections: Section[] = [
   {
     path: '/docs',
     label: 'Getting Started',
@@ -63,7 +73,7 @@ const Section = ({ path, label, sections }) => {
   const currentPath = router.pathname;
 
   const isCurrent =
-    sections.find(section => {
+    sections.find((section: Section) => {
       return section.path == currentPath;
     }) ||
     path == currentPath ||
@@ -91,7 +101,7 @@ const Section = ({ path, label, sections }) => {
   const Subsections = ({ sections }) => {
     return (
       <ul className="py-1 border-gray-400 text-base font-normal">
-        {sections.map(section => (
+        {sections.map((section: Section) => (
           <Subsection key={section.path} section={section} />
         ))}
       </ul>
@@ -116,10 +126,10 @@ const Section = ({ path, label, sections }) => {
   );
 };
 
-export default () => {
+const Nav: React.FC = () => {
   return (
     <ul>
-      {sections.map(section => (
+      {sections.map((section: Section) => (
         <Section
           key={section.path}
           path={section.path}
@@ -130,3 +140,5 @@ export default () => {
     </ul>
   );
 };
+
+export default Nav;

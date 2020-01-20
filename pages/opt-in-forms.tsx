@@ -1,7 +1,8 @@
+import React from 'react';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
-import OptInFormDemo from 'components/demos/mailchimp';
+import OptInFormDemo from 'components/demos/Mailchimp';
 import Link from 'next/link';
 
 const stepOne = `
@@ -130,7 +131,7 @@ const ckLogo = `
 </svg>
 `;
 
-function OptInFormsPage() {
+const OptInFormsPage: React.FC<{}> = () => {
   const title = 'Opt-In Forms';
   const description =
     'Collect email addresses and forward them to your email marketing app.';
@@ -343,6 +344,6 @@ function OptInFormsPage() {
       </main>
     </div>
   );
-}
+};
 
 export default OptInFormsPage;

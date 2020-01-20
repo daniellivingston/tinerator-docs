@@ -1,8 +1,10 @@
+import React from 'react';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
 import ReactDemo from 'components/ReactDemo';
 import Link from 'next/link';
+import { ViewerData } from 'data/queries';
 
 const stepOne = `
 npm i -g @statickit/cli
@@ -48,7 +50,11 @@ const paymentIcon = `
 </svg>
 `;
 
-function HomePage(props) {
+interface Props {
+  viewerData?: ViewerData;
+}
+
+const HomePage: React.FC<Props> = ({ viewerData }) => {
   const title = 'Serverless Plugins for Static Sites';
   const description = 'Opt-in forms, contact forms, payments, and more.';
 
@@ -57,7 +63,7 @@ function HomePage(props) {
       <main>
         <HeadMatter title={title} description={description} />
         <div className="bg-gray-900">
-          <Header inverted={true} viewerData={props.viewerData} />
+          <Header inverted={true} viewerData={viewerData} />
 
           <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
             <div className="px-6 mx-auto max-w-5xl">
@@ -267,6 +273,6 @@ function HomePage(props) {
       </main>
     </div>
   );
-}
+};
 
 export default HomePage;

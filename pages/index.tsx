@@ -1,11 +1,18 @@
+import React from 'react';
+import { NextPage } from 'next';
 import HomePage from './home';
 import { getToken } from 'utils/auth';
 import { fetchViewer } from 'data/queries';
 import { redirectTo } from 'utils/routing';
+import { ViewerData } from 'data/queries';
 
-function IndexPage(props) {
-  return <HomePage {...props} />;
+interface Props {
+  viewerData?: ViewerData;
 }
+
+const IndexPage: NextPage<Props> = props => {
+  return <HomePage {...props} />;
+};
 
 IndexPage.getInitialProps = async context => {
   const token = getToken(context);

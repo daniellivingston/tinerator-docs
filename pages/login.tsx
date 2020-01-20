@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { NextPage } from 'next';
 import HeadMatter from 'components/HeadMatter';
 import Logo from 'components/Logo';
 import Link from 'next/link';
@@ -16,7 +17,7 @@ const ErrorMessage = ({ error }) => {
   );
 };
 
-function LoginPage() {
+const LoginPage: NextPage = () => {
   const title = 'Log in';
   const description = 'Log in to your StaticKit account.';
   const passwordRef = useRef(null);
@@ -32,7 +33,7 @@ function LoginPage() {
     }
   }, [router]);
 
-  const submit = async e => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -121,6 +122,6 @@ function LoginPage() {
       </div>
     </main>
   );
-}
+};
 
 export default LoginPage;
