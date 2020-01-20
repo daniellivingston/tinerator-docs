@@ -42,10 +42,10 @@ function UserMenu({ viewer }) {
           className={`mt-12 py-2 bg-white absolute right-0 w-32 rounded shadow-menu ${toggleClass}`}
         >
           <ul className="text-gray-700 font-normal">
-            <li key="billing">
-              <Link href="/billing">
+            <li key="user-settings">
+              <Link href="/settings">
                 <a className="block px-4 py-2 w-full hover:bg-gray-200 text-left">
-                  Billing
+                  User Settings
                 </a>
               </Link>
             </li>

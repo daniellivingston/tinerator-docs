@@ -53,7 +53,7 @@ const BlankSlate = ({ site }) => {
 };
 
 const FormItem = ({ site, form }) => {
-  let submissionLabel;
+  let submissionLabel: string;
 
   if (form.submissionCount == 0) {
     submissionLabel = 'No submissions yet';
@@ -97,7 +97,7 @@ const FormList = ({ siteData }) => {
   }
 
   return (
-    <div className="mx-auto container px-3 pt-6 pb-12">
+    <div className="mx-auto container px-3 pt-12 pb-16">
       <div className="sm:flex">
         <div className="sm:w-56 px-3 py-3 pb-3">
           <h2 className="pb-1 text-xl font-semibold text-white">Forms</h2>

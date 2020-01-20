@@ -20,7 +20,7 @@ interface NotFound {
 
 type ErrorResponse = Unauthorized | ServerError | ClientError | NotFound;
 
-interface Viewer {
+export interface Viewer {
   email: string;
   avatarUrl: string;
   defaultSite: {
@@ -28,7 +28,7 @@ interface Viewer {
   };
 }
 
-interface Form {
+export interface Form {
   id: string;
   name: string;
   key: string;
@@ -36,7 +36,7 @@ interface Form {
   displayFields: string[];
 }
 
-interface Account {
+export interface Account {
   subscriptionState:
     | 'NONE'
     | 'TRIALING'
@@ -53,7 +53,7 @@ interface Account {
   currentPeriodEnd: string;
 }
 
-interface Site {
+export interface Site {
   id: string;
   name: string;
   deployKey: string;
@@ -65,7 +65,7 @@ interface Site {
   };
 }
 
-interface SiteList {
+export interface SiteList {
   edges: Array<{
     node: {
       id: string;
@@ -75,7 +75,7 @@ interface SiteList {
   }>;
 }
 
-interface Submissions {
+export interface Submissions {
   pageInfo: {
     hasPrevPage: boolean;
     hasNextPage: boolean;
@@ -94,7 +94,7 @@ interface Submissions {
   }>;
 }
 
-interface Usage {
+export interface Usage {
   invocations: number;
   submissions: number;
 }
