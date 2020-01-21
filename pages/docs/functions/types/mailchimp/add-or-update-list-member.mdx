@@ -1,0 +1,84 @@
+import withDocs from 'components/withDocs';
+
+export default withDocs({
+  title: 'addOrUpdateListMember - Mailchimp - Functions',
+  description: 'The addOrUpdateListMember function schema',
+  breadcrumbs: [{
+    path: '/docs/functions#function-types',
+    label: 'Functions',
+    rel: 'prev'
+  },
+  {
+    path: '/docs/functions/types/mailchimp',
+    label: 'Mailchimp',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Configuration", "#configuration"],
+    [1, "Arguments", "#arguments"],
+    [1, "Response", "#response"]
+  ]
+});
+
+# addOrUpdateListMember
+
+Adds or updates a contact in a Mailchimp audience. Under the hood, this action calls the [add or update a list member](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) API endpoint.
+
+## Configuration
+
+This function type accepts the following parameters:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `apiKey`                   | string                   | `@mailchimp-api-key`           | Your Mailchimp API key                                       |
+| `audience`                 | string                   | `@mailchimp-audience`          | Your Mailchimp audience ID                                   |
+| `statusIfNew`              | object                   | `subscribed`                   | The subscriber's status (see [here](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) for available values)                          |
+| `mergeFields`              | object                   | `{}`                           | Static merge fields to set on the contact                    |
+
+### Example
+
+```json
+{
+  "functions": {
+    "addToMailchimp": {
+      "app": "mailchimp",
+      "type": "addOrUpdateListMember",
+      "mergeFields": {
+        "PLAN": "pro"
+      }
+    }
+  }
+}
+```
+
+## Arguments
+
+This function type accepts the following client-side arguments when called:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `emailAddress` *           | string                   |                                | The contact's email address                                  |
+| `mergeFields`              | object                   | `{}`                           | Dynamic merge fields to set on the contact                   |
+
+### Example
+
+```js
+import { createClient, sendEmail } from '@statickit/functions';
+let client = createClient({ site: '{your-site-id}' });
+
+let { status } = await addToMailchimp(client, {
+  emailAddress: "janedoe@example.com",
+  mergeFields: {
+    FNAME: "Jane",
+    LNAME: "Doe"
+  }
+});
+```
+
+## Response
+
+Returns a [`status`](/docs/functions#responses) and the following properties when successful:
+
+| Key                        | Type                     |  Description                                                 |
+| :------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `id`                       | string                   | The MD5 hash of the lowercase version of the list member's email address. |
