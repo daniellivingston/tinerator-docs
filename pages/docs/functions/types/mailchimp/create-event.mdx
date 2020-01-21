@@ -1,0 +1,115 @@
+import withDocs from 'components/withDocs';
+
+export default withDocs({
+  title: 'createEvent - Mailchimp - Functions',
+  description: 'The createEvent function schema',
+  breadcrumbs: [{
+    path: '/docs/functions#function-types',
+    label: 'Functions',
+    rel: 'prev'
+  },
+  {
+    path: '/docs/functions/types/mailchimp',
+    label: 'Mailchimp',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Configuration", "#configuration"],
+    [1, "Arguments", "#arguments"],
+    [1, "Response", "#response"]
+  ]
+});
+
+# createEvent
+
+Adds or updates a contact in a Mailchimp audience and creates an event. Under the hood, this action calls the [add or update a list member](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) and [create an event for a list member](https://mailchimp.com/developer/reference/lists/list-members/list-member-events/) API endpoints.
+
+## Configuration
+
+This function type accepts the following parameters:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| [`apiKey`](#api-key)       | string                   | `@mailchimp-api-key`           | Your Mailchimp API key                                       |
+| [`audience`](#audience)    | string                   | `@mailchimp-audience`          | Your Mailchimp audience ID                                   |
+| `statusIfNew`              | object                   | `subscribed`                   | The subscriber's status (see [here](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) for available values)                          |
+| `mergeFields`              | object                   | `{}`                           | Static merge fields to set on the contact                    |
+
+### API Key
+
+Here's where to find your Mailchimp API key:
+
+- Log in to your Mailchimp account
+- Open the menu with your avatar in the upper right
+- Navigate to **Profile › Extras › API keys**
+- Under "Your API keys", click **Create A Key**
+
+It will look something like this: `ecee71ce9jkl636820fb55e0163515c6-us16`
+
+Run the following command to store it in your secrets:
+
+```bash
+statickit secrets add mailchimp-api-key {your-api-key}
+```
+
+### Audience
+
+Here's where to find your Audience ID place in the `audience` property:
+
+- Log in to your Mailchimp account
+- Click **Audience** tab at the top
+- Navigate to **Manage Audience › Settings**
+- Click **Audience name and defaults**
+- Locate the ID under the "Audience ID" heading (it looks like `5ca598e7e8`)
+
+### Example
+
+```json
+{
+  "functions": {
+    "trackEvent": {
+      "app": "mailchimp",
+      "type": "createEvent",
+      "audience": "5ca598e7e8",
+      "mergeFields": {
+        "PLAN": "pro"
+      }
+    }
+  }
+}
+```
+
+## Arguments
+
+This function type accepts the following client-side arguments when called:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `emailAddress` *           | string                   |                                | The contact's email address                                  |
+| `eventName` *              | string                   |                                | The name of the event (lowercase, no spaces, 2 - 30 characters) |
+| `eventProperties`          | object                   | `{}`                           | A collection of event properties                             |
+| `isSyncing`                | boolean                  | `false`                        | If `true`, skips running automations for this event          |
+| `mergeFields`              | object                   | `{}`                           | Dynamic merge fields to set on the contact                   |
+
+### Example
+
+```js
+import { createClient, trackEvent } from '@statickit/functions';
+let client = createClient({ site: '{your-site-id}' });
+
+let { status } = await trackEvent(client, {
+  emailAddress: "janedoe@example.com",
+  eventName: "purchased",
+  eventProperties: {
+    item: "t-shirt"
+  }
+});
+```
+
+## Response
+
+Returns a [`status`](/docs/functions#responses) and the following properties when successful:
+
+| Key                        | Type                     |  Description                                                 |
+| :------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `id`                       | string                   | The MD5 hash of the lowercase version of the list member's email address. |
