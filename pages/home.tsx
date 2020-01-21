@@ -121,7 +121,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                       Step 1
                     </div>{' '}
                     <div className="text-yellow-500">
-                      Configure the functions you need
+                      Configure your functions
                     </div>
                   </h2>
 
@@ -130,11 +130,11 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                   </CodeBlock>
 
                   <p className="px-4 pt-4 text-sm text-gray-500">
-                    This is an example
+                    This is what a
                     <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
                       statickit.json
                     </span>{' '}
-                    file.
+                    file might look like.
                   </p>
                 </div>
 
@@ -151,11 +151,11 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                   </CodeBlock>
 
                   <p className="px-4 pt-4 text-sm text-gray-500">
-                    Upon deployment, we'll install a
+                    We'll install a
                     <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
                       @statickit/functions
                     </span>
-                    package with your function definitions.
+                    package with your TypeScript-enabled function definitions.
                   </p>
                 </div>
 
@@ -174,8 +174,8 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                   </CodeBlock>
 
                   <p className="px-4 pt-4 text-sm text-gray-500">
-                    You can call your functions from React components, or
-                    whatever else you are using.
+                    You can call them from React components, or whatever else
+                    you are using.
                   </p>
                 </div>
               </div>
