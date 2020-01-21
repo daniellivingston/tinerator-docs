@@ -20,12 +20,7 @@ const sections: Section[] = [
   {
     path: '/docs/functions',
     label: 'Functions',
-    sections: [
-      {
-        path: '/docs/functions/react',
-        label: 'React'
-      }
-    ]
+    sections: []
   },
   {
     path: '/docs/forms',

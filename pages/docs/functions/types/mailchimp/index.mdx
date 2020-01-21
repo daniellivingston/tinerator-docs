@@ -8,7 +8,10 @@ export default withDocs({
     label: 'Functions',
     rel: 'prev'
   }],
-  toc: []
+  toc: [
+    [1, "API Key", "#api-key"],
+    [1, "Audience ID", "#audience-id"]
+  ]
 });
 
 # Mailchimp
@@ -19,3 +22,30 @@ Perform tasks like adding or updating a contact in your [Mailchimp](https://mail
 | :-------------------------------- | :----------------------------------------------------------- |
 | [`addOrUpdateListMember`](/docs/functions/types/mailchimp/add-or-update-list-member) | Adds or updates a list member |
 | [`createEvent`](/docs/functions/types/mailchimp/create-event) | Adds or updates a contact and tracks an event |
+
+## API Key
+
+Here's where to find your Mailchimp API key:
+
+- Log in to your Mailchimp account
+- Open the menu with your avatar in the upper right
+- Navigate to **Profile › Extras › API keys**
+- Under "Your API keys", click **Create A Key**
+
+It will look something like this: `ecee71ce9jkl636820fb55e0163515c6-us16`
+
+Run the following command to store it in your secrets:
+
+```bash
+statickit secrets add mailchimp-api-key {your-api-key}
+```
+
+## Audience ID
+
+Here's where to find your Audience ID place in the `audience` property:
+
+- Log in to your Mailchimp account
+- Click **Audience** tab at the top
+- Navigate to **Manage Audience › Settings**
+- Click **Audience name and defaults**
+- Locate the ID under the "Audience ID" heading (it looks like `5ca598e7e8`)
