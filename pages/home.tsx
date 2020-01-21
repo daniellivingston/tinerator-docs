@@ -81,7 +81,7 @@ interface Props {
 }
 
 const HomePage: React.FC<Props> = ({ viewerData }) => {
-  const title = 'No-code backend for front-end developers';
+  const title = 'Zero-Code Backend for Front-End Developers';
   const description = 'Opt-in forms, contact forms, payments, and more.';
 
   return (
@@ -94,16 +94,16 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
           <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
             <div className="px-6 mx-auto max-w-5xl">
               <h1 className="pb-6 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
-                The no-code backend for
+                Zero-Code Backend for
                 <br />
-                front-end developers
+                Front-End Developers
               </h1>
 
               <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
-                <p className="pb-4">
+                <p className="pb-6">
                   You can accomplish so much with just JavaScript! But sometimes
-                  you <strong>need</strong> a backend, for things like sending
-                  emails and collecting payments.
+                  you <strong className="text-gray-300">need a backend</strong>,
+                  for things like sending emails and collecting payments.
                 </p>
 
                 <p>
@@ -155,7 +155,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                     <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
                       @statickit/functions
                     </span>
-                    with your function definitions.
+                    package with your function definitions.
                   </p>
                 </div>
 

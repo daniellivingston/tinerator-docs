@@ -75,11 +75,11 @@ const GlobalNav = ({ viewerData }) => {
         </Link>
 
         <Link href="/pricing">
-          <a className="block px-2">Pricing</a>
+          <a className="hidden sm:block px-2">Pricing</a>
         </Link>
 
         <Link href="/login">
-          <a className="block px-2">Sign In</a>
+          <a className="hidden sm:block px-2">Sign In</a>
         </Link>
 
         <Link href="/signup">
