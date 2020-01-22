@@ -9,7 +9,7 @@ export default withDocs({
     rel: 'prev'
   },
   {
-    path: '/docs/functions/types/stripe',
+    path: '/docs/functions/stripe',
     label: 'Stripe',
     rel: 'prev'
   }],
@@ -30,7 +30,7 @@ This function type accepts the following parameters:
 
 | Key                        | Type                     | Default                        | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
-| [`secretKey`](/docs/functions/types/stripe#secret-key)       | string                   | `@stripe-secret-key`           | Your Stripe secret key                                      |
+| [`secretKey`](/docs/functions/stripe#secret-key)       | string                   | `@stripe-secret-key`           | Your Stripe secret key                                      |
 
 ### Example
 
@@ -76,4 +76,4 @@ Returns a [`status`](/docs/functions#responses) and the following properties whe
 | Key                        | Type                     |  Description                                                 |
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `id`                       | string                   | A unique identifier for the customer.                        |
-| `defaultSource`            | string \| null           | ID of the default payment source for the customer.           |
+| `customerToken`            | string                   | A unique token to use for performing actions on this customer (like [creating a charge](/docs/functions/stripe/create-charge)) |

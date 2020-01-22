@@ -9,7 +9,7 @@ export default withDocs({
     rel: 'prev'
   },
   {
-    path: '/docs/functions/types/mailchimp',
+    path: '/docs/functions/mailchimp',
     label: 'Mailchimp',
     rel: 'prev'
   }],
@@ -30,8 +30,8 @@ This function type accepts the following parameters:
 
 | Key                        | Type                     | Default                        | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
-| [`apiKey`](/docs/functions/types/mailchimp#api-key)       | string                   | `@mailchimp-api-key`           | Your Mailchimp API key                                       |
-| [`audience`](/docs/functions/types/mailchimp#audience-id)    | string                   | `@mailchimp-audience`          | Your Mailchimp audience ID                                   |
+| [`apiKey`](/docs/functions/mailchimp#api-key)       | string                   | `@mailchimp-api-key`           | Your Mailchimp API key                                       |
+| [`audience`](/docs/functions/mailchimp#audience-id)    | string                   | `@mailchimp-audience`          | Your Mailchimp audience ID                                   |
 | `statusIfNew`              | object                   | `subscribed`                   | The subscriber's status (see [here](https://mailchimp.com/developer/reference/lists/list-members/#put_/lists/-list_id-/members/-subscriber_hash-) for available values)                          |
 | `mergeFields`              | object                   | `{}`                           | Static merge fields to set on the contact                    |
 

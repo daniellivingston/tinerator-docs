@@ -9,7 +9,7 @@ export default withDocs({
     rel: 'prev'
   },
   {
-    path: '/docs/functions/types/stripe',
+    path: '/docs/functions/stripe',
     label: 'Stripe',
     rel: 'prev'
   }],
@@ -30,7 +30,7 @@ This function type accepts the following parameters:
 
 | Key                        | Type                     | Default                        | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
-| [`secretKey`](/docs/functions/types/stripe#secret-key)       | string                   | `@stripe-secret-key`           | Your Stripe secret key                                      |
+| [`secretKey`](/docs/functions/stripe#secret-key)       | string                   | `@stripe-secret-key`           | Your Stripe secret key                                      |
 
 ### Example
 
@@ -56,7 +56,7 @@ This function type accepts the following client-side arguments when called:
 | `description`              | string                   |                                | An arbitrary description for the charge. |
 | `metadata`                 | object                   |                                | Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. |
 | `source`                   | string                   |                                | A payment source token (e.g. generated from Stripe Elements). |
-| `customer`                 | string                   |                                | The ID of an existing customer that will be charged in this request. |
+| `customerToken`            | string                   |                                | A customer token (returned from [creating a customer](/docs/functions/stripe/create-customer#response)) |
 
 ### Example
 
