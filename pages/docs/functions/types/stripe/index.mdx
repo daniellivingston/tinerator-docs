@@ -1,0 +1,21 @@
+import withDocs from 'components/withDocs';
+
+export default withDocs({
+  title: 'Stripe - Functions',
+  description: 'Stripe function types in StaticKit.',
+  breadcrumbs: [{
+    path: '/docs/functions#function-types',
+    label: 'Functions',
+    rel: 'prev'
+  }],
+  toc: []
+});
+
+# Stripe
+
+Implement payment flows with your [Stripe](https://stripe.com) account.
+
+| Type                              | Description                                                  |
+| :-------------------------------- | :----------------------------------------------------------- |
+| [`createCustomer`](/docs/functions/types/stripe/create-customer) | Creates a customer in Stripe |
+| [`createCharge`](/docs/functions/types/stripe/create-charge) | Creates a charge (using the traditional Charges API) |

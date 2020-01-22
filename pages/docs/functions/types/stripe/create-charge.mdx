@@ -1,0 +1,80 @@
+import withDocs from 'components/withDocs';
+
+export default withDocs({
+  title: 'createCharge - Stripe - Functions',
+  description: 'The createCharge function schema',
+  breadcrumbs: [{
+    path: '/docs/functions#function-types',
+    label: 'Functions',
+    rel: 'prev'
+  },
+  {
+    path: '/docs/functions/types/stripe',
+    label: 'Stripe',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Configuration", "#configuration"],
+    [1, "Arguments", "#arguments"],
+    [1, "Response", "#response"]
+  ]
+});
+
+# createCharge
+
+Creates a charge in Stripe. Under the hood, this action calls the [create a charge](https://stripe.com/docs/api/charges/create) API endpoint.
+
+## Configuration
+
+This function type accepts the following parameters:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| [`secretKey`](/docs/functions/types/stripe#secret-key)       | string                   | `@stripe-secret-key`           | Your Stripe secret key                                      |
+
+### Example
+
+```json
+{
+  "functions": {
+    "createCharge": {
+      "app": "stripe",
+      "type": "createCharge"
+    }
+  }
+}
+```
+
+## Arguments
+
+This function type accepts the following client-side arguments when called:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `amount` *                 | integer                  |                                | The amount to charge (in cents). E.g. to charge $100, `amount` is 10000. |
+| `currency`                 | string                   | `usd`                          | Three-letter ISO currency code, in lowercase.                            |
+| `description`              | string                   |                                | An arbitrary description for the charge. |
+| `metadata`                 | object                   |                                | Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. |
+| `source`                   | string                   |                                | A payment source token (e.g. generated from Stripe Elements). |
+| `customer`                 | string                   |                                | The ID of an existing customer that will be charged in this request. |
+
+### Example
+
+```js
+import { createClient, createCharge } from '@statickit/functions';
+let client = createClient({ site: '{your-site-id}' });
+
+let { status } = await createCharge(client, {
+  amount: 10000 // $100.00
+  source: "tok_XXXXX"
+});
+```
+
+## Response
+
+Returns a [`status`](/docs/functions#responses) and the following properties when successful:
+
+| Key                        | Type                     |  Description                                                 |
+| :------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `id`                       | string                   | A unique identifier for the charge                           |
+| `status`                   | string                   | The payment status: `succeeded`, `pending`, or `failed`.     |

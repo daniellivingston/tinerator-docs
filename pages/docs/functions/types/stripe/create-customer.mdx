@@ -1,0 +1,78 @@
+import withDocs from 'components/withDocs';
+
+export default withDocs({
+  title: 'createCustomer - Stripe - Functions',
+  description: 'The createCustomer function schema',
+  breadcrumbs: [{
+    path: '/docs/functions#function-types',
+    label: 'Functions',
+    rel: 'prev'
+  },
+  {
+    path: '/docs/functions/types/stripe',
+    label: 'Stripe',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Configuration", "#configuration"],
+    [1, "Arguments", "#arguments"],
+    [1, "Response", "#response"]
+  ]
+});
+
+# createCustomer
+
+Creates a customer in Stripe. Under the hood, this action calls the [create a customer](https://stripe.com/docs/api/customers/create) API endpoint.
+
+## Configuration
+
+This function type accepts the following parameters:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| [`secretKey`](/docs/functions/types/stripe#secret-key)       | string                   | `@stripe-secret-key`           | Your Stripe secret key                                      |
+
+### Example
+
+```json
+{
+  "functions": {
+    "createCustomer": {
+      "app": "stripe",
+      "type": "createCustomer"
+    }
+  }
+}
+```
+
+## Arguments
+
+This function type accepts the following client-side arguments when called:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `name`                     | string                   |                                | The customer’s full name or business name.                             |
+| `description`              | string                   |                                | An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.                             |
+| `email`                    | string                   |                                | Customer’s email address. It’s displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to 512 characters. |
+| `metadata`                 | object                   |                                | Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. |
+| `source`                   | string                   |                                | A payment source token (e.g. generated from Stripe Elements) |
+
+### Example
+
+```js
+import { createClient, createCustomer } from '@statickit/functions';
+let client = createClient({ site: '{your-site-id}' });
+
+let { status } = await createCustomer(client, {
+  email: "janedoe@example.com",
+  source: "tok_XXXXX"
+});
+```
+
+## Response
+
+Returns a [`status`](/docs/functions#responses) and the following properties when successful:
+
+| Key                        | Type                     |  Description                                                 |
+| :------------------------- | :----------------------- | :----------------------------------------------------------- |
+| `id`                       | string                   | A unique identifier for the customer                         |
