@@ -1,8 +1,8 @@
 import withDocs from 'components/withDocs';
 
 export default withDocs({
-  title: 'createCustomer - Stripe - Functions',
-  description: 'The createCustomer function schema',
+  title: 'createSubscription - Stripe - Functions',
+  description: 'The createSubscription function schema',
   breadcrumbs: [{
     path: '/docs/functions#function-types',
     label: 'Functions',
@@ -20,9 +20,9 @@ export default withDocs({
   ]
 });
 
-# createCustomer
+# createSubscription
 
-Creates a customer in Stripe. Under the hood, this action calls the [create a customer](https://stripe.com/docs/api/customers/create) API endpoint. This function returns a `customerToken` that you can use to create a charge or subscription.
+Creates a subscription for a customer in Stripe. Under the hood, this action calls the [create a subscription](https://stripe.com/docs/api/subscriptions/create) API endpoint.
 
 ## Configuration
 
@@ -37,9 +37,9 @@ This function type accepts the following parameters:
 ```json
 {
   "functions": {
-    "createCustomer": {
+    "createSubscription": {
       "app": "stripe",
-      "type": "createCustomer"
+      "type": "createSubscription"
     }
   }
 }
@@ -51,21 +51,27 @@ This function type accepts the following client-side arguments when called:
 
 | Key                        | Type                     | Default                        | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
-| `name`                     | string                   |                                | The customer’s full name or business name.                             |
-| `description`              | string                   |                                | An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.                             |
-| `email`                    | string                   |                                | Customer’s email address. It’s displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to 512 characters. |
+| `customerToken` *          | string                   |                                | A customer token (returned from [creating a customer](/docs/functions/stripe/create-customer#response)) |
+| `items`                    | object[]                 |                                | An array of objects specifying one or more subscription plans. |
+| ↳ `plan`                  | string                   |                                | The plan ID (from Stripe).                                   |
 | `metadata`                 | object                   |                                | Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. |
-| `source`                   | string                   |                                | A payment source token (e.g. generated from Stripe Elements) |
+| `coupon`                   | string                   |                                | A coupon code to apply to this subscription. |
 
 ### Example
 
 ```js
-import { createClient, createCustomer } from '@statickit/functions';
-let client = createClient({ site: '{your-site-id}' });
+import { 
+  createClient,
+  createCustomer,
+  createSubscription 
+} from '@statickit/functions';
 
-let { status } = await createCustomer(client, {
-  email: "janedoe@example.com",
-  source: "tok_XXXXX"
+let client = createClient({ site: '{your-site-id}' });
+let { customerToken } = await createCustomer(client, {});
+
+let { status } = await createSubscription(client, {
+  customerToken,
+  items: [{ plan: "plan_XXXXX" }]
 });
 ```
 
@@ -76,4 +82,4 @@ Returns a [`status`](/docs/functions#responses) and the following properties whe
 | Key                        | Type                     |  Description                                                 |
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `id`                       | string                   | A unique identifier for the customer.                        |
-| `customerToken`            | string                   | A unique token to use for performing actions on this customer (like [creating a charge](/docs/functions/stripe/create-charge)) |
+| `subscriptionStatus`       | string                   | The status of the Stripe subscription.                       |
