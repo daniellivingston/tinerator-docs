@@ -51,8 +51,8 @@ This function type accepts the following client-side arguments when called:
 
 | Key                        | Type                     | Default                        | Description                                                  |
 | :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
-| `customerToken` *          | string                   |                                | A customer token (returned from [creating a customer](/docs/functions/stripe/create-customer#response)) |
-| `items`                    | object[]                 |                                | An array of objects specifying one or more subscription plans. |
+| `customerToken`*          | string                   |                                | A customer token (returned from [creating a customer](/docs/functions/stripe/create-customer#response)) |
+| `items`*                  | object[]                 |                                | An array of objects specifying one or more subscription plans. |
 | ↳ `plan`                  | string                   |                                | The plan ID (from Stripe).                                   |
 | `metadata`                 | object                   |                                | Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. |
 | `coupon`                   | string                   |                                | A coupon code to apply to this subscription. |
