@@ -12,10 +12,6 @@ const path = require('path');
 module.exports = withMDX(
   withCSS({
     target: 'serverless',
-    env: {
-      STATICKIT_URL: process.env.STATICKIT_URL,
-      FORM_ID: process.env.FORM_ID
-    },
     pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'md'],
     webpack(config, options) {
       // Allow absolute imports of common paths
