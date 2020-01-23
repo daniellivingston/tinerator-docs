@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import Error from 'next/error';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -6,8 +6,7 @@ import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import FormHeader from 'components/FormHeader';
 import { useDefaultSite } from 'utils/default-site';
-import { useAuthRequired } from 'utils/auth';
-import { getToken } from 'utils/auth';
+import { useAuthRequired, getToken } from 'utils/auth';
 import { graphql } from 'utils/graphql';
 import useViewerData from 'components/useViewerData';
 import useSiteData from 'components/useSiteData';
@@ -242,14 +241,31 @@ const SubmissionTable = ({ formData, submissionsData }) => {
   );
 };
 
-const SubmissionCount = ({ formData }) => {
+const SubmissionHeader = ({ formData }) => {
   if (!formData || !formData.form) return <></>;
 
   const form = formData.form;
 
+  const endpoint =
+    process.env.NODE_ENV == 'production'
+      ? 'https://api.statickit.com'
+      : 'http://localhost:4000';
+
   return (
-    <div className="text-gray-700 text-sm pb-6">
-      This form has been submitted {form.submissionCount} times.
+    <div className="flex">
+      <div className="flex-grow text-gray-700 text-sm pb-6">
+        This form has been submitted {form.submissionCount} times.
+      </div>
+      <div>
+        <a
+          href={`${endpoint}/api/forms/${
+            form.id
+          }/submissions.csv?token=${getToken()}`}
+          className="btn btn-sm"
+        >
+          Export
+        </a>
+      </div>
     </div>
   );
 };
@@ -290,7 +306,7 @@ function FormPage() {
         </div>
         <div>
           <div className="mx-auto container px-6 py-6">
-            <SubmissionCount formData={formData} />
+            <SubmissionHeader formData={formData} />
 
             <SubmissionTable
               formData={formData}
