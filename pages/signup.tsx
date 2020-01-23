@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { signup, login } from 'utils/auth';
 import { ValidationError } from '@statickit/react';
 import cookie from 'js-cookie';
+import * as Fathom from 'fathom-client';
 
 function SignupPage() {
   const title = 'Sign up';
@@ -34,6 +35,10 @@ function SignupPage() {
       if (resp.token) {
         let nextPath = cookie.get('next') || '/docs';
         cookie.remove('next');
+
+        // The "Signed up" goal
+        Fathom.trackGoal('TQBJFNPT', 0);
+
         setSiteId(resp.site_id);
         login({ token: resp.token, nextPath });
       } else {
