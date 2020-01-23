@@ -26,6 +26,11 @@
       "headers": { "Location": "/docs/forms/html" }
     },
     {
+      "src": "/docs/html/forms",
+      "status": 308,
+      "headers": { "Location": "/docs/forms/html" }
+    },
+    {
       "src": "/docs/react",
       "status": 308,
       "headers": { "Location": "/docs/forms/react" }
