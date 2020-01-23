@@ -67,7 +67,7 @@ function UserMenu({ viewer }) {
 const GlobalNav = ({ viewerData }) => {
   if (!viewerData) return <></>;
 
-  if (viewerData.status === 'unauthorized') {
+  if (viewerData.status !== 'ok') {
     return (
       <>
         <Link href="/docs">

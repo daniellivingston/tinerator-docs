@@ -4,122 +4,149 @@ import BrowserDemo from 'components/BrowserDemo';
 import ArrowItem from 'components/ArrowItem';
 
 export default withDocs({
-  title: 'How To Connect Forms to Mailchimp',
-  description: 'How to add subscribers to Mailchimp and track automation events using StaticKit.',
-  path: '/guides/mailchimp',
+  title: 'Building a React Mailchimp Form',
+  description: 'How to build a React form to create subscribers in your Mailchimp account.',
   breadcrumbs: [{
     path: '/guides',
     label: 'Guides',
     rel: 'prev'
   }],
   toc: [
-    [1, "Configure your form", "#configure-your-form"],
-    [1, "Add your API key", "#add-your-mailchimp-api-key"],
-    [1, "Configure your fields", "#configure-your-fields"],
-    [1, "Build your form", "#build-your-form"],
+    [1, "Configure your function", "#add-a-function"],
+    [1, "Prepare your project", "#prepare-your-project"],
+    [1, "Build your form", "#build-your-form"]
   ],
 });
 
-# How To Connect Forms to Mailchimp
+# Building a React Mailchimp Form
 
 <p className="text-lg">
-  In this guide, you'll learn how to add (or update) subscribers in <a href="https://mailchimp.com/">Mailchimp</a> when someone submits a form.
+  Learn how build a React form to create subscribers in your <a href="https://mailchimp.com/">Mailchimp</a> account.
 </p>
 
-<StepHeading step="1" id="configure-your-form">Configure your form</StepHeading>
+<StepHeading step="1" id="add-a-function">Configure your function</StepHeading>
 
-In your `statickit.json` file, either add a new form or update an existing form's `actions`: 
+In your `statickit.json` file, add a Mailchimp function:
 
 ```json
 {
-  "forms": {
-    "opt-in-form": {
-      "name": "Opt-In Form",
-      "fields": {
-        "email": {
-          "type": "email",
-          "prettyName": "Email address"
-        }
-      },
-      "actions": [
-        {
-          "app": "mailchimp",
-          "type": "addOrUpdateContact",
-          "audience": "<replace-with-your-audience-id>"
-        }
-      ]
+  "functions": {
+    "addToMailchimp": {
+      "app": "mailchimp",
+      "type": "addOrUpdateListMember"
     }
   }
 }
 ```
 
-Here's where to find your Audience ID place in the `audience` property:
-
-- Log in to your Mailchimp account
-- Click **Audience** tab at the top
-- Navigate to **Manage Audience › Settings**
-- Click **Audience name and defaults**
-- Locate the ID under the "Audience ID" heading (it looks like `5ca598e7e8`)
-
-<StepHeading step="2" id="add-your-mailchimp-api-key">Add your API key</StepHeading>
-
-Next, you need to save your Mailchimp API key in your StaticKit secrets. Here's where to find it:
-
-- Log in to your Mailchimp account
-- Open the menu with your avatar in the upper right
-- Navigate to **Profile › Extras › API keys**
-- Under "Your API keys", click **Create A Key**
-
-It will look something like this: `ecee71ce9jkl636820fb55e0163515c6-us16`
-
-Copy the key and run the following command to store this as a secret value:
+Then, deploy your changes to StaticKit:
 
 ```bash
-statickit secrets add mailchimp-api-key <paste-api-key-here>
+statickit deploy -k <your-deploy-key>
 ```
 
-Now, you're ready to deploy:
+You'll be prompted with instructions on how to save your Mailchimp API key and audience.
+
+<StepHeading step="2" id="prepare-your-project">Prepare your project</StepHeading>
+
+Install the React helper library in your project:
 
 ```bash
-statickit deploy
+npm install @statickit/react
 ```
 
-<StepHeading step="3" id="configure-your-fields">Configure your fields (optional)</StepHeading>
+Add the `StaticKitProvider` to your top-level app component. For example, if you are using Next.js, here's what your `pages/_app.js` file might look like:
 
-By default, the `addOrUpdateContact` action uses the `email` field. You can override the email address field using the `emailAddressField` property:
+```jsx
+import { StaticKitProvider } from '@statickit/react';
 
-```json
-{
-  "app": "mailchimp",
-  "type": "addOrUpdateContact",
-  "emailAddressField": "email_address"
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="{your-site-id}">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  );
 }
+
+export default App;
 ```
 
-If you are gathering additional fields (like first name), you can map them to Mailchimp merge fields:
+<StepHeading step="3" id="build-your-form">Build your form</StepHeading>
 
-```json
-{
-  "app": "mailchimp",
-  "type": "addOrUpdateContact",
-  "dynamicFields": {
-    "FNAME": "first_name"
+Here's an example component that calls your `addToMailchimp` function in the form submit handler.
+
+```jsx
+import React, { useState } from 'react';
+import { useStaticKit, ValidationError } from '@statickit/react';
+import { addToMailchimp } from '@statickit/functions';
+
+function OptInForm(props) {
+  const client = useStaticKit();
+
+  const [emailAddress, setEmailAddress] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState([]);
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    let resp = await addToMailchimp(client, { emailAddress });
+    
+    switch (resp.status) {
+      case 'ok':
+        setIsSubmitted(true);
+        break;
+      
+      case 'argumentError':
+        setErrors(resp.errors);
+        setIsSubmitting(false);
+        break;
+      
+      default:
+        setIsSubmitting(false);
+        break;
+    }
   }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="email">
+        Email Address
+      </label>
+      <input
+        id="email"
+        type="email" 
+        name="email" 
+        onChange={e => setEmailAddress(e.target.value)}
+        value={emailAddress}
+      />
+      <ValidationError 
+        prefix="Email" 
+        field="emailAddress"
+        errors={errors} 
+      />
+      <button type="submit" disabled={isSubmitting}>
+        Sign Up
+      </button>
+    </form>
+  );
 }
 ```
 
-<StepHeading step="4" id="build-your-form">Build your form</StepHeading>
+Here we are only passing an `emailAddress` to Mailchimp. You can optionally pass along `mergeFields` as well:
 
-We have a few client libraries to help attach your interface to StaticKit:
-
-<ArrowItem>
-  <a href="/docs/forms/react" className="font-semibold text-indigo-600">React</a>: works great with Gatsby, Next.js, etc.
-</ArrowItem>
-
-<ArrowItem>
-  <a href="/docs/forms/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
-</ArrowItem>
+```js
+let resp = await addToMailchimp(client, { 
+  emailAddress,
+  mergeFields: {
+    FNAME: firstName,
+    LNAME: lastName
+  }
+});
+```
 
 ---
 
-Check out the [Mailchimp reference](/docs/config/forms/mailchimp) to see all available actions and properties.
+Check out the [Mailchimp reference](/docs/functions/mailchimp) to see all available function types.
