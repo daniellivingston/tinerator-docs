@@ -11,14 +11,6 @@ const Footer: React.FC<{}> = () => (
           </a>
         </Link>
 
-        <a
-          href="https://jsfiddle.net/user/StaticKit/fiddles/"
-          className="px-3 pb-1 whitespace-no-wrap text-gray-600 hover:text-gray-500"
-          target="_blank"
-        >
-          Examples
-        </a>
-
         <Link href="/pricing">
           <a className="px-3 pb-1 whitespace-no-wrap text-gray-600 hover:text-gray-500">
             Pricing
