@@ -14,7 +14,7 @@ interface Section {
 const sections: Section[] = [
   {
     path: '/docs',
-    label: 'Getting Started',
+    label: 'Introduction',
     sections: []
   },
   {

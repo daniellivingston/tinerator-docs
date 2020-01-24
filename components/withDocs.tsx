@@ -2,7 +2,7 @@ import React from 'react';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import { MDXProvider } from '@mdx-js/react';
-import Nav from './docs/nav';
+import DocsNav from 'components/DocsNav';
 import Link from 'next/link';
 import CodeBlock from './CodeBlock';
 
@@ -130,7 +130,7 @@ export default meta => ({ children }) => {
           <div className="mx-auto px-6 pt-6 pb-12 container sm:flex">
             <div className="flex-shrink-0 relative pb-12 sm:w-32 lg:w-40">
               <div className="pt-8 sm:sticky sm:top-0">
-                <Nav />
+                <DocsNav />
               </div>
             </div>
             <div className="flex flex-grow min-w-0">

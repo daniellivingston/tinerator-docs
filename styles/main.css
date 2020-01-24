@@ -44,6 +44,10 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
   @apply px-6 py-4 text-lg;
 }
 
+.btn-transparent {
+  @apply border-transparent bg-transparent;
+}
+
 .btn-outline {
   @apply bg-white text-indigo-600;
 }

@@ -200,12 +200,12 @@ function SiteSettingsPage({
   return (
     <main>
       <HeadMatter title={pageTitle(siteData)} />
-      <div className="bg-gray-900">
-        <Header inverted={true} viewerData={viewerData} siteData={siteData} />
+      <div>
+        <Header inverted={false} viewerData={viewerData} siteData={siteData} />
         <div className="container py-16 sm:py-20 mx-auto">
           <div className="mx-auto max-w-3xl">
             <div className="px-6 pb-6">
-              <h1 className="pb-2 text-gray-200 text-4xl tracking-snug">
+              <h1 className="pb-2 text-gray-900 text-4xl tracking-snug">
                 Site Settings
               </h1>
             </div>
@@ -213,7 +213,7 @@ function SiteSettingsPage({
             <div className="mx-auto container py-6">
               <div className="mx-auto sm:flex max-w-3xl py-3">
                 <div className="sm:w-1/3 px-6 pb-3">
-                  <label className="block pb-1 text-gray-400 font-semibold">
+                  <label className="block pb-1 text-gray-800 font-semibold">
                     Site Name
                   </label>
                   <p className="text-sm text-gray-600">
@@ -222,7 +222,7 @@ function SiteSettingsPage({
                 </div>
                 <div className="sm:w-2/3 px-6 pb-3">
                   <form
-                    className="flex input-field-inverse p-0"
+                    className="flex input-field p-0"
                     onSubmit={handleNameSaved}
                   >
                     <input
@@ -250,7 +250,7 @@ function SiteSettingsPage({
 
               <div className="mx-auto sm:flex max-w-3xl py-3">
                 <div className="sm:w-1/3 px-6 pb-3">
-                  <label className="block pb-1 text-gray-400 font-semibold">
+                  <label className="block pb-1 text-gray-800 font-semibold">
                     Site ID
                   </label>
                   <p className="text-sm text-gray-600">
@@ -259,13 +259,16 @@ function SiteSettingsPage({
                 </div>
                 <div className="sm:w-2/3 px-6 pb-3">
                   <div className="flex">
-                    <div className="flex max-w-full border border-transparent bg-gray-800 leading-tight rounded">
-                      <div className="p-3 overflow-auto font-mono text-gray-200 bg-transparent focus:outline-none">
+                    <div className="flex max-w-full border border-transparent bg-gray-200 leading-tight rounded">
+                      <div className="p-3 overflow-auto font-mono text-gray-800 bg-transparent focus:outline-none">
                         {slug}
                       </div>
 
                       <CopyToClipboard text={slug}>
-                        <button type="submit" className="btn btn-sm">
+                        <button
+                          type="submit"
+                          className="btn btn-sm btn-transparent text-gray-800"
+                        >
                           <span
                             dangerouslySetInnerHTML={{ __html: copyIcon }}
                           />
@@ -278,19 +281,22 @@ function SiteSettingsPage({
 
               <div className="mx-auto sm:flex max-w-3xl py-3">
                 <div className="sm:w-1/3 px-6 pb-3">
-                  <label className="block pb-1 text-gray-400 font-semibold">
+                  <label className="block pb-1 text-gray-800 font-semibold">
                     Deploy Key
                   </label>
                   <p className="text-sm text-gray-600">Keep this secret!</p>
                 </div>
                 <div className="sm:w-2/3 px-6 pb-3">
                   <div className="flex">
-                    <div className="flex max-w-full border border-transparent bg-gray-800 leading-tight rounded">
-                      <div className="p-3 overflow-auto font-mono text-gray-200 bg-transparent focus:outline-none">
+                    <div className="flex max-w-full border border-transparent bg-gray-200 leading-tight rounded">
+                      <div className="p-3 overflow-auto font-mono text-gray-800 bg-transparent focus:outline-none">
                         {deployKey}
                       </div>
                       <CopyToClipboard text={deployKey}>
-                        <button type="submit" className="btn btn-sm">
+                        <button
+                          type="submit"
+                          className="btn btn-sm btn-transparent text-gray-800"
+                        >
                           <span
                             dangerouslySetInnerHTML={{ __html: copyIcon }}
                           />
@@ -303,14 +309,14 @@ function SiteSettingsPage({
 
               <div className="mx-auto sm:flex max-w-3xl py-3">
                 <div className="sm:w-1/3 px-6 pb-3">
-                  <label className="block pb-1 text-gray-400 font-semibold">
+                  <label className="block pb-1 text-gray-800 font-semibold">
                     Billing
                   </label>
                   <p className="text-sm text-gray-600">
                     Your plan and usage info.
                   </p>
                 </div>
-                <div className="sm:w-2/3 px-6 pb-3 text-gray-400">
+                <div className="sm:w-2/3 px-6 pb-3 text-gray-900">
                   <Billing
                     viewerData={viewerData}
                     siteData={siteData}
@@ -322,7 +328,6 @@ function SiteSettingsPage({
           </div>
         </div>
       </div>
-      <QuickLinks />
     </main>
   );
 }

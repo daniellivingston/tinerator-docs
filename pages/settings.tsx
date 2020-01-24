@@ -73,120 +73,126 @@ function UserSettingsPage({ viewer }: Props) {
               </div>
             </div>
 
-            <div className="mx-auto container py-6">
-              <div className="mx-auto sm:flex max-w-3xl py-3">
-                <div className="sm:w-1/3 px-6 pb-3">
-                  <label className="block pb-1 text-gray-800 font-semibold">
-                    Email Address
-                  </label>
-                  <p className="text-sm text-gray-600">Use this to sign in.</p>
-                </div>
-                <div className="sm:w-2/3 px-6 pb-3">
-                  <form
-                    className="flex input-field p-0"
-                    onSubmit={handleEmailSaved}
-                  >
-                    <input
-                      type="text"
-                      name="email"
-                      className="block p-3 flex-grow bg-transparent focus:outline-none min-w-0"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                    />
-                    <div className="p-1">
-                      <button type="submit" className="btn btn-sm">
-                        Save
-                      </button>
-                    </div>
-                  </form>
-
-                  <ValidationError
-                    prefix="Email"
-                    field="email"
-                    errors={errors}
-                    className="py-2 text-sm text-red-700 font-bold"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="mx-auto container py-6">
-              <div className="mx-auto sm:flex max-w-3xl py-3">
-                <div className="sm:w-1/3 px-6 pb-3">
-                  <label className="block pb-1 text-gray-800 font-semibold">
-                    Avatar
-                  </label>
-                  <p className="text-sm text-gray-600">
-                    Managed by{' '}
-                    <a
-                      href="https://en.gravatar.com/"
-                      className="text-indigo-600"
+            <div className="py-6">
+              <div className="mx-auto container py-3">
+                <div className="mx-auto sm:flex max-w-3xl py-3">
+                  <div className="sm:w-1/3 px-6 pb-3">
+                    <label className="block pb-1 text-gray-800 font-semibold">
+                      Email Address
+                    </label>
+                    <p className="text-sm text-gray-600">
+                      Use this to sign in.
+                    </p>
+                  </div>
+                  <div className="sm:w-2/3 px-6 pb-3">
+                    <form
+                      className="flex input-field p-0"
+                      onSubmit={handleEmailSaved}
                     >
-                      Gravatar
-                    </a>
-                    .
-                  </p>
-                </div>
-                <div className="sm:w-2/3 px-6">
-                  <Avatar viewerData={viewerData} />
+                      <input
+                        type="text"
+                        name="email"
+                        className="block p-3 flex-grow bg-transparent focus:outline-none min-w-0"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                      />
+                      <div className="p-1">
+                        <button type="submit" className="btn btn-sm">
+                          Save
+                        </button>
+                      </div>
+                    </form>
+
+                    <ValidationError
+                      prefix="Email"
+                      field="email"
+                      errors={errors}
+                      className="py-2 text-sm text-red-700 font-bold"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="mx-auto container py-6">
-              <div className="mx-auto sm:flex max-w-3xl py-3">
-                <div className="sm:w-1/3 px-6 pb-3">
-                  <label className="block pb-1 text-gray-800 font-semibold">
-                    Password
-                  </label>
-                  <p className="text-sm text-gray-600">Update your password.</p>
+              <div className="mx-auto container py-3">
+                <div className="mx-auto sm:flex max-w-3xl py-3">
+                  <div className="sm:w-1/3 px-6 pb-3">
+                    <label className="block pb-1 text-gray-800 font-semibold">
+                      Avatar
+                    </label>
+                    <p className="text-sm text-gray-600">
+                      Managed by{' '}
+                      <a
+                        href="https://en.gravatar.com/"
+                        className="text-indigo-600"
+                      >
+                        Gravatar
+                      </a>
+                      .
+                    </p>
+                  </div>
+                  <div className="sm:w-2/3 px-6">
+                    <Avatar viewerData={viewerData} />
+                  </div>
                 </div>
-                <div className="sm:w-2/3 px-6 pb-3">
-                  <form className="" onSubmit={handlePasswordSaved}>
-                    <div className="pb-6">
-                      <label className="block pb-1 font-bold text-sm">
-                        Current Password
-                      </label>
-                      <input
-                        type="password"
-                        name="current_password"
-                        className="input-field"
-                        value={currentPassword}
-                        onChange={e => setCurrentPassword(e.target.value)}
-                      />
-                      <ValidationError
-                        prefix="Current password"
-                        field="current_password"
-                        errors={errors}
-                        className="py-2 text-sm text-red-700 font-bold"
-                      />
-                    </div>
+              </div>
 
-                    <div className="pb-4">
-                      <label className="block pb-1 font-bold text-sm">
-                        New Password
-                      </label>
-                      <input
-                        type="password"
-                        name="new_password"
-                        className="input-field"
-                        value={newPassword}
-                        onChange={e => setNewPassword(e.target.value)}
-                      />
-                      <ValidationError
-                        prefix="Password"
-                        field="password"
-                        errors={errors}
-                        className="py-2 text-sm text-red-700 font-bold"
-                      />
-                    </div>
+              <div className="mx-auto container py-3">
+                <div className="mx-auto sm:flex max-w-3xl py-3">
+                  <div className="sm:w-1/3 px-6 pb-3">
+                    <label className="block pb-1 text-gray-800 font-semibold">
+                      Password
+                    </label>
+                    <p className="text-sm text-gray-600">
+                      Update your password.
+                    </p>
+                  </div>
+                  <div className="sm:w-2/3 px-6 pb-3">
+                    <form className="" onSubmit={handlePasswordSaved}>
+                      <div className="pb-6">
+                        <label className="block pb-1 font-bold text-sm">
+                          Current Password
+                        </label>
+                        <input
+                          type="password"
+                          name="current_password"
+                          className="input-field"
+                          value={currentPassword}
+                          onChange={e => setCurrentPassword(e.target.value)}
+                        />
+                        <ValidationError
+                          prefix="Current password"
+                          field="current_password"
+                          errors={errors}
+                          className="py-2 text-sm text-red-700 font-bold"
+                        />
+                      </div>
 
-                    <div>
-                      <button type="submit" className="btn btn-sm">
-                        Update password
-                      </button>
-                    </div>
-                  </form>
+                      <div className="pb-4">
+                        <label className="block pb-1 font-bold text-sm">
+                          New Password
+                        </label>
+                        <input
+                          type="password"
+                          name="new_password"
+                          className="input-field"
+                          value={newPassword}
+                          onChange={e => setNewPassword(e.target.value)}
+                        />
+                        <ValidationError
+                          prefix="Password"
+                          field="password"
+                          errors={errors}
+                          className="py-2 text-sm text-red-700 font-bold"
+                        />
+                      </div>
+
+                      <div>
+                        <button type="submit" className="btn btn-sm">
+                          Update password
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

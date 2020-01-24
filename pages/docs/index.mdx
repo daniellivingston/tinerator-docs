@@ -2,7 +2,7 @@ import withDocs from 'components/withDocs';
 import ArrowItem from 'components/ArrowItem';
 
 export default withDocs({
-  title: 'Getting Started',
+  title: 'Introduction',
   description: 'Learn how to configure and deploy StaticKit.',
   toc: [
     [1, "Installation", "#installation"],
@@ -15,16 +15,15 @@ export default withDocs({
   }
 });
 
-# Getting Started
+# Introduction
 
-StaticKit is the serverless backend for static sites and modern JavaScript front-ends. Sites are configured via a `statickit.json` file that lives in your repository (alongside your website code) and deployed with a command-line interface (CLI).
+StaticKit provides zero-code serverless functions for front-end developers. Sites are configured via a `statickit.json` file that lives in your repository (alongside your website code) and deployed from the command line.
 
 ## Installation
 
-Run the following to install the CLI and initialize your project to use StaticKit:
+From your project directory, run the following to initialize your project:
 
 ```bash
-cd /path/to/my-project
 npm i -g @statickit/cli
 statickit init
 ```

@@ -20,7 +20,7 @@ statickit deploy -k ${token}
 
 const BlankSlate = ({ site }) => {
   return (
-    <div className="mx-auto container px-6 pt-6 pb-12">
+    <div className="mx-auto container px-6 py-12">
       <div className="mx-auto max-w-2xl text-gray-500">
         <div className="py-16">
           <h2 className="pb-4 text-2xl font-semibold text-gray-300 tracking-snug">
@@ -68,10 +68,10 @@ const FormItem = ({ site, form }) => {
       href="/sites/[siteId]/forms/[formId]"
       as={`/sites/${site.id}/forms/${form.id}`}
     >
-      <a className="block w-full md:w-1/2 lg:w-1/3 p-3">
+      <a className="block w-full lg:w-1/2 p-3">
         <div className="flex px-5 py-4 bg-gray-800 hover:bg-gray-700 hover:bg-transition rounded-lg shadow-lg">
-          <div className="flex-grow">
-            <h3 className="pb-1 text-lg font-semibold text-gray-300 tracking-snug">
+          <div className="flex-grow min-w-0">
+            <h3 className="pb-1 text-lg font-semibold text-gray-300 tracking-snug truncate">
               {form.name}
             </h3>
             <p className="text-sm text-gray-500">{submissionLabel}</p>
@@ -85,7 +85,7 @@ const FormItem = ({ site, form }) => {
   );
 };
 
-const FormList = ({ siteData }) => {
+const MainContent = ({ siteData }) => {
   if (!siteData) return <div className="h-32"></div>;
   if (siteData.status !== 'ok') return <></>;
 
@@ -99,7 +99,7 @@ const FormList = ({ siteData }) => {
   return (
     <div className="mx-auto container px-3 pt-12 pb-16">
       <div className="sm:flex">
-        <div className="sm:w-56 px-3 py-3 pb-3">
+        <div className="flex-shrink-0 sm:w-56 px-3 py-3 pb-3">
           <h2 className="pb-1 text-xl font-semibold text-white">Forms</h2>
           <p className="text-sm text-gray-600">
             The form resources you&rsquo;ve configured for your site.
@@ -133,16 +133,11 @@ function SitePage() {
   }
 
   return (
-    <div>
-      <main>
-        <HeadMatter title={pageTitle(siteData)} description={''} />
-        <div className="bg-gray-900">
-          <Header inverted={true} viewerData={viewerData} siteData={siteData} />
-          <FormList siteData={siteData} />
-        </div>
-        <QuickLinks />
-      </main>
-    </div>
+    <main className="bg-gray-900 h-full">
+      <HeadMatter title={pageTitle(siteData)} description={''} />
+      <Header inverted={true} viewerData={viewerData} siteData={siteData} />
+      <MainContent siteData={siteData} />
+    </main>
   );
 }
 

@@ -71,19 +71,19 @@ statickit secrets add mailchimp-api-key "jf89s..."
 
 Then, in your form config, you can reference the secret you just added (notice the `@`-symbol prefix).
 
-```diff
-  {
-    "forms": {
-      "newsletter": {
-        "name": "Newsletter",
-        "actions": [
-          {
-            "app": "mailchimp",
-            "type": "addOrUpdateContact",
-+           "apiKey": "@mailchimp-api-key"
-          }
-        ]
-      }
+```json highlight=9
+{
+  "forms": {
+    "newsletter": {
+      "name": "Newsletter",
+      "actions": [
+        {
+          "app": "mailchimp",
+          "type": "addOrUpdateContact",
+          "apiKey": "@mailchimp-api-key"
+        }
+      ]
     }
   }
+}
 ```
