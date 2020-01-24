@@ -17,7 +17,7 @@ const stepOne = `
 `;
 
 const stepTwo = `
-statickit deploy
+$ statickit deploy
 `;
 
 const stepThree = `
