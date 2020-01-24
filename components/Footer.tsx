@@ -17,13 +17,11 @@ const Footer: React.FC<{}> = () => (
           </a>
         </Link>
 
-        <a
-          href="https://github.com/unstacked/legal/blob/master/privacy-policy.md"
-          target="_blank"
-          className="px-3 pb-1 whitespace-no-wrap text-gray-600 hover:text-gray-500"
-        >
-          Privacy Policy
-        </a>
+        <Link href="/privacy-policy">
+          <a className="px-3 pb-1 whitespace-no-wrap text-gray-600 hover:text-gray-500">
+            Privacy Policy
+          </a>
+        </Link>
 
         <Link href="/support">
           <a className="px-3 pb-1 whitespace-no-wrap text-gray-600 hover:text-gray-500">
