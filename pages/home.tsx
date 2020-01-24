@@ -169,7 +169,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                     </div>
                   </h2>
 
-                  <CodeBlock className="language-jsx">
+                  <CodeBlock className="language-jsx" highlight="9,10,11">
                     {stepThree.trim()}
                   </CodeBlock>
 
