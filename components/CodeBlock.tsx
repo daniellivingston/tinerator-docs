@@ -12,14 +12,17 @@ const copyIcon = `
 interface Props {
   className: string;
   children: string;
+  highlight?: string;
 }
 
-const CodeBlock: React.FC<Props> = ({ children, className }) => {
+const CodeBlock: React.FC<Props> = ({ children, className, highlight }) => {
   const language = className.replace(/language-/, '') as Language;
   const siteId = useDefaultSite();
   const { data: siteData } = useSiteData(siteId);
   const { data: viewerData } = useViewerData();
   const [code, setCode] = useState(children.trim());
+
+  const highlightedLines = highlight ? highlight.split(',') : [];
 
   useEffect(() => {
     let newCode = children;
@@ -48,8 +51,11 @@ const CodeBlock: React.FC<Props> = ({ children, className }) => {
         {({ className, tokens, getLineProps, getTokenProps }) => (
           <pre className={className}>
             {tokens.map((line, i) => {
+              let isHighlighted = highlightedLines.includes((i + 1).toString());
+              let className = isHighlighted ? 'px-4 bg-gray-700' : 'px-4';
+
               return (
-                <div key={i} {...getLineProps({ line, key: i })}>
+                <div key={i} {...getLineProps({ line, className, key: i })}>
                   {line.map((token, key) => (
                     <span key={key} {...getTokenProps({ token, key })} />
                   ))}
