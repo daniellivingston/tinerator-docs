@@ -20,20 +20,20 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
       <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
         <div className="px-6 mx-auto max-w-5xl">
           <h1 className="pb-8 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-gray-900">
-            Why build a backend if
-            <br className="hidden lg:block" /> you don&rsquo;t have to?
+            Why build a custom backend
+            <br className="hidden lg:block" /> if you don&rsquo;t have to?
           </h1>
 
           <div className="max-w-2xl mx-auto pb-24 text-xl sm:text-2xl text-gray-700 sm:text-center leading-snug sm:tracking-snug">
             <p className="pb-8">
-              These days, you can accomplish a lot with frontend JavaScript! But
-              sometimes you simply need a backend, for things like collecting
-              payments and sending emails.
+              You can accomplish a lot with just HTML &amp; JavaScript!
+              <br className="hidden lg:block" /> But some tasks simply require a
+              backend, like collecting payments and sending emails.
             </p>
 
             <p>
               <strong className="mt-4 text-gray-800">
-                StaticKit fills in those gaps for you.
+                StaticKit is the backend you need.
               </strong>
             </p>
           </div>
