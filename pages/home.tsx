@@ -13,150 +13,36 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
   const description = 'Form backend, Stripe payments, and more.';
 
   return (
-    <div>
-      <main>
-        <HeadMatter title={title} description={description} />
-        <div className="bg-gray-900">
-          <Header inverted={true} viewerData={viewerData} />
+    <main>
+      <HeadMatter title={title} description={description} />
+      <Header viewerData={viewerData} />
 
-          <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
-            <div className="px-6 mx-auto max-w-5xl">
-              <h1 className="pb-8 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-white">
-                Why maintain backend code if you don&rsquo;t have to?
-              </h1>
+      <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
+        <div className="px-6 mx-auto max-w-5xl">
+          <h1 className="pb-8 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-gray-900">
+            Why build a backend if
+            <br className="hidden lg:block" /> you don&rsquo;t have to?
+          </h1>
 
-              <div className="max-w-xl mx-auto pb-24 text-xl sm:text-2xl text-gray-500 sm:text-center leading-snug sm:tracking-snug">
-                <p className="pb-8">
-                  Do you need backend functionality (like sending emails or
-                  accepting payments), but don&rsquo;t want to spin up a Rails
-                  app or custom serverless functions?
-                </p>
+          <div className="max-w-2xl mx-auto pb-24 text-xl sm:text-2xl text-gray-700 sm:text-center leading-snug sm:tracking-snug">
+            <p className="pb-8">
+              These days, you can accomplish a lot with frontend JavaScript! But
+              sometimes you simply need a backend, for things like collecting
+              payments and sending emails.
+            </p>
 
-                <p>
-                  <strong className="mt-4 text-gray-300">
-                    StaticKit has got you covered.
-                  </strong>
-                </p>
-              </div>
-
-              <div className="mx-auto max-w-2xl">
-                <div className="pb-16">
-                  <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-yellow-600 rounded-full whitespace-no-wrap">
-                      Step 1
-                    </div>{' '}
-                    <div className="text-yellow-500">
-                      Configure your backend
-                    </div>
-                  </h2>
-
-                  <CodeBlock className="language-json" copy={false}>
-                    {`
-{
-  "functions": {
-    "sendContactForm": {
-      "type": "sendNotification",
-      "to": "me@example.com"
-    }
-  }
-}
-                    `}
-                  </CodeBlock>
-
-                  <p className="px-4 pt-4 text-sm text-gray-500">
-                    This is what a
-                    <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
-                      statickit.json
-                    </span>{' '}
-                    file might look like.
-                  </p>
-                </div>
-
-                <div className="pb-16">
-                  <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-green-600 rounded-full whitespace-no-wrap">
-                      Step 2
-                    </div>{' '}
-                    <div className="text-green-500">Deploy your config</div>
-                  </h2>
-
-                  <CodeBlock className="language-shell" copy={false}>
-                    {`$ statickit deploy`}
-                  </CodeBlock>
-
-                  <p className="px-4 pt-4 text-sm text-gray-500">
-                    We'll install a
-                    <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
-                      @statickit/functions
-                    </span>
-                    package for you.
-                  </p>
-                </div>
-
-                <div className="pb-16">
-                  <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                    <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-pink-600 rounded-full whitespace-no-wrap">
-                      Step 3
-                    </div>{' '}
-                    <div className="text-pink-500">
-                      Call your backend from your JavaScript
-                    </div>
-                  </h2>
-
-                  <CodeBlock
-                    className="language-jsx"
-                    highlight="9,10,11,12"
-                    copy={false}
-                  >
-                    {`
-import React from 'react';
-import { useStaticKit } from '@statickit/react';
-import { sendContactForm } from '@statickit/functions';
-
-function ContactForm() {
-  const client = useStaticKit();
-
-  const submit = async () => {
-    let { status } = await sendContactForm(client, {
-      subject: 'New contact submission',
-      fields: { email, message }
-    });
-  };
-
-  return (
-    <button onClick={submit}>Submit</button>
-  );
-}
-
-export default ContactForm;
-                    `}
-                  </CodeBlock>
-
-                  <p className="px-4 pt-4 text-sm text-gray-500">
-                    You can call them from React components, or whatever else
-                    you are using.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mx-auto container pt-16 sm:pt-24">
-          <div className="px-6 mx-auto max-w-4xl">
-            <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-900">
-              Powerful functions at your fingertips
-            </h1>
-            <p className="pb-6 sm:pb-16 text-lg sm:text-xl text-gray-700 sm:text-center mx-auto max-w-2xl">
-              We have a growing collection of pre-built serverless functions.
+            <p>
+              <strong className="mt-4 text-gray-800">
+                StaticKit fills in those gaps for you.
+              </strong>
             </p>
           </div>
         </div>
 
-        <div className="mx-auto container pb-8 sm:pb-16 max-w-4xl">
+        <div className="mx-auto container max-w-5xl pb-8 sm:pb-12">
           <div className="flex flex-wrap">
             <div className="p-6 md:w-1/2 lg:w-1/3">
-              <div className="pb-3 flex items-center">
+              <div className="pb-4 flex items-center">
                 <div className="mr-6 h-12 w-12">
                   <div
                     dangerouslySetInnerHTML={{
@@ -203,34 +89,34 @@ export default ContactForm;
                   />
                 </div>
               </div>
-              <h3 className="pb-1 text-xl font-semibold text-gray-900">
+              <h3 className="pb-2 text-2xl font-semibold text-gray-900">
                 Opt-In Forms
               </h3>
-              <p className="text-gray-700">
+              <p className="text-lg text-gray-700">
                 Add subscribers to your Mailchimp or ConvertKit account and
                 track events.
               </p>
             </div>
 
             <div className="p-6 md:w-1/2 lg:w-1/3">
-              <div className="pb-3">
+              <div className="pb-4">
                 <img
                   src="/static/stripe-icon.jpg"
                   alt="stripe"
                   className="h-12 w-12 rounded-full"
                 />
               </div>
-              <h3 className="pb-1 text-xl font-semibold text-gray-900">
+              <h3 className="pb-2 text-2xl font-semibold text-gray-900">
                 Payments
               </h3>
-              <p className="text-gray-700">
+              <p className="text-lg text-gray-700">
                 Create customers, charges, and subscriptions in your Stripe
                 account.
               </p>
             </div>
 
             <div className="p-6 md:w-1/2 lg:w-1/3">
-              <div className="pb-3">
+              <div className="pb-4">
                 <div className="flex items-center h-12 w-12">
                   <div
                     dangerouslySetInnerHTML={{
@@ -248,34 +134,150 @@ export default ContactForm;
                   />
                 </div>
               </div>
-              <h3 className="pb-1 text-xl font-semibold text-gray-900">
+              <h3 className="pb-2 text-2xl font-semibold text-gray-900">
                 Contact Forms
               </h3>
-              <p className="text-gray-700">
-                Send notification emails for things like contact form
-                submissions.
+              <p className="text-lg text-gray-700">
+                Create contact forms and that notify you via email when
+                submitted.
               </p>
             </div>
           </div>
         </div>
+      </div>
 
+      <div className="bg-gray-900 border-b border-gray-800">
+        <div className="mx-auto container py-16 sm:py-24">
+          <div className="px-6 pb-12 mx-auto max-w-4xl">
+            <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-300">
+              World-class developer experience
+            </h1>
+            <p className="pb-6 sm:pb-16 text-lg sm:text-xl text-gray-500 sm:text-center mx-auto max-w-3xl">
+              Configure what you need in your{' '}
+              <code className="mx-1 px-3 py-1 text-base rounded-full bg-gray-800">
+                statickit.json
+              </code>{' '}
+              file and we&rsquo;ll generate a custom npm package with
+              TypeScript-enabled function definitions.
+            </p>
+          </div>
+          <div className="px-6 mx-auto max-w-5xl">
+            <div className="mx-auto max-w-2xl">
+              <div className="pb-16">
+                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-yellow-600 rounded-full whitespace-no-wrap">
+                    Step 1
+                  </div>{' '}
+                  <div className="text-yellow-500">Configure your backend</div>
+                </h2>
+
+                <CodeBlock className="language-json" copy={false}>
+                  {`
+{
+"functions": {
+  "sendContactForm": {
+    "type": "sendNotification",
+    "to": "me@example.com"
+  }
+}
+}
+                  `}
+                </CodeBlock>
+
+                <p className="px-4 pt-4 text-sm text-gray-500">
+                  This is what a
+                  <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
+                    statickit.json
+                  </span>{' '}
+                  file might look like.
+                </p>
+              </div>
+
+              <div className="pb-16">
+                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-green-600 rounded-full whitespace-no-wrap">
+                    Step 2
+                  </div>{' '}
+                  <div className="text-green-500">Deploy your config</div>
+                </h2>
+
+                <CodeBlock className="language-shell" copy={false}>
+                  {`$ statickit deploy`}
+                </CodeBlock>
+
+                <p className="px-4 pt-4 text-sm text-gray-500">
+                  We'll install a
+                  <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
+                    @statickit/functions
+                  </span>
+                  package for you.
+                </p>
+              </div>
+
+              <div className="pb-16">
+                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
+                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-pink-600 rounded-full whitespace-no-wrap">
+                    Step 3
+                  </div>{' '}
+                  <div className="text-pink-500">
+                    Talk to your backend from your JavaScript
+                  </div>
+                </h2>
+
+                <CodeBlock
+                  className="language-jsx"
+                  highlight="9,10,11,12"
+                  copy={false}
+                >
+                  {`
+import React from 'react';
+import { useStaticKit } from '@statickit/react';
+import { sendContactForm } from '@statickit/functions';
+
+function ContactForm() {
+const client = useStaticKit();
+
+const submit = async () => {
+  let { status } = await sendContactForm(client, {
+    subject: 'New contact submission',
+    fields: { email, message }
+  });
+};
+
+return (
+  <button onClick={submit}>Submit</button>
+);
+}
+
+export default ContactForm;
+                  `}
+                </CodeBlock>
+
+                <p className="px-4 pt-4 text-sm text-gray-500">
+                  You can call them from React components, or whatever else you
+                  are using.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="mx-auto container">
-          <div className="max-w-5xl mx-auto px-6 py-20 sm:flex items-center justify-center border-t">
-            <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-700">
-              Breathe life into your static site.
+          <div className="max-w-5xl mx-auto px-6 py-20 sm:flex items-center justify-center border-t border-gray-800">
+            <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-500">
+              Get started for free.
             </div>
             <div className="flex-shrink-0">
               <a
                 href="https://app.statickit.com/signup"
                 className="btn sm:block whitespace-no-break"
               >
-                Get started free
+                Sign up now
               </a>
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 };
 
