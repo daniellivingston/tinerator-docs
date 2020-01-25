@@ -13,9 +13,15 @@ interface Props {
   className: string;
   children: string;
   highlight?: string;
+  copy?: boolean;
 }
 
-const CodeBlock: React.FC<Props> = ({ children, className, highlight }) => {
+const CodeBlock: React.FC<Props> = ({
+  children,
+  className,
+  highlight,
+  copy = true
+}) => {
   const language = className.replace(/language-/, '') as Language;
   const siteId = useDefaultSite();
   const { data: siteData } = useSiteData(siteId);
@@ -65,12 +71,15 @@ const CodeBlock: React.FC<Props> = ({ children, className, highlight }) => {
           </pre>
         )}
       </Highlight>
-
-      <CopyToClipboard text={code}>
-        <button className="absolute top-0 right-0 flex p-3 text-gray-300 bg-gray-800 rounded-tr-lg">
-          <span dangerouslySetInnerHTML={{ __html: copyIcon }} />
-        </button>
-      </CopyToClipboard>
+      {copy ? (
+        <CopyToClipboard text={code}>
+          <button className="absolute top-0 right-0 flex p-3 text-gray-300 bg-gray-800 rounded-tr-lg">
+            <span dangerouslySetInnerHTML={{ __html: copyIcon }} />
+          </button>
+        </CopyToClipboard>
+      ) : (
+        ''
+      )}
     </div>
   );
 };
