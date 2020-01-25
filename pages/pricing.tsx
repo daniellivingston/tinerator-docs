@@ -25,7 +25,7 @@ function PricingPage() {
           <div className="md:flex max-w-5xl mx-auto border-t border-b">
             <div className="px-6 py-16 md:w-1/2 border-b md:border-b-0 md:border-r">
               <h2 className="text-center text-sm uppercase font-bold tracking-wide text-indigo-600">
-                Sandbox
+                Development
               </h2>
               <div className="text-center text-4xl sm:text-5xl tracking-tight font-bold">
                 Free
@@ -152,7 +152,7 @@ function PricingPage() {
                   </table>
                 </div>
 
-                <div className="">
+                <div className="text-gray-700">
                   Please{' '}
                   <Link href="/support">
                     <a className="text-indigo-600">reach out</a>
@@ -162,16 +162,19 @@ function PricingPage() {
               </dd>
 
               <dt>
-                <h2 className="pb-3 text-xl font-semibold tracking-snug">
+                <h2
+                  id="#sandbox-limits"
+                  className="pb-3 text-xl font-semibold tracking-snug"
+                >
                   What are the sandbox limits?
                 </h2>
               </dt>
               <dd className="pb-16">
                 <p className="text-gray-700">
-                  On the sandbox plan, requests are capped at 100 per month and
-                  some functions come with specific limitations (consult the
-                  docs for details). It&rsquo;s best to upgrade to a production
-                  plan before going live.
+                  In development, requests are capped at 100 per month and some
+                  functions come with specific limitations (consult the docs for
+                  details). It&rsquo;s best to upgrade to a production plan
+                  before going live.
                 </p>
               </dd>
             </dl>
