@@ -204,7 +204,7 @@ export default ContactForm;
                 </div>
               </div>
               <h3 className="pb-1 text-xl font-semibold text-gray-900">
-                Email Marketing
+                Opt-In Forms
               </h3>
               <p className="text-gray-700">
                 Add subscribers to your Mailchimp or ConvertKit account and
