@@ -174,12 +174,12 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                 <CodeBlock className="language-json" copy={false}>
                   {`
 {
-"functions": {
-  "sendContactForm": {
-    "type": "sendNotification",
-    "to": "me@example.com"
+  "functions": {
+    "sendContactForm": {
+      "type": "sendNotification",
+      "to": "me@example.com"
+    }
   }
-}
 }
                   `}
                 </CodeBlock>
@@ -230,32 +230,18 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                   copy={false}
                 >
                   {`
-import React from 'react';
-import { useStaticKit } from '@statickit/react';
 import { sendContactForm } from '@statickit/functions';
 
-function ContactForm() {
-const client = useStaticKit();
-
-const submit = async () => {
-  let { status } = await sendContactForm(client, {
-    subject: 'New contact submission',
-    fields: { email, message }
-  });
-};
-
-return (
-  <button onClick={submit}>Submit</button>
-);
-}
-
-export default ContactForm;
+let { status } = await sendContactForm(client, {
+  subject: 'New contact form submission',
+  fields: { email, message }
+});
                   `}
                 </CodeBlock>
 
                 <p className="px-4 pt-4 text-sm text-gray-500">
-                  You can call them from React components, or whatever else you
-                  are using.
+                  Call your functions from your React components, or whatever
+                  else you are using.
                 </p>
               </div>
             </div>
