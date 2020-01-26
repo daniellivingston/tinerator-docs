@@ -18,6 +18,7 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 
 .btn {
   @apply text-white font-bold border border-gray-800 bg-gray-800 px-5 py-3 leading-tight rounded;
+  white-space: nowrap;
 }
 
 .btn:focus {

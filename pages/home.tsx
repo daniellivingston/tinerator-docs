@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
@@ -20,20 +21,21 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
       <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
         <div className="px-6 mx-auto max-w-5xl">
           <h1 className="pb-8 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-gray-900">
-            Why build a custom backend
-            <br className="hidden lg:block" /> if you don&rsquo;t have to?
+            Why build a backend if
+            <br className="hidden lg:block" /> you don&rsquo;t have to?
           </h1>
 
           <div className="max-w-2xl mx-auto pb-24 text-xl sm:text-2xl text-gray-700 sm:text-center leading-snug sm:tracking-snug">
             <p className="pb-8">
-              You can accomplish a lot with just HTML &amp; JavaScript!
-              <br className="hidden lg:block" /> But some tasks simply require a
-              backend, like collecting payments and sending emails.
+              If you&rsquo;re a frontend developer who hates being forced to
+              build a backend for stuff like collecting payments and sending
+              emails, you&rsquo;re going to love what we&rsquo;re cooking up.
             </p>
 
             <p>
               <strong className="mt-4 text-gray-800">
-                StaticKit is the backend you need.
+                StaticKit gives you custom server-side functionality, entirely
+                within your frontend codebase.
               </strong>
             </p>
           </div>
@@ -138,7 +140,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                 Contact Forms
               </h3>
               <p className="text-lg text-gray-700">
-                Create contact forms and that notify you via email when
+                Create contact forms that notify you via email when they get
                 submitted.
               </p>
             </div>
@@ -148,17 +150,25 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
 
       <div className="bg-gray-900 border-b border-gray-800">
         <div className="mx-auto container py-16 sm:py-24">
-          <div className="px-6 pb-12 mx-auto max-w-4xl">
+          <div className="px-6 pb-16 sm:pb-24 mx-auto max-w-4xl">
             <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-300">
-              World-class developer experience
+              How It Works, In a Nutshell
             </h1>
-            <p className="pb-6 sm:pb-16 text-lg sm:text-xl text-gray-500 sm:text-center mx-auto max-w-3xl">
+            <p className="pb-6 text-lg sm:text-xl text-gray-500 sm:text-center mx-auto max-w-3xl">
               Configure what you need in your{' '}
               <code className="mx-1 px-3 py-1 text-base rounded-full bg-gray-800">
                 statickit.json
               </code>{' '}
               file and we&rsquo;ll generate a custom npm package with
-              TypeScript-enabled function definitions.
+              TypeScript-enabled function definitions. This means you
+              don&rsquo;t have to make any{' '}
+              <code className="mx-1 px-3 py-1 text-base rounded-full bg-gray-800">
+                fetch
+              </code>{' '}
+              calls or learn any new low-level APIs.
+            </p>
+            <p className="text-lg sm:text-xl text-gray-300 font-bold sm:text-center mx-auto max-w-3xl">
+              All you have to do is call your functions.
             </p>
           </div>
           <div className="px-6 mx-auto max-w-5xl">
@@ -220,7 +230,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                     Step 3
                   </div>{' '}
                   <div className="text-pink-500">
-                    Talk to your backend from your JavaScript
+                    Tell your backend what to do
                   </div>
                 </h2>
 
@@ -250,15 +260,12 @@ let { status } = await sendContactForm(client, {
         <div className="mx-auto container">
           <div className="max-w-5xl mx-auto px-6 py-20 sm:flex items-center justify-center border-t border-gray-800">
             <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-500">
-              Get started for free.
+              Go forth and build.
             </div>
             <div className="flex-shrink-0">
-              <a
-                href="https://app.statickit.com/signup"
-                className="btn sm:block whitespace-no-break"
-              >
-                Sign up now
-              </a>
+              <Link href="/signup">
+                <a className="btn sm:block">Sign up free</a>
+              </Link>
             </div>
           </div>
         </div>
