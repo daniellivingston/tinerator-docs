@@ -2,7 +2,7 @@ import React from 'react';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
-import OptInFormDemo from 'components/demos/Mailchimp';
+import MailchimpDemo from 'components/MailchimpDemo';
 import Link from 'next/link';
 
 const stepOne = `
@@ -230,7 +230,7 @@ const OptInFormsPage: React.FC<{}> = () => {
                     <div className="text-pink-500">Design your interface</div>
                   </h2>
 
-                  <OptInFormDemo />
+                  <MailchimpDemo />
 
                   <p className="px-4 pt-4 text-sm text-gray-500">
                     We have{' '}

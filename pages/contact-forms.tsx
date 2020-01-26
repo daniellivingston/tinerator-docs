@@ -2,7 +2,7 @@ import React from 'react';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
-import ContactFormDemo from 'components/demos/ContactForm';
+import ContactFormDemo from 'components/ContactFormDemo';
 import Link from 'next/link';
 
 const stepOne = `
