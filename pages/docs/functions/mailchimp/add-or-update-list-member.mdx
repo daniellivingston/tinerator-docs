@@ -4,11 +4,6 @@ export default withDocs({
   title: 'addOrUpdateListMember - Mailchimp - Functions',
   description: 'The addOrUpdateListMember function schema',
   breadcrumbs: [{
-    path: '/docs/functions#function-types',
-    label: 'Functions',
-    rel: 'prev'
-  },
-  {
     path: '/docs/functions/mailchimp',
     label: 'Mailchimp',
     rel: 'prev'
@@ -64,7 +59,7 @@ This function type accepts the following client-side arguments when called:
 ### Example
 
 ```js
-import { createClient, sendEmail } from '@statickit/functions';
+import { createClient, addToMailchimp } from '@statickit/functions';
 let client = createClient({ site: '{your-site-id}' });
 
 let { status } = await addToMailchimp(client, {

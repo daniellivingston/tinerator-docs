@@ -1,0 +1,71 @@
+import withDocs from 'components/withDocs';
+
+export default withDocs({
+  title: 'applyTags - ConvertKit - Functions',
+  description: 'The applyTags function schema',
+  breadcrumbs: [{
+    path: '/docs/functions/convertkit',
+    label: 'ConvertKit',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Configuration", "#configuration"],
+    [1, "Arguments", "#arguments"],
+    [1, "Response", "#response"]
+  ]
+});
+
+# applyTags
+
+Adds a subscrber to ConvertKit and applies one or more tags. Under the hood, this action calls the [tag a subscriber](https://developers.convertkit.com/#tag-a-subscriber) API endpoint.
+
+## Configuration
+
+This function type accepts the following parameters:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| [`apiSecret`](/docs/functions/convertkit#api-secret)       | string                   | `@convertkit-api-secret`           | Your ConvertKit API secret                                       |
+
+### Example
+
+```json
+{
+  "functions": {
+    "addToConvertKit": {
+      "app": "convertkit",
+      "type": "applyTags"
+    }
+  }
+}
+```
+
+## Arguments
+
+This function type accepts the following client-side arguments when called:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `email` *                  | string                   |                                | The subscriber's email address                               |
+| `tags` *                   | Array&lt;string&gt;      |                                | One or more tag names to apply to the subscriber             |
+| `firstName`                | string                   |                                | The subscriber's first name                                  |
+| `fields`                   | object                   | `{}`                           | Custom fields to set on the subscriber                       |
+
+The `tags` you specify must already exist in your ConvertKit account. To add a tag, click **+ Create a Tag** in the right-hand sidebar of your ConvertKit dashboard.
+
+### Example
+
+```js
+import { createClient, addToConvertKit } from '@statickit/functions';
+let client = createClient({ site: '{your-site-id}' });
+
+let { status } = await addToConvertKit(client, {
+  email: "janedoe@example.com",
+  first_name: "Jane"
+  tags: ["Customer"]
+});
+```
+
+## Response
+
+Returns a [`status`](/docs/functions#responses) and no additional properties.

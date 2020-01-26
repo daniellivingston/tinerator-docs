@@ -1,0 +1,38 @@
+import withDocs from 'components/withDocs';
+
+export default withDocs({
+  title: 'ConvertKit - Functions',
+  description: 'ConvertKit function types in StaticKit.',
+  breadcrumbs: [{
+    path: '/docs/functions#function-types',
+    label: 'Functions',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "API Secret", "#api-secret"]
+  ]
+});
+
+# ConvertKit
+
+Functions for adding subscribers to your [ConvertKit](https://convertkit.com) account.
+
+| Type                              | Description                                                  |
+| :-------------------------------- | :----------------------------------------------------------- |
+| [`applyTags`](/docs/functions/convertkit/apply-tags) | Creates a subscriber and applys tags in ConvertKit |
+
+## API Secret
+
+Here's where to find your `api_secret`:
+
+- Log in to your ConvertKit account
+- Click the dropdown in the upper-right and [navigate to "General" settings](https://app.convertkit.com/account/edit)
+- Halfway down the page, click "Show" under the "API Secret" heading
+
+It will look something like this: `c6GMu91Hn4_YggEwGik5ooz9Ww8yibSwRtoqz-Xr88I`
+
+Copy the key and run the following command to store this as a secret value:
+
+```bash
+statickit secrets add convertkit-api-secret <paste-api-secret-here>
+```

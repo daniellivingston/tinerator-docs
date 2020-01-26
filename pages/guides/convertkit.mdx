@@ -88,6 +88,7 @@ By default, the `applyTags` action uses the `email` and `first_name` fields. You
 {
   "app": "convertkit",
   "type": "applyTags",
+  "tags": ["Newsletter"],
   "emailAddressField": "email_address",
   "firstNameField": "name"
 }
@@ -99,8 +100,9 @@ If you are gathering additional fields (like last name), you can map them to Con
 
 ```json
 {
-  "app": "mailchimp",
-  "type": "addOrUpdateContact",
+  "app": "convertkit",
+  "type": "applyTags",
+  "tags": ["Newsletter"],
   "dynamicFields": {
     "last_name": "last_name"
   }
