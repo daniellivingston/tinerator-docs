@@ -4,125 +4,150 @@ import BrowserDemo from 'components/BrowserDemo';
 import ArrowItem from 'components/ArrowItem';
 
 export default withDocs({
-  title: 'How To Connect Forms to ConvertKit',
-  description: 'How to add subscribers to ConvertKit and tag them using StaticKit.',
-  path: '/guides/convertkit',
+  title: 'How To Build a React ConvertKit Form',
+  description: 'How to build a React form to create subscribers in your ConvertKit account.',
   breadcrumbs: [{
     path: '/guides',
     label: 'Guides',
     rel: 'prev'
   }],
   toc: [
-    [1, "Configure your form", "#configure-your-form"],
-    [1, "Add your API secret", "#add-your-api-secret"],
-    [1, "Configure your fields", "#configure-your-fields"],
-    [1, "Build your form", "#build-your-form"],
+    [1, "Configure your function", "#add-a-function"],
+    [1, "Prepare your project", "#prepare-your-project"],
+    [1, "Build your form", "#build-your-form"]
   ],
 });
 
-# How To Connect Forms to ConvertKit
+# How To Build a React ConvertKit Form
 
 <p className="text-lg">
-  In this guide, you'll learn how to add subscribers and apply tags to them in <a href="https://convertkit.com/">ConvertKit</a> when someone submits a form.
+  Learn how build a React form to create subscribers in your <a href="https://convertkit.com/">ConvertKit</a> account.
 </p>
 
-<StepHeading step="1" id="configure-your-form">Configure your form</StepHeading>
+<StepHeading step="1" id="add-a-function">Configure your function</StepHeading>
 
-In your `statickit.json` file, either add a new form or update an existing form's `actions`: 
+In your `statickit.json` file, add a ConvertKit function:
 
 ```json
 {
-  "forms": {
-    "opt-in-form": {
-      "name": "Opt-In Form",
-      "fields": {
-        "email": {
-          "type": "email",
-          "prettyName": "Email address"
-        }
-      },
-      "actions": [
-        {
-          "app": "convertkit",
-          "type": "applyTags",
-          "tags": ["Newsletter"]
-        }
-      ]
+  "functions": {
+    "addToConvertKit": {
+      "app": "convertkit",
+      "type": "applyTags"
     }
   }
 }
 ```
 
-The `tags` you specify must already exist in your ConvertKit account. To add a tag:
-
-- Log in to your ConvertKit account
-- Click **+ Create a Tag** in the right-hand sidebar of your dashboard
-
-<StepHeading step="2" id="add-your-api-secret">Add your API secret</StepHeading>
-
-Next, you need to save your ConvertKit API Secret in your StaticKit secrets. Here's where to find it:
-
-- Log in to your ConvertKit account
-- Click the dropdown in the upper-right and [navigate to "General" settings](https://app.convertkit.com/account/edit)
-- Halfway down the page, click "Show" under the "API Secret" heading
-
-It will look something like this: `c6GMu91Hn4_YggEwGik5ooz9Ww8yibSwRtoqz-Xr88I`
-
-Copy the key and run the following command to store this as a secret value:
+Then, deploy your changes to StaticKit:
 
 ```bash
-statickit secrets add convertkit-api-secret <paste-api-secret-here>
+statickit deploy -k <your-deploy-key>
 ```
 
-Now, you're ready to deploy:
+You'll be prompted with instructions on how to save your ConvertKit API secret.
+
+<StepHeading step="2" id="prepare-your-project">Prepare your project</StepHeading>
+
+Install the React helper library in your project:
 
 ```bash
-statickit deploy
+npm install @statickit/react
 ```
 
-<StepHeading step="3" id="configure-your-fields">Configure your fields (optional)</StepHeading>
+Add the `StaticKitProvider` to your top-level app component. For example, if you are using Next.js, here's what your `pages/_app.js` file might look like:
 
-By default, the `applyTags` action uses the `email` and `first_name` fields. You can override them like this:
+```jsx
+import { StaticKitProvider } from '@statickit/react';
 
-```json
-{
-  "app": "convertkit",
-  "type": "applyTags",
-  "tags": ["Newsletter"],
-  "emailAddressField": "email_address",
-  "firstNameField": "name"
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="{your-site-id}">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  );
 }
+
+export default App;
 ```
 
-Your form does not have to collect a first name, but it must have an email address field.
+<StepHeading step="3" id="build-your-form">Build your form</StepHeading>
 
-If you are gathering additional fields (like last name), you can map them to ConvertKit custom fields:
+Here's an example component that calls your `addToConvertKit` function in the form submit handler.
 
-```json
-{
-  "app": "convertkit",
-  "type": "applyTags",
-  "tags": ["Newsletter"],
-  "dynamicFields": {
-    "last_name": "last_name"
+```jsx
+import React, { useState } from 'react';
+import { useStaticKit, ValidationError } from '@statickit/react';
+import { addToConvertKit } from '@statickit/functions';
+
+function OptInForm(props) {
+  const client = useStaticKit();
+
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState([]);
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    let resp = await addToConvertKit(client, { 
+      email, 
+      tags: ["Newsletter"]
+    });
+
+    switch (resp.status) {
+      case 'ok':
+        setIsSubmitted(true);
+        break;
+
+      case 'argumentError':
+        setErrors(resp.errors);
+        setIsSubmitting(false);
+        break;
+
+      default:
+        setIsSubmitting(false);
+        break;
+    }
   }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="email">
+        Email Address
+      </label>
+      <input
+        id="email"
+        type="email" 
+        name="email" 
+        onChange={e => setEmail(e.target.value)}
+        value={email}
+      />
+      <ValidationError 
+        prefix="Email" 
+        field="email"
+        errors={errors} 
+      />
+      <button type="submit" disabled={isSubmitting}>
+        Sign Up
+      </button>
+    </form>
+  );
 }
 ```
 
-The fields you use must already exist in your ConvertKit account.
+Here we are only passing `email` and `tags` to ConvertKit. You can optionally pass along custom `fields` as well:
 
-<StepHeading step="4" id="build-your-form">Build your form</StepHeading>
-
-We have a few client libraries to help attach your interface to StaticKit:
-
-<ArrowItem>
-  <a href="/docs/forms/react" className="font-semibold text-indigo-600">React</a>: works great with Gatsby, Next.js, etc.
-</ArrowItem>
-
-<ArrowItem>
-  <a href="/docs/forms/html" className="font-semibold text-indigo-600">HTML</a>: works great with Jekyll, Hugo, Middleman, etc.
-</ArrowItem>
+```js
+let resp = await addToConvertKit(client, { 
+  email,
+  tags: ["Newsletter"],
+  fields: { last_name }
+});
+```
 
 ---
 
-Check out the [ConvertKit reference](/docs/config/forms/convertkit) to see all available actions and properties.
+Check out the [ConvertKit reference](/docs/functions/convertkit) to see all available function types.
