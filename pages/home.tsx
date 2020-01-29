@@ -27,9 +27,9 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
 
           <div className="max-w-2xl mx-auto pb-24 text-xl sm:text-2xl text-gray-700 sm:text-center leading-snug sm:tracking-snug">
             <p className="pb-8">
-              If you&rsquo;re a frontend developer who hates being forced to
-              build a backend for stuff like collecting payments and sending
-              emails, you&rsquo;re going to love what we&rsquo;re cooking up.
+              As a front-end developer, you hate it when you&rsquo;re forced to
+              put down the tools you love and write backend code for stuff like
+              forms and payments. Now, you don&rsquo;t have to.
             </p>
 
             <p>
@@ -95,8 +95,8 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                 Opt-In Forms
               </h3>
               <p className="text-lg text-gray-700">
-                Add subscribers to your Mailchimp or ConvertKit account and
-                track events.
+                Add subscribers and track events in your Mailchimp or ConvertKit
+                account.
               </p>
             </div>
 
@@ -109,7 +109,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                 />
               </div>
               <h3 className="pb-2 text-2xl font-semibold text-gray-900">
-                Payments
+                Payment Flows
               </h3>
               <p className="text-lg text-gray-700">
                 Create customers, charges, and subscriptions in your Stripe
@@ -140,8 +140,8 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                 Contact Forms
               </h3>
               <p className="text-lg text-gray-700">
-                Create contact forms that notify you via email when they get
-                submitted.
+                Gather form submissions and receive email notifications when
+                someone writes in.
               </p>
             </div>
           </div>
