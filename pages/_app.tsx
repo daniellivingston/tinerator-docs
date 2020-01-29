@@ -5,6 +5,8 @@ import Footer from 'components/Footer';
 import SiteContext from 'components/SiteContext';
 import cookie from 'js-cookie';
 import { StaticKitProvider } from '@statickit/react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 
 import '../styles/fonts.css';
 import '../styles/main.css';
@@ -14,6 +16,13 @@ import '../styles/dracula.css';
 Router.events.on('routeChangeComplete', () => {
   Fathom.trackPageview();
 });
+
+const stripePublishableKey =
+  process.env.NODE_ENV === 'production'
+    ? 'pk_live_DNEs4P2feJyOmvhT8z9OSdxm'
+    : 'pk_test_AEGjmWosrdHvOvnujk0cNHjQ';
+
+const stripePromise = loadStripe(stripePublishableKey);
 
 function App({ Component, pageProps }) {
   const [siteId, setSiteId] = useState(cookie.get('site'));
@@ -39,12 +48,14 @@ function App({ Component, pageProps }) {
       }}
     >
       <StaticKitProvider site="a38ad7363b35">
-        <div className="font-sans antialiased text-gray-900 flex flex-col h-screen">
-          <div className="flex-grow flex-shrink-0">
-            <Component {...pageProps} />
+        <Elements stripe={stripePromise}>
+          <div className="font-sans antialiased text-gray-900 flex flex-col h-screen">
+            <div className="flex-grow flex-shrink-0">
+              <Component {...pageProps} />
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
+        </Elements>
       </StaticKitProvider>
     </SiteContext.Provider>
   );

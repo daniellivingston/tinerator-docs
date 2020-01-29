@@ -13,6 +13,8 @@
     "@next/mdx": "^9.1.7",
     "@statickit/functions": "github:unstacked/statickit-functions#0fdb56c8-fcc1-4170-a403-07cbb3743698",
     "@statickit/react": "^2.0.1",
+    "@stripe/react-stripe-js": "^1.0.0-beta.3",
+    "@stripe/stripe-js": "^1.0.0-beta.4",
     "@zeit/next-css": "^1.0.1",
     "common-tags": "^1.8.0",
     "fathom-client": "^2.0.2",
