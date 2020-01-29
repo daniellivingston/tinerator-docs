@@ -11,7 +11,8 @@ export default withDocs({
   toc: [
     [1, "Configuration", "#configuration"],
     [1, "Arguments", "#arguments"],
-    [1, "Response", "#response"]
+    [1, "Response", "#response"],
+    [1, "Sandbox Limits", "#sandbox-limits"]
   ]
 });
 
@@ -86,3 +87,7 @@ Returns a [`status`](/docs/functions#responses) and the following properties whe
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `id`                       | string                   | A unique identifier for the customer.                        |
 | `subscriptionStatus`       | string                   | The status of the Stripe subscription.                       |
+
+## Sandbox Limits
+
+Only Stripe test keys are permitted on the Sandbox plan. Upgrade to production to use live keys.

@@ -11,7 +11,8 @@ export default withDocs({
   toc: [
     [1, "Configuration", "#configuration"],
     [1, "Arguments", "#arguments"],
-    [1, "Response", "#response"]
+    [1, "Response", "#response"],
+    [1, "Sandbox Limits", "#sandbox-limits"]
   ]
 });
 
@@ -78,3 +79,7 @@ Returns a [`status`](/docs/functions#responses) and the following properties whe
 | :------------------------- | :----------------------- | :----------------------------------------------------------- |
 | `id`                       | string                   | A unique identifier for the customer.                        |
 | `customerToken`            | string                   | A unique token to use for performing actions on this customer (like [creating a charge](/docs/functions/stripe/create-charge)) |
+
+## Sandbox Limits
+
+Only Stripe test keys are permitted on the Sandbox plan. Upgrade to production to use live keys.

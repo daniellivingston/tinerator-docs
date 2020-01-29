@@ -25,7 +25,7 @@ function PricingPage() {
           <div className="md:flex max-w-5xl mx-auto border-t border-b">
             <div className="px-6 py-16 md:w-1/2 border-b md:border-b-0 md:border-r">
               <h2 className="text-center text-sm uppercase font-bold tracking-wide text-indigo-600">
-                Development
+                Sandbox
               </h2>
               <div className="text-center text-4xl sm:text-5xl tracking-tight font-bold">
                 Free
