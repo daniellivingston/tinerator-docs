@@ -56,7 +56,7 @@ function PricingPage() {
                 <div className="px-3 text-4xl sm:text-5xl font-bold tracking-tight">
                   $20
                 </div>
-                <div className="py-2 sm:text-lg text-gray-600">/ site / mo</div>
+                <div className="py-2 sm:text-lg text-gray-600">/ month</div>
               </div>
               <p className="text-center text-base text-gray-700">
                 Great for live production sites.

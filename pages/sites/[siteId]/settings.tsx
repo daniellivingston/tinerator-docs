@@ -84,6 +84,7 @@ const UpgradeForm: React.FC<{ site: Site }> = ({ site }) => {
       <div className="pb-4">
         <div className="input-field">
           <CardElement
+            onChange={e => setStripeError(e.error)}
             options={{
               style: {
                 base: {
@@ -95,18 +96,22 @@ const UpgradeForm: React.FC<{ site: Site }> = ({ site }) => {
           />
         </div>
 
-        {stripeError ? (
+        {stripeError && (
           <div className="pt-2 font-bold text-sm text-red-600">
             {stripeError.message}
           </div>
-        ) : (
-          <></>
         )}
       </div>
 
       <button className="btn" disabled={isSubmitting}>
         {isSubmitting ? 'Upgrading...' : 'Upgrade to production'}
       </button>
+
+      <p className="pt-3 leading-snug">
+        <small className="text-gray-600 text-sm">
+          We&rsquo;ll charge your card $20 and remove sandbox limits right away.
+        </small>
+      </p>
     </form>
   );
 };
@@ -156,10 +161,10 @@ const Billing: React.FC<{
       </ul>
       <p className="pb-4">
         {account.sandbox
-          ? 'Be sure to upgrade to a production plan before going live.'
+          ? 'Production plans start at $20/month. Be sure to upgrade before going live:'
           : cycleMessage()}
       </p>
-      {account.sandbox ? <UpgradeForm site={site} /> : <></>}
+      {account.sandbox && <UpgradeForm site={site} />}
     </div>
   );
 };
