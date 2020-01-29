@@ -110,3 +110,51 @@ export async function updateUser(
   const body = await resp.json();
   return body.data.updateUser as UpdateUserPayload;
 }
+
+interface UpdatePlanParams {
+  siteId: string;
+  planId: string;
+  stripeCardToken?: string;
+}
+
+type UpdatePlanPayload =
+  | {
+      success: true;
+      errors: [];
+    }
+  | { success: false; errors: ValidationError[] };
+
+/**
+ * Updates the billing plan.
+ *
+ * @param params - the new plan params
+ * @param token - the auth token
+ */
+export async function updatePlan(
+  params: UpdatePlanParams,
+  token: string
+): Promise<UpdatePlanPayload> {
+  const query = `
+    mutation UpdatePlan(
+      $siteId: ID!,
+      $planId: String!,
+      $stripeCardToken: String
+    ) {
+      updatePlan(
+        siteId: $siteId,
+        planId: $planId,
+        stripeCardToken: $stripeCardToken
+      ) {
+        success
+        errors {
+          field
+          message
+        }
+      }
+    }
+  `;
+
+  const resp = await graphql(query, params, token);
+  const body = await resp.json();
+  return body.data.updatePlan as UpdatePlanPayload;
+}

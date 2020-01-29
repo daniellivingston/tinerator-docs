@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import useViewerData from 'components/useViewerData';
 import useSiteData, { revalidate } from 'components/useSiteData';
 import useUsageData from 'components/useUsageData';
-import { updateSiteName } from 'data/mutations';
+import { updateSiteName, updatePlan } from 'data/mutations';
 import { ValidationError } from '@statickit/react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {
@@ -45,20 +45,35 @@ const UpgradeForm: React.FC<{ site: Site }> = ({ site }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
+  const [stripeError, setStripeError] = useState(null);
+  const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrors([]);
 
     const { error, token } = await stripe.createToken(
       elements.getElement(CardElement)
     );
 
-    setError(error);
+    setStripeError(error);
 
     if (token) {
-      console.log(token);
+      const params = {
+        siteId: site.id,
+        planId: 'v2-monthly-1000',
+        stripeCardToken: token.id
+      };
+
+      const result = await updatePlan(params, getToken());
+
+      if (result.success) {
+        revalidate(site.id);
+      } else {
+        setErrors(result.errors);
+        setIsSubmitting(false);
+      }
     } else {
       setIsSubmitting(false);
     }
@@ -80,9 +95,9 @@ const UpgradeForm: React.FC<{ site: Site }> = ({ site }) => {
           />
         </div>
 
-        {error ? (
+        {stripeError ? (
           <div className="pt-2 font-bold text-sm text-red-600">
-            {error.message}
+            {stripeError.message}
           </div>
         ) : (
           <></>
@@ -90,7 +105,7 @@ const UpgradeForm: React.FC<{ site: Site }> = ({ site }) => {
       </div>
 
       <button className="btn" disabled={isSubmitting}>
-        Upgrade to production
+        {isSubmitting ? 'Upgrading...' : 'Upgrade to production'}
       </button>
     </form>
   );
@@ -130,12 +145,8 @@ const Billing: React.FC<{
   return (
     <div className="leading-relaxed">
       <p>
-        You&rsquo;re on the <strong>{account.planName}</strong> plan.
-      </p>
-      <p>
-        {account.sandbox
-          ? 'Be sure to upgrade to a production plan before going live.'
-          : ''}
+        You&rsquo;re on the <strong>{account.planName}</strong> plan with a{' '}
+        {requestLimit} request limit.
       </p>
       <p className="pb-4">Your usage for this billing cycle:</p>
       <ul className="ml-4 pb-4 list-disc list-inside">
@@ -143,8 +154,11 @@ const Billing: React.FC<{
         <li>{formatNumber(usage.submissions)} form submissions</li>
         <li>{formatNumber(total)} total requests</li>
       </ul>
-      <p>Your limit is {requestLimit} requests.</p>
-      <p className="pb-4">{cycleMessage()}</p>
+      <p className="pb-4">
+        {account.sandbox
+          ? 'Be sure to upgrade to a production plan before going live.'
+          : cycleMessage()}
+      </p>
       {account.sandbox ? <UpgradeForm site={site} /> : <></>}
     </div>
   );
