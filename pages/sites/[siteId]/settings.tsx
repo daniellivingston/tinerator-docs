@@ -21,10 +21,8 @@ import {
   fetchViewer,
   fetchSite
 } from 'data/queries';
-import { useStaticKit } from '@statickit/react';
-import { requestUpgrade } from '@statickit/functions';
 import moment from 'moment';
-import QuickLinks from 'components/QuickLinks';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 const copyIcon = `
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
@@ -43,15 +41,66 @@ const formatDate = (dateString: string) => {
   return moment.utc(dateString).format('MMM D, YYYY');
 };
 
+const UpgradeForm: React.FC<{ site: Site }> = ({ site }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const { error, token } = await stripe.createToken(
+      elements.getElement(CardElement)
+    );
+
+    setError(error);
+
+    if (token) {
+      console.log(token);
+    } else {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="pb-4">
+        <div className="input-field">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  fontSmoothing: 'antialiased'
+                }
+              }
+            }}
+          />
+        </div>
+
+        {error ? (
+          <div className="pt-2 font-bold text-sm text-red-600">
+            {error.message}
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+
+      <button className="btn" disabled={isSubmitting}>
+        Upgrade to production
+      </button>
+    </form>
+  );
+};
+
 const Billing: React.FC<{
   viewerData: ViewerData;
   siteData: SiteData;
   usageData: UsageData;
-}> = ({ viewerData, siteData, usageData }) => {
-  const client = useStaticKit();
-  const [requestingUpgrade, setRequestingUpgrade] = useState(false);
-  const [upgradeRequested, setUpgradeRequested] = useState(false);
-
+}> = ({ siteData, usageData }) => {
   if (!siteData || !usageData) {
     return <p>Loading...</p>;
   }
@@ -76,55 +125,6 @@ const Billing: React.FC<{
     }
   };
 
-  let handleUpgradeRequest = async () => {
-    if (!viewerData) return;
-    if (viewerData.status !== 'ok') return;
-
-    setRequestingUpgrade(true);
-
-    let viewer = viewerData.viewer;
-
-    let resp = await requestUpgrade(client, {
-      subject: `${site.name} (${site.id}) requested an upgrade`,
-      replyTo: viewer.email,
-      fields: {
-        invocations: usage.invocations,
-        submissions: usage.submissions
-      }
-    });
-
-    if (resp.status === 'ok') {
-      setUpgradeRequested(true);
-    } else {
-      setRequestingUpgrade(false);
-    }
-  };
-
-  let upgradeButton = () => {
-    if (account.sandbox) {
-      if (upgradeRequested) {
-        return <p>Thanks! We'll be in touch shortly.</p>;
-      } else {
-        return (
-          <div className="leading-snug">
-            <div className="pb-3">
-              <button
-                className="btn"
-                onClick={handleUpgradeRequest}
-                disabled={requestingUpgrade}
-              >
-                Request an upgrade
-              </button>
-            </div>
-            <small className="text-sm text-gray-600">
-              We'll reach out quickly to get you on the right plan!
-            </small>
-          </div>
-        );
-      }
-    }
-  };
-
   let total = usage.invocations + usage.submissions;
 
   return (
@@ -145,7 +145,7 @@ const Billing: React.FC<{
       </ul>
       <p>Your limit is {requestLimit} requests.</p>
       <p className="pb-4">{cycleMessage()}</p>
-      <div>{upgradeButton()}</div>
+      {account.sandbox ? <UpgradeForm site={site} /> : <></>}
     </div>
   );
 };
