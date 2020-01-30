@@ -90,6 +90,7 @@ function OptInForm(props) {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setErrors([]);
     setIsSubmitting(true);
 
     let resp = await addToMailchimp(client, { emailAddress });
@@ -108,6 +109,10 @@ function OptInForm(props) {
         setIsSubmitting(false);
         break;
     }
+  }
+
+  if (isSubmitted) {
+    return <p>Thanks for joining!</p>;
   }
 
   return (
