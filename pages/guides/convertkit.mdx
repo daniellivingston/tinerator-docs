@@ -73,7 +73,7 @@ export default App;
 
 <StepHeading step="3" id="build-your-form">Build your form</StepHeading>
 
-Here's an example component that calls your `addToConvertKit` function in the form submit handler.
+Here's an example component that calls your `addToConvertKit` function in the form submit handler. This code sample assumes that a tag named "Newsletter" already exists in your account.
 
 ```jsx
 import React, { useState } from 'react';
@@ -152,6 +152,8 @@ let resp = await addToConvertKit(client, {
   fields: { last_name }
 });
 ```
+
+[**Get the full source code →**](https://github.com/statickit-projects/convertkit-react)
 
 ---
 
