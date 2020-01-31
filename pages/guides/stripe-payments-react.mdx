@@ -1,0 +1,378 @@
+import withDocs from 'components/withDocs';
+import StepHeading from 'components/StepHeading';
+import BrowserDemo from 'components/BrowserDemo';
+import ArrowItem from 'components/ArrowItem';
+
+export default withDocs({
+  title: 'How To Collect Stripe Payments with React',
+  description: 'How to build a React form to collect payments via Stripe.',
+  breadcrumbs: [{
+    path: '/guides',
+    label: 'Guides',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Prepare your project", "#prepare-your-project"],
+    [1, "Add a charge function", "#add-a-charge-function"],
+    [1, "Scaffold your form", "#scaffold-your-form"],
+    [1, "Tokenize the card", "#tokenize-the-card"],
+    [1, "Create a charge", "#create-a-charge"],
+    [1, "Handle card errors", "#handle-card-errors"],
+    [1, "Track form state", "#track-form-state"],
+    [1, "Attach to a customer", "#attach-to-a-customer"]
+  ]
+});
+
+# How To Collect Stripe Payments with React
+
+<p className="text-lg">
+  Learn how build a React form to collect <a href="https://stripe.com/">Stripe</a> payments without writing any custom backend code. <a href="https://stripe-react.now.sh">See live examples</a>.
+</p>
+
+<StepHeading step="1" id="prepare-your-project">Prepare your project</StepHeading>
+
+Install the StaticKit React library and Stripe libraries in your project:
+
+```bash
+npm install @statickit/react
+npm install @stripe/react-stripe-js @stripe/stripe-js
+```
+
+Add the `StaticKitProvider` and Stripe `Elements` components to your top-level app component. For example, if you are using Next.js, here's what your `pages/_app.js` file might look like:
+
+```jsx
+import { StaticKitProvider } from '@statickit/react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+// This will inject the Stripe.js script on your site for you
+const stripePromise = loadStripe('REPLACE_WITH_STRIPE_PUBLISHABLE_KEY');
+
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="{your-site-id}">
+      <Elements stripe={stripePromise}>
+        <Component {...pageProps} />
+      </Elements>
+    </StaticKitProvider>
+  );
+}
+
+export default App;
+```
+
+<StepHeading step="2" id="add-a-charge-function">Add a charge function</StepHeading>
+
+In your `statickit.json` file, add a Stripe function for creating a charge:
+
+```json
+{
+  "functions": {
+    "createCharge": {
+      "app": "stripe",
+      "type": "createCharge"
+    }
+  }
+}
+```
+
+Then, deploy your changes to StaticKit:
+
+```bash
+statickit deploy -k <your-deploy-key>
+```
+
+You'll be prompted with instructions on how to save your Stripe secret key. 
+
+Once successful, this will install a `@statickit/functions` library for you that exports a `createCharge` function.
+
+<StepHeading step="3" id="scaffold-your-form">Scaffold your form</StepHeading>
+
+Here's a barebones starting point:
+
+```jsx
+import React from 'react';
+import { CardElement } from '@stripe/react-stripe-js';
+
+const PaymentForm = () => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    // Do the actual processing...
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button type="submit">Pay</button>
+    </form>
+  )
+};
+
+export default PaymentForm;
+```
+
+Right now, this form doesn't actually do anything except display a Stripe card element with a button.
+
+<StepHeading step="4" id="tokenize-the-card">Tokenize the card</StepHeading>
+
+The first step is to tell Stripe to create a token from the given credit card:
+
+```jsx highlight=2,5,6,11,12,13
+import React, { useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+const PaymentForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    
+    const { error, token } = await stripe.createToken(
+      elements.getElement(CardElement)
+    );
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button type="submit">Pay</button>
+    </form>
+  )
+};
+
+export default PaymentForm;
+```
+
+<StepHeading step="5" id="create-a-charge">Create a charge</StepHeading>
+
+Next, we'll use the token to create a $25 Stripe charge.
+
+```jsx highlight=3,4,9,18,19,20,21
+import React, { useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useStaticKit } from '@statickit/react';
+import { createCharge } from '@statickit/functions';
+
+const PaymentForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const client = useStaticKit();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    
+    const { error, token } = await stripe.createToken(
+      elements.getElement(CardElement)
+    );
+
+    const result = await createCharge(client, { 
+      source: token.id,
+      amount: 2500
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button type="submit">Pay</button>
+    </form>
+  )
+};
+
+export default PaymentForm;
+```
+
+<StepHeading step="6" id="handle-card-errors">Handle card errors</StepHeading>
+
+So far, we haven't taken into account failure modes, like Stripe failing to create a token or the charge not succeeding.
+
+Let's store card errors in component state and display them:
+
+```jsx highlight=11,20,21,31,32
+import React, { useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useStaticKit } from '@statickit/react';
+import { createCharge } from '@statickit/functions';
+
+const PaymentForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const client = useStaticKit();
+
+  const [stripeError, setStripeError] = useState(null);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    
+    const { error, token } = await stripe.createToken(
+      elements.getElement(CardElement)
+    );
+
+    setStripeError(error);
+    if (!token) return;
+
+    const result = await createCharge(client, { 
+      source: token.id,
+      amount: 2500
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement onChange={e => setStripeError(e.error)} />
+      {stripeError && <div>{stripeError.message}</div>}
+      <button type="submit">Pay</button>
+    </form>
+  )
+};
+
+export default PaymentForm;
+```
+
+<StepHeading step="7" id="track-form-state">Track form state</StepHeading>
+
+At the moment, we aren't doing anything special after the charge successfully goes through.
+
+Let's implement some state to track whether our form is idle, submitting, or submitted:
+
+```jsx highlight=12,16,30,33,34,35,41
+import React, { useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useStaticKit } from '@statickit/react';
+import { createCharge } from '@statickit/functions';
+
+const PaymentForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const client = useStaticKit();
+
+  const [stripeError, setStripeError] = useState(null);
+  const [formState, setFormState] = useState('idle');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    setFormState('submitting');
+
+    const { error, token } = await stripe.createToken(
+      elements.getElement(CardElement)
+    );
+
+    setStripeError(error);
+    if (!token) return;
+
+    const result = await createCharge(client, { 
+      source: token.id,
+      amount: 2500
+    });
+
+    setFormState(result.status === 'ok' ? 'submitted' : 'idle');
+  };
+
+  if (formState === 'submitted') {
+    return <div>Charge succeeded!</div>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement onChange={e => setStripeError(e.error)} />
+      {stripeError && <div>{stripeError.message}</div>}
+      <button type="submit" disabled={formState === 'submitting'}>Pay</button>
+    </form>
+  )
+};
+
+export default PaymentForm;
+```
+
+<StepHeading step="8" id="attach-to-a-customer">Attach to a customer</StepHeading>
+
+Sometimes it makes sense to create a Stripe customer record and attach the credit card to that customer for tracking purposes or for later use. We can adapt our existing form to do just that.
+
+First, add a `createCustomer` function to your `statickit.json` file:
+
+```json highlight=7,8,9,10
+{
+  "functions": {
+    "createCharge": {
+      "app": "stripe",
+      "type": "createCharge"
+    },
+    "createCustomer": {
+      "app": "stripe",
+      "type": "createCustomer"
+    }
+  }
+}
+```
+
+Then, deploy your changes to StaticKit:
+
+```bash
+statickit deploy -k <your-deploy-key>
+```
+
+Finally, let's call our `createCustomer` function in our form handler:
+
+```jsx highlight=4,25,26,27,30
+import React, { useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useStaticKit } from '@statickit/react';
+import { createCharge, createCustomer } from '@statickit/functions';
+
+const PaymentForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const client = useStaticKit();
+
+  const [stripeError, setStripeError] = useState(null);
+  const [formState, setFormState] = useState('idle');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    setFormState('submitting');
+
+    const { error, token } = await stripe.createToken(
+      elements.getElement(CardElement)
+    );
+
+    setStripeError(error);
+    if (!token) return;
+
+    const { customerToken } = await createCustomer(client, {
+      source: token.id
+    });
+
+    const result = await createCharge(client, { 
+      customerToken, // pass the customer token instead of the Stripe card token
+      amount: 2500
+    });
+
+    setFormState(result.status === 'ok' ? 'submitted' : 'idle');
+  };
+
+  if (formState === 'submitted') {
+    return <div>Charge succeeded!</div>;
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement onChange={e => setStripeError(e.error)} />
+      {stripeError && <div>{stripeError.message}</div>}
+      <button type="submit" disabled={formState === 'submitting'}>Pay</button>
+    </form>
+  )
+};
+
+export default PaymentForm;
+```
+
+---
+
+Take a look at our fully styled examples of various payment flows here:
+
+[https://github.com/statickit-projects/stripe-react](https://github.com/statickit-projects/stripe-react)
+
+---
+
+Check out the [Stripe reference](/docs/functions/stripe) to see all available function types.
