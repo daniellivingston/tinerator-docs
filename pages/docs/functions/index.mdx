@@ -4,8 +4,7 @@ export default withDocs({
   title: 'Functions',
   description: 'How to use StaticKit functions',
   toc: [
-    [1, 'How It Works', '#how-it-works'],
-    [1, 'Function Types', '#function-types'],
+    [1, 'Library', '#library'],
     [1, 'Responses', '#responses'],
     [1, 'Using In React', '#using-in-react']
   ]
@@ -15,52 +14,21 @@ export default withDocs({
 
 StaticKit functions are configurable server-side functions that you can call directly from your client-side JavaScript code.
 
-## How It Works
+## Library
 
-Suppose you've created a function called `sendEmail` in your `statickit.json` file:
-
-```json
-{
-  "functions": {
-    "sendEmail": {
-      "type": "sendNotification",
-      "to": "{your-email-address}"
-    }
-  }
-}
-```
-
-When you run `statickit deploy`, we will automatically install an npm package called `@statickit/functions` that contains JavaScript definitions for your functions:
-
-```js
-import { createClient, sendEmail } from '@statickit/functions';
-
-let client = createClient({ site: '{your-site-id}' });
-
-let { status } = await sendEmail(client, {
-  subject: 'You have mail!'
-});
-```
-
-## Function Types
-
-### Native Functions
-
-These function types are native to StaticKit (meaning they don't require external app credentials to run).
+The following function types are native to StaticKit, meaning they don't require external app credentials to run.
 
 | Type                              | Description                                                  |
 | :-------------------------------- | :----------------------------------------------------------- |
 | [`sendNotification`](/docs/functions/types/send-notification) | Sends a notification email       |
 
-### Integrations
-
-These function types help you perform tasks in other applications with which we integrate.
+These function types help you perform tasks in other applications:
 
 | App                               | Description                                                  |
 | :-------------------------------- | :----------------------------------------------------------- |
-| [`stripe`](/docs/functions/stripe) | Create payment flows with Stripe   |
-| [`mailchimp`](/docs/functions/mailchimp) | Manage your email marketing list in Mailchimp   |
-| [`convertkit`](/docs/functions/convertkit) | Manage your email marketing list in ConvertKit   |
+| [`stripe`](/docs/functions/stripe) | Functions for interfacing with Stripe   |
+| [`mailchimp`](/docs/functions/mailchimp) | Functions for interfacing with Mailchimp   |
+| [`convertkit`](/docs/functions/convertkit) | Functions for interfacing with ConvertKit   |
 
 ## Responses
 
