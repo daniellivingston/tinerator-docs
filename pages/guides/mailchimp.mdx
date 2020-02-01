@@ -12,8 +12,8 @@ export default withDocs({
     rel: 'prev'
   }],
   toc: [
-    [1, "Configure your function", "#add-a-function"],
     [1, "Prepare your project", "#prepare-your-project"],
+    [1, "Configure your function", "#configure-your-function"],
     [1, "Build your form", "#build-your-form"]
   ],
 });
@@ -24,7 +24,31 @@ export default withDocs({
   Learn how build a React form to create subscribers in your <a href="https://mailchimp.com/">Mailchimp</a> account.
 </p>
 
-<StepHeading step="1" id="add-a-function">Configure your function</StepHeading>
+<StepHeading step="1" id="prepare-your-project">Prepare your project</StepHeading>
+
+Install the React helper library in your project:
+
+```bash
+npm install @statickit/react
+```
+
+Then add the `StaticKitProvider` to your top-level app component. For example, if you are using Next.js, here's what your `pages/_app.js` file might look like:
+
+```jsx
+import { StaticKitProvider } from '@statickit/react';
+
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="{your-site-id}">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  );
+}
+
+export default App;
+```
+
+<StepHeading step="2" id="configure-your-function">Configure your function</StepHeading>
 
 In your `statickit.json` file, add a Mailchimp function:
 
@@ -46,30 +70,6 @@ statickit deploy -k <your-deploy-key>
 ```
 
 You'll be prompted with instructions on how to save your Mailchimp API key and audience.
-
-<StepHeading step="2" id="prepare-your-project">Prepare your project</StepHeading>
-
-Install the React helper library in your project:
-
-```bash
-npm install @statickit/react
-```
-
-Add the `StaticKitProvider` to your top-level app component. For example, if you are using Next.js, here's what your `pages/_app.js` file might look like:
-
-```jsx
-import { StaticKitProvider } from '@statickit/react';
-
-function App({ Component, pageProps }) {
-  return (
-    <StaticKitProvider site="{your-site-id}">
-      <Component {...pageProps} />
-    </StaticKitProvider>
-  );
-}
-
-export default App;
-```
 
 <StepHeading step="3" id="build-your-form">Build your form</StepHeading>
 
@@ -152,7 +152,7 @@ let resp = await addToMailchimp(client, {
 });
 ```
 
-[**Get the full source code →**](https://github.com/statickit-projects/mailchimp-react)
+[Get the full source code →](https://github.com/statickit-projects/mailchimp-react)
 
 ---
 
