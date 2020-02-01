@@ -63,9 +63,16 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
               <h3 className="pb-2 text-2xl font-semibold text-gray-900">
                 Opt-In Forms
               </h3>
-              <p className="text-lg text-gray-700">
+              <p className="pb-3 text-lg text-gray-700">
                 Add subscribers and track events in your Mailchimp or ConvertKit
                 account.
+              </p>
+              <p className="text-lg">
+                <Link href="/guides/mailchimp-react">
+                  <a className="font-semibold text-indigo-600">
+                    Learn more &rarr;
+                  </a>
+                </Link>
               </p>
             </div>
 
@@ -80,9 +87,17 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
               <h3 className="pb-2 text-2xl font-semibold text-gray-900">
                 Payment Flows
               </h3>
-              <p className="text-lg text-gray-700">
+              <p className="pb-3 text-lg text-gray-700">
                 Create customers, charges, and subscriptions in your Stripe
                 account.
+              </p>
+
+              <p className="text-lg">
+                <Link href="/guides/stripe-payments-react">
+                  <a className="font-semibold text-indigo-600">
+                    Learn more &rarr;
+                  </a>
+                </Link>
               </p>
             </div>
 
@@ -99,9 +114,16 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
               <h3 className="pb-2 text-2xl font-semibold text-gray-900">
                 Contact Forms
               </h3>
-              <p className="text-lg text-gray-700">
+              <p className="pb-3 text-lg text-gray-700">
                 Gather form submissions and receive email notifications when
                 someone writes in.
+              </p>
+              <p className="text-lg">
+                <Link href="/guides/contact-form-react">
+                  <a className="font-semibold text-indigo-600">
+                    Learn more &rarr;
+                  </a>
+                </Link>
               </p>
             </div>
           </div>

@@ -256,13 +256,13 @@ const OptInFormsPage: React.FC<{}> = () => {
                 Works great with
               </h3>
               <div className="pb-4 flex flex-wrap items-center justify-center">
-                <Link href="/guides/mailchimp">
+                <Link href="/guides/mailchimp-react">
                   <a className="block m-4">
                     <div dangerouslySetInnerHTML={{ __html: mcLogo }}></div>
                   </a>
                 </Link>
 
-                <Link href="/guides/convertkit">
+                <Link href="/guides/convertkit-react">
                   <a className="block m-4">
                     <div dangerouslySetInnerHTML={{ __html: ckLogo }}></div>
                   </a>

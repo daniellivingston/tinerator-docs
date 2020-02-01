@@ -30,6 +30,16 @@
       "headers": { "Location": "/docs/forms/react" }
     },
     {
+      "src": "/guides/mailchimp",
+      "status": 308,
+      "headers": { "Location": "/guides/mailchimp-react" }
+    },
+    {
+      "src": "/guides/convertkit",
+      "status": 308,
+      "headers": { "Location": "/guides/convertkit-react" }
+    },
+    {
       "src": "/static/fonts/(.*)",
       "headers": { "cache-control": "public, max-age=31536000" },
       "dest": "/static/fonts/$1"

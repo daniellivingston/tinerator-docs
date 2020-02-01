@@ -4,8 +4,8 @@ import BrowserDemo from 'components/BrowserDemo';
 import ArrowItem from 'components/ArrowItem';
 
 export default withDocs({
-  title: 'How To Build a React ConvertKit Form',
-  description: 'How to build a React form to create subscribers in your ConvertKit account.',
+  title: 'How To Build a Contact Form with React',
+  description: 'How to build a React form to collect contact form submissions.',
   breadcrumbs: [{
     path: '/guides',
     label: 'Guides',
@@ -18,10 +18,10 @@ export default withDocs({
   ],
 });
 
-# How To Build a React ConvertKit Form
+# How To Build a Contact Form with React
 
 <p className="text-lg">
-  Learn how build a React form to create subscribers in your <a href="https://convertkit.com/">ConvertKit</a> account.
+  Learn how build a React form to create subscribers in your <a href="https://mailchimp.com/">Mailchimp</a> account.
 </p>
 
 <StepHeading step="1" id="prepare-your-project">Prepare your project</StepHeading>
@@ -50,14 +50,14 @@ export default App;
 
 <StepHeading step="2" id="configure-your-function">Configure your function</StepHeading>
 
-In your `statickit.json` file, add a ConvertKit function:
+In your `statickit.json` file, add a function to send you a notification:
 
 ```json
 {
   "functions": {
-    "addToConvertKit": {
-      "app": "convertkit",
-      "type": "applyTags"
+    "sendContactEmail": {
+      "type": "sendNotification",
+      "to": "{your-email-address}"
     }
   }
 }
@@ -69,21 +69,21 @@ Then, deploy your changes to StaticKit:
 statickit deploy -k <your-deploy-key>
 ```
 
-You'll be prompted with instructions on how to save your ConvertKit API secret.
-
 <StepHeading step="3" id="build-your-form">Build your form</StepHeading>
 
-Here's an example component that calls your `addToConvertKit` function in the form submit handler. This code sample assumes that a tag named "Newsletter" already exists in your account.
+Here's an example component that calls your `sendContactEmail` function in the form submit handler.
 
 ```jsx
 import React, { useState } from 'react';
 import { useStaticKit, ValidationError } from '@statickit/react';
-import { addToConvertKit } from '@statickit/functions';
+import { sendContactEmail } from '@statickit/functions';
 
-function OptInForm(props) {
+function ContactForm(props) {
   const client = useStaticKit();
 
   const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -93,21 +93,22 @@ function OptInForm(props) {
     setErrors([]);
     setIsSubmitting(true);
 
-    let resp = await addToConvertKit(client, { 
-      email, 
-      tags: ["Newsletter"]
+    let resp = await sendContactEmail(client, {
+      subject: `${email} submitted the contact form`,
+      replyTo: email,
+      fields: { message }
     });
-
+    
     switch (resp.status) {
       case 'ok':
         setIsSubmitted(true);
         break;
-
+      
       case 'argumentError':
         setErrors(resp.errors);
         setIsSubmitting(false);
         break;
-
+      
       default:
         setIsSubmitting(false);
         break;
@@ -132,29 +133,19 @@ function OptInForm(props) {
       />
       <ValidationError 
         prefix="Email" 
-        field="email"
-        errors={errors} 
+        field="replyTo"
+        errors={errors}
+      />
+      <textarea
+        id="message"
+        name="message" 
+        onChange={e => setMessage(e.target.value)}
+        value={message}
       />
       <button type="submit" disabled={isSubmitting}>
-        Sign Up
+        Submit
       </button>
     </form>
   );
 }
 ```
-
-Here we are only passing `email` and `tags` to ConvertKit. You can optionally pass along custom `fields` as well:
-
-```js
-let resp = await addToConvertKit(client, { 
-  email,
-  tags: ["Newsletter"],
-  fields: { last_name }
-});
-```
-
-[Get the full source code →](https://github.com/statickit-projects/convertkit-react)
-
----
-
-Check out the [ConvertKit reference](/docs/functions/convertkit) to see all available function types.
