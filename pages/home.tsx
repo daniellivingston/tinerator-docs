@@ -212,7 +212,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                     Step 3
                   </div>{' '}
                   <div className="text-pink-500">
-                    Tell your backend what to do
+                    Talk to your backend with functions
                   </div>
                 </h2>
 
@@ -230,11 +230,6 @@ let { status } = await sendContactForm(client, {
 });
                   `}
                 </CodeBlock>
-
-                <p className="px-4 pt-4 text-sm text-gray-500">
-                  Call your functions from your React components, or whatever
-                  else you are using.
-                </p>
               </div>
             </div>
           </div>
