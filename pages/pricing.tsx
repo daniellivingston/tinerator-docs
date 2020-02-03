@@ -163,7 +163,7 @@ function PricingPage() {
 
               <dt>
                 <h2
-                  id="#sandbox-limits"
+                  id="sandbox-limits"
                   className="pb-3 text-xl font-semibold tracking-snug"
                 >
                   What are the sandbox limits?
