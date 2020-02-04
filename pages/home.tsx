@@ -44,6 +44,36 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
         <div className="mx-auto container max-w-5xl pb-8 sm:pb-12">
           <div className="flex flex-wrap">
             <div className="p-6 md:w-1/2 lg:w-1/3">
+              <div className="pb-4">
+                <img
+                  src="/static/stripe-icon.jpg"
+                  alt="stripe"
+                  className="h-12 w-12 rounded-full"
+                />
+              </div>
+              <div className="flex items-center pb-2">
+                <h3 className="mr-2 text-2xl font-semibold text-gray-900">
+                  Payments
+                </h3>
+                <div className="px-3 py-1 leading-tight text-sm font-bold bg-orange-200 rounded-full text-orange-700">
+                  Early Access
+                </div>
+              </div>
+              <p className="pb-3 text-lg text-gray-700">
+                Charge customers and start subscriptions without writing backend
+                code.
+              </p>
+
+              <p className="text-lg">
+                <Link href="/payments">
+                  <a className="font-semibold text-indigo-600">
+                    Learn more &rarr;
+                  </a>
+                </Link>
+              </p>
+            </div>
+
+            <div className="p-6 md:w-1/2 lg:w-1/3">
               <div className="pb-4 flex items-center">
                 <div className="mr-6 h-12 w-12">
                   <div
@@ -69,31 +99,6 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
               </p>
               <p className="text-lg">
                 <Link href="/guides/mailchimp-react">
-                  <a className="font-semibold text-indigo-600">
-                    Learn more &rarr;
-                  </a>
-                </Link>
-              </p>
-            </div>
-
-            <div className="p-6 md:w-1/2 lg:w-1/3">
-              <div className="pb-4">
-                <img
-                  src="/static/stripe-icon.jpg"
-                  alt="stripe"
-                  className="h-12 w-12 rounded-full"
-                />
-              </div>
-              <h3 className="pb-2 text-2xl font-semibold text-gray-900">
-                Payment Flows
-              </h3>
-              <p className="pb-3 text-lg text-gray-700">
-                Create customers, charges, and subscriptions in your Stripe
-                account.
-              </p>
-
-              <p className="text-lg">
-                <Link href="/guides/stripe-payments-react">
                   <a className="font-semibold text-indigo-600">
                     Learn more &rarr;
                   </a>
@@ -216,11 +221,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                   </div>
                 </h2>
 
-                <CodeBlock
-                  className="language-jsx"
-                  highlight="9,10,11,12"
-                  copy={false}
-                >
+                <CodeBlock className="language-jsx" copy={false}>
                   {`
 import { sendContactForm } from '@statickit/functions';
 

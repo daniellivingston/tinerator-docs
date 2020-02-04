@@ -46,6 +46,7 @@ function ContactForm() {
           What's your email address?
         </label>
         <input
+          id="email"
           type="email"
           name="email"
           className="input-field w-full"
@@ -62,6 +63,7 @@ function ContactForm() {
           How can we help?
         </label>
         <textarea
+          id="message"
           name="message"
           className="input-field leading-normal w-full h-32 resize-none"
           value={message}
