@@ -80,7 +80,11 @@ function RequestForm() {
         ></textarea>
       </div>
 
-      <button type="submit" className="btn" disabled={isSubmitting}>
+      <button
+        type="submit"
+        className="btn btn-purple shadow-lg"
+        disabled={isSubmitting}
+      >
         Request access
       </button>
     </form>
@@ -129,8 +133,8 @@ const PaymentsPage: React.FC<Props> = ({ viewerData }) => {
       <div className="bg-gray-900 border-b border-gray-800">
         <div className="mx-auto container py-16 sm:py-24">
           <div className="px-6 pb-16 sm:pb-24 mx-auto max-w-4xl">
-            <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight sm:text-center text-gray-300">
-              How It Works, In a Nutshell
+            <h1 className="pb-4 text-5xl sm:text-6xl font-bold leading-tight tracking-tight sm:text-center text-gray-200">
+              How It Works
             </h1>
             <p className="pb-6 text-lg sm:text-xl text-gray-500 sm:text-center mx-auto max-w-3xl">
               Configure your Stripe functions in your{' '}

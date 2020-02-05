@@ -65,6 +65,10 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
   @apply bg-white text-red-600 border-red-200 bg-red-200;
 }
 
+.btn-purple {
+  @apply bg-purple-600 border-purple-600;
+}
+
 .input-field {
   @apply p-4 border border-gray-200 bg-gray-200 leading-tight rounded;
 }
