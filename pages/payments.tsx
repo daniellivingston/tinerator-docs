@@ -49,13 +49,12 @@ function RequestForm() {
   return (
     <form onSubmit={handleSubmit}>
       <p className="pb-12 text-lg text-gray-400">
-        This feature is currently in early access.
-        <br />
-        Ready to start building? Let us know and we'll hook you up.
+        Ready to start building? Let us know and we&rsquo;ll hook you up.
       </p>
       <div className="pb-8">
         <label htmlFor="email" className="text-gray-200 pb-2 block font-bold">
-          What's your email address? <span className="text-red-600">*</span>
+          What&rsquo;s your email address?{' '}
+          <span className="text-red-600">*</span>
         </label>
         <input
           id="email"
@@ -105,10 +104,18 @@ const PaymentsPage: React.FC<Props> = ({ viewerData }) => {
           </h1>
 
           <div className="max-w-3xl mx-auto pb-12 sm:pb-24 text-xl sm:text-2xl text-gray-700 sm:text-center leading-normal sm:tracking-snug">
-            <p className="pb-10">
+            <p className="pb-12">
               Our Stripe integration allows you to design custom flows for
               one-time and recurring payments, hosted directly on your website.
             </p>
+
+            <div className="pb-16">
+              <iframe
+                className="mx-auto max-w-3xl w-full rounded-lg"
+                style={{ height: '600px' }}
+                src="https://stripe-react.statickit.now.sh"
+              ></iframe>
+            </div>
 
             <p>
               <a href="#request-access" className="btn btn-lg">
@@ -216,15 +223,6 @@ let { status } = await createCharge(client, {
                   `}
                 </CodeBlock>
               </div>
-
-              <p className="text-center text-lg">
-                <a
-                  href="https://stripe-react.statickit.now.sh/"
-                  className="text-indigo-500 font-bold"
-                >
-                  Check out our live examples &rarr;
-                </a>
-              </p>
             </div>
           </div>
         </div>
@@ -232,19 +230,9 @@ let { status } = await createCharge(client, {
           id="request-access"
           className="mx-auto container border-t border-gray-800"
         >
-          <div className="mx-auto px-6 py-24 max-w-3xl">
+          <div className="mx-auto px-6 py-24 max-w-xl">
             <RequestForm />
           </div>
-          {/* <div className="max-w-5xl mx-auto px-6 py-20 sm:flex items-center justify-center border-t border-gray-800">
-            <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-500">
-              Ready to start building?
-            </div>
-            <div className="flex-shrink-0">
-              <a href="#request-access" className="btn sm:block">
-                Request access
-              </a>
-            </div>
-          </div> */}
         </div>
       </div>
     </main>
