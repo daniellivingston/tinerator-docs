@@ -1,0 +1,168 @@
+import withDocs from 'components/withDocs';
+import StepHeading from 'components/StepHeading';
+import BrowserDemo from 'components/BrowserDemo';
+
+export default withDocs({
+  title: 'How To Use Webpack in an Eleventy Project',
+  description: 'How to configure a Webpack build pipeline for an Eleventy project.',
+  breadcrumbs: [{
+    path: '/guides',
+    label: 'Guides',
+    rel: 'prev'
+  }],
+  toc: [
+  ],
+});
+
+# How To Use Webpack in an Eleventy Project
+
+<p className="text-lg">
+  Eleventy is a simple, blazing fast static site generator created by Zach Leatherman. Think of it as the modern, spiritual successor to Jekyll.
+  In this guide, we'll walk through how to use the popular JavaScript build tool <a href="https://webpack.js.org">Webpack</a> in an <a href="https://www.11ty.dev/">Eleventy</a> project.
+</p>
+
+<StepHeading step="1">Setup a new Eleventy project</StepHeading>
+
+Run the following commands to scaffold a new Eleventy project:
+
+```bash
+mkdir my-eleventy-project
+cd my-eleventy-project
+npm init -y
+npm install --save-dev @11ty/eleventy
+```
+
+Then, let's commit our changes:
+
+```bash
+echo "node_modules" >> .gitignore
+git init .
+git add .
+git commit -m "initial commit"
+```
+
+<StepHeading step="2">Configure Eleventy</StepHeading>
+
+Create a `.eleventy.js` file with the following contents. This tells Eleventy to look for files in the `src` directory to build and to place them in the `dist` directory.
+
+```js
+module.exports = function(eleventyConfig) {
+  return {
+    dir: { input: 'src', output: '_site' }
+  };
+};
+```
+
+<StepHeading step="3">Install Webpack</StepHeading>
+
+Run the following command to install Webpack:
+
+```bash
+npm install --save-dev webpack webpack-cli
+```
+
+Then, create a basic `webpack.config.js` file in the root of your project. This configuration tells Webpack to look for an `index.js` file in the `./src/scripts` directory and to output it into the `_site/scripts` directory.
+
+```js
+const path = require('path');
+
+module.exports = {
+  entry: './src/scripts/index.js',
+  output: {
+    path: path.resolve(__dirname, '_site/scripts'),
+    filename: 'index.js'
+  }
+};
+```
+
+Next, add a couple scripts to `package.json` for serving and building the site.
+
+```json
+{
+  "scripts": {
+    "serve": "webpack --mode development && eleventy --serve",
+    "build": "webpack --mode production && eleventy"
+  }
+}
+```
+
+**Side note**: Changes to the files under Webpack's control will not auto-refresh when running `serve` right now, for sake of simplicity. We'll beef this script up in a moment!
+
+Finally, since we are building to the `dist` directory, add it to your `.gitignore` file:
+
+```bash
+echo "dist" >> .gitignore
+```
+
+<StepHeading step="4">Create a main script</StepHeading>
+
+Create a `src/scripts/index.js` file with the following contents:
+
+```js
+alert('It works!');
+```
+
+If you run `npm run build` now, you should see a `_site/scripts/index.js` file there! Next, we'll create a layout file and include the script there.
+
+<StepHeading step="5">Create a page</StepHeading>
+
+Create a `src/_includes/layouts/base.njk` file with the following contents:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    {{ content | safe }}
+    <script src="/scripts/index.js"></script>
+  </body>
+</html>
+```
+
+Then, create a `src/index.md` file:
+
+```text
+---
+title: Home
+layout: layouts/base.njk
+---
+
+# Hello world
+```
+
+Finally, run the `serve` command to spin up a local dev server:
+
+```bash
+npm run serve
+```
+
+Open up [localhost:8080](http://localhost:8080) and you should see an alert from your JavaScript bundle!
+
+<StepHeading step="6">Watch for changes</StepHeading>
+
+The `serve` script we placed in `package.json` can be improved a bit. Right now, it will not automatically pick up changes to your JavaScript. Let's fix that!
+
+Run the following command to install the `npm-run-all` library:
+
+```bash
+npm install npm-run-all --save-dev
+```
+
+Then, update your `package.json` scripts as follows:
+
+```diff
+  {
+    "scripts": {
+-     "serve": "webpack --mode development && eleventy --serve",
+-     "build": "webpack --mode production && eleventy"
++     "dev:webpack": "webpack --mode development --watch",
++     "prod:webpack": "webpack --mode production",
++     "dev:eleventy": "eleventy --serve",
++     "prod:eleventy": "eleventy",
++     "serve": "run-p dev:*",
++     "build": "run-p prod:*"
+    }
+  }
+```
