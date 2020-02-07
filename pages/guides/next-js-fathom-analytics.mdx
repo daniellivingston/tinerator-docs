@@ -1,0 +1,74 @@
+import withDocs from 'components/withDocs';
+import StepHeading from 'components/StepHeading';
+import BrowserDemo from 'components/BrowserDemo';
+
+export default withDocs({
+  title: 'How To Use Tailwind CSS with Next.js',
+  description: 'How to install Tailwind in a Next.js project in five easy steps.',
+  path: '/guides/next-js-tailwind',
+  breadcrumbs: [{
+    path: '/guides',
+    label: 'Guides',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Create a new project", "#create-a-new-project"],
+    [1, "Install dependencies", "#install-dependencies"],
+    [1, "Connect Fathom", "#connect-fathom"],
+  ],
+});
+
+# How To Use Fathom Analytics with Next.js
+
+<p className="text-lg">
+  In this guide, we'll walk through how to install <a href="https://tailwindcss.com/">Fathom Analytics</a> in a <a href="https://nextjs.org">Next.js</a> project. Fathom is a simple and private website analytics platform&mdash;a great independent alternative to Google Analytics!
+</p>
+
+<StepHeading step="1" id="create-a-new-project">Create a new project</StepHeading>
+
+If you are starting fresh, run the following command to create a new Next.js project. Otherwise, you can proceed with these steps to add Tailwind to an existing Next.js app.
+
+```bash
+npm create next-app my-website
+cd my-website
+```
+
+<StepHeading step="2" id="install-dependencies">Install dependencies</StepHeading>
+
+Install the `fathom-client` library, a thin wrapper around the Fathom tracking script designed for environments with client-side routing.
+
+```bash
+npm install fathom-client
+```
+
+[Source on GitHub](https://github.com/unstacked/fathom-client) | [npm package](https://www.npmjs.com/package/fathom-client)
+
+<StepHeading step="3" id="connect-fathom">Connect Fathom</StepHeading>
+
+Create a `pages/_app.js` file like this and paste in your Fathom Site ID: 
+
+```jsx
+import React, { useEffect } from 'react';
+import Router from 'next/router';
+import * as Fathom from 'fathom-client';
+
+// Record a pageview when route changes
+Router.events.on('routeChangeComplete', () => {
+  Fathom.trackPageview();
+});
+
+function App({ Component, pageProps }) {
+  // Initialize Fathom when the app loads
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      Fathom.load();
+      Fathom.setSiteId('REPLACE_WITH_YOUR_SITE_ID');
+      Fathom.trackPageview();
+    }
+  }, []);
+
+  return <Component {...pageProps} />;
+}
+
+export default App;
+```
