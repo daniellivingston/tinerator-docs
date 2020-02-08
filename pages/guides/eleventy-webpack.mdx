@@ -11,6 +11,12 @@ export default withDocs({
     rel: 'prev'
   }],
   toc: [
+    [1, "Create an Eleventy project", "#create-an-eleventy-project"],
+    [1, "Configure Eleventy", "#configure-eleventy"],
+    [1, "Install Webpack", "#install-webpack"],
+    [1, "Create a main script", "#create-a-main-script"],
+    [1, "Create a page", "#create-a-page"],
+    [1, "Watch for script changes", "#watch-for-script-changes"]
   ],
 });
 
@@ -21,7 +27,7 @@ export default withDocs({
   In this guide, we'll walk through how to use the popular JavaScript build tool <a href="https://webpack.js.org">Webpack</a> in an <a href="https://www.11ty.dev/">Eleventy</a> project.
 </p>
 
-<StepHeading step="1">Setup a new Eleventy project</StepHeading>
+<StepHeading step="1" id="create-an-eleventy-project">Create an Eleventy project</StepHeading>
 
 Run the following commands to scaffold a new Eleventy project:
 
@@ -41,7 +47,7 @@ git add .
 git commit -m "initial commit"
 ```
 
-<StepHeading step="2">Configure Eleventy</StepHeading>
+<StepHeading step="2" id="configure-eleventy">Configure Eleventy</StepHeading>
 
 Create a `.eleventy.js` file with the following contents. This tells Eleventy to look for files in the `src` directory to build and to place them in the `dist` directory.
 
@@ -53,7 +59,7 @@ module.exports = function(eleventyConfig) {
 };
 ```
 
-<StepHeading step="3">Install Webpack</StepHeading>
+<StepHeading step="3" id="install-webpack">Install Webpack</StepHeading>
 
 Run the following command to install Webpack:
 
@@ -94,7 +100,7 @@ Finally, since we are building to the `dist` directory, add it to your `.gitigno
 echo "dist" >> .gitignore
 ```
 
-<StepHeading step="4">Create a main script</StepHeading>
+<StepHeading step="4" id="create-a-main-script">Create a main script</StepHeading>
 
 Create a `src/scripts/index.js` file with the following contents:
 
@@ -104,7 +110,7 @@ alert('It works!');
 
 If you run `npm run build` now, you should see a `_site/scripts/index.js` file there! Next, we'll create a layout file and include the script there.
 
-<StepHeading step="5">Create a page</StepHeading>
+<StepHeading step="5" id="create-a-page">Create a page</StepHeading>
 
 Create a `src/_includes/layouts/base.njk` file with the following contents:
 
@@ -140,7 +146,7 @@ npm run serve
 
 Open up [localhost:8080](http://localhost:8080) and you should see an alert from your JavaScript bundle!
 
-<StepHeading step="6">Watch for changes</StepHeading>
+<StepHeading step="6" id="watch-for-script-changes">Watch for script changes</StepHeading>
 
 The `serve` script we placed in `package.json` can be improved a bit. Right now, it will not automatically pick up changes to your JavaScript. Let's fix that!
 
