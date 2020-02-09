@@ -1,0 +1,103 @@
+import withDocs from 'components/withDocs';
+import StepHeading from 'components/StepHeading';
+import BrowserDemo from 'components/BrowserDemo';
+
+export default withDocs({
+  title: 'How To Use Tailwind CSS with Eleventy',
+  description: 'How to install Tailwind in a Eleventy project.',
+  breadcrumbs: [{
+    path: '/guides',
+    label: 'Guides',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Install Webpack", "#install-webpack"],
+    [1, "Install dependencies", "#install-dependencies"],
+    [1, "Configure the build pipeline", "#configure-the-build-pipeline"],
+    [1, "Add Tailwind to your CSS", "#add-tailwind-to-your-css"],
+    [1, "Customize Tailwind", "#customize-tailwind"]
+  ],
+});
+
+# How To Use Tailwind CSS with Eleventy
+
+<p className="text-lg">
+  In this guide, we'll walk through how to install <a href="https://tailwindcss.com/">Tailwind CSS</a> in an <a href="https://www.11ty.dev/">Eleventy</a> project.
+</p>
+
+<StepHeading step="1" id="install-webpack">Install Webpack</StepHeading>
+
+This guide assumes you have Webpack installed in your Eleventy project. If you haven't already, follow this guide to prepare your project for Tailwind:
+
+[How To Use Webpack in an Eleventy Project &rarr;](/guides/eleventy-webpack)
+
+<StepHeading step="2" id="install-dependencies">Install dependencies</StepHeading>
+
+Run the following command to install Tailwind and a few other dependencies for Webpack:
+
+```bash
+npm install --save-dev tailwindcss autoprefixer mini-css-extract-plugin css-loader postcss-loader
+```
+
+<StepHeading step="3" id="configure-the-build-pipeline">Configure the build pipeline</StepHeading>
+
+Open up your `webpack.config.js` file and add the `MiniCssExtractPlugin` and the CSS rule:
+
+```js
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+  // ...
+  plugins: [new MiniCssExtractPlugin()],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+      }
+    ]
+  }
+}
+```
+
+Then, create a `postcss.config.js` file:
+
+```js
+module.exports = {
+  plugins: [
+    require('tailwindcss'),
+    require('autoprefixer')
+  ]
+};
+```
+
+<StepHeading step="4" id="add-tailwind-to-your-css">Add Tailwind to your CSS</StepHeading>
+
+Create a `main.css` file in the `src/styles` directory and add the Tailwind directives:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+Then, `import` your CSS file in your `src/scripts/index.js` file:
+
+```js
+import '../styles/main.css';
+```
+
+Congratulations! Tailwind CSS is now installed in your project.
+
+<StepHeading step="5" id="customize-tailwind">Customize Tailwind (Optional)</StepHeading>
+
+At this point, you’re all set up to work with Tailwind’s excellent defaults.
+
+If you need to [customize your configuration](https://tailwindcss.com/docs/configuration/), run the following command to generate a minimal `tailwind.config.js` file:
+
+```bash
+npx tailwindcss init
+```
+
+
