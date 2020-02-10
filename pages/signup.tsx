@@ -5,18 +5,23 @@ import SiteContext from 'components/SiteContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signup, login } from 'utils/auth';
-import { ValidationError } from '@statickit/react';
+import { ValidationError, useStaticKit } from '@statickit/react';
+import { signUpSurvey } from '@statickit/functions';
 import cookie from 'js-cookie';
 import * as Fathom from 'fathom-client';
 
 function SignupPage() {
   const title = 'Sign up';
   const description = 'Create a StaticKit account.';
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [useCase, setUseCase] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState([]);
   const { setSiteId } = useContext(SiteContext);
+
+  const client = useStaticKit();
   const router = useRouter();
 
   useEffect(() => {
@@ -27,6 +32,20 @@ function SignupPage() {
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!useCase) {
+      setErrors([
+        {
+          code: 'REQUIRED',
+          field: 'useCase',
+          message: 'is required',
+          properties: {}
+        }
+      ]);
+
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -39,8 +58,17 @@ function SignupPage() {
         // The "Signed up" goal
         Fathom.trackGoal('TQBJFNPT', 0);
 
-        setSiteId(resp.site_id);
-        login({ token: resp.token, nextPath });
+        try {
+          await signUpSurvey(client, {
+            subject: `${email} just signed up`,
+            fields: { useCase }
+          });
+        } catch (e) {
+          console.error(e);
+        } finally {
+          setSiteId(resp.site_id);
+          login({ token: resp.token, nextPath });
+        }
       } else {
         setErrors(resp.errors || []);
         setIsSubmitting(false);
@@ -110,6 +138,29 @@ function SignupPage() {
             <ValidationError
               prefix="Password"
               field="password"
+              errors={errors}
+              className="pt-2 text-sm text-red-600 font-bold"
+            />
+          </div>
+
+          <div className="pb-6">
+            <label
+              htmlFor="use-case"
+              className="block font-bold pb-2 leading-snug text-sm"
+            >
+              How do you plan to use StaticKit?{' '}
+              <span className="font-bold text-red-600">*</span>
+            </label>
+            <textarea
+              id="use-case"
+              name="useCase"
+              className="input-field block w-full"
+              onChange={e => setUseCase(e.target.value)}
+              value={useCase}
+            />
+            <ValidationError
+              prefix="Use case"
+              field="useCase"
               errors={errors}
               className="pt-2 text-sm text-red-600 font-bold"
             />
