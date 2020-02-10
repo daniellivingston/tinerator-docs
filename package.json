@@ -3,6 +3,7 @@
   "scripts": {
     "now-build": "next build",
     "now-dev": "next -p $PORT",
+    "dev": "next",
     "prettier": "npx prettier --write '{components,pages}/**/*.js'"
   },
   "engines": {
@@ -16,13 +17,12 @@
     "@statickit/react": "^2.0.1",
     "@stripe/react-stripe-js": "^1.0.0-beta.3",
     "@stripe/stripe-js": "^1.0.0-beta.4",
-    "@zeit/next-css": "^1.0.1",
     "common-tags": "^1.8.0",
     "fathom-client": "^2.0.2",
     "isomorphic-unfetch": "^3.0.0",
     "js-cookie": "^2.2.1",
     "moment": "^2.24.0",
-    "next": "^9.2.0",
+    "next": "^9.2.1",
     "next-cookies": "^2.0.3",
     "prism-react-renderer": "^1.0.2",
     "react": "^16.12.0",
@@ -38,8 +38,6 @@
     "@types/node": "^13.1.6",
     "@types/react": "^16.9.17",
     "autoprefixer": "^9.7.3",
-    "cssnano": "^4.1.10",
-    "postcss-easy-import": "^3.0.0",
     "prettier": "^1.19.1",
     "tailwindcss": "^1.1.4",
     "typescript": "^3.7.4"
