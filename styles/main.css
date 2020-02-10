@@ -98,6 +98,8 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 
 @tailwind utilities;
 
+/* purgecss start ignore */
+
 .inline-code {
   @apply bg-gray-300 rounded-full px-2 text-sm;
   margin-left: 2px;
@@ -146,3 +148,5 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 hover\:bg-transition:hover {
   transition: background-color 1s linear;
 }
+
+/* purgecss end ignore */
