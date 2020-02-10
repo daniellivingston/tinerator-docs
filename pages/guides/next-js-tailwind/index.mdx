@@ -40,7 +40,7 @@ cd next-js-tailwind
 Run the following to install Tailwind and Autoprefixer:
 
 ```bash
-npm install tailwindcss autoprefixer --save-dev
+npm install tailwindcss autoprefixer @fullhuman/postcss-purgecss --save-dev
 ```
 
 <StepHeading step="3" id="configure-the-build-pipeline">Configure the build pipeline</StepHeading>
@@ -51,20 +51,38 @@ Create a `postcss.config.js` file with the following contents:
 module.exports = {
   plugins: {
     tailwindcss: {},
-    autoprefixer: {}
+    autoprefixer: {},
+    ...(process.env.NODE_ENV === 'production'
+      ? {
+          '@fullhuman/postcss-purgecss': {
+            content: [
+              './components/**/*.js',
+              './pages/**/*.js'
+            ],
+            defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
+          }
+        }
+      : {})
   }
 };
 ```
+
+Here were are [running PurgeCSS in production](https://tailwindcss.com/docs/controlling-file-size/#setting-up-purgecss) to keep the CSS size to a minimum.
 
 <StepHeading step="4" id="add-tailwind-to-your-css">Add Tailwind to your CSS</StepHeading>
 
 Create a `styles.css` file in the root of your project with the Tailwind directives:
 
 ```css
+/* purgecss start ignore */
 @tailwind base;
 @tailwind components;
+/* purgecss end ignore */
+
 @tailwind utilities;
 ```
+
+The `purgecss` comments tell PurgeCSS to never purge important base styles.
 
 <StepHeading step="5" id="import-your-css">Import your CSS</StepHeading>
 
