@@ -1,3 +1,4 @@
+/* purgecss start ignore */
 @tailwind base;
 
 ol.docs-breadcrumbs {
@@ -91,6 +92,9 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
 .input-field-inverse:focus-within {
   @apply bg-white outline-none;
 }
+
+
+/* purgecss end ignore */
 
 @tailwind utilities;
 
