@@ -4,8 +4,7 @@ import BrowserDemo from 'components/BrowserDemo';
 
 export default withDocs({
   title: 'How To Use Tailwind CSS with Next.js',
-  description: 'How to install Tailwind in a Next.js project.',
-  path: '/guides/next-js-tailwind',
+  description: 'How to install Tailwind in a Next.js (< v9.2) project.',
   breadcrumbs: [{
     path: '/guides',
     label: 'Guides',
@@ -23,7 +22,8 @@ export default withDocs({
 # How To Use Tailwind CSS with Next.js
 
 <p className="text-lg">
-  In this guide, we'll walk through how to install <a href="https://tailwindcss.com/">Tailwind CSS</a> in a <a href="https://nextjs.org">Next.js</a> project.
+  In this guide, we'll walk through how to install <a href="https://tailwindcss.com/">Tailwind CSS</a> in a <a href="https://nextjs.org">Next.js</a> project. 
+  If you are on version 9.2 or above, <a href="/guides/next-js-tailwind">there's an even simpler way!</a>
 </p>
 
 <StepHeading step="1" id="create-a-new-project">Create a new project</StepHeading>
@@ -95,4 +95,4 @@ export default App;
 
 If you already have a custom app file, just add the `import` for your stylesheet. That's it! You can now start using Tailwind CSS utilities in your `className` attributes!
 
-[Check out the source on GitHub →](https://github.com/unstacked/next-js-tailwind)
+[Check out the source on GitHub →](https://github.com/statickit-projects/next-js-tailwind/tree/pre-9.2)
