@@ -15,7 +15,7 @@ export default withDocs({
     [1, "Configure Eleventy", "#configure-eleventy"],
     [1, "Install Webpack", "#install-webpack"],
     [1, "Create a JavaScript file", "#create-a-javascript-file"],
-    [1, "Create a layout & page", "#create-a-page"]
+    [1, "Create a page", "#create-a-page"]
   ],
 });
 
@@ -64,7 +64,7 @@ Run the following command to install Webpack and a few helper libraries:
 npm install --save-dev webpack webpack-cli npm-run-all rimraf
 ```
 
-Create a basic `webpack.config.js` file in the root of your project. This configuration tells Webpack to look for a `main.js` file in the `src/scripts` directory and to output it into the `_site/assets` directory.
+Next, create a minimal `webpack.config.js` file in the root of your project:
 
 ```js
 const path = require('path');
@@ -77,6 +77,8 @@ module.exports = {
   }
 };
 ```
+
+This configuration tells Webpack to look for a `main.js` file in the `src/scripts` directory and to output it into the `_site/assets` directory.
 
 Then, add the following scripts to your `package.json` file:
 
@@ -108,9 +110,9 @@ Create a `src/scripts/main.js` file with the following contents:
 alert('It works!');
 ```
 
-<StepHeading step="5" id="create-a-page">Create a layout and page</StepHeading>
+<StepHeading step="5" id="create-a-page">Create a page</StepHeading>
 
-Create a `src/_includes/layouts/base.njk` file. This will serve as the base layout for pages on your site:
+First, create a layout file called `src/_includes/layouts/base.njk` that references your `main.js` script:
 
 ```html
 <!doctype html>
@@ -125,7 +127,7 @@ Create a `src/_includes/layouts/base.njk` file. This will serve as the base layo
 </html>
 ```
 
-Then, create a `src/index.md` file:
+Then, create a `src/index.md` file that uses your base layout:
 
 ```text
 ---
