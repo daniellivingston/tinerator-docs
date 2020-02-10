@@ -4,7 +4,7 @@ export default withDocs({
   title: 'Functions',
   description: 'How to use StaticKit functions',
   toc: [
-    [1, 'Library', '#library'],
+    [1, 'Rules', '#rules'],
     [1, 'Responses', '#responses'],
     [1, 'Using In React', '#using-in-react']
   ]
@@ -12,22 +12,52 @@ export default withDocs({
 
 # Functions
 
-StaticKit functions are configurable server-side functions that you can call directly from your client-side JavaScript code.
+StaticKit functions are configurable server-side functions that you can call directly from your client-side JavaScript code. Here are the available function types:
 
-## Library
+| App                | Type                              | Description                                                  |
+| :----------------- | :-------------------------------- | :----------------------------------------------------------- |
+| &mdash;            | [`sendNotification`](/docs/functions/types/send-notification) | Sends a notification email       |
+| [`convertkit`](/docs/functions/convertkit)       | [`applyTags`](/docs/functions/convertkit/apply-tags) | Creates a subscriber and applies tags  |
+| [`mailchimp`](/docs/functions/mailchimp)        | [`addOrUpdateListMember`](/docs/functions/mailchimp/add-or-update-list-member) | Adds or updates a list member |
+| [`mailchimp`](/docs/functions/mailchimp)        | [`createEvent`](/docs/functions/mailchimp/create-event) | Adds or updates a contact and tracks an event |
 
-The following function types are native to StaticKit, meaning they don't require external app credentials to run.
+## Rules
 
-| Type                              | Description                                                  |
-| :-------------------------------- | :----------------------------------------------------------- |
-| [`sendNotification`](/docs/functions/types/send-notification) | Sends a notification email       |
+You can provide one or more server-side rules when configurating individual functions. For example, you may want to require a `message` field for a contact form function:
 
-These function types help you perform tasks in other applications:
+```json highlight=6,7,8
+{
+  "functions": {
+    "submitContactForm": {
+      "type": "sendNotification",
+      "to": "{your-email-address}",
+      "rules": [
+        { "type": "required", "arg": "fields.message" }
+      ]
+    }
+  }
+}
+```
 
-| App                               | Description                                                  |
-| :-------------------------------- | :----------------------------------------------------------- |
-| [`mailchimp`](/docs/functions/mailchimp) | Functions for interfacing with Mailchimp   |
-| [`convertkit`](/docs/functions/convertkit) | Functions for interfacing with ConvertKit   |
+With this rule, your function call will fail if `message` is not included in the `fields` object:
+
+```js
+let { status } = await submitContactForm(client, {
+  email,
+  fields: {
+    // no `message` here!
+  }
+});
+
+// status == "argumentError"
+```
+
+<p id="rule-types">Here are the available rule types:</p>
+
+| App                | Type                              | Description                                                  |
+| :----------------- | :-------------------------------- | :----------------------------------------------------------- |
+| &mdash;            | [`required`](/docs/functions/rules/required) | Validates that a particular argument is set       |
+
 
 ## Responses
 
