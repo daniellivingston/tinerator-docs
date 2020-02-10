@@ -10,6 +10,7 @@ module.exports = {
               './pages/**/*.tsx',
               './utils/**/*.tsx'
             ],
+            css: ['../styles/main.css'],
             defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
           }
         }

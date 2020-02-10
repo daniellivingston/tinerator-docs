@@ -93,7 +93,6 @@ ol.docs-breadcrumbs > li:not(:last-child)::after {
   @apply bg-white outline-none;
 }
 
-
 /* purgecss end ignore */
 
 @tailwind utilities;
