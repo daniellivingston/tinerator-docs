@@ -58,6 +58,14 @@
     url('/static/fonts/inter-3.9/Inter-BoldItalic.woff') format('woff');
 }
 
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  src: url('/static/fonts/inter-3.9/Inter-Black.woff2') format('woff2'),
+    url('/static/fonts/inter-3.9/Inter-Black.woff') format('woff');
+}
+
 /* --------------------------------------------------------------------------
 [EXPERIMENTAL] Multi-axis, single variable font.
 

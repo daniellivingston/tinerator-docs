@@ -14,7 +14,7 @@ function PricingPage() {
 
         <div className="mx-auto px-6 pt-12 container">
           <div className="pt-6 md:pt-10 pb-12 md:pb-16">
-            <h1 className="pb-4 text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-center">
+            <h1 className="pb-4 text-4xl sm:text-5xl font-black leading-tight tracking-tight text-center">
               Fair &amp; Simple Pricing
             </h1>
             <p className="text-lg text-gray-700 text-center">

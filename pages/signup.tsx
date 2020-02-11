@@ -92,7 +92,7 @@ function SignupPage() {
           </Link>
         </header>
 
-        <h1 className="pb-10 text-3xl font-semibold tracking-snug">
+        <h1 className="pb-10 text-3xl font-black tracking-snug">
           Sign up for StaticKit
         </h1>
 

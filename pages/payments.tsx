@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
@@ -103,7 +102,7 @@ const PaymentsPage: React.FC<Props> = ({ viewerData }) => {
 
       <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-16">
         <div className="px-6 mx-auto max-w-5xl">
-          <h1 className="pb-8 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-gray-900">
+          <h1 className="pb-8 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight sm:text-center text-gray-900">
             Accept payments without writing a line of backend code
           </h1>
 

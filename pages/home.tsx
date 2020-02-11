@@ -20,7 +20,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
 
       <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
         <div className="px-6 mx-auto max-w-5xl">
-          <h1 className="pb-8 text-5xl sm:text-6xl font-bold leading-none sm:leading-tighter tracking-tight sm:text-center text-gray-900">
+          <h1 className="pb-8 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight sm:text-center text-gray-900">
             Why build a backend if
             <br className="hidden lg:block" /> you don&rsquo;t have to?
           </h1>
