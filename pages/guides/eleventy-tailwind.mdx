@@ -88,6 +88,22 @@ Then, `import` your CSS file in your `src/scripts/index.js` file:
 import '../styles/main.css';
 ```
 
+Finally, add your stylesheet to your layout file:
+
+```html highlight=5
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="/assets/main.css" />
+  </head>
+  <body>
+    {{ content | safe }}
+    <script src="/assets/main.js"></script>
+  </body>
+</html>
+```
+
 Congratulations! Tailwind CSS is now installed in your project.
 
 <StepHeading step="5" id="customize-tailwind">Customize Tailwind (Optional)</StepHeading>
