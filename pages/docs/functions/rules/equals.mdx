@@ -1,0 +1,52 @@
+import withDocs from 'components/withDocs';
+import ArrowItem from 'components/ArrowItem';
+
+export default withDocs({
+  title: 'required - Rules - Functions',
+  description: 'The required rule schema',
+  breadcrumbs: [{
+    path: '/docs/functions#rule-types',
+    label: 'Function Rules',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Configuration", "#configuration"],
+    [1, "Arguments", "#arguments"],
+    [1, "Response", "#response"]
+  ]
+});
+
+# equals
+
+Validates that a function argument equals a given value.
+
+## Configuration
+
+This rule type accepts the following parameters:
+
+| Key                        | Type                     | Default                        | Description                                                  |
+| :------------------------- | :----------------------- | :----------------------------- | :----------------------------------------------------------- |
+| `arg` *                    | string                   |                                | The name of the argument                                     |
+| `value` *                  | string                   |                                | The value the argument must equal                            |
+
+### Example
+
+This validates that an argument called `message` is defined:
+
+```json
+{
+  "type": "equals",
+  "arg": "status",
+  "value": "subscribed"
+}
+```
+
+You can also validate nested arguments, using dots to denote the path:
+
+```json
+{
+  "type": "equals",
+  "arg": "fields.status",
+  "value": "subscribed"
+}
+```
