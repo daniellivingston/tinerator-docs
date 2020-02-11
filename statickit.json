@@ -2,15 +2,17 @@
   "functions": {
     "sendSupportEmail": {
       "type": "sendNotification",
-      "to": "support@statickit.com"
-    },
-    "requestUpgrade": {
-      "type": "sendNotification",
-      "to": "support@statickit.com"
+      "to": "support@statickit.com",
+      "rules": [
+        { "type": "required", "arg": "fields.message" }
+      ]
     },
     "signUpSurvey": {
       "type": "sendNotification",
-      "to": "support@statickit.com"
+      "to": "support@statickit.com",
+      "rules": [
+        { "type": "required", "arg": "fields.useCase" }
+      ]
     }
   }
 }

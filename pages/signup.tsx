@@ -38,7 +38,7 @@ function SignupPage() {
         {
           code: 'REQUIRED',
           field: 'useCase',
-          message: 'is required',
+          message: "can't be blank",
           properties: {}
         }
       ]);

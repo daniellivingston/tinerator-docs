@@ -13,7 +13,7 @@
     "@mdx-js/loader": "^1.5.3",
     "@next/mdx": "^9.1.7",
     "@statickit/core": "^2.3.0",
-    "@statickit/functions": "github:unstacked/statickit-functions#d1345cc3-9d4e-4bfd-a34d-e24334a0933b",
+    "@statickit/functions": "github:unstacked/statickit-functions#c8156c43-bee6-481f-ab4a-b0f357ccca07",
     "@statickit/react": "^2.0.1",
     "@stripe/react-stripe-js": "^1.0.0-beta.3",
     "@stripe/stripe-js": "^1.0.0-beta.4",
