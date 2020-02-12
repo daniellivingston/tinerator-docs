@@ -9,8 +9,10 @@ interface Props {
   viewerData?: ViewerData;
 }
 
+const checkIcon = `<svg width="31" height="31"><g transform="translate(1.5 1.5)" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><circle stroke="#5A67D8" stroke-width="2" fill="#5A67D8" cx="14" cy="14" r="14"/><path d="M20.3 10.5l-7.7 7.7M9.1 14.7l3.5 3.5" stroke="#FFF" stroke-width="3"/></g></svg>`;
+
 const HomePage: React.FC<Props> = ({ viewerData }) => {
-  const title = 'Backend services for frontend developers';
+  const title = 'The Form Backend For Modern Static Sites';
   const description = 'Form backend, Stripe payments, and more.';
 
   return (
@@ -18,30 +20,79 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
       <HeadMatter title={title} description={description} />
       <Header viewerData={viewerData} />
 
-      <div className="mx-auto container pt-16 sm:pt-32 pb-10 sm:pb-24">
-        <div className="px-6 mx-auto max-w-5xl">
-          <h1 className="pb-8 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight sm:text-center text-gray-900">
-            Why build a backend if
-            <br className="hidden lg:block" /> you don&rsquo;t have to?
+      <div className="mx-auto container pt-16 sm:pt-32 pb-16 sm:pb-24">
+        <div className="mx-auto px-6 pb-16 max-w-5xl sm:text-center">
+          <h1 className="pb-6 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
+            The Form Backend For
+            <br />
+            <span className="text-purple-700">Modern Static Sites</span>
           </h1>
 
-          <div className="max-w-2xl mx-auto pb-24 text-xl sm:text-2xl text-gray-700 sm:text-center leading-snug sm:tracking-snug">
+          <div className="sm:mx-auto max-w-2xl pb-16 text-xl sm:text-2xl text-gray-800 leading-snug sm:tracking-snug">
             <p className="pb-8">
-              As a front-end developer, you hate it when you&rsquo;re forced to
-              put down the tools you love and write backend code for stuff like
-              forms and payments. We spare you that pain.
-            </p>
-
-            <p>
-              <strong className="mt-4 text-gray-800">
-                StaticKit gives you custom server-side functionality, entirely
-                within your frontend codebase.
-              </strong>
+              Create interactive forms without writing any backend code. We
+              focus relentlessly on developer experience so you can{' '}
+              <strong>avoid wasting valuable development cycles</strong>.
             </p>
           </div>
         </div>
 
+        {/* <div className="mx-auto container max-w-5xl pb-12 sm:pb-24">
+          <div className="flex flex-wrap">
+            <div className="p-6 md:w-1/2 lg:w-1/3">
+              <div className="pb-4">
+                <div className="flex items-center h-12">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<svg width="36" height="36"><g transform="translate(1 1)" stroke="#6B46C1" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><circle cx="28.5" cy="28.5" r="5.5"/><circle cx="5.5" cy="5.5" r="5.5"/><path d="M19 6h5.4C26.388 6 28 7.691 28 9.778V23M6 11v23"/></g></svg>`
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="flex items-center pb-2">
+                <h3 className="mr-2 text-2xl font-bold tracking-snug text-gray-900">
+                  Static Configuration
+                </h3>
+              </div>
+              <p className="pb-3 text-lg text-gray-800">
+                Instead of clicking around a UI, configure your forms in a JSON
+                file, commit it to version control, and deploy with a CLI.
+              </p>
+            </div>
+
+            <div className="p-6 md:w-1/2 lg:w-1/3">
+              <div className="pb-4">
+                <div className="flex items-center h-12">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<svg width="40" height="27"><g stroke="#48BB78" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M26 26l13-12.5L26 1M14 1L1 13.5 14 26"/></g></svg>`
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="flex items-center pb-2">
+                <h3 className="mr-2 text-2xl font-bold tracking-snug text-gray-900">
+                  Native JS Client
+                </h3>
+              </div>
+              <p className="pb-3 text-lg text-gray-800">
+                Make backend calls using plain old JavaScript functions&mdash;no
+                messing with low-level{' '}
+                <code className="inline-code">fetch</code> calls.
+              </p>
+            </div>
+          </div>
+        </div> */}
+
         <div className="mx-auto container max-w-5xl pb-8 sm:pb-12">
+          <div className="px-6 pb-16 sm:text-center">
+            <h2 className="pb-5 text-4xl sm:text-5xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
+              Wire things up in minutes
+            </h2>
+            <p className="text-lg text-gray-800 leading-snug">
+              Follow along with our step-by-step developer guides.
+            </p>
+          </div>
           <div className="flex flex-wrap">
             <div className="p-6 md:w-1/2 lg:w-1/3">
               <div className="pb-4">
@@ -52,22 +103,19 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                 />
               </div>
               <div className="flex items-center pb-2">
-                <h3 className="mr-2 text-2xl font-semibold text-gray-900">
-                  Payments
+                <h3 className="mr-2 text-2xl font-bold text-gray-900 tracking-snug leading-snug">
+                  Stripe Payment Forms
                 </h3>
-                <div className="px-3 py-1 leading-tight text-sm font-bold bg-orange-200 rounded-full text-orange-700">
-                  Early Access
-                </div>
               </div>
               <p className="pb-3 text-lg text-gray-700">
-                Charge customers and start subscriptions without writing backend
-                code.
+                Learn how build a React form to collect Stripe payments without
+                writing any backend code.
               </p>
 
               <p className="text-lg">
-                <Link href="/payments">
+                <Link href="/guides/stripe-payments-react">
                   <a className="font-semibold text-indigo-600">
-                    Learn more &rarr;
+                    Read the guide &rarr;
                   </a>
                 </Link>
               </p>
@@ -82,25 +130,18 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                     }}
                   />
                 </div>
-                <div className="flex items-center h-12 w-12">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `<svg width="43" height="39"><path d="M20.55 30.79c7.308 0 12.957-5.515 12.957-12.316 0-6.373-5.307-10.263-8.822-10.263-4.895 0-8.819 3.43-9.378 8.522-.103.943-.851 1.734-1.801 1.727a594.317 594.317 0 00-5.326-.02c-.625.002-1.142-.504-1.111-1.129.219-4.416 1.698-8.545 4.517-11.717C14.72 2.069 19.283 0 24.685 0c9.076 0 17.644 8.236 17.644 18.474C42.329 29.81 32.923 39 20.742 39 12.055 39 3.306 33.33.252 25.405a.172.172 0 01-.008-.092c.04-.235.121-.449.2-.66.116-.306.23-.606.213-.952l-.053-1.104a1.345 1.345 0 01.78-1.283l.442-.205c.502-.232.86-.693.96-1.237.149-.81.86-1.398 1.691-1.398 1.298 0 2.426.861 2.85 2.086 2.04 5.896 5.282 10.23 13.222 10.23z" fill="#FB6970" fill-rule="nonzero"/></svg>`
-                    }}
-                  />
-                </div>
               </div>
-              <h3 className="pb-2 text-2xl font-semibold text-gray-900">
-                Opt-In Forms
+              <h3 className="pb-2 text-2xl font-bold text-gray-900 tracking-snug leading-snug">
+                Mailchimp Forms
               </h3>
               <p className="pb-3 text-lg text-gray-700">
-                Add subscribers and track events in your Mailchimp or ConvertKit
-                account.
+                Learn how to build an interactive opt-in form for Mailchimp with
+                React.
               </p>
               <p className="text-lg">
                 <Link href="/guides/mailchimp-react">
                   <a className="font-semibold text-indigo-600">
-                    Learn more &rarr;
+                    Read the guide &rarr;
                   </a>
                 </Link>
               </p>
@@ -116,17 +157,17 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                   />
                 </div>
               </div>
-              <h3 className="pb-2 text-2xl font-semibold text-gray-900">
+              <h3 className="pb-2 text-2xl font-bold text-gray-900 tracking-snug leading-snug">
                 Contact Forms
               </h3>
               <p className="pb-3 text-lg text-gray-700">
-                Gather form submissions and receive email notifications when
-                someone writes in.
+                Learn how to collect contact form submissions in your email
+                inbox.
               </p>
               <p className="text-lg">
                 <Link href="/guides/contact-form-react">
                   <a className="font-semibold text-indigo-600">
-                    Learn more &rarr;
+                    Read the guide &rarr;
                   </a>
                 </Link>
               </p>
@@ -135,116 +176,15 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
         </div>
       </div>
 
-      <div className="bg-gray-900 border-b border-gray-800">
-        <div className="mx-auto container py-16 sm:py-24">
-          <div className="px-6 pb-16 sm:pb-24 mx-auto max-w-4xl">
-            <h1 className="pb-4 text-5xl sm:text-6xl font-bold leading-tight tracking-tight sm:text-center text-gray-200">
-              How It Works
-            </h1>
-            <p className="pb-6 text-lg sm:text-xl text-gray-500 sm:text-center mx-auto max-w-3xl">
-              Configure what you need in your{' '}
-              <code className="mx-1 px-3 py-1 text-base rounded-full bg-gray-800">
-                statickit.json
-              </code>{' '}
-              file and we&rsquo;ll generate a custom npm package with
-              TypeScript-enabled function definitions. This means you
-              don&rsquo;t have to make any{' '}
-              <code className="mx-1 px-3 py-1 text-base rounded-full bg-gray-800">
-                fetch
-              </code>{' '}
-              calls or learn any new low-level APIs.
-            </p>
-            <p className="text-lg sm:text-xl text-gray-300 font-bold sm:text-center mx-auto max-w-3xl">
-              All you have to do is call your functions.
-            </p>
+      <div className="mx-auto container">
+        <div className="max-w-5xl mx-auto px-6 py-20 sm:flex items-center justify-center border-t">
+          <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-800">
+            Go forth and build.
           </div>
-          <div className="px-6 mx-auto max-w-5xl">
-            <div className="mx-auto max-w-2xl">
-              <div className="pb-16">
-                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-yellow-600 rounded-full whitespace-no-wrap">
-                    Step 1
-                  </div>{' '}
-                  <div className="text-yellow-500">Configure your backend</div>
-                </h2>
-
-                <CodeBlock className="language-json" copy={false}>
-                  {`
-{
-  "functions": {
-    "sendContactForm": {
-      "type": "sendNotification",
-      "to": "me@example.com"
-    }
-  }
-}
-                  `}
-                </CodeBlock>
-
-                <p className="px-4 pt-4 text-sm text-gray-500">
-                  This is what a
-                  <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
-                    statickit.json
-                  </span>{' '}
-                  file might look like.
-                </p>
-              </div>
-
-              <div className="pb-16">
-                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-green-600 rounded-full whitespace-no-wrap">
-                    Step 2
-                  </div>{' '}
-                  <div className="text-green-500">Deploy your config</div>
-                </h2>
-
-                <CodeBlock className="language-shell" copy={false}>
-                  {`$ statickit deploy`}
-                </CodeBlock>
-
-                <p className="px-4 pt-4 text-sm text-gray-500">
-                  We'll install a
-                  <span className="text-xs rounded-full mx-1 py-px px-2 font-bold font-mono bg-gray-800 text-gray-500">
-                    @statickit/functions
-                  </span>
-                  package for you.
-                </p>
-              </div>
-
-              <div className="pb-16">
-                <h2 className="ml-2 pb-4 text-base font-bold flex items-center">
-                  <div className="text-xs text-gray-900 mr-2 py-px px-2 bg-pink-600 rounded-full whitespace-no-wrap">
-                    Step 3
-                  </div>{' '}
-                  <div className="text-pink-500">
-                    Talk to your backend with functions
-                  </div>
-                </h2>
-
-                <CodeBlock className="language-jsx" copy={false}>
-                  {`
-import { sendContactForm } from '@statickit/functions';
-
-let { status } = await sendContactForm(client, {
-  subject: 'New contact form submission',
-  fields: { email, message }
-});
-                  `}
-                </CodeBlock>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="mx-auto container">
-          <div className="max-w-5xl mx-auto px-6 py-20 sm:flex items-center justify-center border-t border-gray-800">
-            <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-500">
-              Go forth and build.
-            </div>
-            <div className="flex-shrink-0">
-              <Link href="/signup">
-                <a className="btn btn-purple sm:block">Sign up free</a>
-              </Link>
-            </div>
+          <div className="flex-shrink-0">
+            <Link href="/signup">
+              <a className="btn btn-purple sm:block">Sign up free</a>
+            </Link>
           </div>
         </div>
       </div>
