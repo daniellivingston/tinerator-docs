@@ -91,7 +91,7 @@ Then, add the following scripts to your `package.json` file:
     "serve": "npm-run-all clean --parallel serve:*",
     "build:webpack": "webpack --mode production",
     "build:eleventy": "ELEVENTY_ENV=production eleventy",
-    "build": "npm-run-all clean --parallel build:*"
+    "build": "run-s clean build:*"
   }
 }
 ```

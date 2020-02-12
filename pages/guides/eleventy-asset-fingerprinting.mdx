@@ -1,0 +1,119 @@
+import withDocs from 'components/withDocs';
+import StepHeading from 'components/StepHeading';
+import BrowserDemo from 'components/BrowserDemo';
+
+export default withDocs({
+  title: 'How To Use Asset Fingerprinting with Eleventy',
+  description: 'Learn how to fingerprint your JS and CSS files for better caching control in an Eleventy project.',
+  breadcrumbs: [{
+    path: '/guides',
+    label: 'Guides',
+    rel: 'prev'
+  }],
+  toc: [
+    [1, "Set up Webpack", "#set-up-webpack"],
+    [1, "Install dependencies", "#install-dependencies"],
+    [1, "Configure the manifest plugin", "#configure-the-manifest-plugin"],
+    [1, "Add an Eleventy filter", "#add-an-eleventy-filter"]
+  ],
+});
+
+# How To Use Asset Fingerprinting with Eleventy
+
+<p className="text-lg">
+  In this guide, we'll walk through how to use asset fingerprinting in an <a href="https://www.11ty.dev/">Eleventy</a> project.
+</p>
+
+<StepHeading step="1" id="set-up-webpack">Set up Webpack</StepHeading>
+
+This guide assumes you have Webpack installed in your Eleventy project. If you haven't already, follow this guide to prepare your project for Tailwind:
+
+[How To Use Webpack in an Eleventy Project &rarr;](/guides/eleventy-webpack)
+
+<StepHeading step="2" id="install-dependencies">Install dependencies</StepHeading>
+
+Run the following command to install the Webpack Manifest plugin:
+
+```bash
+npm install --save-dev webpack-manifest-plugin
+```
+
+<StepHeading step="3" id="configure-the-manifest-plugin">Configure the manifest plugin</StepHeading>
+
+Update your `webpack.config.js` file and make the following changes:
+
+- Add the `ManifestPlugin` to your list of `plugins`
+- Update the `filename` to include a `[contenthash]` in production mode
+
+It should look something like this:
+
+```js highlight=2,9,10,12
+const path = require('path');
+const ManifestPlugin = require('webpack-manifest-plugin');
+
+module.exports = (_env, argv) => {
+  return {
+    entry: './src/scripts/main.js',
+    output: {
+      path: path.resolve(__dirname, '_site/assets'),
+      filename:
+        argv.mode === 'production' ? '[name].[contenthash].js' : '[name].js'
+    },
+    plugins: [new ManifestPlugin()]
+  };
+};
+```
+
+This tells Webpack to create a `manifest.json` file that contains a mapping of original file names to the outputted filenames containing a unique hash.
+
+<StepHeading step="4" id="add-an-eleventy-filter">Add an Eleventy filter</StepHeading>
+
+Open up your `.eleventy.js` file and add an `assetPath` filter:
+
+```js
+const fs = require('fs');
+const path = require('path');
+
+module.exports = function(eleventyConfig) {
+  const outputDir = '_site';
+  const assetDir = 'assets';
+
+  eleventyConfig.addFilter('assetPath', function(value) {
+    if (process.env.ELEVENTY_ENV === 'production') {
+      const manifestPath = path.resolve(
+        __dirname,
+        outputDir,
+        assetDir,
+        'manifest.json'
+      );
+      const manifest = JSON.parse(fs.readFileSync(manifestPath));
+      return `/${assetDir}/${manifest[value]}`;
+    }
+
+    return `/${assetDir}/${value}`;
+  });
+
+  return {
+    dir: { input: 'src', output: outputDir }
+  };
+};
+```
+
+In production, this filter will read the `manifest.json` file and return the asset path containing the content hash.
+
+<StepHeading step="5" id="update-asset-references">Update asset references</StepHeading>
+
+When referencing your assets, use the `assetPath` filter. For example, your layout file might look like this:
+
+```html highlight=8
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    {{ content | safe }}
+    <script src="{{ 'main.js' | assetPath }}"></script>
+  </body>
+</html>
+```
