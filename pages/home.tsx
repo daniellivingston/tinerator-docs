@@ -2,14 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import Header from 'components/Header';
 import HeadMatter from 'components/HeadMatter';
-import CodeBlock from 'components/CodeBlock';
 import { ViewerData } from 'data/queries';
 
 interface Props {
   viewerData?: ViewerData;
 }
-
-const checkIcon = `<svg width="31" height="31"><g transform="translate(1.5 1.5)" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><circle stroke="#5A67D8" stroke-width="2" fill="#5A67D8" cx="14" cy="14" r="14"/><path d="M20.3 10.5l-7.7 7.7M9.1 14.7l3.5 3.5" stroke="#FFF" stroke-width="3"/></g></svg>`;
 
 const HomePage: React.FC<Props> = ({ viewerData }) => {
   const title = 'The Form Backend For Modern Static Sites';
@@ -38,62 +35,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
           </div>
         </div>
 
-        {/* <div className="mx-auto container max-w-5xl pb-12 sm:pb-24">
-          <div className="flex flex-wrap">
-            <div className="p-6 md:w-1/2 lg:w-1/3">
-              <div className="pb-4">
-                <div className="flex items-center h-12">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `<svg width="36" height="36"><g transform="translate(1 1)" stroke="#6B46C1" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><circle cx="28.5" cy="28.5" r="5.5"/><circle cx="5.5" cy="5.5" r="5.5"/><path d="M19 6h5.4C26.388 6 28 7.691 28 9.778V23M6 11v23"/></g></svg>`
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="flex items-center pb-2">
-                <h3 className="mr-2 text-2xl font-bold tracking-snug text-gray-900">
-                  Static Configuration
-                </h3>
-              </div>
-              <p className="pb-3 text-lg text-gray-800">
-                Instead of clicking around a UI, configure your forms in a JSON
-                file, commit it to version control, and deploy with a CLI.
-              </p>
-            </div>
-
-            <div className="p-6 md:w-1/2 lg:w-1/3">
-              <div className="pb-4">
-                <div className="flex items-center h-12">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `<svg width="40" height="27"><g stroke="#48BB78" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M26 26l13-12.5L26 1M14 1L1 13.5 14 26"/></g></svg>`
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="flex items-center pb-2">
-                <h3 className="mr-2 text-2xl font-bold tracking-snug text-gray-900">
-                  Native JS Client
-                </h3>
-              </div>
-              <p className="pb-3 text-lg text-gray-800">
-                Make backend calls using plain old JavaScript functions&mdash;no
-                messing with low-level{' '}
-                <code className="inline-code">fetch</code> calls.
-              </p>
-            </div>
-          </div>
-        </div> */}
-
         <div className="mx-auto container max-w-5xl pb-8 sm:pb-12">
-          {/* <div className="px-6 pb-16 sm:text-center">
-            <h2 className="pb-5 text-4xl sm:text-5xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
-              Wire things up in minutes
-            </h2>
-            <p className="text-lg text-gray-800 leading-snug">
-              Follow along with our step-by-step developer guides.
-            </p>
-          </div> */}
           <div className="flex flex-wrap">
             <div className="p-6 md:w-1/2 lg:w-1/3">
               <div className="pb-4">
