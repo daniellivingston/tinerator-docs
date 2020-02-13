@@ -24,7 +24,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
         <div className="mx-auto px-6 pb-16 max-w-5xl sm:text-center">
           <h1 className="pb-6 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
             The Form Backend For
-            <br />
+            <br className="hidden lg:block" />{' '}
             <span className="text-purple-700">Jamstack Developers</span>
           </h1>
 
@@ -105,17 +105,17 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
               </div>
               <div className="flex items-center pb-2">
                 <h3 className="mr-2 text-2xl font-bold text-gray-900 tracking-snug leading-snug">
-                  Stripe Payment Forms
+                  Payment Forms
                 </h3>
               </div>
               <p className="pb-3 text-lg text-gray-700">
-                Collect one-time and recurring payments.
+                Collect one-time and recurring payments with Stripe.
               </p>
 
               <p className="text-lg">
-                <Link href="/guides/stripe-payments-react">
+                <Link href="/payments">
                   <a className="font-semibold text-indigo-600">
-                    Read the guide &rarr;
+                    Get early access &rarr;
                   </a>
                 </Link>
               </p>

@@ -1,67 +1,32 @@
 import withDocs from 'components/withDocs';
 import ArrowItem from 'components/ArrowItem';
+import GuideItem from 'components/GuideItem';
 
 export default withDocs({
   title: 'Introduction',
-  description: 'Learn how to configure and deploy StaticKit.',
-  toc: [
-    [1, "Installation", "#installation"],
-    [1, "Create a function", "#create-a-function"],
-    [1, "Make a call", "#make-a-call"]
-  ],
-  next: {
-    path: '/docs/functions',
-    label: 'Functions'
-  }
+  description: 'Get started using StaticKit.',
+  toc: []
 });
 
 # Introduction
 
-StaticKit gives you custom server-side functionality, entirely within your frontend codebase. Sites are configured via a `statickit.json` file that lives in your repository (alongside your website code) and deployed from the command line.
-
-## Installation
-
-From your project directory, run the following to initialize your project:
+StaticKit helps you create powerful forms without building a backend. To get started, run the following commands to install the command line interface and initialize your project.
 
 ```bash
 npm i -g @statickit/cli
 statickit init
 ```
 
-This will create a bare `statickit.json` file — you should keep this file in source control.
+Then, follow one of our step-by-step guides to get started building!
 
-## Create a function
+<GuideItem title="How To Build a Contact Form with React" href="/guides/contact-form-react">
+  Learn how to collect contact form submissions in your email inbox.
+</GuideItem>
 
-Open up your `statickit.json` file and replace it with the following:
+<GuideItem title="How To Build a Mailchimp Form with React" href="/guides/mailchimp-react">
+  Learn how to build a React form to create subscribers in your Mailchimp account.
+</GuideItem>
 
-```json
-{
-  "functions": {
-    "helloWorld": {
-      "type": "sendNotification",
-      "to": "{your-email-address}"
-    }
-  }
-}
-```
-
-Then, deploy your changes to StaticKit:
-
-```bash
-statickit deploy -k <your-deploy-key>
-```
-
-This will install the `@statickit/functions` package in your project.
-
-## Make a call
-
-On your front-end, import your `helloWorld` function and call it somewhere:
-
-```js
-import { helloWorld, createClient } from '@statickit/functions';
-let client = createClient({ site: "{your-site-id}" });
-
-helloWorld(client, { subject: "Hello world!" });
-```
-
-You should have received an email! Congratulations, you are off to the races. We have a growing collection function types to help with your server-side needs.
+<GuideItem title="How To Build a ConvertKit Form with React" href="/guides/convertkit-react">
+  Learn how to add subscribers to ConvertKit and apply tags to them using StaticKit.
+</GuideItem>

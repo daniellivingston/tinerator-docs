@@ -18,6 +18,11 @@ const sections: Section[] = [
     sections: []
   },
   {
+    path: '/guides',
+    label: 'Guides',
+    sections: []
+  },
+  {
     path: '/docs/functions',
     label: 'Functions',
     sections: []
@@ -44,11 +49,6 @@ const sections: Section[] = [
   {
     path: '/docs/cli',
     label: 'CLI',
-    sections: []
-  },
-  {
-    path: '/guides',
-    label: 'Guides',
     sections: []
   }
 ];
