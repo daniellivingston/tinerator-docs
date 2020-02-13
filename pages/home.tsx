@@ -25,14 +25,15 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
           <h1 className="pb-6 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
             The Form Backend For
             <br />
-            <span className="text-purple-700">Modern Static Sites</span>
+            <span className="text-purple-700">Jamstack Developers</span>
           </h1>
 
-          <div className="sm:mx-auto max-w-2xl pb-8 text-xl sm:text-2xl text-gray-800 leading-snug sm:tracking-snug">
+          <div className="sm:mx-auto max-w-3xl pb-8 text-xl sm:text-2xl text-gray-800 leading-snug sm:tracking-snug">
             <p className="pb-8">
-              Create interactive forms without writing any backend code. We
-              focus relentlessly on developer experience so you can{' '}
-              <strong>avoid wasting valuable development cycles</strong>.
+              StaticKit helps you create powerful forms without building a
+              backend. We focus relentlessly on developer experience so your
+              developers can <strong>spend as little time as possible</strong>{' '}
+              messing with form code.
             </p>
           </div>
         </div>
@@ -108,36 +109,11 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                 </h3>
               </div>
               <p className="pb-3 text-lg text-gray-700">
-                Build a React form to collect Stripe payments.
+                Collect one-time and recurring payments.
               </p>
 
               <p className="text-lg">
                 <Link href="/guides/stripe-payments-react">
-                  <a className="font-semibold text-indigo-600">
-                    Read the guide &rarr;
-                  </a>
-                </Link>
-              </p>
-            </div>
-
-            <div className="p-6 md:w-1/2 lg:w-1/3">
-              <div className="pb-4">
-                <div className="flex items-center h-12 w-12">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `<svg width="46" height="37"><g stroke="#48BB78" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M5.4 1h35.2C43.02 1 45 2.969 45 5.375v26.25C45 34.031 43.02 36 40.6 36H5.4C2.98 36 1 34.031 1 31.625V5.375C1 2.969 2.98 1 5.4 1z"/><path d="M45 5L23 20 1 5"/></g></svg>`
-                    }}
-                  />
-                </div>
-              </div>
-              <h3 className="pb-2 text-2xl font-bold text-gray-900 tracking-snug leading-snug">
-                Contact Forms
-              </h3>
-              <p className="pb-3 text-lg text-gray-700">
-                Collect contact form submissions in your email inbox.
-              </p>
-              <p className="text-lg">
-                <Link href="/guides/contact-form-react">
                   <a className="font-semibold text-indigo-600">
                     Read the guide &rarr;
                   </a>
@@ -154,15 +130,48 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                     }}
                   />
                 </div>
+                <div className="flex items-center h-12 w-12">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<svg width="43" height="39"><path d="M20.55 30.79c7.308 0 12.957-5.515 12.957-12.316 0-6.373-5.307-10.263-8.822-10.263-4.895 0-8.819 3.43-9.378 8.522-.103.943-.851 1.734-1.801 1.727a594.317 594.317 0 00-5.326-.02c-.625.002-1.142-.504-1.111-1.129.219-4.416 1.698-8.545 4.517-11.717C14.72 2.069 19.283 0 24.685 0c9.076 0 17.644 8.236 17.644 18.474C42.329 29.81 32.923 39 20.742 39 12.055 39 3.306 33.33.252 25.405a.172.172 0 01-.008-.092c.04-.235.121-.449.2-.66.116-.306.23-.606.213-.952l-.053-1.104a1.345 1.345 0 01.78-1.283l.442-.205c.502-.232.86-.693.96-1.237.149-.81.86-1.398 1.691-1.398 1.298 0 2.426.861 2.85 2.086 2.04 5.896 5.282 10.23 13.222 10.23z" fill="#FB6970" fill-rule="nonzero"/></svg>`
+                    }}
+                  />
+                </div>
               </div>
               <h3 className="pb-2 text-2xl font-bold text-gray-900 tracking-snug leading-snug">
-                Mailchimp Forms
+                Opt-In Forms
               </h3>
               <p className="pb-3 text-lg text-gray-700">
-                Build an interactive opt-in form for Mailchimp with React.
+                Send new email subscribers to Mailchimp or ConvertKit.
               </p>
               <p className="text-lg">
                 <Link href="/guides/mailchimp-react">
+                  <a className="font-semibold text-indigo-600">
+                    Read the guide &rarr;
+                  </a>
+                </Link>
+              </p>
+            </div>
+
+            <div className="p-6 md:w-1/2 lg:w-1/3">
+              <div className="pb-4">
+                <div className="flex items-center h-12 w-12">
+                  <div
+                    className="text-purple-600"
+                    dangerouslySetInnerHTML={{
+                      __html: `<svg width="46" height="37"><g stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M5.4 1h35.2C43.02 1 45 2.969 45 5.375v26.25C45 34.031 43.02 36 40.6 36H5.4C2.98 36 1 34.031 1 31.625V5.375C1 2.969 2.98 1 5.4 1z"/><path d="M45 5L23 20 1 5"/></g></svg>`
+                    }}
+                  />
+                </div>
+              </div>
+              <h3 className="pb-2 text-2xl font-bold text-gray-900 tracking-snug leading-snug">
+                Contact Forms
+              </h3>
+              <p className="pb-3 text-lg text-gray-700">
+                Receive contact form submissions in your email inbox.
+              </p>
+              <p className="text-lg">
+                <Link href="/guides/contact-form-react">
                   <a className="font-semibold text-indigo-600">
                     Read the guide &rarr;
                   </a>
@@ -176,7 +185,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
       <div className="mx-auto container">
         <div className="max-w-5xl mx-auto px-6 py-20 sm:flex items-center justify-center border-t">
           <div className="mr-6 pb-8 sm:pb-0 text-lg tracking-snug text-gray-800">
-            Go forth and build.
+            Build a form in minutes.
           </div>
           <div className="flex-shrink-0">
             <Link href="/signup">

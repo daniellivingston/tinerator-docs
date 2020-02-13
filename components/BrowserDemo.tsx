@@ -23,10 +23,7 @@ const BrowserDemo: React.FC<Props> = ({ url, label }) => {
           </a>
         </div>
       </div>
-      <iframe
-        src={url}
-        className="w-full h-128 border-l border-r border-b rounded-b-lg"
-      ></iframe>
+      <iframe src={url} className="w-full h-128 rounded-b-lg"></iframe>
     </div>
   );
 };
