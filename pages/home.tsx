@@ -28,7 +28,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
             <span className="text-purple-700">Modern Static Sites</span>
           </h1>
 
-          <div className="sm:mx-auto max-w-2xl pb-16 text-xl sm:text-2xl text-gray-800 leading-snug sm:tracking-snug">
+          <div className="sm:mx-auto max-w-2xl pb-8 text-xl sm:text-2xl text-gray-800 leading-snug sm:tracking-snug">
             <p className="pb-8">
               Create interactive forms without writing any backend code. We
               focus relentlessly on developer experience so you can{' '}
@@ -85,14 +85,14 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
         </div> */}
 
         <div className="mx-auto container max-w-5xl pb-8 sm:pb-12">
-          <div className="px-6 pb-16 sm:text-center">
+          {/* <div className="px-6 pb-16 sm:text-center">
             <h2 className="pb-5 text-4xl sm:text-5xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
               Wire things up in minutes
             </h2>
             <p className="text-lg text-gray-800 leading-snug">
               Follow along with our step-by-step developer guides.
             </p>
-          </div>
+          </div> */}
           <div className="flex flex-wrap">
             <div className="p-6 md:w-1/2 lg:w-1/3">
               <div className="pb-4">
@@ -108,12 +108,36 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                 </h3>
               </div>
               <p className="pb-3 text-lg text-gray-700">
-                Learn how build a React form to collect Stripe payments without
-                writing any backend code.
+                Build a React form to collect Stripe payments.
               </p>
 
               <p className="text-lg">
                 <Link href="/guides/stripe-payments-react">
+                  <a className="font-semibold text-indigo-600">
+                    Read the guide &rarr;
+                  </a>
+                </Link>
+              </p>
+            </div>
+
+            <div className="p-6 md:w-1/2 lg:w-1/3">
+              <div className="pb-4">
+                <div className="flex items-center h-12 w-12">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<svg width="46" height="37"><g stroke="#48BB78" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M5.4 1h35.2C43.02 1 45 2.969 45 5.375v26.25C45 34.031 43.02 36 40.6 36H5.4C2.98 36 1 34.031 1 31.625V5.375C1 2.969 2.98 1 5.4 1z"/><path d="M45 5L23 20 1 5"/></g></svg>`
+                    }}
+                  />
+                </div>
+              </div>
+              <h3 className="pb-2 text-2xl font-bold text-gray-900 tracking-snug leading-snug">
+                Contact Forms
+              </h3>
+              <p className="pb-3 text-lg text-gray-700">
+                Collect contact form submissions in your email inbox.
+              </p>
+              <p className="text-lg">
+                <Link href="/guides/contact-form-react">
                   <a className="font-semibold text-indigo-600">
                     Read the guide &rarr;
                   </a>
@@ -135,37 +159,10 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                 Mailchimp Forms
               </h3>
               <p className="pb-3 text-lg text-gray-700">
-                Learn how to build an interactive opt-in form for Mailchimp with
-                React.
+                Build an interactive opt-in form for Mailchimp with React.
               </p>
               <p className="text-lg">
                 <Link href="/guides/mailchimp-react">
-                  <a className="font-semibold text-indigo-600">
-                    Read the guide &rarr;
-                  </a>
-                </Link>
-              </p>
-            </div>
-
-            <div className="p-6 md:w-1/2 lg:w-1/3">
-              <div className="pb-4">
-                <div className="flex items-center h-12 w-12">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: `<svg width="47" height="38"><g stroke="#FFF" stroke-width="3" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M6.3 2h34.4C43.065 2 45 3.913 45 6.25v25.5c0 2.337-1.935 4.25-4.3 4.25H6.3C3.935 36 2 34.087 2 31.75V6.25C2 3.913 3.935 2 6.3 2z" fill="#5A67D8"/><path d="M45 6L23.5 21 2 6"/></g></svg>`
-                    }}
-                  />
-                </div>
-              </div>
-              <h3 className="pb-2 text-2xl font-bold text-gray-900 tracking-snug leading-snug">
-                Contact Forms
-              </h3>
-              <p className="pb-3 text-lg text-gray-700">
-                Learn how to collect contact form submissions in your email
-                inbox.
-              </p>
-              <p className="text-lg">
-                <Link href="/guides/contact-form-react">
                   <a className="font-semibold text-indigo-600">
                     Read the guide &rarr;
                   </a>
