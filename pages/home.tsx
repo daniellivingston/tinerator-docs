@@ -21,7 +21,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
       <Header viewerData={viewerData} />
 
       <div className="mx-auto container pt-16 sm:pt-32 pb-16 sm:pb-24">
-        <div className="mx-auto px-6 pb-16 max-w-5xl sm:text-center">
+        <div className="mx-auto px-6 sm:pb-16 max-w-5xl sm:text-center">
           <h1 className="pb-6 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
             The Form Backend For
             <br className="hidden lg:block" />{' '}
