@@ -78,12 +78,9 @@ function PricingPage() {
           </div>
 
           <div className="py-16 text-center border-b">
-            <a
-              href="https://app.statickit.com/signup"
-              className="btn focus:shadow-outline"
-            >
-              Get started free
-            </a>
+            <Link href="/signup">
+              <a className="btn focus:shadow-outline">Get started free</a>
+            </Link>
           </div>
 
           <div className="py-16 max-w-md mx-auto">

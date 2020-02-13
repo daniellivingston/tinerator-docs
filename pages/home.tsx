@@ -9,9 +9,9 @@ interface Props {
 }
 
 const HomePage: React.FC<Props> = ({ viewerData }) => {
-  const title = 'The Form Backend For Jamstack Developers';
+  const title = 'Hassle-Free Forms For Static Sites';
   const description =
-    'StaticKit helps you create powerful forms without building a backend.';
+    'StaticKit provides building blocks for contact forms, payment flows, and more.';
 
   return (
     <main>
@@ -21,17 +21,17 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
       <div className="mx-auto container pt-16 sm:pt-32 pb-16 sm:pb-24">
         <div className="mx-auto px-6 sm:pb-16 max-w-5xl sm:text-center">
           <h1 className="pb-6 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
-            The Form Backend For
+            Hassle-Free Forms
             <br className="hidden lg:block" />{' '}
-            <span className="text-purple-700">Jamstack Developers</span>
+            <span className="text-purple-700">For Static Sites</span>
           </h1>
 
-          <div className="sm:mx-auto max-w-3xl pb-8 text-xl sm:text-2xl text-gray-800 leading-snug sm:tracking-snug">
+          <div className="sm:mx-auto max-w-2xl pb-8 text-xl sm:text-2xl text-gray-800 leading-snug sm:tracking-snug">
             <p className="pb-8">
-              StaticKit helps you create powerful forms without building a
-              backend. We focus relentlessly on developer experience so your
-              developers can <strong>spend as little time as possible</strong>{' '}
-              messing with form code.
+              You have better things to do than build{' '}
+              <span className="text-purple-700">yet another form backend</span>.
+              We give you the building blocks you need to create contact forms,
+              payment flows, and more.
             </p>
           </div>
         </div>
