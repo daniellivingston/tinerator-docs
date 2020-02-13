@@ -9,8 +9,9 @@ interface Props {
 }
 
 const HomePage: React.FC<Props> = ({ viewerData }) => {
-  const title = 'The Form Backend For Modern Static Sites';
-  const description = 'Form backend, Stripe payments, and more.';
+  const title = 'The Form Backend For Jamstack Developers';
+  const description =
+    'StaticKit helps you create powerful forms without building a backend.';
 
   return (
     <main>
