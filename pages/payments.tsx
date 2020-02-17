@@ -4,7 +4,7 @@ import HeadMatter from 'components/HeadMatter';
 import CodeBlock from 'components/CodeBlock';
 import { ViewerData } from 'data/queries';
 import { useStaticKit } from '@statickit/react';
-import { sendSupportEmail } from '@statickit/functions';
+import { requestPayments } from '@statickit/functions';
 
 interface Props {
   viewerData?: ViewerData;
@@ -21,7 +21,7 @@ function RequestForm() {
     e.preventDefault();
     setIsSubmitted(true);
 
-    const resp = await sendSupportEmail(client, {
+    const resp = await requestPayments(client, {
       subject: `${email} requested access to payments`,
       replyTo: email,
       fields: { useCase }
