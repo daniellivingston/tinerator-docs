@@ -26,10 +26,9 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
             <span className="text-purple-700">For Static Sites</span>
           </h1>
 
-          <div className="sm:mx-auto max-w-2xl pb-8 text-xl sm:text-2xl text-gray-800 leading-snug sm:tracking-snug">
+          <div className="sm:mx-auto max-w-2xl pb-8 text-xl sm:text-2xl text-gray-700 leading-snug sm:tracking-snug">
             <p className="pb-8">
-              You have better things to do than build{' '}
-              <span className="text-purple-700">yet another form backend</span>.
+              You have better things to do than build yet another form backend.
               We give you the building blocks you need to create contact forms,
               payment flows, and more.
             </p>
