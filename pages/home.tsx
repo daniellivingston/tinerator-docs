@@ -9,7 +9,7 @@ interface Props {
 }
 
 const HomePage: React.FC<Props> = ({ viewerData }) => {
-  const title = 'Hassle-Free Forms For Static Sites';
+  const title = 'Backend Building Blocks For Static Sites';
   const description =
     'StaticKit provides building blocks for contact forms, payment flows, and more.';
 
@@ -21,16 +21,16 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
       <div className="mx-auto container pt-16 sm:pt-32 pb-16 sm:pb-24">
         <div className="mx-auto px-6 sm:pb-16 max-w-5xl sm:text-center">
           <h1 className="pb-6 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
-            Hassle-Free Forms
+            Backend Building Blocks
             <br className="hidden lg:block" />{' '}
             <span className="text-purple-700">For Static Sites</span>
           </h1>
 
-          <div className="sm:mx-auto max-w-2xl pb-8 text-xl sm:text-2xl text-gray-700 leading-snug sm:tracking-snug">
+          <div className="sm:mx-auto max-w-3xl pb-8 text-xl sm:text-2xl text-gray-700 leading-snug sm:tracking-snug">
             <p className="pb-8">
               You have better things to do than build yet another form backend.
               We give you the building blocks you need to create contact forms,
-              payment flows, and more.
+              payment flows, and more &mdash; no backend code required.
             </p>
           </div>
         </div>
@@ -101,7 +101,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
                   <div
                     className="text-purple-600"
                     dangerouslySetInnerHTML={{
-                      __html: `<svg width="46" height="37"><g stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M5.4 1h35.2C43.02 1 45 2.969 45 5.375v26.25C45 34.031 43.02 36 40.6 36H5.4C2.98 36 1 34.031 1 31.625V5.375C1 2.969 2.98 1 5.4 1z"/><path d="M45 5L23 20 1 5"/></g></svg>`
+                      __html: `<svg width="46" height="37"><g stroke="#FFF" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"><path d="M5.4 1h35.2C43.02 1 45 2.969 45 5.375v26.25C45 34.031 43.02 36 40.6 36H5.4C2.98 36 1 34.031 1 31.625V5.375C1 2.969 2.98 1 5.4 1z" fill="currentColor"/><path d="M45 5L23 20 1 5"/></g></svg>`
                     }}
                   />
                 </div>
