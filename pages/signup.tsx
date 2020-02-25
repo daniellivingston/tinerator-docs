@@ -61,6 +61,7 @@ function SignupPage() {
         try {
           await signUpSurvey(client, {
             subject: `${email} just signed up`,
+            replyTo: email,
             fields: { useCase }
           });
         } catch (e) {
