@@ -9,9 +9,9 @@ interface Props {
 }
 
 const HomePage: React.FC<Props> = ({ viewerData }) => {
-  const title = 'Backend Building Blocks For Static Sites';
+  const title = 'The Toolkit for Creating Powerful Web Forms';
   const description =
-    'StaticKit provides building blocks for contact forms, payment flows, and more.';
+    'StaticKit provides building blocks for contact forms, payment flows, opt-in forms, and more.';
 
   return (
     <main>
@@ -21,9 +21,9 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
       <div className="mx-auto container pt-16 sm:pt-32 pb-16 sm:pb-24">
         <div className="mx-auto px-6 sm:pb-16 max-w-5xl sm:text-center">
           <h1 className="pb-6 text-5xl sm:text-6xl font-black leading-none sm:leading-tighter tracking-tight text-gray-900">
-            Backend Building Blocks
+            The Toolkit for Creating
             <br className="hidden lg:block" />{' '}
-            <span className="text-purple-700">For Static Sites</span>
+            <span className="text-purple-700">Powerful Web Forms</span>
           </h1>
 
           <div className="sm:mx-auto max-w-3xl pb-8 text-xl sm:text-2xl text-gray-700 leading-snug sm:tracking-snug">
