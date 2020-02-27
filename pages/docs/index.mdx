@@ -10,14 +10,56 @@ export default withDocs({
 
 # Introduction
 
-StaticKit helps you create powerful forms without building a backend. To get started, run the following commands to install the command line interface and initialize your project.
+StaticKit is a toolkit for creating powerful web forms. To get started, run the following commands to install the StaticKit command line interface and initialize your project:
 
 ```bash
 npm i -g @statickit/cli
 statickit init
 ```
 
-Then, follow one of our step-by-step guides to get started building!
+## How It Works
+
+StaticKit provides backend functionality by way of **JavaScript functions**. Suppose you are building a contact form and you would like to receive an email when it gets submitted. To do this, you can create a `sendContactEmail` function in your `statickit.json` file:
+
+```json
+{
+  "functions": {
+    "sendContactEmail": {
+      "type": "sendNotification",
+      "to": "{your-email-address}"
+    }
+  }
+}
+```
+
+When you deploy this config to StaticKit, we'll install a `@statickit/functions` npm package with your function definition. Then, you can call your `sendContactEmail` function in your JavaScript code:
+
+```js highlight=11,12,13,14,15,16,17
+import { createClient, sendContactEmail } from '@statickit/functions';
+
+const client = createClient({ site: '{your-site-id}' });
+const form = document.getElementById('myForm');
+
+form.addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  let data = new FormData(form);
+
+  await sendContactEmail(client, {
+    subject: 'New contact submission',
+    fields: {
+      email: data.get('email'),
+      message: data.get('message')
+    }
+  });
+});
+```
+
+That's it! You are free to mix and match different StaticKit function types to make your forms behave exactly how you need. [Learn more about function types &rarr;](/docs/functions)
+
+## Quick-Start Guides
+
+Follow one of our step-by-step guides to get started building!
 
 <GuideItem title="How To Build a Contact Form with React" href="/guides/contact-form-react">
   Learn how to collect contact form submissions in your email inbox.
@@ -29,4 +71,8 @@ Then, follow one of our step-by-step guides to get started building!
 
 <GuideItem title="How To Build a ConvertKit Form with React" href="/guides/convertkit-react">
   Learn how to add subscribers to ConvertKit and apply tags to them using StaticKit.
+</GuideItem>
+
+<GuideItem title="How To Build a Stripe Form with React" href="/guides/stripe-payments-react">
+  Learn how build a React form to collect Stripe payments.
 </GuideItem>
