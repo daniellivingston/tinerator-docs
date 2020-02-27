@@ -18,7 +18,7 @@ const HomePage: React.FC<Props> = ({ viewerData }) => {
       <HeadMatter
         title={title}
         description={description}
-        image="https://statickit.com/static/home-card.png"
+        image="https://statickit.com/static/cards/modern-toolkit.png"
         twitterCard="summary_large_image"
       />
       <Header viewerData={viewerData} />
