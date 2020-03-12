@@ -28,15 +28,7 @@ Use the `createClient` factory to build a new client instance:
 
 ```js
 import { createClient } from '@statickit/core';
-
-// Create a new client instance. You can safely run this in code
-// that will get executed during server-side rendering.
 const client = createClient({ site: '{your-site-id}' });
-
-// Start the browser session as soon as the DOM is available.
-// This function only works in the browser environment, so it must be
-// run inside a `useEffect` hook in React, for example.
-client.startBrowserSession();
 ```
 
 ## API
