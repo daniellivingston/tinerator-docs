@@ -9,7 +9,7 @@ export default withDocs({
   breadcrumbs: [],
   toc: [
     [1, "Prepare your project", "#prepare-your-project"],
-    [1, "Configure your function", "#configure-your-function"],
+    [1, "Configure your form", "#configure-your-form"],
     [1, "Build your form", "#build-your-form"]
   ],
 });
@@ -44,16 +44,19 @@ function App({ Component, pageProps }) {
 export default App;
 ```
 
-<StepHeading step="2" id="configure-your-function">Configure your function</StepHeading>
+<StepHeading step="2" id="configure-your-form">Configure your form</StepHeading>
 
-In your `statickit.json` file, add a Mailchimp function:
+In your `statickit.json` file, add an opt-in form.
 
 ```json
 {
-  "functions": {
-    "addToMailchimp": {
-      "app": "mailchimp",
-      "type": "addOrUpdateListMember"
+  "forms": {
+    "optInForm": {
+      "name": "Opt-In Form",
+      "actions": [{
+        "app": "mailchimp",
+        "type": "addOrUpdateContact"
+      }]
     }
   }
 }
@@ -67,47 +70,20 @@ statickit deploy -k <your-deploy-key>
 
 You'll be prompted with instructions on how to save your Mailchimp API key and audience.
 
+[Learn more about Mailchimp actions &rarr;](docs/forms/actions/mailchimp)
+
 <StepHeading step="3" id="build-your-form">Build your form</StepHeading>
 
-Here's an example component that calls your `addToMailchimp` function in the form submit handler.
+Wire up your form component using the `useForm` hook:
 
 ```jsx
 import React, { useState } from 'react';
-import { useStaticKit, ValidationError } from '@statickit/react';
-import { addToMailchimp } from '@statickit/functions';
+import { useForm, ValidationError } from '@statickit/react';
 
 function OptInForm(props) {
-  const client = useStaticKit();
+  const [state, handleSubmit] = useForm("optInForm");
 
-  const [emailAddress, setEmailAddress] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errors, setErrors] = useState([]);
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    setErrors([]);
-    setIsSubmitting(true);
-
-    let resp = await addToMailchimp(client, { emailAddress });
-    
-    switch (resp.status) {
-      case 'ok':
-        setIsSubmitted(true);
-        break;
-      
-      case 'argumentError':
-        setErrors(resp.errors);
-        setIsSubmitting(false);
-        break;
-      
-      default:
-        setIsSubmitting(false);
-        break;
-    }
-  }
-
-  if (isSubmitted) {
+  if (state.succeeded) {
     return <p>Thanks for joining!</p>;
   }
 
@@ -119,16 +95,14 @@ function OptInForm(props) {
       <input
         id="email"
         type="email" 
-        name="email" 
-        onChange={e => setEmailAddress(e.target.value)}
-        value={emailAddress}
+        name="email"
       />
       <ValidationError 
         prefix="Email" 
-        field="emailAddress"
+        field="email"
         errors={errors} 
       />
-      <button type="submit" disabled={isSubmitting}>
+      <button type="submit" disabled={state.submitting}>
         Sign Up
       </button>
     </form>
@@ -136,20 +110,4 @@ function OptInForm(props) {
 }
 ```
 
-Here we are only passing an `emailAddress` to Mailchimp. You can optionally pass along `mergeFields` as well:
-
-```js
-let resp = await addToMailchimp(client, { 
-  emailAddress,
-  mergeFields: {
-    FNAME: firstName,
-    LNAME: lastName
-  }
-});
-```
-
-[Get the full source code →](https://github.com/statickit-projects/mailchimp-react)
-
----
-
-Check out the [Mailchimp reference](/docs/functions/mailchimp) to see all available function types.
+[Learn more about StaticKit forms &rarr;](/docs/forms)

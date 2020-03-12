@@ -5,7 +5,11 @@ import GuideItem from 'components/GuideItem';
 export default withDocs({
   title: 'Introduction',
   description: 'Get started using StaticKit.',
-  toc: []
+  toc: [],
+  next: {
+    path: '/guides',
+    label: 'Guides'
+  }
 });
 
 # Introduction
@@ -23,22 +27,4 @@ This will create an empty `statickit.json` file in the root of your project. Thi
 statickit deploy -k {your-deploy-key}
 ```
 
-## Quick-Start Guides
-
-Follow one of our step-by-step guides to get started building!
-
-<GuideItem title="How To Build a Contact Form with React" href="/guides/contact-form-react">
-  Learn how to collect contact form submissions in your email inbox.
-</GuideItem>
-
-<GuideItem title="How To Build a Mailchimp Form with React" href="/guides/mailchimp-react">
-  Learn how to build a React form to create subscribers in your Mailchimp account.
-</GuideItem>
-
-<GuideItem title="How To Build a ConvertKit Form with React" href="/guides/convertkit-react">
-  Learn how to add subscribers to ConvertKit and apply tags to them using StaticKit.
-</GuideItem>
-
-<GuideItem title="How To Build a Stripe Form with React" href="/guides/stripe-payments-react">
-  Learn how build a React form to collect Stripe payments.
-</GuideItem>
+Next up, check out our quick-start guides for getting started.
