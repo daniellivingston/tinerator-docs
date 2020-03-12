@@ -17,45 +17,11 @@ npm i -g @statickit/cli
 statickit init
 ```
 
-## How It Works
+This will create an empty `statickit.json` file in the root of your project. This is where you will configure your forms. To apply the changes you make to your `statickit.json` file, run the deploy command:
 
-StaticKit provides backend functionality by way of JavaScript functions. Suppose you are building a contact form and you would like to receive an email when it gets submitted. To do this, you can create a `sendContactEmail` function in your `statickit.json` file:
-
-```json
-{
-  "functions": {
-    "sendContactEmail": {
-      "type": "sendNotification",
-      "to": "{your-email-address}"
-    }
-  }
-}
+```bash
+statickit deploy -k {your-deploy-key}
 ```
-
-When you deploy this config to StaticKit, we'll install a `@statickit/functions` npm package with your function definition. Then, you can call your `sendContactEmail` function in your JavaScript code:
-
-```js highlight=11,12,13,14,15,16,17
-import { createClient, sendContactEmail } from '@statickit/functions';
-
-const client = createClient({ site: '{your-site-id}' });
-const form = document.getElementById('myForm');
-
-form.addEventListener('submit', async function(event) {
-  event.preventDefault();
-
-  let data = new FormData(form);
-
-  await sendContactEmail(client, {
-    subject: 'New contact submission',
-    fields: {
-      email: data.get('email'),
-      message: data.get('message')
-    }
-  });
-});
-```
-
-That's it! You are free to mix and match different StaticKit function types to make your forms behave exactly how you need. [Learn more about function types &rarr;](/docs/functions)
 
 ## Quick-Start Guides
 

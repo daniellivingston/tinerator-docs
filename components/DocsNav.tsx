@@ -18,16 +18,6 @@ const sections: Section[] = [
     sections: []
   },
   {
-    path: '/docs/functions',
-    label: 'Functions',
-    sections: []
-  },
-  {
-    path: '/guides',
-    label: 'Guides',
-    sections: []
-  },
-  {
     path: '/docs/forms',
     label: 'Forms',
     sections: [
@@ -40,6 +30,16 @@ const sections: Section[] = [
         label: 'HTML'
       }
     ]
+  },
+  {
+    path: '/docs/functions',
+    label: 'Functions',
+    sections: []
+  },
+  {
+    path: '/guides',
+    label: 'Guides',
+    sections: []
   },
   {
     path: '/docs/core',

@@ -4,6 +4,7 @@ export default withDocs({
   title: 'Functions',
   description: 'How to use StaticKit functions',
   toc: [
+    [1, 'Types', '#types'],
     [1, 'Rules', '#rules'],
     [1, 'Responses', '#responses'],
     [1, 'Using In React', '#using-in-react']
@@ -13,6 +14,48 @@ export default withDocs({
 # Functions
 
 Functions are configurable server-side functions that you can call directly from your client-side JavaScript code. These are basic building blocks in StaticKit. Here are the available function types:
+
+## How It Works
+
+Suppose you are building a contact form and you would like to receive an email when it gets submitted. To do this, you can create a `sendContactEmail` function in your `statickit.json` file:
+
+```json
+{
+  "functions": {
+    "sendContactEmail": {
+      "type": "sendNotification",
+      "to": "{your-email-address}"
+    }
+  }
+}
+```
+
+When you deploy this config to StaticKit, we'll install a `@statickit/functions` npm package with your function definition. Then, you can call your `sendContactEmail` function in your JavaScript code:
+
+```js highlight=11,12,13,14,15,16,17
+import { createClient, sendContactEmail } from '@statickit/functions';
+
+const client = createClient({ site: '{your-site-id}' });
+const form = document.getElementById('myForm');
+
+form.addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  let data = new FormData(form);
+
+  await sendContactEmail(client, {
+    subject: 'New contact submission',
+    fields: {
+      email: data.get('email'),
+      message: data.get('message')
+    }
+  });
+});
+```
+
+That's it! You are free to mix and match different StaticKit function types to make your forms behave exactly how you need.
+
+## Types
 
 | App                | Type                              | Description                                                  |
 | :----------------- | :-------------------------------- | :----------------------------------------------------------- |
