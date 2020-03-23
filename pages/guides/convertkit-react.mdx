@@ -101,7 +101,7 @@ function OptInForm(props) {
       <ValidationError 
         prefix="Email" 
         field="email"
-        errors={errors} 
+        errors={state.errors} 
       />
       <button type="submit" disabled={state.submitting}>
         Sign Up

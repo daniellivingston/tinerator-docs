@@ -93,7 +93,7 @@ function ContactForm(props) {
       <ValidationError 
         prefix="Email" 
         field="email"
-        errors={errors}
+        errors={state.errors}
       />
       <textarea
         id="message"
@@ -102,7 +102,7 @@ function ContactForm(props) {
       <ValidationError 
         prefix="Message" 
         field="message"
-        errors={errors}
+        errors={state.errors}
       />
       <button type="submit" disabled={state.submitting}>
         Submit
