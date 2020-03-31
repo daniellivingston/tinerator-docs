@@ -12,9 +12,9 @@
   "dependencies": {
     "@mdx-js/loader": "^1.5.3",
     "@next/mdx": "^9.1.7",
-    "@statickit/core": "^2.3.0",
+    "@statickit/core": "^2.5.1",
     "@statickit/functions": "github:unstacked/statickit-functions#cf1e6b49-f4ef-48d7-8f99-87d2272e7582",
-    "@statickit/react": "^2.1.0",
+    "@statickit/react": "^2.1.1",
     "@stripe/react-stripe-js": "^1.0.0-beta.3",
     "@stripe/stripe-js": "^1.0.0-beta.4",
     "common-tags": "^1.8.0",
