@@ -70,10 +70,10 @@ statickit deploy -k <your-deploy-key>
 Wire up your form component using the `useForm` hook:
 
 ```jsx
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm, ValidationError } from '@statickit/react';
 
-function ContactForm(props) {
+function ContactForm() {
   const [state, handleSubmit] = useForm("contactForm");
 
   if (state.succeeded) {
@@ -110,6 +110,8 @@ function ContactForm(props) {
     </form>
   );
 }
+
+export default ContactForm;
 ```
 
 [Learn more about StaticKit forms &rarr;](/docs/forms)
