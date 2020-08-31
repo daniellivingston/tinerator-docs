@@ -28,11 +28,10 @@ function App({ Component, pageProps }) {
   const [siteId, setSiteId] = useState(cookie.get('site'));
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      Fathom.load();
-      Fathom.setSiteId('RETLQDNO');
-      Fathom.trackPageview();
-    }
+    Fathom.load('RETLQDNO', {
+      canonical: false,
+      excludedDomains: ['localhost']
+    });
   }, []);
 
   // This flexbox stuff on body is for the sticky footer:

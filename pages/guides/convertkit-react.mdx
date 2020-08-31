@@ -78,10 +78,10 @@ You'll be prompted with instructions on how to save your ConvertKit API secret.
 Wire up your form component using the `useForm` hook:
 
 ```jsx
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm, ValidationError } from '@statickit/react';
 
-function OptInForm(props) {
+function OptInForm() {
   const [state, handleSubmit] = useForm("optInForm");
 
   if (state.succeeded) {
@@ -101,7 +101,7 @@ function OptInForm(props) {
       <ValidationError 
         prefix="Email" 
         field="email"
-        errors={errors} 
+        errors={state.errors} 
       />
       <button type="submit" disabled={state.submitting}>
         Sign Up
@@ -109,6 +109,8 @@ function OptInForm(props) {
     </form>
   );
 }
+
+export default OptInForm;
 ```
 
 [Learn more about StaticKit forms &rarr;](/docs/forms)
